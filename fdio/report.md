@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-03-01 07:28:07 UTC
+**Generated:** 2026-03-02 07:43:36 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -42,7 +42,7 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 158 | 1030 | +122848 | 235170 | +10 | 5 |
+| 1 | cisco.com | 158 | 1031 | +123111 | 235603 | +10 | 5 |
 | 2 | gmail.com | 115 | 246 | +20324 | 28486 | +49 | 5 |
 | 3 | icloud.com | 1 | 155 | +48095 | 89134 | +45 | 4 |
 | 4 | marvell.com | 14 | 23 | +1270 | 1446 | +47 | 3 |
@@ -57,18 +57,18 @@ The data presented in the table below covers the past 365 days.
 | 13 | googlemail.com | 1 | 4 | +229 | 229 | +57 | 1 |
 | 14 | mts.ru | 2 | 4 | +299 | 409 | +47 | 1 |
 | 15 | 46labs.com | 2 | 3 | +56 | 57 | +18 | 1 |
-| 16 | arm.com | 17 | 2 | +44 | 47 | +20 | 2 |
-| 17 | chinatelecom.cn | 4 | 2 | +18 | 32 | +2 | 1 |
-| 18 | hotmail.se | 1 | 2 | +951 | 1293 | +304 | 1 |
-| 19 | inmon.com | 1 | 2 | +2504 | 3384 | +812 | 1 |
-| 20 | labn.net | 4 | 2 | +60 | 66 | +27 | 1 |
-| 21 | sina.com | 1 | 2 | +7 | 18 | -2 | 1 |
-| 22 | yandex-team.ru | 4 | 2 | +30 | 35 | +12 | 1 |
-| 23 | 163.com | 8 | 1 | +8 | 16 | 0 | 1 |
-| 24 | amd.com | 1 | 1 | +2 | 4 | 0 | 1 |
-| 25 | andrews-macbook-pro.local | 1 | 1 | +1 | 2 | 0 | 1 |
-| 26 | baicells.com | 1 | 1 | +5 | 8 | +2 | 1 |
-| 27 | github.com | 2 | 1 | +1 | 2 | 0 | 2 |
+| 16 | github.com | 2 | 3 | +3 | 6 | 0 | 2 |
+| 17 | arm.com | 17 | 2 | +44 | 47 | +20 | 2 |
+| 18 | chinatelecom.cn | 4 | 2 | +18 | 32 | +2 | 1 |
+| 19 | hotmail.se | 1 | 2 | +951 | 1293 | +304 | 1 |
+| 20 | inmon.com | 1 | 2 | +2504 | 3384 | +812 | 1 |
+| 21 | labn.net | 4 | 2 | +60 | 66 | +27 | 1 |
+| 22 | sina.com | 1 | 2 | +7 | 18 | -2 | 1 |
+| 23 | yandex-team.ru | 4 | 2 | +30 | 35 | +12 | 1 |
+| 24 | 163.com | 8 | 1 | +8 | 16 | 0 | 1 |
+| 25 | amd.com | 1 | 1 | +2 | 4 | 0 | 1 |
+| 26 | andrews-macbook-pro.local | 1 | 1 | +1 | 2 | 0 | 1 |
+| 27 | baicells.com | 1 | 1 | +5 | 8 | +2 | 1 |
 | 28 | insidepacket.com | 1 | 1 | +5 | 5 | +5 | 1 |
 | 29 | mcconnachie.ca | 1 | 1 | +1 | 2 | 0 | 1 |
 | 30 | protonmail.ch | 1 | 1 | +3 | 570 | -564 | 2 |
@@ -99,7 +99,7 @@ The data presented in the table below covers the past 365 days.
 | 15 | Steven | 14 | +896 | 1673 | +8 | 3 | cisco.com |
 | 16 | Andrew Yourtchenko | 13 | +1445 | 1461 | +109 | 2 | gmail.com |
 | 17 | Vanessa Rene Valderrama | 13 | +206 | 463 | -3 | 6 | linuxfoundation.org |
-| 18 | Ivan Ivanets | 11 | +2251 | 2961 | +140 | 2 | cisco.com |
+| 18 | Ivan Ivanets | 12 | +2514 | 3394 | +136 | 2 | cisco.com |
 | 19 | Damjan Marion | 9 | +657 | 948 | +40 | 1 | gmail.com |
 | 20 | Dave Barach | 9 | +533 | 588 | +53 | 2 | barachs.net |
 | 21 | Monendra Singh Kushwaha | 9 | +525 | 568 | +53 | 1 | marvell.com |
@@ -118,13 +118,13 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 15417 | +151245 | 76 | 96 | 2025-11-24 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6398 | +72634 | 7 | 3 | 2026-02-25 | ✅ |
-| [ci-management](https://github.com/gerrit.fd.io/ci-management) | 2859 | +2610 | 11 | 16 | 2026-02-13 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2472 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 19 | +3764 | 2 | 29 | 2026-01-30 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 1947 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3469 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 15418 | +151508 | 76 | 2 | 2026-02-27 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6400 | +72636 | 7 | 0 | 2026-03-02 | ✅ |
+| [ci-management](https://github.com/gerrit.fd.io/ci-management) | 2859 | +2610 | 11 | 17 | 2026-02-13 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2473 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 19 | +3764 | 2 | 30 | 2026-01-30 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 1948 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3470 | 2016-08-30 | 🛑 |
 
 **Total:** 7 repositories
 
