@@ -374,7 +374,7 @@ jobs:
       - name: "Upload raw data artifacts"
         if: always()
         # yamllint disable-line rule:line-length
-        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f  # v6.0.0
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  # v7.0.0
         with:
           name: previews-raw-data-${{ matrix.slug }}
           path: ./temp-raw-data-${{ matrix.slug }}/
@@ -385,7 +385,7 @@ jobs:
       - name: "Upload preview artifacts"
         if: always()
         # yamllint disable-line rule:line-length
-        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f  # v6.0.0
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  # v7.0.0
         with:
           name: previews-reports-${{ matrix.slug }}
           path: ./reports/${{ matrix.project }}/
@@ -396,7 +396,7 @@ jobs:
       - name: "Upload clone manifest"
         if: always()
         # yamllint disable-line rule:line-length
-        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f  # v6.0.0
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  # v7.0.0
         with:
           name: previews-clone-manifest-${{ matrix.slug }}
           # yamllint disable-line rule:line-length
