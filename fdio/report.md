@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-03-09 07:22:24 UTC
+**Generated:** 2026-03-10 07:16:16 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -31,7 +31,7 @@
 | Inactive Repositories | 3 | 42.9% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 24.9K | - |
-| Total Lines of Code | 137.6K | - |
+| Total Lines of Code | 2.1K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -42,22 +42,22 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 158 | 1062 | +131314 | 248587 | +13 | 5 |
+| 1 | cisco.com | 158 | 1066 | +131423 | 248716 | +13 | 5 |
 | 2 | gmail.com | 115 | 252 | +20384 | 28685 | +47 | 5 |
-| 3 | icloud.com | 2 | 159 | +50029 | 92309 | +48 | 4 |
-| 4 | marvell.com | 14 | 23 | +1270 | 1446 | +47 | 3 |
+| 3 | icloud.com | 2 | 160 | +50047 | 125816 | -160 | 4 |
+| 4 | marvell.com | 14 | 22 | +1266 | 1438 | +49 | 3 |
 | 5 | hawari.fr | 1 | 20 | +16355 | 17562 | +757 | 1 |
-| 6 | linuxfoundation.org | 15 | 14 | +207 | 465 | -3 | 7 |
-| 7 | netgate.com | 14 | 13 | +735 | 905 | +43 | 1 |
+| 6 | netgate.com | 14 | 15 | +1070 | 1241 | +59 | 1 |
+| 7 | linuxfoundation.org | 15 | 14 | +207 | 465 | -3 | 7 |
 | 8 | barachs.net | 2 | 9 | +533 | 588 | +53 | 2 |
 | 9 | intel.com | 59 | 7 | +57 | 90 | +3 | 4 |
 | 10 | ipng.nl | 1 | 7 | +1379 | 1425 | +190 | 1 |
 | 11 | travelping.com | 4 | 7 | +124 | 175 | +10 | 1 |
 | 12 | employees.org | 1 | 4 | +14100 | 14172 | +3507 | 1 |
-| 13 | googlemail.com | 1 | 4 | +229 | 229 | +57 | 1 |
-| 14 | mts.ru | 2 | 4 | +299 | 409 | +47 | 1 |
-| 15 | 46labs.com | 2 | 3 | +56 | 57 | +18 | 1 |
-| 16 | github.com | 2 | 3 | +3 | 6 | 0 | 2 |
+| 13 | github.com | 2 | 4 | +4 | 8 | 0 | 2 |
+| 14 | googlemail.com | 1 | 4 | +229 | 229 | +57 | 1 |
+| 15 | mts.ru | 2 | 4 | +299 | 409 | +47 | 1 |
+| 16 | 46labs.com | 2 | 3 | +56 | 57 | +18 | 1 |
 | 17 | arm.com | 17 | 2 | +44 | 47 | +20 | 2 |
 | 18 | chinatelecom.cn | 4 | 2 | +18 | 32 | +2 | 1 |
 | 19 | hotmail.se | 1 | 2 | +951 | 1293 | +304 | 1 |
@@ -83,11 +83,11 @@ The data presented in the table below covers the past 365 days.
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | Florin Coras | 224 | +10909 | 15519 | +28 | 3 | cisco.com |
-| 2 | Matus Fabian | 217 | +31517 | 40200 | +105 | 2 | cisco.com |
+| 2 | Matus Fabian | 220 | +31576 | 40260 | +104 | 2 | cisco.com |
 | 3 | Dave Wallace | 201 | +15515 | 21543 | +47 | 5 | gmail.com |
-| 4 | Peter Mikus | 158 | +50026 | 92304 | +49 | 4 | icloud.com |
-| 5 | Damjan Marion | 132 | +30479 | 95124 | -258 | 2 | cisco.com |
-| 6 | Tibor Frank | 119 | +7936 | 17153 | -10 | 3 | cisco.com |
+| 4 | Peter Mikus | 159 | +50044 | 125811 | -161 | 4 | icloud.com |
+| 5 | Damjan Marion | 133 | +30497 | 95163 | -256 | 2 | cisco.com |
+| 6 | Tibor Frank | 118 | +7934 | 17149 | -10 | 3 | cisco.com |
 | 7 | Adrian Villin | 96 | +14830 | 22737 | +72 | 1 | cisco.com |
 | 8 | Vratko Polak | 70 | +17523 | 34164 | +12 | 4 | cisco.com |
 | 9 | Semir Sionek | 47 | +1987 | 2462 | +32 | 2 | cisco.com |
@@ -100,12 +100,12 @@ The data presented in the table below covers the past 365 days.
 | 16 | Andrew Yourtchenko | 13 | +1445 | 1461 | +109 | 2 | gmail.com |
 | 17 | Vanessa Rene Valderrama | 13 | +206 | 463 | -3 | 6 | linuxfoundation.org |
 | 18 | Ivan Ivanets | 11 | +2513 | 3392 | +148 | 2 | cisco.com |
-| 19 | Jerome Tollet | 10 | +3313 | 3337 | +328 | 1 | cisco.com |
+| 19 | Jerome Tollet | 11 | +3347 | 3371 | +302 | 1 | cisco.com |
 | 20 | Damjan Marion | 9 | +657 | 948 | +40 | 1 | gmail.com |
 | 21 | Dave Barach | 9 | +533 | 588 | +53 | 2 | barachs.net |
-| 22 | Monendra Singh Kushwaha | 9 | +525 | 568 | +53 | 1 | marvell.com |
-| 23 | Kishor Dhanawade | 8 | +252 | 280 | +28 | 3 | marvell.com |
-| 24 | Matthew Smith | 7 | +49 | 101 | 0 | 1 | netgate.com |
+| 22 | Matthew Smith | 9 | +384 | 437 | +36 | 1 | netgate.com |
+| 23 | Monendra Singh Kushwaha | 9 | +525 | 568 | +53 | 1 | marvell.com |
+| 24 | Kishor Dhanawade | 8 | +252 | 280 | +28 | 3 | marvell.com |
 | 25 | Pim van Pelt | 7 | +1379 | 1425 | +190 | 1 | ipng.nl |
 | 26 | Vladimir Zhigulin | 7 | +124 | 175 | +10 | 1 | travelping.com |
 | 27 | Yoann Desmouceaux | 7 | +130 | 184 | +10 | 1 | cisco.com |
@@ -118,13 +118,13 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 15491 | +159753 | 77 | 0 | 2026-03-08 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6408 | +74570 | 7 | 0 | 2026-03-09 | ✅ |
-| [ci-management](https://github.com/gerrit.fd.io/ci-management) | 2859 | +2604 | 11 | 24 | 2026-02-13 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2480 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 20 | +3803 | 2 | 18 | 2026-02-18 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 1955 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3477 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 15498 | +160195 | 76 | 3 | 2026-03-06 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6410 | +74587 | 7 | 0 | 2026-03-09 | ✅ |
+| [ci-management](https://github.com/gerrit.fd.io/ci-management) | 2859 | +2604 | 11 | 25 | 2026-02-13 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2481 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 20 | +3803 | 2 | 19 | 2026-02-18 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 1956 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3478 | 2016-08-30 | 🛑 |
 
 **Total:** 7 repositories
 
