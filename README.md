@@ -26,7 +26,7 @@ pip install .
 lf-releng-project-reporting generate \
   --project my-project \
   --repos-path ./repos
-```text
+```
 
 ---
 
@@ -92,7 +92,7 @@ uv sync
 
 # Run the tool
 uv run lf-releng-project-reporting generate --project my-project --repos-path ./repos
-```text
+```
 
 ### Using pip
 
@@ -104,7 +104,7 @@ pip install .
 # Note: repos-path should match the directory created by gerrit-clone-action
 # which defaults to the Gerrit server hostname (e.g., ./gerrit.o-ran-sc.org)
 lf-releng-project-reporting generate --project O-RAN-SC --repos-path ./gerrit.o-ran-sc.org
-```text
+```
 
 **→ [Detailed Setup Instructions](SETUP.md)**
 
@@ -112,8 +112,8 @@ lf-releng-project-reporting generate --project O-RAN-SC --repos-path ./gerrit.o-
 
 ## 🎯 Common Use Cases
 
-| Use Case                    | Command                                                                                                     |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Use Case                    | Command                                                                                                          |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | **Basic report (O-RAN-SC)** | `lf-releng-project-reporting generate --project O-RAN-SC --repos-path ./gerrit.o-ran-sc.org`                     |
 | **Basic report (ONAP)**     | `lf-releng-project-reporting generate --project ONAP --repos-path ./gerrit.onap.org`                             |
 | **With caching**            | `lf-releng-project-reporting generate --project O-RAN-SC --repos-path ./gerrit.o-ran-sc.org --cache --workers 8` |
@@ -134,7 +134,7 @@ reports/
     ├── report.html                  # Interactive HTML (sortable tables)
     ├── config_resolved.json         # Applied configuration
     └── <PROJECT>_report_bundle.zip  # Complete bundle
-```text
+```
 
 ---
 
@@ -152,7 +152,7 @@ reports/
       --quiet
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```text
+```
 
 ---
 
@@ -183,14 +183,13 @@ export CLASSIC_READ_ONLY_PAT_TOKEN=ghp_your_token_here
 
 # Then run the tool
 lf-releng-project-reporting generate --project my-project --repos-path ./repos
-```text
+```
 
 **Create token:** <https://github.com/settings/tokens>
 
 **Without a token:** The tool detects workflows but shows them as grey (unknown status) instead of colored status indicators.
 
 **See also:** [Configuration Guide](docs/CONFIGURATION.md#github-api-integration) for detailed token setup
-
 
 ### Jenkins Authentication (Optional)
 
@@ -248,7 +247,7 @@ lf-releng-project-reporting generate --project my-project --repos-path ./repos
 
 ```bash
 python scripts/audit_templates.py
-```text
+```
 
 This script performs a comprehensive audit of all Jinja2 templates to:
 
@@ -284,7 +283,7 @@ TEMPLATE FIELD ACCESS AUDIT
 
 ✅ No critical issues found!
    Extra fields are safe - they're unused.
-```text
+```
 
 ---
 
