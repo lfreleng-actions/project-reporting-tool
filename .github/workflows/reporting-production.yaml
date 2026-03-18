@@ -41,7 +41,7 @@ jobs:
     steps:
       # Harden the runner used by this workflow
       # yamllint disable-line rule:line-length
-      - uses: step-security/harden-runner@58077d3c7e43986b6b15fba718e8ea69e387dfcc  # v2.15.1
+      - uses: step-security/harden-runner@fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594  # v2.16.0
         with:
           egress-policy: "audit"
 
@@ -235,7 +235,7 @@ jobs:
     steps:
       # Harden the runner
       # yamllint disable-line rule:line-length
-      - uses: step-security/harden-runner@58077d3c7e43986b6b15fba718e8ea69e387dfcc  # v2.15.1
+      - uses: step-security/harden-runner@fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594  # v2.16.0
         with:
           egress-policy: "audit"
 
@@ -278,7 +278,7 @@ jobs:
     steps:
       # Harden the runner
       # yamllint disable-line rule:line-length
-      - uses: step-security/harden-runner@58077d3c7e43986b6b15fba718e8ea69e387dfcc  # v2.15.1
+      - uses: step-security/harden-runner@fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594  # v2.16.0
         with:
           egress-policy: "audit"
 
@@ -654,7 +654,7 @@ jobs:
     steps:
       # Harden the runner
       # yamllint disable-line rule:line-length
-      - uses: step-security/harden-runner@58077d3c7e43986b6b15fba718e8ea69e387dfcc  # v2.15.1
+      - uses: step-security/harden-runner@fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594  # v2.16.0
         with:
           egress-policy: "audit"
 
@@ -863,7 +863,7 @@ jobs:
     steps:
       # Harden the runner
       # yamllint disable-line rule:line-length
-      - uses: step-security/harden-runner@58077d3c7e43986b6b15fba718e8ea69e387dfcc  # v2.15.1
+      - uses: step-security/harden-runner@fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594  # v2.16.0
         with:
           egress-policy: "audit"
 
@@ -1005,14 +1005,16 @@ jobs:
     steps:
       # Harden the runner
       # yamllint disable-line rule:line-length
-      - uses: step-security/harden-runner@58077d3c7e43986b6b15fba718e8ea69e387dfcc  # v2.15.1
+      - uses: step-security/harden-runner@fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594  # v2.16.0
         with:
           egress-policy: "audit"
 
       - name: "Generate workflow summary"
+        id: "workflow-status"
         shell: bash
         env:
           PROJECTS_JSON_B64: ${{ secrets.PROJECTS_JSON }}
+        # yamllint disable rule:line-length
         run: |
           # Helper function to convert result to emoji
           result_emoji() {
@@ -1025,6 +1027,48 @@ jobs:
             esac
           }
 
+          # Determine overall workflow status
+          validate_result="${{ needs.validate-secrets.result }}"
+          analyze_result="${{ needs.analyze.result }}"
+          publish_result="${{ needs.publish.result }}"
+          copy_result="${{ needs.copy-to-artifacts-repo.result }}"
+
+          # Check if any job failed
+          workflow_failed="false"
+          if [ "$validate_result" = "failure" ] || \
+             [ "$analyze_result" = "failure" ] || \
+             [ "$publish_result" = "failure" ] || \
+             [ "$copy_result" = "failure" ]; then
+            workflow_failed="true"
+          fi
+
+          echo "workflow_failed=${workflow_failed}" >> "$GITHUB_OUTPUT"
+          echo "validate_result=${validate_result}" >> "$GITHUB_OUTPUT"
+          echo "analyze_result=${analyze_result}" >> "$GITHUB_OUTPUT"
+          echo "publish_result=${publish_result}" >> "$GITHUB_OUTPUT"
+          echo "copy_result=${copy_result}" >> "$GITHUB_OUTPUT"
+
+          # Build a list of failed stages for the Slack message
+          failed_stages=""
+          if [ "$validate_result" = "failure" ]; then
+            failed_stages="${failed_stages}• Secrets Validation\n"
+          fi
+          if [ "$analyze_result" = "failure" ]; then
+            failed_stages="${failed_stages}• Project Analysis (matrix)\n"
+          fi
+          if [ "$publish_result" = "failure" ]; then
+            failed_stages="${failed_stages}• GitHub Pages Publishing\n"
+          fi
+          if [ "$copy_result" = "failure" ]; then
+            failed_stages="${failed_stages}• Artifact Transfer\n"
+          fi
+
+          {
+            echo 'failed_stages<<STAGES_EOF'
+            printf "%b" "$failed_stages"
+            echo 'STAGES_EOF'
+          } >> "$GITHUB_OUTPUT"
+
           # Parse projects JSON to get slugs (decode from base64)
           projects_json=$(echo "$PROJECTS_JSON_B64" | base64 -d)
 
@@ -1032,35 +1076,28 @@ jobs:
             echo "## 📊 Production Report Generation Complete"
             echo ""
             echo "**Completed:** $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-            echo "**Status:** ${{ needs.publish.result }}"
+            echo "**Status:** ${publish_result}"
             echo ""
             echo "### Job Results"
             echo ""
-            echo "- **Validate Secrets:** $(result_emoji \
-              '${{ needs.validate-secrets.result }}')"
-            echo "- **Analyze:** $(result_emoji \
-              '${{ needs.analyze.result }}')"
-            echo "- **Publish:** $(result_emoji \
-              '${{ needs.publish.result }}')"
-            echo "- **Copy:** $(result_emoji \
-              '${{ needs.copy-to-artifacts-repo.result }}')"
+            echo "- **Validate Secrets:** $(result_emoji "${validate_result}")"
+            echo "- **Analyze:** $(result_emoji "${analyze_result}")"
+            echo "- **Publish:** $(result_emoji "${publish_result}")"
+            echo "- **Copy:** $(result_emoji "${copy_result}")"
             echo ""
 
             # Note about failures - partial vs complete failure
-            if [ "${{ needs.analyze.result }}" = "failure" ]; then
-              # Check if publish also failed (indicates complete failure)
-              if [ "${{ needs.publish.result }}" = "failure" ] && \
-                 [ "${{ needs.copy-to-artifacts-repo.result }}" = "failure" ]
-              then
+            if [ "${analyze_result}" = "failure" ]; then
+              if [ "${publish_result}" = "failure" ] && \
+                 [ "${copy_result}" = "failure" ]; then
                 echo "### ❌ Complete Matrix Failure"
                 echo ""
-                echo "All project analysis jobs failed." \
-                  "No reports were generated."
+                echo "All project analysis jobs failed."
+                echo "No reports were generated."
                 echo ""
                 echo "**Troubleshooting:**"
                 echo "- Check the **Analyze** job logs for specific errors"
-                echo "- Verify the PROJECTS_JSON secret is properly" \
-                  "base64-encoded"
+                echo "- Verify the PROJECTS_JSON secret is properly base64-encoded"
                 echo "- Ensure Gerrit/GitHub servers are accessible"
                 echo "- Check for network connectivity issues"
                 echo ""
@@ -1074,14 +1111,13 @@ jobs:
             fi
 
             # Add links to project reports if publish succeeded
-            if [ "${{ needs.publish.result }}" = "success" ]; then
+            if [ "${publish_result}" = "success" ]; then
               echo "### 📑 Project Reports"
               echo ""
               owner="${{ github.repository_owner }}"
               repo="${{ github.event.repository.name }}"
               base_url="https://${owner}.github.io/${repo}"
 
-              # Parse and display each project with link
               echo "$projects_json" | \
                 jq -r '.[] | "\(.project)|\(.slug)"' | \
                 while IFS='|' read -r project_name slug; do
@@ -1095,119 +1131,79 @@ jobs:
               echo ""
             fi
           } >> "$GITHUB_STEP_SUMMARY"
+        # yamllint enable rule:line-length
 
-      - name: "Prepare email notification"
-        if: always() && vars.SEND_EMAIL_NOTIFICATIONS == 'true'
+      - name: "Identify failed projects"
+        id: "failed-projects"
+        if: needs.analyze.result == 'failure'
         shell: bash
         env:
-          PROJECTS_JSON_B64: ${{ secrets.PROJECTS_JSON }}
+          GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        # yamllint disable rule:line-length
         run: |
-          # Print mail configuration for debugging
-          echo "=== Email Configuration ==="
-          echo "SMTP_SERVER: ${{ vars.SMTP_SERVER }}"
-          echo "SMTP_USERNAME: ${{ vars.SMTP_USERNAME }}"
-          echo "REPORT_EMAIL_ADDRESS: ${{ vars.REPORT_EMAIL_ADDRESS }}"
-          echo "FROM: no-reply@linuxfoundation.org"
-          echo "==========================="
-          echo ""
+          # Query the GitHub API for matrix job results
+          echo "Checking matrix job results..."
 
-          # Helper function to convert result to emoji
-          result_emoji() {
-            case "$1" in
-              success) echo "✅" ;;
-              failure) echo "❌" ;;
-              cancelled) echo "⚠️" ;;
-              skipped) echo "⏭️" ;;
-              *) echo "❓" ;;
-            esac
-          }
+          FAILED_PROJECTS=$(gh api \
+            "/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs" \
+            --paginate \
+            --jq '.jobs[] | select(.conclusion == "failure" and (.name | test("^[A-Za-z]"))) | .name' \
+            | sort)
 
-          # Parse projects JSON to get slugs (decode from base64)
-          projects_json=$(echo "$PROJECTS_JSON_B64" | base64 -d)
-          owner="${{ github.repository_owner }}"
-          repo="${{ github.event.repository.name }}"
-          base_url="https://${owner}.github.io/${repo}"
-
-          # Build email body
-          cat > /tmp/email_body.txt << 'EMAIL_EOF'
-          📊 Production Report Generation Complete
-
-          EMAIL_EOF
-
-          date_completed=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-          validate_result="${{ needs.validate-secrets.result }}"
-          analyze_result="${{ needs.analyze.result }}"
-          publish_result="${{ needs.publish.result }}"
-          copy_result="${{ needs.copy-to-artifacts-repo.result }}"
+          if [ -n "$FAILED_PROJECTS" ]; then
+            echo "Failed projects:"
+            echo "$FAILED_PROJECTS" | while IFS= read -r P; do
+              echo "  - ${P}"
+            done
+          else
+            echo "Could not determine specific failed projects"
+            FAILED_PROJECTS="(unable to determine — check workflow run)"
+          fi
 
           {
-            echo "Completed: ${date_completed}"
-            echo "Status: ${publish_result}"
-            echo ""
-            echo "Job Results:"
-            validate_emoji=$(result_emoji "${validate_result}")
-            echo "- Validate: ${validate_emoji} ${validate_result}"
-            analyze_emoji=$(result_emoji "${analyze_result}")
-            echo "- Analyze: ${analyze_emoji} ${analyze_result}"
-            publish_emoji=$(result_emoji "${publish_result}")
-            echo "- Publish: ${publish_emoji} ${publish_result}"
-            copy_emoji=$(result_emoji "${copy_result}")
-            echo "- Copy: ${copy_emoji} ${copy_result}"
-            echo ""
-          } >> /tmp/email_body.txt
+            echo 'list<<FPROJ_EOF'
+            echo "$FAILED_PROJECTS"
+            echo 'FPROJ_EOF'
+          } >> "$GITHUB_OUTPUT"
+        # yamllint enable rule:line-length
 
-          # Add note about partial failures
-          if [ "${analyze_result}" = "failure" ]; then
-            {
-              echo "⚠️ Partial Matrix Failure"
-              echo "Some project analysis jobs failed, but reports from"
-              echo "successful jobs were still published."
-              echo ""
-            } >> /tmp/email_body.txt
-          fi
-
-          # Add project reports if publish succeeded
-          if [ "${publish_result}" = "success" ]; then
-            {
-              echo "📑 Project Reports:"
-              echo ""
-            } >> /tmp/email_body.txt
-
-            echo "$projects_json" | \
-              jq -r '.[] | "\(.project)|\(.slug)"' | \
-              while IFS='|' read -r project_name slug; do
-                report_url="${base_url}/${slug}/report.html"
-                data_url="${base_url}/${slug}/report_raw.json"
-                echo "- ${project_name}: ${report_url}" \
-                  >> /tmp/email_body.txt
-                echo "  Raw Data: ${data_url}" >> /tmp/email_body.txt
-              done
-
-            {
-              echo ""
-              echo "Index: ${base_url}/"
-              echo ""
-            } >> /tmp/email_body.txt
-          fi
-
-          run_id="${{ github.run_id }}"
-          repo="${{ github.repository }}"
-          server="${{ github.server_url }}"
-          workflow_url="${server}/${repo}/actions/runs/${run_id}"
-          echo "View full workflow run: ${workflow_url}" >> /tmp/email_body.txt
-
-      - name: "Send email with dawidd6/action-send-mail"
-        if: always() && vars.SEND_EMAIL_NOTIFICATIONS == 'true'
+      - name: "Send Slack failure notification"
         # yamllint disable-line rule:line-length
-        uses: dawidd6/action-send-mail@ba302ba66e88942841281c984a6b31ca6d6289e6  # v11
+        if: steps.workflow-status.outputs.workflow_failed == 'true'
+        # yamllint disable-line rule:line-length
+        uses: slackapi/slack-github-action@af78098f536edbc4de71162a307590698245be95  # v3.0.1
         with:
-          server_address: ${{ vars.SMTP_SERVER }}
-          server_port: 587
-          username: ${{ vars.SMTP_USERNAME }}
-          password: ${{ secrets.SMTP_PASSWORD }}
-          subject: >-
-            Production Report Generation Complete -
-            ${{ github.repository }}
-          to: ${{ vars.REPORT_EMAIL_ADDRESS }}
-          from: no-reply@linuxfoundation.org
-          body: file:///tmp/email_body.txt
+          method: 'chat.postMessage'
+          token: "${{ secrets.SLACK_BOT_TOKEN }}"
+          # yamllint disable rule:line-length
+          payload: |
+            channel: "${{ vars.SLACK_CHANNEL_ID }}"
+            text: "❌ Production Reports workflow failed"
+            blocks:
+              - type: "header"
+                text:
+                  type: "plain_text"
+                  text: "❌ Production Reports — Failure"
+              - type: "section"
+                text:
+                  type: "mrkdwn"
+                  text: "*Failed stages:*\n${{ steps.workflow-status.outputs.failed_stages }}"
+              - type: "section"
+                text:
+                  type: "mrkdwn"
+                  text: "*Failed projects:*\n```${{ steps.failed-projects.outputs.list || 'N/A — failure occurred before project analysis' }}```"
+              - type: "section"
+                fields:
+                  - type: "mrkdwn"
+                    text: "*Validate:* ${{ steps.workflow-status.outputs.validate_result }}"
+                  - type: "mrkdwn"
+                    text: "*Analyze:* ${{ steps.workflow-status.outputs.analyze_result }}"
+                  - type: "mrkdwn"
+                    text: "*Publish:* ${{ steps.workflow-status.outputs.publish_result }}"
+                  - type: "mrkdwn"
+                    text: "*Artifact Transfer:* ${{ steps.workflow-status.outputs.copy_result }}"
+              - type: "context"
+                elements:
+                  - type: "mrkdwn"
+                    text: "<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View workflow run>"
+          # yamllint enable rule:line-length
