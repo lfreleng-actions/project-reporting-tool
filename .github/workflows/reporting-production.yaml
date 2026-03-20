@@ -1190,11 +1190,24 @@ jobs:
           echo "list=${ESCAPED_PROJECTS}" >> "$GITHUB_OUTPUT"
         # yamllint enable rule:line-length
 
+      - name: "Check Slack configuration"
+        id: "check-slack-config"
+        if: always()
+        shell: bash
+        env:
+          SLACK_BOT_TOKEN: "${{ secrets.SLACK_BOT_TOKEN }}"
+        run: |
+          if [ -n "$SLACK_BOT_TOKEN" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: "Send Slack failure notification"
         if: >-
           always()
           && steps.workflow-status.outputs.workflow_failed == 'true'
-          && secrets.SLACK_BOT_TOKEN != ''
+          && steps.check-slack-config.outputs.configured == 'true'
           && vars.SLACK_CHANNEL_ID != ''
         # yamllint disable-line rule:line-length
         uses: slackapi/slack-github-action@af78098f536edbc4de71162a307590698245be95  # v3.0.1
