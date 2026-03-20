@@ -168,58 +168,42 @@ Value: [
 ]
 ```text
 
-**Email Notification Variables (Optional):**
+**Slack Failure Notification Variables (Optional):**
 
-To enable email notifications for production report completion:
-
-```text
-Name: SEND_EMAIL_NOTIFICATIONS
-Value: true
-```text
+To enable Slack notifications when production report generation
+fails:
 
 ```text
-Name: SMTP_SERVER
-Value: email-smtp.us-west-2.amazonaws.com
-```text
+Name: SLACK_CHANNEL_ID
+Value: [Channel ID for your Slack channel, e.g. C0123456789]
+```
+
+**Slack Failure Notification Secret:**
 
 ```text
-Name: SMTP_USERNAME
-Value: AKIAIOSFODNN7EXAMPLE
-```text
+Name: SLACK_BOT_TOKEN
+Secret: xoxb-[Your Slack bot token]
+```
 
-```text
-Name: REPORT_EMAIL_ADDRESS
-Value: reports@example.org
-```text
+**Slack Notification Configuration:**
 
-**Email Notification Secret:**
+The production reports workflow sends Slack notifications to a
+configured channel when any pipeline stage fails. Only failures
+trigger a notification — successful runs stay silent.
 
-```text
-Name: SMTP_PASSWORD
-Secret: [Your SMTP password or AWS SES credentials]
-```text
+1. Create a Slack app with `chat:write` and
+   `chat:write.customize` scopes
+2. Invite the bot to the target channel
+3. Add `SLACK_BOT_TOKEN` secret with the bot's `xoxb-` token
+4. Add `SLACK_CHANNEL_ID` variable with the target channel ID
 
-**Email Notification Configuration:**
+The Slack message includes:
 
-The production reports workflow can send email notifications upon completion. To enable:
-
-1. Set `SEND_EMAIL_NOTIFICATIONS` variable to `true`
-2. Configure SMTP server details (variables):
-   - `SMTP_SERVER` - SMTP server hostname
-   - `SMTP_USERNAME` - SMTP username (for AWS SES, this is the SMTP username)
-   - `REPORT_EMAIL_ADDRESS` - Recipient email address
-3. Add `SMTP_PASSWORD` secret with your SMTP password
-
-The email will include:
-- ✅ Completion status with emojis (✅ success, ❌ failure, ⚠️ cancelled, ⏭️ skipped)
-- Job results for Verify, Analyze, Publish, and Copy steps
-- Links to all published project reports (when successful)
+- Which pipeline stages failed (Secrets Validation, Matrix
+  Build, Project Analysis, Pages Publishing, Artifact Transfer)
+- Which specific projects failed in the analysis matrix
+- Status of each job (validate/analyze/publish/copy)
 - Direct link to the workflow run
-
-To disable email notifications:
-- Set `SEND_EMAIL_NOTIFICATIONS` to `false` or remove the variable
-
-**Note:** The FROM address is set to `no-reply@linuxfoundation.org` and must be verified with your SMTP provider (e.g., AWS SES verified sender).
 
 ---
 

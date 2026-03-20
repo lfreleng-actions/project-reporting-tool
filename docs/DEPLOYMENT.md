@@ -877,7 +877,7 @@ jobs:
       - name: Notify on failure
         if: failure()
         run: |
-          # Send notification (Slack, email, etc.)
+          # Send notification (Slack, etc.)
           echo "Report generation failed"
           # curl -X POST -H 'Content-type: application/json' \
           #   --data '{"text":"Report generation failed"}' \
