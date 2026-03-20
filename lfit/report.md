@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: Linux Foundation
 
-**Generated:** 2026-03-20 11:57:37 UTC
+**Generated:** 2026-03-20 12:25:00 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -160,73 +160,73 @@ The data presented in the table below covers the past 365 days.
 
 | Gerrit Project | Primary Type | Other Types | Dependabot | Pre-commit | ReadTheDocs | .gitreview | G2G | Status |
 |----------------|--------------|-------------|------------|------------|-------------|------------|-----|--------|
-| ansible/roles/docker-install | Python | Shell | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
-| ansible/roles/lf-recommended-tools | Python | Shell | ❌ | ✅ | ❌ | ✅ | ✅ | ✅ |
-| ansible/roles/packer-install | Python | Shell | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
 | ansible/roles/protobuf-install | Shell |  | ❌ | ✅ | ❌ | ✅ | ❌ | ☑️ |
+| ansible/roles/lf-recommended-tools | Python | Shell | ❌ | ✅ | ❌ | ✅ | ✅ | ✅ |
 | ansible/roles/mono-install | Python | Shell | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
+| ansible/roles/docker-install | Python | Shell | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
+| ansible/roles/haveged-install | Python | Shell | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
+| ansible/roles/packer-install | Python | Shell | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
 | ansible/roles/java-install | Python | Shell | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
 | ansible/roles/lf-dev-libs | Python | Shell | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
-| ansible/roles/haveged-install | Python | Shell | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
-| puppet/modules/gce | Ruby | Shell | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| ansible/roles/system-update | Python | Shell | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
 | ansible/roles/puppet-install | Python | Shell | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
+| puppet/modules/gce | Ruby | Shell | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | ansible/roles/python-install | Python | Shell | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
-| ansible/roles/sysstat-install | Python | Shell | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ |
-| ansible/roles/shellcheck-install | Python | Shell | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
-| puppet/modules/mailman3 | Ruby | Python | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | clav2test/ccla-only-project | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
+| puppet/modules/mailman3 | Ruby | Python | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| ansible/roles/sysstat-install | Python | Shell | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ |
 | clav2test/icla-and-ccla-project | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
+| ansible/roles/shellcheck-install | Python | Shell | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
 | lfn/process | Python |  | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
 | releng/ci-workshop | Groovy | Dockerfile, Shell | ❌ | ✅ | ❌ | ✅ | ❌ | 🛑 |
-| releng/common-packer | HCL | Python, Shell | ❌ | ✅ | ✅ | ✅ | ❌ | ✅ |
-| releng/docs-conf | Python |  | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ |
 | releng/docs | Python | Shell, HTML, CSS | ❌ | ✅ | ✅ | ✅ | ❌ | ✅ |
-| releng/gerrit_to_platform | Python |  | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| releng/common-packer | HCL | Python, Shell | ❌ | ✅ | ✅ | ✅ | ❌ | ✅ |
 | releng/license-checker | Go |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| releng/global-jjb | Shell | Python, Groovy, HTML | ❌ | ✅ | ✅ | ✅ | ❌ | ✅ |
 | releng/nexus-upload | Shell |  | ❌ | ✅ | ❌ | ✅ | ❌ | ☑️ |
-| releng/python-one-password | Python |  | ❌ | ✅ | ✅ | ✅ | ❌ | ☑️ |
 | releng/pipelines | Groovy | Java/Gradle, Python, Shell, HTML | ❌ | ✅ | ✅ | ✅ | ❌ | 🛑 |
+| releng/gerrit_to_platform | Python |  | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| releng/python-one-password | Python |  | ❌ | ✅ | ✅ | ✅ | ❌ | ☑️ |
 | releng/sigul-docker | Dockerfile |  | ❌ | ✅ | ❌ | ✅ | ❌ | ☑️ |
 | sandbox-info-master | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
-| releng/global-jjb | Shell | Python, Groovy, HTML | ❌ | ✅ | ✅ | ✅ | ❌ | ✅ |
 | releng/lftools | Python | HTML | ❌ | ✅ | ✅ | ✅ | ❌ | ✅ |
 | ansible/roles | Shell |  | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| ansible/roles/system-update | Python | Shell | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
+| releng/docs-conf | Python |  | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ |
 | releng/info-master | N/A |  | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ |
-| sandbox | Java/Maven | JavaScript, TypeScript, Python, Shell, Groovy, HTML, CSS | ✅ | ❌ | ✅ | ✅ | ❌ | ✅ |
 | releng | Shell | Python, Go, Groovy, HTML, CSS, HCL | ❌ | ❌ | ❌ | ❌ | ❌ | ☑️ |
+| sandbox | Java/Maven | JavaScript, TypeScript, Python, Shell, Groovy, HTML, CSS | ✅ | ❌ | ✅ | ✅ | ❌ | ✅ |
 
 ---
 ## 🏁 Deployed CI/CD Jobs
 
-**Total GitHub workflows:** 51
+**Total GitHub workflows:** 66
 
 | Gerrit Project | GitHub Workflows | Workflow Count |
 |----------------|-------------------|----------------|
-| ansible/roles/docker-install | call-github2gerrit.yaml<br>gerrit-verify.yaml | 2 |
-| ansible/roles/haveged-install | call-github2gerrit.yaml<br>gerrit-verify.yaml | 2 |
-| ansible/roles/java-install | call-github2gerrit.yaml<br>gerrit-verify.yaml | 2 |
-| ansible/roles/lf-dev-libs | call-github2gerrit.yaml<br>gerrit-verify.yaml | 2 |
+| ansible/roles/docker-install | call-github2gerrit.yaml<br>dependabot-updates<br>gerrit-verify.yaml | 3 |
+| ansible/roles/haveged-install | call-github2gerrit.yaml<br>dependabot-updates<br>gerrit-verify.yaml | 3 |
+| ansible/roles/java-install | call-github2gerrit.yaml<br>dependabot-updates<br>gerrit-verify.yaml | 3 |
+| ansible/roles/lf-dev-libs | call-github2gerrit.yaml<br>dependabot-updates<br>gerrit-verify.yaml | 3 |
 | ansible/roles/lf-recommended-tools | call-github2gerrit.yaml<br>gerrit-verify.yaml | 2 |
-| ansible/roles/mono-install | call-github2gerrit.yaml<br>gerrit-verify.yaml | 2 |
-| ansible/roles/packer-install | call-github2gerrit.yaml<br>gerrit-verify.yaml | 2 |
+| ansible/roles/mono-install | call-github2gerrit.yaml<br>dependabot-updates<br>gerrit-verify.yaml | 3 |
+| ansible/roles/packer-install | call-github2gerrit.yaml<br>dependabot-updates<br>gerrit-verify.yaml | 3 |
 | ansible/roles/protobuf-install | gerrit-verify.yaml | 1 |
-| ansible/roles/puppet-install | call-github2gerrit.yaml<br>gerrit-verify.yaml | 2 |
-| ansible/roles/python-install | call-github2gerrit.yaml<br>gerrit-verify.yaml | 2 |
-| ansible/roles/shellcheck-install | call-github2gerrit.yaml<br>gerrit-verify.yaml | 2 |
+| ansible/roles/puppet-install | call-github2gerrit.yaml<br>dependabot-updates<br>gerrit-verify.yaml | 3 |
+| ansible/roles/python-install | call-github2gerrit.yaml<br>dependabot-updates<br>gerrit-verify.yaml | 3 |
+| ansible/roles/shellcheck-install | call-github2gerrit.yaml<br>dependabot-updates<br>gerrit-verify.yaml | 3 |
 | ansible/roles/sysstat-install | gerrit-verify.yaml | 1 |
-| ansible/roles/system-update | call-github2gerrit.yaml<br>gerrit-verify.yaml | 2 |
+| ansible/roles/system-update | call-github2gerrit.yaml<br>dependabot-updates<br>gerrit-verify.yaml | 3 |
 | releng/common-packer | call-composed-github2gerrit.yaml<br>gerrit-verify.yaml<br>release.yaml | 3 |
 | releng/docs | call-composed-github2gerrit.yaml<br>gerrit-verify.yaml | 2 |
-| releng/docs-conf | gerrit-verify.yaml<br>release-drafter.yaml<br>release.yaml | 3 |
-| releng/gerrit_to_platform | codeql.yaml<br>gerrit-verify.yaml<br>github2gerrit.yaml<br>release.yaml | 4 |
+| releng/docs-conf | dependabot-updates<br>gerrit-verify.yaml<br>release-drafter.yaml<br>release.yaml | 4 |
+| releng/gerrit_to_platform | codeql.yaml<br>dependabot-updates<br>gerrit-verify.yaml<br>github2gerrit.yaml<br>release.yaml<br>testing.yaml | 6 |
 | releng/global-jjb | call-composed-github2gerrit.yaml<br>gerrit-verify.yaml<br>release.yaml | 3 |
 | releng/info-master | call-composed-github2gerrit.yaml<br>gerrit-verify.yaml | 2 |
-| releng/lftools | call-composed-github2gerrit.yaml<br>gerrit-verify.yaml<br>release-drafter.yaml<br>release.yaml | 4 |
+| releng/lftools | call-composed-github2gerrit.yaml<br>dependabot-updates<br>gerrit-verify.yaml<br>release-drafter.yaml<br>release.yaml | 5 |
 | releng/nexus-upload | gerrit-verify.yaml | 1 |
 | releng/python-one-password | gerrit-verify.yaml<br>release.yaml | 2 |
 | releng/sigul-docker | gerrit-verify.yaml<br>release.yaml | 2 |
-| sandbox | gerrit-merge-github2gerrit.yaml | 1 |
+| sandbox | dependabot-updates<br>gerrit-merge-github2gerrit.yaml | 2 |
 
 **Total:** 24 repositories with CI/CD jobs
 
