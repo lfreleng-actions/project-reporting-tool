@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-03-26 07:26:26 UTC
+**Generated:** 2026-03-27 07:25:34 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -31,7 +31,7 @@
 | Inactive Repositories | 3 | 42.9% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 25.0K | - |
-| Total Lines of Code | 34.0K | - |
+| Total Lines of Code | 23.1K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -42,11 +42,11 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 158 | 1100 | +148353 | 276638 | +18 | 5 |
-| 2 | gmail.com | 115 | 275 | +21325 | 29765 | +46 | 5 |
+| 1 | cisco.com | 158 | 1096 | +148233 | 276073 | +18 | 5 |
+| 2 | gmail.com | 115 | 276 | +21556 | 31722 | +41 | 5 |
 | 3 | icloud.com | 2 | 171 | +49840 | 125800 | -152 | 4 |
 | 4 | hawari.fr | 1 | 20 | +16355 | 17562 | +757 | 1 |
-| 5 | marvell.com | 14 | 19 | +1071 | 1230 | +48 | 3 |
+| 5 | marvell.com | 14 | 20 | +1077 | 1237 | +45 | 3 |
 | 6 | netgate.com | 14 | 15 | +1070 | 1241 | +59 | 1 |
 | 7 | linuxfoundation.org | 15 | 14 | +207 | 465 | -3 | 7 |
 | 8 | barachs.net | 2 | 9 | +533 | 588 | +53 | 2 |
@@ -57,55 +57,55 @@ The data presented in the table below covers the past 365 days.
 | 13 | intel.com | 59 | 5 | +35 | 45 | +5 | 4 |
 | 14 | mts.ru | 2 | 4 | +299 | 409 | +47 | 1 |
 | 15 | 46labs.com | 2 | 3 | +56 | 57 | +18 | 1 |
-| 16 | hotmail.se | 1 | 3 | +1083 | 1431 | +245 | 1 |
-| 17 | chinatelecom.cn | 4 | 2 | +18 | 32 | +2 | 1 |
-| 18 | googlemail.com | 1 | 2 | +83 | 83 | +41 | 1 |
+| 16 | googlemail.com | 1 | 3 | +84 | 85 | +27 | 1 |
+| 17 | hotmail.se | 1 | 3 | +1083 | 1431 | +245 | 1 |
+| 18 | chinatelecom.cn | 4 | 2 | +18 | 32 | +2 | 1 |
 | 19 | ipng.ch | 1 | 2 | +545 | 610 | +240 | 1 |
 | 20 | labn.net | 4 | 2 | +60 | 66 | +27 | 1 |
-| 21 | sina.com | 1 | 2 | +7 | 18 | -2 | 1 |
-| 22 | yandex-team.ru | 4 | 2 | +30 | 35 | +12 | 1 |
-| 23 | 163.com | 8 | 1 | +8 | 16 | 0 | 1 |
-| 24 | amd.com | 1 | 1 | +2 | 4 | 0 | 1 |
-| 25 | andrews-macbook-pro.local | 1 | 1 | +1 | 2 | 0 | 1 |
-| 26 | arm.com | 17 | 1 | +43 | 45 | +41 | 2 |
-| 27 | baicells.com | 1 | 1 | +5 | 8 | +2 | 1 |
-| 28 | graphiant.com | 5 | 1 | +4 | 8 | 0 | 1 |
-| 29 | inmon.com | 1 | 1 | +55 | 90 | +20 | 1 |
-| 30 | insidepacket.com | 1 | 1 | +5 | 5 | +5 | 1 |
+| 21 | qq.com | 4 | 2 | +23 | 25 | +10 | 1 |
+| 22 | sina.com | 1 | 2 | +7 | 18 | -2 | 1 |
+| 23 | yandex-team.ru | 4 | 2 | +30 | 35 | +12 | 1 |
+| 24 | 163.com | 8 | 1 | +8 | 16 | 0 | 1 |
+| 25 | amd.com | 1 | 1 | +2 | 4 | 0 | 1 |
+| 26 | andrews-macbook-pro.local | 1 | 1 | +1 | 2 | 0 | 1 |
+| 27 | arm.com | 17 | 1 | +43 | 45 | +41 | 2 |
+| 28 | baicells.com | 1 | 1 | +5 | 8 | +2 | 1 |
+| 29 | graphiant.com | 5 | 1 | +4 | 8 | 0 | 1 |
+| 30 | inmon.com | 1 | 1 | +55 | 90 | +20 | 1 |
 
 ---
 ## 👥 Top Contributors
 
 The data presented in the table below covers the past 365 days.
 
-**Contributors Found:** 662
+**Contributors Found:** 663
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Florin Coras | 235 | +12357 | 17277 | +31 | 3 | cisco.com |
+| 1 | Florin Coras | 236 | +12796 | 17766 | +33 | 3 | cisco.com |
 | 2 | Matus Fabian | 227 | +32150 | 40958 | +102 | 2 | cisco.com |
-| 3 | Dave Wallace | 221 | +15760 | 21895 | +43 | 5 | gmail.com |
+| 3 | Dave Wallace | 223 | +15993 | 23856 | +36 | 5 | gmail.com |
 | 4 | Peter Mikus | 170 | +49837 | 125795 | -153 | 4 | icloud.com |
 | 5 | Damjan Marion | 144 | +42642 | 116123 | -214 | 2 | cisco.com |
 | 6 | Tibor Frank | 118 | +7952 | 17160 | -10 | 3 | cisco.com |
 | 7 | Adrian Villin | 100 | +16103 | 25028 | +71 | 1 | cisco.com |
-| 8 | Vratko Polak | 68 | +17421 | 33957 | +13 | 4 | cisco.com |
-| 9 | Benoît Ganne | 45 | +1916 | 3326 | +11 | 1 | cisco.com |
-| 10 | Semir Sionek | 44 | +1949 | 2419 | +33 | 2 | cisco.com |
+| 8 | Vratko Polak | 66 | +17404 | 33918 | +13 | 4 | cisco.com |
+| 9 | Benoît Ganne | 46 | +1942 | 3370 | +11 | 1 | cisco.com |
+| 10 | Semir Sionek | 43 | +1908 | 2365 | +33 | 2 | cisco.com |
 | 11 | Mohsin KAZMI | 27 | +3207 | 3632 | +103 | 2 | cisco.com |
 | 12 | Mohammed Hawari | 20 | +16355 | 17562 | +757 | 1 | hawari.fr |
 | 13 | Jerome Tollet | 18 | +4645 | 4900 | +243 | 1 | cisco.com |
 | 14 | Hadi Rayan Al-Sandid | 17 | +1423 | 1577 | +74 | 1 | cisco.com |
 | 15 | Steven | 14 | +909 | 1700 | +8 | 3 | cisco.com |
-| 16 | Andrew Yourtchenko | 13 | +2118 | 2131 | +161 | 2 | gmail.com |
-| 17 | Vanessa Rene Valderrama | 13 | +206 | 463 | -3 | 6 | linuxfoundation.org |
-| 18 | Naveen Joy | 12 | +1342 | 3281 | -49 | 3 | cisco.com |
-| 19 | Ivan Ivanets | 10 | +2513 | 3391 | +163 | 2 | cisco.com |
-| 20 | Damjan Marion | 9 | +657 | 948 | +40 | 1 | gmail.com |
-| 21 | Dave Barach | 9 | +533 | 588 | +53 | 2 | barachs.net |
-| 22 | Matthew Smith | 9 | +384 | 437 | +36 | 1 | netgate.com |
-| 23 | Maxime Peim | 8 | +1622 | 3331 | -10 | 1 | gmail.com |
-| 24 | Monendra Singh Kushwaha | 8 | +524 | 566 | +60 | 1 | marvell.com |
+| 16 | Vanessa Rene Valderrama | 13 | +206 | 463 | -3 | 6 | linuxfoundation.org |
+| 17 | Andrew Yourtchenko | 12 | +2116 | 2127 | +175 | 2 | gmail.com |
+| 18 | Naveen Joy | 11 | +819 | 2282 | -58 | 3 | cisco.com |
+| 19 | Damjan Marion | 9 | +657 | 948 | +40 | 1 | gmail.com |
+| 20 | Dave Barach | 9 | +533 | 588 | +53 | 2 | barachs.net |
+| 21 | Matthew Smith | 9 | +384 | 437 | +36 | 1 | netgate.com |
+| 22 | Monendra Singh Kushwaha | 9 | +530 | 573 | +54 | 1 | marvell.com |
+| 23 | Ivan Ivanets | 8 | +2509 | 3385 | +204 | 2 | cisco.com |
+| 24 | Maxime Peim | 8 | +1622 | 3331 | -10 | 1 | gmail.com |
 | 25 | Yoann Desmouceaux | 8 | +131 | 186 | +9 | 1 | cisco.com |
 | 26 | Kishor Dhanawade | 7 | +164 | 186 | +20 | 3 | marvell.com |
 | 27 | Pim van Pelt | 7 | +1379 | 1425 | +190 | 1 | ipng.nl |
@@ -118,13 +118,13 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 15580 | +176346 | 77 | 21 | 2026-03-04 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6435 | +74317 | 7 | 0 | 2026-03-25 | ✅ |
-| [ci-management](https://github.com/gerrit.fd.io/ci-management) | 2859 | +2232 | 10 | 41 | 2026-02-13 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2497 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 26 | +3884 | 2 | 0 | 2026-03-25 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 1972 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3494 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 15589 | +176490 | 78 | 27 | 2026-02-27 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6435 | +74298 | 7 | 1 | 2026-03-25 | ✅ |
+| [ci-management](https://github.com/gerrit.fd.io/ci-management) | 2859 | +2232 | 10 | 42 | 2026-02-13 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2498 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 26 | +3884 | 2 | 1 | 2026-03-25 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 1973 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3495 | 2016-08-30 | 🛑 |
 
 **Total:** 7 repositories
 
