@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-04-01 07:30:22 UTC
+**Generated:** 2026-04-02 07:28:42 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -31,7 +31,7 @@
 | Inactive Repositories | 3 | 42.9% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 25.0K | - |
-| Total Lines of Code | 36.4K | - |
+| Total Lines of Code | 36.8K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -42,9 +42,9 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 158 | 1107 | +148542 | 276761 | +18 | 5 |
+| 1 | cisco.com | 158 | 1114 | +149260 | 278011 | +18 | 5 |
 | 2 | gmail.com | 115 | 278 | +21571 | 31751 | +40 | 5 |
-| 3 | icloud.com | 2 | 171 | +49840 | 125800 | -152 | 4 |
+| 3 | icloud.com | 2 | 170 | +49836 | 125794 | -153 | 4 |
 | 4 | hawari.fr | 1 | 20 | +16355 | 17562 | +757 | 1 |
 | 5 | marvell.com | 14 | 20 | +1077 | 1237 | +45 | 3 |
 | 6 | linuxfoundation.org | 15 | 14 | +207 | 465 | -3 | 7 |
@@ -59,10 +59,10 @@ The data presented in the table below covers the past 365 days.
 | 15 | hotmail.se | 1 | 3 | +1083 | 1431 | +245 | 1 |
 | 16 | labn.net | 4 | 3 | +272 | 423 | +40 | 1 |
 | 17 | mts.ru | 2 | 3 | +37 | 48 | +8 | 1 |
-| 18 | 46labs.com | 2 | 2 | +13 | 14 | +6 | 1 |
-| 19 | chinatelecom.cn | 4 | 2 | +18 | 32 | +2 | 1 |
-| 20 | ipng.ch | 1 | 2 | +545 | 610 | +240 | 1 |
-| 21 | qq.com | 4 | 2 | +23 | 25 | +10 | 1 |
+| 18 | qq.com | 4 | 3 | +25 | 29 | +7 | 1 |
+| 19 | 46labs.com | 2 | 2 | +13 | 14 | +6 | 1 |
+| 20 | chinatelecom.cn | 4 | 2 | +18 | 32 | +2 | 1 |
+| 21 | ipng.ch | 1 | 2 | +545 | 610 | +240 | 1 |
 | 22 | sina.com | 1 | 2 | +7 | 18 | -2 | 1 |
 | 23 | yandex-team.ru | 4 | 2 | +30 | 35 | +12 | 1 |
 | 24 | 163.com | 8 | 1 | +8 | 16 | 0 | 1 |
@@ -85,11 +85,11 @@ The data presented in the table below covers the past 365 days.
 | 1 | Florin Coras | 238 | +12863 | 17872 | +33 | 3 | cisco.com |
 | 2 | Dave Wallace | 226 | +16011 | 23890 | +35 | 5 | gmail.com |
 | 3 | Matus Fabian | 225 | +31018 | 39712 | +99 | 2 | cisco.com |
-| 4 | Peter Mikus | 170 | +49837 | 125795 | -153 | 4 | icloud.com |
-| 5 | Damjan Marion | 153 | +43258 | 116932 | -198 | 2 | cisco.com |
+| 4 | Peter Mikus | 169 | +49833 | 125789 | -154 | 4 | icloud.com |
+| 5 | Damjan Marion | 161 | +44073 | 118383 | -187 | 2 | cisco.com |
 | 6 | Tibor Frank | 118 | +7953 | 17162 | -10 | 3 | cisco.com |
-| 7 | Adrian Villin | 105 | +16893 | 26098 | +73 | 1 | cisco.com |
-| 8 | Vratko Polak | 66 | +17404 | 33918 | +13 | 4 | cisco.com |
+| 7 | Adrian Villin | 106 | +16895 | 26102 | +72 | 1 | cisco.com |
+| 8 | Vratko Polak | 66 | +17333 | 33756 | +13 | 4 | cisco.com |
 | 9 | Benoît Ganne | 46 | +1942 | 3370 | +11 | 1 | cisco.com |
 | 10 | Semir Sionek | 42 | +1894 | 2333 | +34 | 2 | cisco.com |
 | 11 | Mohsin KAZMI | 27 | +3207 | 3632 | +103 | 2 | cisco.com |
@@ -99,7 +99,7 @@ The data presented in the table below covers the past 365 days.
 | 15 | Steven | 14 | +909 | 1700 | +8 | 3 | cisco.com |
 | 16 | Vanessa Rene Valderrama | 13 | +206 | 463 | -3 | 6 | linuxfoundation.org |
 | 17 | Andrew Yourtchenko | 11 | +2113 | 2122 | +191 | 2 | gmail.com |
-| 18 | Naveen Joy | 11 | +819 | 2282 | -58 | 3 | cisco.com |
+| 18 | Naveen Joy | 10 | +792 | 2241 | -65 | 3 | cisco.com |
 | 19 | Damjan Marion | 9 | +657 | 948 | +40 | 1 | gmail.com |
 | 20 | Dave Barach | 9 | +533 | 588 | +53 | 2 | barachs.net |
 | 21 | Monendra Singh Kushwaha | 9 | +530 | 573 | +54 | 1 | marvell.com |
@@ -109,22 +109,22 @@ The data presented in the table below covers the past 365 days.
 | 25 | Kishor Dhanawade | 7 | +164 | 186 | +20 | 3 | marvell.com |
 | 26 | Vladimir Zhigulin | 7 | +124 | 175 | +10 | 1 | travelping.com |
 | 27 | Aritra Basu | 6 | +1334 | 1354 | +219 | 1 | cisco.com |
-| 28 | Ivan Ivanets | 6 | +2490 | 3364 | +269 | 2 | cisco.com |
-| 29 | Ivan Shvedunov | 6 | +686 | 804 | +94 | 1 | netgate.com |
-| 30 | Matthew Smith | 6 | +38 | 86 | -1 | 1 | netgate.com |
+| 28 | Ivan Shvedunov | 6 | +686 | 804 | +94 | 1 | netgate.com |
+| 29 | Matthew Smith | 6 | +38 | 86 | -1 | 1 | netgate.com |
+| 30 | dependabot[bot] | 6 | +6 | 12 | 0 | 1 | github.com |
 
 ---
 ## 📊 Repositories
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 15617 | +178104 | 78 | 0 | 2026-04-01 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6437 | +74300 | 7 | 2 | 2026-03-30 | ✅ |
-| [ci-management](https://github.com/gerrit.fd.io/ci-management) | 2859 | +2232 | 10 | 47 | 2026-02-13 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2503 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 26 | +3884 | 2 | 6 | 2026-03-25 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 1978 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3500 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 15627 | +178895 | 78 | 1 | 2026-04-01 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6438 | +74225 | 7 | 0 | 2026-04-01 | ✅ |
+| [ci-management](https://github.com/gerrit.fd.io/ci-management) | 2859 | +2232 | 10 | 48 | 2026-02-13 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2504 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 26 | +3884 | 2 | 7 | 2026-03-25 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 1979 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3501 | 2016-08-30 | 🛑 |
 
 **Total:** 7 repositories
 
