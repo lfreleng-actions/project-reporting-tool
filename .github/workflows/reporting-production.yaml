@@ -340,7 +340,7 @@ jobs:
       - name: "Clone Gerrit repositories"
         if: steps.config.outputs.gerrit != ''
         # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/gerrit-clone-action@3cb79a307a7f0c31da04a38e2e10b9696867fe3d  # v1.0.2
+        uses: lfreleng-actions/gerrit-clone-action@f75e0a3fe99c65bde2584ae8c768d9ae1f26e3a0  # v2.0.0
         id: clone-gerrit
         with:
           host: ${{ steps.config.outputs.gerrit }}
@@ -360,7 +360,7 @@ jobs:
           steps.config.outputs.gerrit == '' &&
           steps.config.outputs.github != ''
         # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/gerrit-clone-action@3cb79a307a7f0c31da04a38e2e10b9696867fe3d  # v1.0.2
+        uses: lfreleng-actions/gerrit-clone-action@f75e0a3fe99c65bde2584ae8c768d9ae1f26e3a0  # v2.0.0
         id: clone-github
         env:
           GITHUB_TOKEN: ${{ secrets.CLASSIC_READ_ONLY_PAT_TOKEN }}
