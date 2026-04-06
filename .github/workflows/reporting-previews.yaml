@@ -304,12 +304,18 @@ jobs:
             echo "🔧 GitHub API integration enabled"
           fi
 
+          VERBOSE_FLAG=""
+          if [ "${RUNNER_DEBUG:-0}" = "1" ] || \
+             [ "${ACTIONS_STEP_DEBUG:-false}" = "true" ]; then
+            VERBOSE_FLAG="--verbose"
+          fi
+
           uv run lf-releng-project-reporting generate \
             --project "$project" \
             --repos-path "$REPOS_PATH" \
             --output-dir "./reports" \
             --github-token-env CLASSIC_READ_ONLY_PAT_TOKEN \
-            --verbose
+            $VERBOSE_FLAG
 
           echo "✅ Preview reports generated for $project"
 
