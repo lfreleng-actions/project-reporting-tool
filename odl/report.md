@@ -1,6 +1,6 @@
 # 📊 Gerrit Project Analysis Report: Opendaylight
 
-**Generated:** 2026-04-05 07:24:59 UTC
+**Generated:** 2026-04-06 07:31:45 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -45,13 +45,13 @@ The data presented in the table below covers the past 365 days.
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | pantheon.tech | 70 | 3333 | +266461 | 423784 | +32 | 48 |
 | 2 | linuxfoundation.org | 15 | 537 | +21120 | 96981 | -101 | 75 |
-| 3 | github.com | 5 | 174 | +203 | 406 | 0 | 19 |
+| 3 | github.com | 5 | 177 | +207 | 414 | 0 | 20 |
 | 4 | opendaylight.org | 14 | 165 | +16374 | 32613 | 0 | 28 |
 | 5 | orange.com | 19 | 112 | +36396 | 131654 | -525 | 12 |
 | 6 | hq.sk | 1 | 64 | +5 | 10 | 0 | 32 |
 | 7 | smartoptics.com | 3 | 49 | +13771 | 19155 | +171 | 1 |
 | 8 | verizon.com | 6 | 14 | +4 | 5 | 0 | 12 |
-| 9 | snyk.io | 1 | 8 | +8 | 16 | 0 | 1 |
+| 9 | snyk.io | 1 | 7 | +7 | 14 | 0 | 1 |
 | 10 | att.com | 14 | 2 | +29415 | 29415 | +14707 | 7 |
 | 11 | gmail.com | 210 | 2 | +1 | 2 | 0 | 63 |
 | 12 | fujitsu.com | 2 | 1 | +957 | 1255 | +659 | 2 |
@@ -86,7 +86,7 @@ The data presented in the table below covers the past 365 days.
 | 1 | Robert Varga | 2851 | +196421 | 333595 | +20 | 44 | pantheon.tech |
 | 2 | Anil Belur | 529 | +21115 | 96974 | -103 | 70 | linuxfoundation.org |
 | 3 | Ivan Hrasko | 205 | +6708 | 12918 | +2 | 17 | pantheon.tech |
-| 4 | dependabot[bot] | 174 | +203 | 406 | 0 | 19 | github.com |
+| 4 | dependabot[bot] | 177 | +207 | 414 | 0 | 20 | github.com |
 | 5 | jenkins-releng | 165 | +16374 | 32613 | 0 | 24 | opendaylight.org |
 | 6 | Gilles Thouenon | 71 | +5740 | 39957 | -401 | 6 | orange.com |
 | 7 | Robert Varga | 64 | +5 | 10 | 0 | 32 | hq.sk |
@@ -103,7 +103,7 @@ The data presented in the table below covers the past 365 days.
 | 18 | Sangwook Ha | 14 | +4 | 5 | 0 | 12 | verizon.com |
 | 19 | Christophe Betoule | 10 | +11339 | 56871 | -3419 | 2 | orange.com |
 | 20 | Oleksandr Akaiomov | 9 | +1328 | 2231 | +47 | 1 | pantheon.tech |
-| 21 | snyk-bot | 8 | +8 | 16 | 0 | 1 | snyk.io |
+| 21 | snyk-bot | 7 | +7 | 14 | 0 | 1 | snyk.io |
 | 22 | Andrew Grimberg | 5 | 0 | 0 | 0 | 48 | linuxfoundation.org |
 | 23 | Jimmi Wimmersjö | 3 | +2224 | 2769 | +559 | 1 | smartoptics.com |
 | 24 | Balagangadhar Bathula | 2 | +29415 | 29415 | +14707 | 2 | att.com |
@@ -119,82 +119,82 @@ The data presented in the table below covers the past 365 days.
 
 | Gerrit Project | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [releng/autorelease](https://git.opendaylight.org/gerrit/admin/repos/releng/autorelease,general) | 28432 | +575 | 8 | 8 | 2026-03-27 | ✅ |
-| [docs](https://git.opendaylight.org/gerrit/admin/repos/docs,general) | 10918 | +2739 | 5 | 30 | 2026-03-06 | ✅ |
-| [yangtools](https://git.opendaylight.org/gerrit/admin/repos/yangtools,general) | 10676 | +81766 | 10 | 1 | 2026-04-03 | ✅ |
-| [controller](https://git.opendaylight.org/gerrit/admin/repos/controller,general) | 10569 | +25474 | 9 | 4 | 2026-03-31 | ✅ |
-| [releng/builder](https://git.opendaylight.org/gerrit/admin/repos/releng/builder,general) | 10392 | +6884 | 13 | 2 | 2026-04-02 | ✅ |
-| [netconf](https://git.opendaylight.org/gerrit/admin/repos/netconf,general) | 6949 | +39994 | 11 | 1 | 2026-04-03 | ✅ |
-| [mdsal](https://git.opendaylight.org/gerrit/admin/repos/mdsal,general) | 5902 | +13024 | 6 | 5 | 2026-03-30 | ✅ |
-| [bgpcep](https://git.opendaylight.org/gerrit/admin/repos/bgpcep,general) | 4578 | +46791 | 9 | 3 | 2026-04-01 | ✅ |
-| [openflowplugin](https://git.opendaylight.org/gerrit/admin/repos/openflowplugin,general) | 4166 | +4885 | 4 | 5 | 2026-03-30 | ✅ |
-| [integration/test](https://git.opendaylight.org/gerrit/admin/repos/integration/test,general) | 3596 | +225 | 4 | 38 | 2026-02-25 | ✅ |
-| [odlparent](https://git.opendaylight.org/gerrit/admin/repos/odlparent,general) | 3108 | +6767 | 8 | 1 | 2026-04-03 | ✅ |
-| [ovsdb](https://git.opendaylight.org/gerrit/admin/repos/ovsdb,general) | 2962 | +2603 | 4 | 22 | 2026-03-13 | ✅ |
-| [transportpce](https://git.opendaylight.org/gerrit/admin/repos/transportpce,general) | 2088 | +28365 | 8 | 3 | 2026-04-01 | ✅ |
-| [genius](https://git.opendaylight.org/gerrit/admin/repos/genius,general) | 1905 | 0 | 0 | 1823 | 2021-04-07 | 🛑 |
-| [aaa](https://git.opendaylight.org/gerrit/admin/repos/aaa,general) | 1680 | +2238 | 6 | 4 | 2026-03-31 | ✅ |
-| [sfc](https://git.opendaylight.org/gerrit/admin/repos/sfc,general) | 1486 | 0 | 0 | 2093 | 2020-07-12 | 🛑 |
-| [opflex](https://git.opendaylight.org/gerrit/admin/repos/opflex,general) | 1279 | 0 | 0 | 2093 | 2020-07-12 | 🛑 |
-| [lispflowmapping](https://git.opendaylight.org/gerrit/admin/repos/lispflowmapping,general) | 1274 | +4009 | 5 | 8 | 2026-03-27 | ✅ |
-| [groupbasedpolicy](https://git.opendaylight.org/gerrit/admin/repos/groupbasedpolicy,general) | 1070 | 0 | 0 | 2093 | 2020-07-11 | 🛑 |
-| [neutron](https://git.opendaylight.org/gerrit/admin/repos/neutron,general) | 1020 | 0 | 0 | 1682 | 2021-08-26 | 🛑 |
-| [vtn](https://git.opendaylight.org/gerrit/admin/repos/vtn,general) | 1019 | 0 | 0 | 2935 | 2018-03-22 | 🛑 |
-| [infrautils](https://git.opendaylight.org/gerrit/admin/repos/infrautils,general) | 955 | +1847 | 4 | 1 | 2026-04-03 | ✅ |
-| [integration/distribution](https://git.opendaylight.org/gerrit/admin/repos/integration/distribution,general) | 883 | +589 | 5 | 16 | 2026-03-19 | ✅ |
-| [gnmi](https://git.opendaylight.org/gerrit/admin/repos/gnmi,general) | 633 | +7639 | 8 | 30 | 2026-03-05 | ✅ |
-| [nic](https://git.opendaylight.org/gerrit/admin/repos/nic,general) | 536 | 0 | 0 | 2945 | 2018-03-12 | 🛑 |
-| [openflowjava](https://git.opendaylight.org/gerrit/admin/repos/openflowjava,general) | 525 | 0 | 0 | 3201 | 2017-06-29 | 🛑 |
-| [l2switch](https://git.opendaylight.org/gerrit/admin/repos/l2switch,general) | 511 | +4897 | 5 | 5 | 2026-03-30 | ✅ |
-| [integration/packaging](https://git.opendaylight.org/gerrit/admin/repos/integration/packaging,general) | 507 | 0 | 0 | 1549 | 2022-01-06 | 🛑 |
-| [sxp](https://git.opendaylight.org/gerrit/admin/repos/sxp,general) | 495 | 0 | 0 | 2093 | 2020-07-12 | 🛑 |
-| [ietf](https://git.opendaylight.org/gerrit/admin/repos/ietf,general) | 490 | +60183 | 6 | 10 | 2026-03-26 | ✅ |
-| [topoprocessing](https://git.opendaylight.org/gerrit/admin/repos/topoprocessing,general) | 470 | 0 | 0 | 3111 | 2017-09-27 | 🛑 |
-| [tsdr](https://git.opendaylight.org/gerrit/admin/repos/tsdr,general) | 413 | 0 | 0 | 2093 | 2020-07-12 | 🛑 |
-| [serviceutils](https://git.opendaylight.org/gerrit/admin/repos/serviceutils,general) | 345 | 0 | 0 | 480 | 2024-12-11 | ☑️ |
-| [jsonrpc](https://git.opendaylight.org/gerrit/admin/repos/jsonrpc,general) | 343 | +640 | 7 | 8 | 2026-03-27 | ✅ |
-| [daexim](https://git.opendaylight.org/gerrit/admin/repos/daexim,general) | 274 | +507 | 5 | 9 | 2026-03-27 | ✅ |
-| [alt-datastores](https://git.opendaylight.org/gerrit/admin/repos/alt-datastores,general) | 272 | 0 | 0 | 2096 | 2020-07-08 | 🛑 |
-| [lacp](https://git.opendaylight.org/gerrit/admin/repos/lacp,general) | 257 | 0 | 0 | 3217 | 2017-06-13 | 🛑 |
-| [packetcable](https://git.opendaylight.org/gerrit/admin/repos/packetcable,general) | 242 | 0 | 0 | 2935 | 2018-03-22 | 🛑 |
-| [snmp4sdn](https://git.opendaylight.org/gerrit/admin/repos/snmp4sdn,general) | 236 | 0 | 0 | 2093 | 2020-07-12 | 🛑 |
-| [snbi](https://git.opendaylight.org/gerrit/admin/repos/snbi,general) | 235 | 0 | 0 | 3310 | 2017-03-13 | 🛑 |
-| [faas](https://git.opendaylight.org/gerrit/admin/repos/faas,general) | 231 | 0 | 0 | 3069 | 2017-11-08 | 🛑 |
-| [nemo](https://git.opendaylight.org/gerrit/admin/repos/nemo,general) | 226 | 0 | 0 | 2093 | 2020-07-12 | 🛑 |
-| [iotdm](https://git.opendaylight.org/gerrit/admin/repos/iotdm,general) | 205 | 0 | 0 | 3217 | 2017-06-13 | 🛑 |
-| [coe](https://git.opendaylight.org/gerrit/admin/repos/coe,general) | 194 | 0 | 0 | 2094 | 2020-07-11 | 🛑 |
-| [alto](https://git.opendaylight.org/gerrit/admin/repos/alto,general) | 191 | 0 | 0 | 2935 | 2018-03-22 | 🛑 |
-| [bier](https://git.opendaylight.org/gerrit/admin/repos/bier,general) | 184 | 0 | 0 | 2094 | 2020-07-11 | 🛑 |
-| [centinel](https://git.opendaylight.org/gerrit/admin/repos/centinel,general) | 181 | 0 | 0 | 3398 | 2016-12-14 | 🛑 |
-| [coretutorials](https://git.opendaylight.org/gerrit/admin/repos/coretutorials,general) | 176 | 0 | 0 | 2340 | 2019-11-07 | 🛑 |
-| [archetypes](https://git.opendaylight.org/gerrit/admin/repos/archetypes,general) | 166 | 0 | 0 | 1840 | 2021-03-21 | 🛑 |
-| [netide](https://git.opendaylight.org/gerrit/admin/repos/netide,general) | 140 | 0 | 0 | 3217 | 2017-06-13 | 🛑 |
-| [honeycomb/vbd](https://git.opendaylight.org/gerrit/admin/repos/honeycomb/vbd,general) | 131 | 0 | 0 | 2093 | 2020-07-12 | 🛑 |
-| [telemetry](https://git.opendaylight.org/gerrit/admin/repos/telemetry,general) | 121 | 0 | 0 | 2093 | 2020-07-12 | 🛑 |
-| [detnet](https://git.opendaylight.org/gerrit/admin/repos/detnet,general) | 109 | 0 | 0 | 2094 | 2020-07-11 | 🛑 |
-| [ttp](https://git.opendaylight.org/gerrit/admin/repos/ttp,general) | 108 | 0 | 0 | 3110 | 2017-09-29 | 🛑 |
-| [sdninterfaceapp](https://git.opendaylight.org/gerrit/admin/repos/sdninterfaceapp,general) | 102 | 0 | 0 | 3221 | 2017-06-09 | 🛑 |
-| [didm](https://git.opendaylight.org/gerrit/admin/repos/didm,general) | 99 | 0 | 0 | 3217 | 2017-06-13 | 🛑 |
-| [of-config](https://git.opendaylight.org/gerrit/admin/repos/of-config,general) | 94 | 0 | 0 | 2093 | 2020-07-12 | 🛑 |
-| [usc](https://git.opendaylight.org/gerrit/admin/repos/usc,general) | 90 | 0 | 0 | 2896 | 2018-04-30 | 🛑 |
-| [snmp](https://git.opendaylight.org/gerrit/admin/repos/snmp,general) | 84 | 0 | 0 | 2619 | 2019-02-01 | 🛑 |
-| [transportpce/models](https://git.opendaylight.org/gerrit/admin/repos/transportpce/models,general) | 81 | +42074 | 4 | 23 | 2026-03-12 | ✅ |
-| [cardinal](https://git.opendaylight.org/gerrit/admin/repos/cardinal,general) | 59 | 0 | 0 | 3115 | 2017-09-23 | 🛑 |
-| [capwap](https://git.opendaylight.org/gerrit/admin/repos/capwap,general) | 51 | 0 | 0 | 3281 | 2017-04-11 | 🛑 |
-| [eman](https://git.opendaylight.org/gerrit/admin/repos/eman,general) | 48 | 0 | 0 | 2488 | 2019-06-12 | 🛑 |
-| [ocpplugin](https://git.opendaylight.org/gerrit/admin/repos/ocpplugin,general) | 46 | 0 | 0 | 3105 | 2017-10-03 | 🛑 |
-| [next](https://git.opendaylight.org/gerrit/admin/repos/next,general) | 44 | 0 | 0 | 3217 | 2017-06-13 | 🛑 |
-| [usecplugin](https://git.opendaylight.org/gerrit/admin/repos/usecplugin,general) | 32 | 0 | 0 | 3398 | 2016-12-14 | 🛑 |
-| [fpc](https://git.opendaylight.org/gerrit/admin/repos/fpc,general) | 28 | 0 | 0 | 3070 | 2017-11-07 | 🛑 |
-| [federation](https://git.opendaylight.org/gerrit/admin/repos/federation,general) | 23 | 0 | 0 | 3216 | 2017-06-14 | 🛑 |
-| [gnt](https://git.opendaylight.org/gerrit/admin/repos/gnt,general) | 17 | 0 | 0 | 2294 | 2019-12-24 | 🛑 |
-| [natapp](https://git.opendaylight.org/gerrit/admin/repos/natapp,general) | 14 | 0 | 0 | 3358 | 2017-01-23 | 🛑 |
-| [systemmetrics](https://git.opendaylight.org/gerrit/admin/repos/systemmetrics,general) | 11 | 0 | 0 | 3141 | 2017-08-28 | 🛑 |
-| [ansible](https://git.opendaylight.org/gerrit/admin/repos/ansible,general) | 8 | 0 | 0 | 2571 | 2019-03-21 | 🛑 |
-| [.github](https://git.opendaylight.org/gerrit/admin/repos/.github,general) | 5 | 0 | 0 | 758 | 2024-03-07 | 🛑 |
-| [zzz-test-release](https://git.opendaylight.org/gerrit/admin/repos/zzz-test-release,general) | 4 | 0 | 0 | 2598 | 2019-02-22 | 🛑 |
-| [ieft](https://git.opendaylight.org/gerrit/admin/repos/ieft,general) | 1 | 0 | 1 | 215 | 2025-09-01 | ☑️ |
-| [ovil](https://git.opendaylight.org/gerrit/admin/repos/ovil,general) | 1 | 0 | 0 | 3145 | 2017-08-25 | 🛑 |
+| [releng/autorelease](https://git.opendaylight.org/gerrit/admin/repos/releng/autorelease,general) | 28432 | +575 | 8 | 9 | 2026-03-27 | ✅ |
+| [docs](https://git.opendaylight.org/gerrit/admin/repos/docs,general) | 10918 | +2739 | 5 | 31 | 2026-03-06 | ✅ |
+| [yangtools](https://git.opendaylight.org/gerrit/admin/repos/yangtools,general) | 10676 | +81766 | 10 | 2 | 2026-04-03 | ✅ |
+| [controller](https://git.opendaylight.org/gerrit/admin/repos/controller,general) | 10569 | +25474 | 9 | 5 | 2026-03-31 | ✅ |
+| [releng/builder](https://git.opendaylight.org/gerrit/admin/repos/releng/builder,general) | 10392 | +6884 | 13 | 3 | 2026-04-02 | ✅ |
+| [netconf](https://git.opendaylight.org/gerrit/admin/repos/netconf,general) | 6949 | +39994 | 11 | 2 | 2026-04-03 | ✅ |
+| [mdsal](https://git.opendaylight.org/gerrit/admin/repos/mdsal,general) | 5902 | +13024 | 6 | 6 | 2026-03-30 | ✅ |
+| [bgpcep](https://git.opendaylight.org/gerrit/admin/repos/bgpcep,general) | 4578 | +46791 | 9 | 4 | 2026-04-01 | ✅ |
+| [openflowplugin](https://git.opendaylight.org/gerrit/admin/repos/openflowplugin,general) | 4166 | +4885 | 4 | 6 | 2026-03-30 | ✅ |
+| [integration/test](https://git.opendaylight.org/gerrit/admin/repos/integration/test,general) | 3596 | +225 | 4 | 39 | 2026-02-25 | ✅ |
+| [odlparent](https://git.opendaylight.org/gerrit/admin/repos/odlparent,general) | 3108 | +6767 | 8 | 2 | 2026-04-03 | ✅ |
+| [ovsdb](https://git.opendaylight.org/gerrit/admin/repos/ovsdb,general) | 2962 | +2603 | 4 | 23 | 2026-03-13 | ✅ |
+| [transportpce](https://git.opendaylight.org/gerrit/admin/repos/transportpce,general) | 2091 | +28369 | 9 | 23 | 2026-03-13 | ✅ |
+| [genius](https://git.opendaylight.org/gerrit/admin/repos/genius,general) | 1905 | 0 | 0 | 1824 | 2021-04-07 | 🛑 |
+| [aaa](https://git.opendaylight.org/gerrit/admin/repos/aaa,general) | 1680 | +2238 | 6 | 5 | 2026-03-31 | ✅ |
+| [sfc](https://git.opendaylight.org/gerrit/admin/repos/sfc,general) | 1486 | 0 | 0 | 2094 | 2020-07-12 | 🛑 |
+| [opflex](https://git.opendaylight.org/gerrit/admin/repos/opflex,general) | 1279 | 0 | 0 | 2094 | 2020-07-12 | 🛑 |
+| [lispflowmapping](https://git.opendaylight.org/gerrit/admin/repos/lispflowmapping,general) | 1274 | +4009 | 5 | 9 | 2026-03-27 | ✅ |
+| [groupbasedpolicy](https://git.opendaylight.org/gerrit/admin/repos/groupbasedpolicy,general) | 1070 | 0 | 0 | 2094 | 2020-07-11 | 🛑 |
+| [neutron](https://git.opendaylight.org/gerrit/admin/repos/neutron,general) | 1020 | 0 | 0 | 1683 | 2021-08-26 | 🛑 |
+| [vtn](https://git.opendaylight.org/gerrit/admin/repos/vtn,general) | 1019 | 0 | 0 | 2936 | 2018-03-22 | 🛑 |
+| [infrautils](https://git.opendaylight.org/gerrit/admin/repos/infrautils,general) | 955 | +1847 | 4 | 2 | 2026-04-03 | ✅ |
+| [integration/distribution](https://git.opendaylight.org/gerrit/admin/repos/integration/distribution,general) | 883 | +589 | 5 | 17 | 2026-03-19 | ✅ |
+| [gnmi](https://git.opendaylight.org/gerrit/admin/repos/gnmi,general) | 633 | +7638 | 8 | 31 | 2026-03-05 | ✅ |
+| [nic](https://git.opendaylight.org/gerrit/admin/repos/nic,general) | 536 | 0 | 0 | 2946 | 2018-03-12 | 🛑 |
+| [openflowjava](https://git.opendaylight.org/gerrit/admin/repos/openflowjava,general) | 525 | 0 | 0 | 3202 | 2017-06-29 | 🛑 |
+| [l2switch](https://git.opendaylight.org/gerrit/admin/repos/l2switch,general) | 511 | +4897 | 5 | 6 | 2026-03-30 | ✅ |
+| [integration/packaging](https://git.opendaylight.org/gerrit/admin/repos/integration/packaging,general) | 507 | 0 | 0 | 1550 | 2022-01-06 | 🛑 |
+| [sxp](https://git.opendaylight.org/gerrit/admin/repos/sxp,general) | 495 | 0 | 0 | 2094 | 2020-07-12 | 🛑 |
+| [ietf](https://git.opendaylight.org/gerrit/admin/repos/ietf,general) | 490 | +60183 | 6 | 11 | 2026-03-26 | ✅ |
+| [topoprocessing](https://git.opendaylight.org/gerrit/admin/repos/topoprocessing,general) | 470 | 0 | 0 | 3112 | 2017-09-27 | 🛑 |
+| [tsdr](https://git.opendaylight.org/gerrit/admin/repos/tsdr,general) | 413 | 0 | 0 | 2094 | 2020-07-12 | 🛑 |
+| [serviceutils](https://git.opendaylight.org/gerrit/admin/repos/serviceutils,general) | 345 | 0 | 0 | 481 | 2024-12-11 | ☑️ |
+| [jsonrpc](https://git.opendaylight.org/gerrit/admin/repos/jsonrpc,general) | 343 | +640 | 7 | 9 | 2026-03-27 | ✅ |
+| [daexim](https://git.opendaylight.org/gerrit/admin/repos/daexim,general) | 274 | +507 | 5 | 10 | 2026-03-27 | ✅ |
+| [alt-datastores](https://git.opendaylight.org/gerrit/admin/repos/alt-datastores,general) | 272 | 0 | 0 | 2097 | 2020-07-08 | 🛑 |
+| [lacp](https://git.opendaylight.org/gerrit/admin/repos/lacp,general) | 257 | 0 | 0 | 3218 | 2017-06-13 | 🛑 |
+| [packetcable](https://git.opendaylight.org/gerrit/admin/repos/packetcable,general) | 242 | 0 | 0 | 2936 | 2018-03-22 | 🛑 |
+| [snmp4sdn](https://git.opendaylight.org/gerrit/admin/repos/snmp4sdn,general) | 236 | 0 | 0 | 2094 | 2020-07-12 | 🛑 |
+| [snbi](https://git.opendaylight.org/gerrit/admin/repos/snbi,general) | 235 | 0 | 0 | 3311 | 2017-03-13 | 🛑 |
+| [faas](https://git.opendaylight.org/gerrit/admin/repos/faas,general) | 231 | 0 | 0 | 3070 | 2017-11-08 | 🛑 |
+| [nemo](https://git.opendaylight.org/gerrit/admin/repos/nemo,general) | 226 | 0 | 0 | 2094 | 2020-07-12 | 🛑 |
+| [iotdm](https://git.opendaylight.org/gerrit/admin/repos/iotdm,general) | 205 | 0 | 0 | 3218 | 2017-06-13 | 🛑 |
+| [coe](https://git.opendaylight.org/gerrit/admin/repos/coe,general) | 194 | 0 | 0 | 2095 | 2020-07-11 | 🛑 |
+| [alto](https://git.opendaylight.org/gerrit/admin/repos/alto,general) | 191 | 0 | 0 | 2936 | 2018-03-22 | 🛑 |
+| [bier](https://git.opendaylight.org/gerrit/admin/repos/bier,general) | 184 | 0 | 0 | 2095 | 2020-07-11 | 🛑 |
+| [centinel](https://git.opendaylight.org/gerrit/admin/repos/centinel,general) | 181 | 0 | 0 | 3399 | 2016-12-14 | 🛑 |
+| [coretutorials](https://git.opendaylight.org/gerrit/admin/repos/coretutorials,general) | 176 | 0 | 0 | 2341 | 2019-11-07 | 🛑 |
+| [archetypes](https://git.opendaylight.org/gerrit/admin/repos/archetypes,general) | 166 | 0 | 0 | 1841 | 2021-03-21 | 🛑 |
+| [netide](https://git.opendaylight.org/gerrit/admin/repos/netide,general) | 140 | 0 | 0 | 3218 | 2017-06-13 | 🛑 |
+| [honeycomb/vbd](https://git.opendaylight.org/gerrit/admin/repos/honeycomb/vbd,general) | 131 | 0 | 0 | 2094 | 2020-07-12 | 🛑 |
+| [telemetry](https://git.opendaylight.org/gerrit/admin/repos/telemetry,general) | 121 | 0 | 0 | 2094 | 2020-07-12 | 🛑 |
+| [detnet](https://git.opendaylight.org/gerrit/admin/repos/detnet,general) | 109 | 0 | 0 | 2095 | 2020-07-11 | 🛑 |
+| [ttp](https://git.opendaylight.org/gerrit/admin/repos/ttp,general) | 108 | 0 | 0 | 3111 | 2017-09-29 | 🛑 |
+| [sdninterfaceapp](https://git.opendaylight.org/gerrit/admin/repos/sdninterfaceapp,general) | 102 | 0 | 0 | 3222 | 2017-06-09 | 🛑 |
+| [didm](https://git.opendaylight.org/gerrit/admin/repos/didm,general) | 99 | 0 | 0 | 3218 | 2017-06-13 | 🛑 |
+| [of-config](https://git.opendaylight.org/gerrit/admin/repos/of-config,general) | 94 | 0 | 0 | 2094 | 2020-07-12 | 🛑 |
+| [usc](https://git.opendaylight.org/gerrit/admin/repos/usc,general) | 90 | 0 | 0 | 2897 | 2018-04-30 | 🛑 |
+| [snmp](https://git.opendaylight.org/gerrit/admin/repos/snmp,general) | 84 | 0 | 0 | 2620 | 2019-02-01 | 🛑 |
+| [transportpce/models](https://git.opendaylight.org/gerrit/admin/repos/transportpce/models,general) | 81 | +42074 | 4 | 24 | 2026-03-12 | ✅ |
+| [cardinal](https://git.opendaylight.org/gerrit/admin/repos/cardinal,general) | 59 | 0 | 0 | 3116 | 2017-09-23 | 🛑 |
+| [capwap](https://git.opendaylight.org/gerrit/admin/repos/capwap,general) | 51 | 0 | 0 | 3282 | 2017-04-11 | 🛑 |
+| [eman](https://git.opendaylight.org/gerrit/admin/repos/eman,general) | 48 | 0 | 0 | 2489 | 2019-06-12 | 🛑 |
+| [ocpplugin](https://git.opendaylight.org/gerrit/admin/repos/ocpplugin,general) | 46 | 0 | 0 | 3106 | 2017-10-03 | 🛑 |
+| [next](https://git.opendaylight.org/gerrit/admin/repos/next,general) | 44 | 0 | 0 | 3218 | 2017-06-13 | 🛑 |
+| [usecplugin](https://git.opendaylight.org/gerrit/admin/repos/usecplugin,general) | 32 | 0 | 0 | 3399 | 2016-12-14 | 🛑 |
+| [fpc](https://git.opendaylight.org/gerrit/admin/repos/fpc,general) | 28 | 0 | 0 | 3071 | 2017-11-07 | 🛑 |
+| [federation](https://git.opendaylight.org/gerrit/admin/repos/federation,general) | 23 | 0 | 0 | 3217 | 2017-06-14 | 🛑 |
+| [gnt](https://git.opendaylight.org/gerrit/admin/repos/gnt,general) | 17 | 0 | 0 | 2295 | 2019-12-24 | 🛑 |
+| [natapp](https://git.opendaylight.org/gerrit/admin/repos/natapp,general) | 14 | 0 | 0 | 3359 | 2017-01-23 | 🛑 |
+| [systemmetrics](https://git.opendaylight.org/gerrit/admin/repos/systemmetrics,general) | 11 | 0 | 0 | 3142 | 2017-08-28 | 🛑 |
+| [ansible](https://git.opendaylight.org/gerrit/admin/repos/ansible,general) | 8 | 0 | 0 | 2572 | 2019-03-21 | 🛑 |
+| [.github](https://git.opendaylight.org/gerrit/admin/repos/.github,general) | 5 | 0 | 0 | 759 | 2024-03-07 | 🛑 |
+| [zzz-test-release](https://git.opendaylight.org/gerrit/admin/repos/zzz-test-release,general) | 4 | 0 | 0 | 2599 | 2019-02-22 | 🛑 |
+| [ieft](https://git.opendaylight.org/gerrit/admin/repos/ieft,general) | 1 | 0 | 1 | 216 | 2025-09-01 | ☑️ |
+| [ovil](https://git.opendaylight.org/gerrit/admin/repos/ovil,general) | 1 | 0 | 0 | 3146 | 2017-08-25 | 🛑 |
 
 **Total:** 76 repositories
 
@@ -203,12 +203,12 @@ The data presented in the table below covers the past 365 days.
 
 | Gerrit Project | Primary Type | Other Types | Dependabot | Pre-commit | ReadTheDocs | .gitreview | G2G | Status |
 |----------------|--------------|-------------|------------|------------|-------------|------------|-----|--------|
-| integration/packaging | Shell | Python, Smarty | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
 | .github | N/A |  | ❌ | ✅ | ❌ | ✅ | ❌ | 🛑 |
-| honeycomb/vbd | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| integration/packaging | Shell | Python, Smarty | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
 | releng/autorelease | Python | Java/Maven, Shell | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
 | transportpce/models | Python | Java/Maven | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ |
 | integration/distribution | Shell | Java/Maven, Python | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| honeycomb/vbd | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | archetypes | Java/Maven | CSS | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | ansible | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | capwap | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
@@ -218,66 +218,66 @@ The data presented in the table below covers the past 365 days.
 | coe | Go | Python, Shell, Java/Maven | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
 | centinel | Java/Maven | JavaScript, HTML, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | bier | Java/Maven | JavaScript, HTML, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| aaa | Java/Maven | Python, CSS | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | integration/test | Robot Framework | Python, Shell | ❌ | ✅ | ✅ | ✅ | ❌ | ✅ |
 | alto | Java/Maven | Shell, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| daexim | Java/Maven | Python | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| docs | Shell | Python, HTML, CSS | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | didm | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | eman | Java/Maven | Python | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| federation | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| fpc | Java/Maven | Python, Shell, CSS | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | coretutorials | Java/Maven | Python, Shell, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | detnet | Java/Maven | CSS | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| gnt | Java/Maven |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
-| ieft | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | ☑️ |
+| federation | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| fpc | Java/Maven | Python, Shell, CSS | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | faas | Java/Maven | Python, Shell | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| gnmi | Java/Maven | Python, Shell | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| infrautils | Java/Maven | Python | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| controller | Java/Maven | Python, Shell | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| gnt | Java/Maven |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
+| docs | Shell | Python, HTML, CSS | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| ieft | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | ☑️ |
 | genius | Java/Maven | Python | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
-| lacp | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| ietf | Java/Maven |  | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | groupbasedpolicy | Java/Maven | Python, Shell | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| l2switch | Java/Maven | Python | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
-| jsonrpc | Java/Maven | Python | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| natapp | Java/Maven | CSS | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| lispflowmapping | Java/Maven | Python, Shell, HTML, CSS | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| netide | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| neutron | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| nemo | Java/Maven | Python, Shell | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| gnmi | Java/Maven | Python, Shell | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| aaa | Java/Maven | Python, CSS | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | iotdm | JavaScript | TypeScript, SCSS, HTML, CSS, Java/Maven | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| lacp | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| infrautils | Java/Maven | Python | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| daexim | Java/Maven | Python | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| ietf | Java/Maven |  | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| natapp | Java/Maven | CSS | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| l2switch | Java/Maven | Python | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
+| lispflowmapping | Java/Maven | Python, Shell, HTML, CSS | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| nemo | Java/Maven | Python, Shell | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| jsonrpc | Java/Maven | Python | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| netide | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | next | JavaScript | Java/Maven, Node, Smarty, HTML, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| neutron | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | nic | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | of-config | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | ocpplugin | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| ovil | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
+| mdsal | Java/Maven | Python | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| controller | Java/Maven | Python, Shell | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | openflowjava | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| bgpcep | Java/Maven | Python, Shell | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| ovil | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | sdninterfaceapp | Java/Maven | JavaScript, HTML, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | packetcable | Java/Maven | Shell | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| mdsal | Java/Maven | Python | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| opflex | C++ | Python, Shell, Java, C | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
 | odlparent | Java/Maven | Python, Shell | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| opflex | C++ | Python, Shell, Java, C | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
 | snmp | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | snbi | C | Python, Java/Maven | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| snmp4sdn | Java/Maven | Python | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
 | serviceutils | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ✅ | ☑️ |
+| snmp4sdn | Java/Maven | Python | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
 | systemmetrics | JavaScript | HTML, CSS, Java/Maven | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
-| telemetry | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | sxp | Java/Maven | Python, Lua | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
-| ttp | Java/Maven | Python | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| telemetry | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | ovsdb | Java/Maven | Python, Dockerfile, Shell | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| ttp | Java/Maven | Python | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | usc | Java/Maven | JavaScript, HTML | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| usecplugin | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | sfc | Java/Maven | Python, Shell, C | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
-| zzz-test-release | Python | Java/Maven | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| usecplugin | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | topoprocessing | Java/Maven |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| bgpcep | Java/Maven | Python, Shell | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | tsdr | Java/Maven | Python | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
-| netconf | Java/Maven | JavaScript, Python, Shell, HTML, CSS | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| transportpce | Java/Maven | Python, Shell, PLpgSQL | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | vtn | Java/Maven | Python, Shell, C++, C, PLpgSQL | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| netconf | Java/Maven | JavaScript, Python, Shell, HTML, CSS | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | openflowplugin | Java/Maven | Python, Shell | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| zzz-test-release | Python | Java/Maven | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| transportpce | Java/Maven | Python, Shell, PLpgSQL | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | yangtools | Java/Maven | Python, Groovy | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 ---
@@ -285,19 +285,19 @@ The data presented in the table below covers the past 365 days.
 
 **Total GitHub workflows:** 119
 
-**Total Jenkins jobs:** 625
+**Total Jenkins jobs:** 613
 
 | Gerrit Project | GitHub Workflows | Workflow Count | Jenkins Jobs | Job Count |
 |----------------|-------------------|----------------|--------------|-----------|
 | .github | codeql<br>gerrit-required-verify.yaml<br>gerrit-verify.yaml | 3 |  | 0 |
 | aaa | aaa-csit-1node-authn-all.yaml<br>call-github2gerrit.yaml<br>clm-scan.yaml<br>codeql<br>dependabot-updates<br>gerrit-maven-merge.yaml<br>gerrit-verify.yaml | 7 | aaa-csit-1node-authn-all-chromium<br>aaa-csit-1node-authn-all-titanium<br>aaa-csit-1node-authn-all-vanadium<br>aaa-csit-verify-1node-authn<br>aaa-info-yaml-verify<br>aaa-maven-clm-0.20.x<br>aaa-maven-clm-0.21.x<br>aaa-maven-clm-0.22.x<br>aaa-maven-clm-master<br>aaa-maven-merge-0.20.x<br>aaa-maven-merge-0.21.x<br>aaa-maven-merge-0.22.x<br>aaa-maven-merge-master<br>aaa-maven-mri-stage-0.20.x<br>aaa-maven-mri-stage-0.21.x<br>aaa-maven-mri-stage-0.22.x<br>aaa-maven-mri-stage-master<br>aaa-maven-stage-0.20.x<br>aaa-maven-stage-0.21.x<br>aaa-maven-stage-0.22.x<br>aaa-maven-stage-master<br>aaa-maven-verify-0.20.x-mvn39-openjdk21<br>aaa-maven-verify-0.21.x-mvn39-openjdk21<br>aaa-maven-verify-0.22.x-mvn39-openjdk21<br>aaa-maven-verify-deps-0.20.x-mvn39-openjdk21<br>aaa-maven-verify-deps-0.21.x-mvn39-openjdk21<br>aaa-maven-verify-deps-0.22.x-mvn39-openjdk21<br>aaa-maven-verify-deps-master-mvn39-openjdk21<br>aaa-maven-verify-master-mvn39-openjdk21<br>aaa-release-merge-master<br>aaa-sonar | 31 |
-| bgpcep | call-github2gerrit.yaml<br>clm-scan.yaml<br>codeql<br>dependabot-updates<br>gerrit-verify.yaml | 5 | bgpcep-csit-1node-bgp-ingest-all-titanium<br>bgpcep-csit-1node-bgp-ingest-all-vanadium<br>bgpcep-csit-1node-bgp-ingest-mixed-all-titanium<br>bgpcep-csit-1node-bgp-ingest-mixed-all-vanadium<br>bgpcep-csit-1node-gate-bgp-ingest-mixed-all-titanium<br>bgpcep-csit-1node-gate-bgp-ingest-mixed-all-vanadium<br>bgpcep-csit-1node-gate-throughpcep-all-titanium<br>bgpcep-csit-1node-gate-throughpcep-all-vanadium<br>bgpcep-csit-1node-gate-userfeatures-all-titanium<br>bgpcep-csit-1node-gate-userfeatures-all-vanadium<br>bgpcep-csit-1node-throughpcep-all-titanium<br>bgpcep-csit-1node-throughpcep-all-vanadium<br>bgpcep-csit-1node-userfeatures-all-titanium<br>bgpcep-csit-1node-userfeatures-all-vanadium<br>bgpcep-csit-3node-bgpclustering-all-titanium<br>bgpcep-csit-3node-bgpclustering-all-vanadium<br>bgpcep-csit-3node-bgpclustering-ha-only-titanium<br>bgpcep-csit-3node-bgpclustering-ha-only-vanadium<br>bgpcep-csit-3node-bgpclustering-longevity-only-titanium<br>bgpcep-csit-3node-bgpclustering-longevity-only-vanadium<br>bgpcep-info-yaml-verify<br>bgpcep-maven-clm-0.23.x<br>bgpcep-maven-clm-master<br>bgpcep-maven-javadoc-publish-0.23.x-openjdk21<br>bgpcep-maven-javadoc-publish-master-openjdk21<br>bgpcep-maven-javadoc-verify-0.23.x-openjdk21<br>bgpcep-maven-javadoc-verify-master-openjdk21<br>bgpcep-maven-merge-0.23.x<br>bgpcep-maven-merge-master<br>bgpcep-maven-mri-stage-0.23.x<br>bgpcep-maven-mri-stage-master<br>bgpcep-maven-stage-0.23.x<br>bgpcep-maven-stage-master<br>bgpcep-maven-verify-0.23.x-mvn39-openjdk21<br>bgpcep-maven-verify-deps-0.23.x-mvn39-openjdk21<br>bgpcep-maven-verify-deps-master-mvn39-openjdk21<br>bgpcep-maven-verify-master-mvn39-openjdk21<br>bgpcep-release-merge-master<br>bgpcep-sonar<br>bgpcep-tox-verify-0.23.x<br>bgpcep-tox-verify-master | 41 |
-| controller | call-github2gerrit.yaml<br>clm-scan.yaml<br>codeql<br>dependabot-updates<br>gerrit-verify.yaml | 5 | controller-csit-1node-akka1-all-chromium<br>controller-csit-1node-akka1-all-titanium<br>controller-csit-1node-akka1-all-vanadium<br>controller-csit-1node-benchmark-all-chromium<br>controller-csit-1node-benchmark-all-titanium<br>controller-csit-1node-benchmark-all-vanadium<br>controller-csit-1node-notifications-longevity-only-chromium<br>controller-csit-1node-notifications-longevity-only-titanium<br>controller-csit-1node-notifications-longevity-only-vanadium<br>controller-csit-1node-rest-cars-perf-all-chromium<br>controller-csit-1node-rest-cars-perf-all-titanium<br>controller-csit-1node-rest-cars-perf-all-vanadium<br>controller-csit-3node-benchmark-all-chromium<br>controller-csit-3node-benchmark-all-titanium<br>controller-csit-3node-benchmark-all-vanadium<br>controller-csit-3node-clustering-ask-all-chromium<br>controller-csit-3node-clustering-ask-all-titanium<br>controller-csit-3node-clustering-ask-all-vanadium<br>controller-csit-3node-clustering-tell-all-chromium<br>controller-csit-3node-clustering-tell-all-titanium<br>controller-csit-3node-clustering-tell-all-vanadium<br>controller-csit-3node-cs-chasing-leader-longevity-only-chromium<br>controller-csit-3node-cs-chasing-leader-longevity-only-titanium<br>controller-csit-3node-cs-chasing-leader-longevity-only-vanadium<br>controller-csit-3node-cs-partnheal-longevity-only-chromium<br>controller-csit-3node-cs-partnheal-longevity-only-titanium<br>controller-csit-3node-cs-partnheal-longevity-only-vanadium<br>controller-csit-3node-ddb-expl-lead-movement-longevity-only-chromium<br>controller-csit-3node-ddb-expl-lead-movement-longevity-only-titanium<br>controller-csit-3node-ddb-expl-lead-movement-longevity-only-vanadium<br>controller-csit-3node-drb-partnheal-longevity-only-chromium<br>controller-csit-3node-drb-partnheal-longevity-only-titanium<br>controller-csit-3node-drb-partnheal-longevity-only-vanadium<br>controller-csit-3node-drb-precedence-longevity-only-chromium<br>controller-csit-3node-drb-precedence-longevity-only-titanium<br>controller-csit-3node-drb-precedence-longevity-only-vanadium<br>controller-csit-3node-rest-clust-cars-perf-ask-only-chromium<br>controller-csit-3node-rest-clust-cars-perf-ask-only-titanium<br>controller-csit-3node-rest-clust-cars-perf-ask-only-vanadium<br>controller-csit-3node-rest-clust-cars-perf-tell-only-chromium<br>controller-csit-3node-rest-clust-cars-perf-tell-only-titanium<br>controller-csit-3node-rest-clust-cars-perf-tell-only-vanadium<br>controller-info-yaml-verify<br>controller-maven-clm-11.0.x<br>controller-maven-clm-12.0.x<br>controller-maven-clm-master<br>controller-maven-merge-11.0.x<br>controller-maven-merge-12.0.x<br>controller-maven-merge-master<br>controller-maven-mri-stage-11.0.x<br>controller-maven-mri-stage-12.0.x<br>controller-maven-mri-stage-master<br>controller-maven-stage-11.0.x<br>controller-maven-stage-12.0.x<br>controller-maven-stage-master<br>controller-maven-verify-11.0.x-mvn39-openjdk21<br>controller-maven-verify-12.0.x-mvn39-openjdk21<br>controller-maven-verify-deps-11.0.x-mvn39-openjdk21<br>controller-maven-verify-deps-12.0.x-mvn39-openjdk21<br>controller-maven-verify-deps-master-mvn39-openjdk21<br>controller-maven-verify-master-mvn39-openjdk21<br>controller-release-merge-master<br>controller-sonar | 63 |
-| daexim | call-github2gerrit.yaml<br>clm-scan.yaml<br>codeql<br>dependabot-updates<br>gerrit-verify.yaml | 5 | daexim-csit-1node-basic-only-chromium<br>daexim-csit-1node-basic-only-titanium<br>daexim-csit-1node-basic-only-vanadium<br>daexim-csit-3node-clustering-basic-only-chromium<br>daexim-csit-3node-clustering-basic-only-titanium<br>daexim-csit-3node-clustering-basic-only-vanadium<br>daexim-distribution-check-chromium<br>daexim-distribution-check-titanium<br>daexim-distribution-check-vanadium<br>daexim-info-yaml-verify<br>daexim-maven-clm-chromium<br>daexim-maven-clm-titanium<br>daexim-maven-clm-vanadium<br>daexim-maven-merge-chromium<br>daexim-maven-merge-titanium<br>daexim-maven-merge-vanadium<br>daexim-maven-mri-stage-chromium<br>daexim-maven-mri-stage-titanium<br>daexim-maven-mri-stage-vanadium<br>daexim-maven-stage-chromium<br>daexim-maven-stage-titanium<br>daexim-maven-stage-vanadium<br>daexim-maven-verify-chromium-mvn39-openjdk21<br>daexim-maven-verify-deps-chromium-mvn39-openjdk21<br>daexim-maven-verify-deps-titanium-mvn39-openjdk21<br>daexim-maven-verify-deps-vanadium-mvn39-openjdk21<br>daexim-maven-verify-titanium-mvn39-openjdk21<br>daexim-maven-verify-vanadium-mvn39-openjdk21<br>daexim-sonar<br>daexim-validate-autorelease-chromium<br>daexim-validate-autorelease-titanium<br>daexim-validate-autorelease-vanadium | 32 |
+| bgpcep | call-github2gerrit.yaml<br>clm-scan.yaml<br>codeql<br>dependabot-updates<br>gerrit-verify.yaml | 5 | bgpcep-csit-1node-bgp-ingest-all-titanium<br>bgpcep-csit-1node-bgp-ingest-all-vanadium<br>bgpcep-csit-1node-bgp-ingest-mixed-all-vanadium<br>bgpcep-csit-1node-gate-bgp-ingest-mixed-all-titanium<br>bgpcep-csit-1node-gate-bgp-ingest-mixed-all-vanadium<br>bgpcep-csit-1node-gate-throughpcep-all-titanium<br>bgpcep-csit-1node-gate-throughpcep-all-vanadium<br>bgpcep-csit-1node-gate-userfeatures-all-titanium<br>bgpcep-csit-1node-gate-userfeatures-all-vanadium<br>bgpcep-csit-1node-throughpcep-all-titanium<br>bgpcep-csit-1node-throughpcep-all-vanadium<br>bgpcep-csit-1node-userfeatures-all-titanium<br>bgpcep-csit-1node-userfeatures-all-vanadium<br>bgpcep-csit-3node-bgpclustering-all-titanium<br>bgpcep-csit-3node-bgpclustering-all-vanadium<br>bgpcep-csit-3node-bgpclustering-ha-only-titanium<br>bgpcep-csit-3node-bgpclustering-ha-only-vanadium<br>bgpcep-csit-3node-bgpclustering-longevity-only-titanium<br>bgpcep-csit-3node-bgpclustering-longevity-only-vanadium<br>bgpcep-info-yaml-verify<br>bgpcep-maven-clm-0.23.x<br>bgpcep-maven-clm-master<br>bgpcep-maven-javadoc-publish-0.23.x-openjdk21<br>bgpcep-maven-javadoc-publish-master-openjdk21<br>bgpcep-maven-javadoc-verify-0.23.x-openjdk21<br>bgpcep-maven-javadoc-verify-master-openjdk21<br>bgpcep-maven-merge-0.23.x<br>bgpcep-maven-merge-master<br>bgpcep-maven-mri-stage-0.23.x<br>bgpcep-maven-mri-stage-master<br>bgpcep-maven-stage-0.23.x<br>bgpcep-maven-stage-master<br>bgpcep-maven-verify-0.23.x-mvn39-openjdk21<br>bgpcep-maven-verify-deps-0.23.x-mvn39-openjdk21<br>bgpcep-maven-verify-deps-master-mvn39-openjdk21<br>bgpcep-maven-verify-master-mvn39-openjdk21<br>bgpcep-release-merge-master<br>bgpcep-sonar<br>bgpcep-tox-verify-0.23.x<br>bgpcep-tox-verify-master | 40 |
+| controller | call-github2gerrit.yaml<br>clm-scan.yaml<br>codeql<br>dependabot-updates<br>gerrit-verify.yaml | 5 | controller-csit-1node-akka1-all-titanium<br>controller-csit-1node-akka1-all-vanadium<br>controller-csit-1node-benchmark-all-chromium<br>controller-csit-1node-benchmark-all-titanium<br>controller-csit-1node-benchmark-all-vanadium<br>controller-csit-1node-notifications-longevity-only-chromium<br>controller-csit-1node-notifications-longevity-only-titanium<br>controller-csit-1node-notifications-longevity-only-vanadium<br>controller-csit-1node-rest-cars-perf-all-chromium<br>controller-csit-1node-rest-cars-perf-all-titanium<br>controller-csit-1node-rest-cars-perf-all-vanadium<br>controller-csit-3node-benchmark-all-chromium<br>controller-csit-3node-benchmark-all-titanium<br>controller-csit-3node-benchmark-all-vanadium<br>controller-csit-3node-clustering-ask-all-chromium<br>controller-csit-3node-clustering-ask-all-titanium<br>controller-csit-3node-clustering-ask-all-vanadium<br>controller-csit-3node-clustering-tell-all-chromium<br>controller-csit-3node-clustering-tell-all-titanium<br>controller-csit-3node-clustering-tell-all-vanadium<br>controller-csit-3node-cs-chasing-leader-longevity-only-chromium<br>controller-csit-3node-cs-chasing-leader-longevity-only-titanium<br>controller-csit-3node-cs-chasing-leader-longevity-only-vanadium<br>controller-csit-3node-cs-partnheal-longevity-only-chromium<br>controller-csit-3node-cs-partnheal-longevity-only-titanium<br>controller-csit-3node-cs-partnheal-longevity-only-vanadium<br>controller-csit-3node-ddb-expl-lead-movement-longevity-only-chromium<br>controller-csit-3node-ddb-expl-lead-movement-longevity-only-titanium<br>controller-csit-3node-ddb-expl-lead-movement-longevity-only-vanadium<br>controller-csit-3node-drb-partnheal-longevity-only-chromium<br>controller-csit-3node-drb-partnheal-longevity-only-titanium<br>controller-csit-3node-drb-partnheal-longevity-only-vanadium<br>controller-csit-3node-drb-precedence-longevity-only-chromium<br>controller-csit-3node-drb-precedence-longevity-only-titanium<br>controller-csit-3node-drb-precedence-longevity-only-vanadium<br>controller-csit-3node-rest-clust-cars-perf-ask-only-chromium<br>controller-csit-3node-rest-clust-cars-perf-ask-only-titanium<br>controller-csit-3node-rest-clust-cars-perf-ask-only-vanadium<br>controller-csit-3node-rest-clust-cars-perf-tell-only-chromium<br>controller-csit-3node-rest-clust-cars-perf-tell-only-titanium<br>controller-csit-3node-rest-clust-cars-perf-tell-only-vanadium<br>controller-info-yaml-verify<br>controller-maven-clm-11.0.x<br>controller-maven-clm-12.0.x<br>controller-maven-clm-master<br>controller-maven-merge-11.0.x<br>controller-maven-merge-12.0.x<br>controller-maven-merge-master<br>controller-maven-mri-stage-11.0.x<br>controller-maven-mri-stage-12.0.x<br>controller-maven-mri-stage-master<br>controller-maven-stage-11.0.x<br>controller-maven-stage-12.0.x<br>controller-maven-stage-master<br>controller-maven-verify-11.0.x-mvn39-openjdk21<br>controller-maven-verify-12.0.x-mvn39-openjdk21<br>controller-maven-verify-deps-11.0.x-mvn39-openjdk21<br>controller-maven-verify-deps-12.0.x-mvn39-openjdk21<br>controller-maven-verify-deps-master-mvn39-openjdk21<br>controller-maven-verify-master-mvn39-openjdk21<br>controller-release-merge-master<br>controller-sonar | 62 |
+| daexim | call-github2gerrit.yaml<br>clm-scan.yaml<br>codeql<br>dependabot-updates<br>gerrit-verify.yaml | 5 | daexim-csit-1node-basic-only-titanium<br>daexim-csit-1node-basic-only-vanadium<br>daexim-csit-3node-clustering-basic-only-chromium<br>daexim-csit-3node-clustering-basic-only-titanium<br>daexim-csit-3node-clustering-basic-only-vanadium<br>daexim-distribution-check-chromium<br>daexim-distribution-check-titanium<br>daexim-distribution-check-vanadium<br>daexim-info-yaml-verify<br>daexim-maven-clm-chromium<br>daexim-maven-clm-titanium<br>daexim-maven-clm-vanadium<br>daexim-maven-merge-chromium<br>daexim-maven-merge-titanium<br>daexim-maven-merge-vanadium<br>daexim-maven-mri-stage-chromium<br>daexim-maven-mri-stage-titanium<br>daexim-maven-mri-stage-vanadium<br>daexim-maven-stage-chromium<br>daexim-maven-stage-titanium<br>daexim-maven-stage-vanadium<br>daexim-maven-verify-chromium-mvn39-openjdk21<br>daexim-maven-verify-deps-chromium-mvn39-openjdk21<br>daexim-maven-verify-deps-titanium-mvn39-openjdk21<br>daexim-maven-verify-deps-vanadium-mvn39-openjdk21<br>daexim-maven-verify-titanium-mvn39-openjdk21<br>daexim-maven-verify-vanadium-mvn39-openjdk21<br>daexim-sonar<br>daexim-validate-autorelease-chromium<br>daexim-validate-autorelease-titanium<br>daexim-validate-autorelease-vanadium | 31 |
 | docs | call-github2gerrit.yaml<br>codeql<br>dependabot-updates<br>gerrit-verify.yaml | 4 | docs-info-yaml-verify<br>docs-tox-verify-chromium<br>docs-tox-verify-titanium<br>docs-tox-verify-vanadium<br>docs-update-master | 5 |
 | gnmi | call-github2gerrit.yaml<br>clm-scan.yaml<br>codeql<br>dependabot-updates<br>gerrit-verify.yaml | 5 | gnmi-info-yaml-verify<br>gnmi-maven-clm-1.0.x<br>gnmi-maven-clm-master<br>gnmi-maven-merge-1.0.x<br>gnmi-maven-merge-master<br>gnmi-maven-mri-stage-1.0.x<br>gnmi-maven-mri-stage-master<br>gnmi-maven-stage-1.0.x<br>gnmi-maven-stage-master<br>gnmi-maven-verify-1.0.x-mvn39-openjdk21<br>gnmi-maven-verify-deps-1.0.x-mvn39-openjdk21<br>gnmi-maven-verify-deps-master-mvn39-openjdk21<br>gnmi-maven-verify-master-mvn39-openjdk21<br>gnmi-release-merge-master<br>gnmi-sonar | 15 |
 | ietf | call-github2gerrit.yaml<br>clm-scan.yaml<br>codeql<br>dependabot-updates<br>gerrit-verify.yaml | 5 | ietf-info-yaml-verify<br>ietf-maven-clm-master<br>ietf-maven-clm-vanadium<br>ietf-maven-merge-master<br>ietf-maven-merge-vanadium<br>ietf-maven-mri-stage-master<br>ietf-maven-mri-stage-vanadium<br>ietf-maven-stage-master<br>ietf-maven-stage-vanadium<br>ietf-maven-verify-deps-master-mvn39-openjdk21<br>ietf-maven-verify-deps-vanadium-mvn39-openjdk21<br>ietf-maven-verify-master-mvn39-openjdk21<br>ietf-maven-verify-vanadium-mvn39-openjdk21<br>ietf-release-merge-master<br>ietf-sonar | 15 |
-| infrautils | call-github2gerrit.yaml<br>clm-scan.yaml<br>codeql<br>dependabot-updates<br>gerrit-maven-merge.yaml<br>gerrit-verify.yaml | 6 | infrautils-info-yaml-verify<br>infrautils-maven-clm-master<br>infrautils-maven-merge-master<br>infrautils-maven-mri-stage-master<br>infrautils-maven-stage-master<br>infrautils-maven-verify-deps-master-mvn39-openjdk21<br>infrautils-maven-verify-master-mvn39-openjdk21<br>infrautils-release-merge-master<br>infrautils-sonar | 9 |
+| infrautils | call-github2gerrit.yaml<br>clm-scan.yaml<br>codeql<br>dependabot-updates<br>gerrit-maven-merge.yaml<br>gerrit-verify.yaml | 6 | infrautils-maven-merge-master<br>infrautils-maven-mri-stage-master<br>infrautils-maven-stage-master<br>infrautils-maven-verify-deps-master-mvn39-openjdk21<br>infrautils-maven-verify-master-mvn39-openjdk21<br>infrautils-release-merge-master<br>infrautils-sonar | 7 |
 | integration/distribution | call-github2gerrit.yaml<br>codeql<br>dependabot-updates<br>gerrit-verify.yaml | 4 | distribution-docker-merge-titanium<br>distribution-docker-merge-vanadium<br>distribution-docker-verify-titanium<br>distribution-docker-verify-vanadium<br>distribution-maven-clm-chromium<br>distribution-maven-clm-titanium<br>distribution-maven-clm-vanadium<br>distribution-maven-verify-deps-chromium-mvn39-openjdk21<br>distribution-maven-verify-deps-titanium-mvn39-openjdk21<br>distribution-maven-verify-deps-vanadium-mvn39-openjdk21<br>distribution-tox-verify-chromium<br>distribution-tox-verify-titanium<br>distribution-tox-verify-vanadium<br>integration-distribution-mri-test-chromium<br>integration-distribution-mri-test-titanium<br>integration-distribution-mri-test-vanadium<br>integration-distribution-test-chromium<br>integration-distribution-test-titanium<br>integration-distribution-test-vanadium<br>integration-distribution-validate-autorelease-chromium<br>integration-distribution-validate-autorelease-titanium<br>integration-distribution-validate-autorelease-vanadium<br>integration-distribution-weekly-test-trigger-chromium<br>integration-distribution-weekly-test-trigger-titanium<br>integration-distribution-weekly-test-trigger-vanadium | 25 |
 | integration/packaging |  | 0 | packaging-docker-merge-phosphorus<br>packaging-docker-verify-phosphorus | 2 |
 | integration/test |  | 0 | integration-test-tox-verify-master | 1 |
@@ -312,7 +312,7 @@ The data presented in the table below covers the past 365 days.
 | releng/autorelease | call-github2gerrit.yaml<br>codeql<br>dependabot-updates<br>gerrit-verify.yaml | 4 | autorelease-info-yaml-verify<br>autorelease-tox-verify-chromium<br>autorelease-tox-verify-titanium<br>autorelease-tox-verify-vanadium | 4 |
 | releng/builder | call-composed-github2gerrit.yaml<br>codeql<br>dependabot-updates<br>gerrit-ci-management-merge.yaml<br>gerrit-ci-management-novote-verify.yaml<br>gerrit-packer-merge-builder.yaml<br>gerrit-packer-merge-docker.yaml<br>gerrit-packer-merge-helm.yaml<br>gerrit-packer-merge-mininet.yaml<br>gerrit-packer-merge-robot.yaml<br>gerrit-packer-verify.yaml<br>gerrit-verify.yaml<br>openstack-cron-cleanup.yaml | 13 | builder-info-yaml-verify<br>builder-jenkins-cfg-verify<br>builder-jenkins-sandbox-cleanup<br>builder-jjb-deploy-job<br>builder-openstack-cron | 5 |
 | serviceutils | codeql<br>gerrit-verify.yaml<br>github2gerrit.yaml | 3 |  | 0 |
-| transportpce | call-github2gerrit.yaml<br>clm-scan.yaml<br>codeql<br>dependabot-updates<br>gerrit-verify.yaml | 5 | transportpce-info-yaml-verify<br>transportpce-maven-clm-titanium<br>transportpce-maven-clm-transportpce-master<br>transportpce-maven-clm-vanadium<br>transportpce-maven-merge-titanium<br>transportpce-maven-merge-transportpce-master<br>transportpce-maven-merge-vanadium<br>transportpce-maven-mri-stage-titanium<br>transportpce-maven-mri-stage-transportpce-master<br>transportpce-maven-mri-stage-vanadium<br>transportpce-maven-stage-titanium<br>transportpce-maven-stage-transportpce-master<br>transportpce-maven-stage-vanadium<br>transportpce-maven-verify-deps-titanium-mvn39-openjdk21<br>transportpce-maven-verify-deps-transportpce-master-mvn39-openjdk21<br>transportpce-maven-verify-deps-vanadium-mvn39-openjdk21<br>transportpce-maven-verify-titanium-mvn39-openjdk21<br>transportpce-maven-verify-transportpce-master-mvn39-openjdk21<br>transportpce-maven-verify-vanadium-mvn39-openjdk21<br>transportpce-release-merge-master<br>transportpce-sonar<br>transportpce-tox-verify-titanium<br>transportpce-tox-verify-transportpce-master<br>transportpce-tox-verify-vanadium | 24 |
+| transportpce | call-github2gerrit.yaml<br>clm-scan.yaml<br>codeql<br>dependabot-updates<br>gerrit-verify.yaml | 5 | transportpce-maven-mri-stage-titanium<br>transportpce-maven-mri-stage-transportpce-master<br>transportpce-maven-mri-stage-vanadium<br>transportpce-maven-stage-titanium<br>transportpce-maven-stage-transportpce-master<br>transportpce-maven-stage-vanadium<br>transportpce-maven-verify-deps-titanium-mvn39-openjdk21<br>transportpce-maven-verify-deps-transportpce-master-mvn39-openjdk21<br>transportpce-maven-verify-deps-vanadium-mvn39-openjdk21<br>transportpce-maven-verify-titanium-mvn39-openjdk21<br>transportpce-maven-verify-transportpce-master-mvn39-openjdk21<br>transportpce-maven-verify-vanadium-mvn39-openjdk21<br>transportpce-release-merge-master<br>transportpce-sonar<br>transportpce-tox-verify-titanium<br>transportpce-tox-verify-transportpce-master<br>transportpce-tox-verify-vanadium | 17 |
 | transportpce/models |  | 0 | transportpce-models-maven-clm-master<br>transportpce-models-maven-clm-titanium<br>transportpce-models-maven-clm-vanadium<br>transportpce-models-maven-merge-master<br>transportpce-models-maven-merge-titanium<br>transportpce-models-maven-merge-vanadium<br>transportpce-models-maven-mri-stage-master<br>transportpce-models-maven-mri-stage-titanium<br>transportpce-models-maven-mri-stage-vanadium<br>transportpce-models-maven-stage-master<br>transportpce-models-maven-stage-titanium<br>transportpce-models-maven-stage-vanadium<br>transportpce-models-maven-verify-deps-master-mvn39-openjdk21<br>transportpce-models-maven-verify-deps-titanium-mvn39-openjdk21<br>transportpce-models-maven-verify-deps-vanadium-mvn39-openjdk21<br>transportpce-models-maven-verify-master-mvn39-openjdk21<br>transportpce-models-maven-verify-titanium-mvn39-openjdk21<br>transportpce-models-maven-verify-vanadium-mvn39-openjdk21 | 18 |
 | yangtools | call-github2gerrit.yaml<br>clm-scan.yaml<br>codeql<br>dependabot-updates<br>gerrit-verify.yaml | 5 | yangtools-csit-1node-system-only-titanium<br>yangtools-csit-1node-system-only-vanadium<br>yangtools-info-yaml-verify<br>yangtools-maven-clm-master<br>yangtools-maven-clm-titanium<br>yangtools-maven-merge-master<br>yangtools-maven-merge-titanium<br>yangtools-maven-mri-stage-master<br>yangtools-maven-mri-stage-titanium<br>yangtools-maven-stage-master<br>yangtools-maven-stage-titanium<br>yangtools-maven-verify-deps-master-mvn39-openjdk21<br>yangtools-maven-verify-deps-titanium-mvn39-openjdk21<br>yangtools-maven-verify-master-mvn39-openjdk21<br>yangtools-maven-verify-titanium-mvn39-openjdk21<br>yangtools-release-merge-master<br>yangtools-sonar | 17 |
 | zzz-test-release |  | 0 | zzz-test-release-maven-stage-master | 1 |
@@ -332,20 +332,20 @@ These Jenkins jobs are matched to archived or read-only Gerrit projects:
 
 | Job Name | Matched Project | State | Match Score |
 |----------|----------------|-------|-------------|
-| integration-patch-test-titanium | integration | READ_ONLY | 550% |
-| integration-info-yaml-verify | integration | READ_ONLY | 550% |
-| integration-merge-dashboard | integration | READ_ONLY | 550% |
-| integration-sanity-test-titanium | integration | READ_ONLY | 550% |
 | integration-update-csit-tests-vanadium | integration | READ_ONLY | 550% |
-| integration-multipatch-test-vanadium | integration | READ_ONLY | 550% |
-| integration-patch-test-vanadium | integration | READ_ONLY | 550% |
-| integration-multipatch-test-chromium | integration | READ_ONLY | 550% |
-| integration-sanity-test-chromium | integration | READ_ONLY | 550% |
-| integration-sanity-test-vanadium | integration | READ_ONLY | 550% |
-| integration-update-csit-tests-chromium | integration | READ_ONLY | 550% |
+| integration-sanity-test-titanium | integration | READ_ONLY | 550% |
 | integration-update-csit-tests-titanium | integration | READ_ONLY | 550% |
+| integration-sanity-test-vanadium | integration | READ_ONLY | 550% |
 | integration-patch-test-chromium | integration | READ_ONLY | 550% |
+| integration-merge-dashboard | integration | READ_ONLY | 550% |
+| integration-multipatch-test-vanadium | integration | READ_ONLY | 550% |
+| integration-update-csit-tests-chromium | integration | READ_ONLY | 550% |
+| integration-multipatch-test-chromium | integration | READ_ONLY | 550% |
 | integration-multipatch-test-titanium | integration | READ_ONLY | 550% |
+| integration-patch-test-titanium | integration | READ_ONLY | 550% |
+| integration-patch-test-vanadium | integration | READ_ONLY | 550% |
+| integration-info-yaml-verify | integration | READ_ONLY | 550% |
+| integration-sanity-test-chromium | integration | READ_ONLY | 550% |
 
 **Total Orphaned Jobs:** 14
 
@@ -356,7 +356,7 @@ These Jenkins jobs are matched to archived or read-only Gerrit projects:
 These jobs could not be matched to any active or archived repository. They may be infrastructure jobs, release jobs, build pipelines, or jobs that use naming conventions different from the repository names. Consider reviewing the job names and repository naming patterns to improve attribution.
 
 
-**Total:** 105 unattributed jobs
+**Total:** 117 unattributed jobs
 
 ### Job Details
 
@@ -387,6 +387,7 @@ These jobs could not be matched to any active or archived repository. They may b
 | autorelease-version-management-tox-verify-chromium | Success | [View Job](https://jenkins.opendaylight.org/releng/job/autorelease-version-management-tox-verify-chromium/) |
 | autorelease-version-management-tox-verify-titanium | Success | [View Job](https://jenkins.opendaylight.org/releng/job/autorelease-version-management-tox-verify-titanium/) |
 | autorelease-version-management-tox-verify-vanadium | Success | [View Job](https://jenkins.opendaylight.org/releng/job/autorelease-version-management-tox-verify-vanadium/) |
+| bgpcep-csit-1node-bgp-ingest-mixed-all-titanium | Unstable | [View Job](https://jenkins.opendaylight.org/releng/job/bgpcep-csit-1node-bgp-ingest-mixed-all-titanium/) |
 | builder-check-poms | Success | [View Job](https://jenkins.opendaylight.org/releng/job/builder-check-poms/) |
 | builder-copy-sandbox-logs | Success | [View Job](https://jenkins.opendaylight.org/releng/job/builder-copy-sandbox-logs/) |
 | builder-openstack-update-cloud-image | Success | [View Job](https://jenkins.opendaylight.org/releng/job/builder-openstack-update-cloud-image/) |
@@ -414,6 +415,8 @@ These jobs could not be matched to any active or archived repository. They may b
 | builder-packer-verify-build-ubuntu-18.04-helm | Disabled | [View Job](https://jenkins.opendaylight.org/releng/job/builder-packer-verify-build-ubuntu-18.04-helm/) |
 | builder-tox-verify-master | Success | [View Job](https://jenkins.opendaylight.org/releng/job/builder-tox-verify-master/) |
 | builder-update-image-list | Success | [View Job](https://jenkins.opendaylight.org/releng/job/builder-update-image-list/) |
+| controller-csit-1node-akka1-all-chromium | Unstable | [View Job](https://jenkins.opendaylight.org/releng/job/controller-csit-1node-akka1-all-chromium/) |
+| daexim-csit-1node-basic-only-chromium | Not Built | [View Job](https://jenkins.opendaylight.org/releng/job/daexim-csit-1node-basic-only-chromium/) |
 | distribution-check-managed-titanium | Success | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-check-managed-titanium/) |
 | distribution-check-managed-vanadium | Success | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-check-managed-vanadium/) |
 | distribution-csit-1node-userfeatures-all-silicon | Success | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-csit-1node-userfeatures-all-silicon/) |
@@ -421,7 +424,7 @@ These jobs could not be matched to any active or archived repository. They may b
 | distribution-csit-managed-vanadium | Success | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-csit-managed-vanadium/) |
 | distribution-docker-release-merge-master | Not Built | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-docker-release-merge-master/) |
 | distribution-docker-release-verify-master | Not Built | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-docker-release-verify-master/) |
-| distribution-merge-managed-titanium | Failed | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-merge-managed-titanium/) |
+| distribution-merge-managed-titanium | Success | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-merge-managed-titanium/) |
 | distribution-merge-managed-vanadium | Success | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-merge-managed-vanadium/) |
 | distribution-sanity-chromium | Success | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-sanity-chromium/) |
 | distribution-sanity-titanium | Success | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-sanity-titanium/) |
@@ -429,6 +432,8 @@ These jobs could not be matched to any active or archived repository. They may b
 | distribution-sonar | Success | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-sonar/) |
 | distribution-verify-managed-titanium | Success | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-verify-managed-titanium/) |
 | distribution-verify-managed-vanadium | Success | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-verify-managed-vanadium/) |
+| infrautils-info-yaml-verify | Disabled | [View Job](https://jenkins.opendaylight.org/releng/job/infrautils-info-yaml-verify/) |
+| infrautils-maven-clm-master | Failed | [View Job](https://jenkins.opendaylight.org/releng/job/infrautils-maven-clm-master/) |
 | integration-info-yaml-verify | Not Built | [View Job](https://jenkins.opendaylight.org/releng/job/integration-info-yaml-verify/) |
 | integration-merge-dashboard | Success | [View Job](https://jenkins.opendaylight.org/releng/job/integration-merge-dashboard/) |
 | integration-multipatch-test-chromium | Not Built | [View Job](https://jenkins.opendaylight.org/releng/job/integration-multipatch-test-chromium/) |
@@ -467,6 +472,13 @@ These jobs could not be matched to any active or archived repository. They may b
 | packaging-vanadium-update-helm-weekly | Disabled | [View Job](https://jenkins.opendaylight.org/releng/job/packaging-vanadium-update-helm-weekly/) |
 | packaging-vanadium-verify-helm3.5 | Not Built | [View Job](https://jenkins.opendaylight.org/releng/job/packaging-vanadium-verify-helm3.5/) |
 | packaging-vanadium-verify-helm3.7 | Not Built | [View Job](https://jenkins.opendaylight.org/releng/job/packaging-vanadium-verify-helm3.7/) |
+| transportpce-info-yaml-verify | Success | [View Job](https://jenkins.opendaylight.org/releng/job/transportpce-info-yaml-verify/) |
+| transportpce-maven-clm-titanium | Failed | [View Job](https://jenkins.opendaylight.org/releng/job/transportpce-maven-clm-titanium/) |
+| transportpce-maven-clm-transportpce-master | Failed | [View Job](https://jenkins.opendaylight.org/releng/job/transportpce-maven-clm-transportpce-master/) |
+| transportpce-maven-clm-vanadium | Failed | [View Job](https://jenkins.opendaylight.org/releng/job/transportpce-maven-clm-vanadium/) |
+| transportpce-maven-merge-titanium | Failed | [View Job](https://jenkins.opendaylight.org/releng/job/transportpce-maven-merge-titanium/) |
+| transportpce-maven-merge-transportpce-master | Success | [View Job](https://jenkins.opendaylight.org/releng/job/transportpce-maven-merge-transportpce-master/) |
+| transportpce-maven-merge-vanadium | Failed | [View Job](https://jenkins.opendaylight.org/releng/job/transportpce-maven-merge-vanadium/) |
 
 ---
 ## 📋 Committer INFO.yaml Report
