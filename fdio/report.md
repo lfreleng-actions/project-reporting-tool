@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-04-06 07:31:08 UTC
+**Generated:** 2026-04-07 19:36:13 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -31,7 +31,7 @@
 | Inactive Repositories | 3 | 42.9% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 25.1K | - |
-| Total Lines of Code | 34.4K | - |
+| Total Lines of Code | 32.7K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -42,17 +42,17 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 158 | 1118 | +154184 | 288207 | +18 | 5 |
-| 2 | gmail.com | 115 | 279 | +21651 | 31926 | +40 | 5 |
-| 3 | icloud.com | 2 | 168 | +49793 | 125678 | -155 | 4 |
+| 1 | cisco.com | 158 | 1122 | +154453 | 288574 | +18 | 5 |
+| 2 | gmail.com | 115 | 282 | +21662 | 31947 | +40 | 5 |
+| 3 | icloud.com | 2 | 167 | +49781 | 125652 | -156 | 4 |
 | 4 | hawari.fr | 1 | 20 | +16355 | 17562 | +757 | 1 |
 | 5 | marvell.com | 14 | 20 | +1077 | 1237 | +45 | 3 |
 | 6 | linuxfoundation.org | 15 | 14 | +207 | 465 | -3 | 7 |
-| 7 | netgate.com | 14 | 12 | +724 | 890 | +46 | 1 |
+| 7 | netgate.com | 15 | 14 | +732 | 904 | +40 | 1 |
 | 8 | barachs.net | 2 | 9 | +533 | 588 | +53 | 2 |
 | 9 | ipng.nl | 1 | 9 | +2878 | 3046 | +301 | 1 |
-| 10 | travelping.com | 4 | 7 | +124 | 175 | +10 | 1 |
-| 11 | github.com | 2 | 6 | +6 | 12 | 0 | 2 |
+| 10 | github.com | 2 | 7 | +7 | 14 | 0 | 2 |
+| 11 | travelping.com | 4 | 7 | +124 | 175 | +10 | 1 |
 | 12 | employees.org | 1 | 5 | +14144 | 14227 | +2812 | 1 |
 | 13 | intel.com | 59 | 5 | +35 | 45 | +5 | 4 |
 | 14 | googlemail.com | 1 | 3 | +84 | 85 | +27 | 1 |
@@ -78,18 +78,18 @@ The data presented in the table below covers the past 365 days.
 
 The data presented in the table below covers the past 365 days.
 
-**Contributors Found:** 664
+**Contributors Found:** 665
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Florin Coras | 239 | +12525 | 17502 | +31 | 3 | cisco.com |
-| 2 | Matus Fabian | 229 | +33844 | 46263 | +93 | 2 | cisco.com |
-| 3 | Dave Wallace | 224 | +16002 | 23878 | +36 | 5 | gmail.com |
-| 4 | Peter Mikus | 167 | +49790 | 125673 | -156 | 4 | icloud.com |
-| 5 | Damjan Marion | 162 | +45422 | 121348 | -188 | 2 | cisco.com |
-| 6 | Tibor Frank | 118 | +8590 | 17800 | -5 | 3 | cisco.com |
+| 1 | Florin Coras | 242 | +12714 | 17764 | +31 | 3 | cisco.com |
+| 2 | Matus Fabian | 231 | +33871 | 46315 | +92 | 2 | cisco.com |
+| 3 | Dave Wallace | 226 | +16011 | 23888 | +35 | 5 | gmail.com |
+| 4 | Peter Mikus | 166 | +49778 | 125647 | -157 | 4 | icloud.com |
+| 5 | Damjan Marion | 161 | +45422 | 121347 | -189 | 2 | cisco.com |
+| 6 | Tibor Frank | 117 | +8581 | 17782 | -5 | 3 | cisco.com |
 | 7 | Adrian Villin | 105 | +16883 | 26036 | +73 | 1 | cisco.com |
-| 8 | Vratko Polak | 65 | +17163 | 33561 | +11 | 4 | cisco.com |
+| 8 | Vratko Polak | 66 | +17225 | 33633 | +12 | 4 | cisco.com |
 | 9 | Benoît Ganne | 46 | +1942 | 3370 | +11 | 1 | cisco.com |
 | 10 | Semir Sionek | 42 | +1894 | 2333 | +34 | 2 | cisco.com |
 | 11 | Mohsin KAZMI | 28 | +3369 | 3831 | +103 | 2 | cisco.com |
@@ -98,8 +98,8 @@ The data presented in the table below covers the past 365 days.
 | 14 | Hadi Rayan Al-Sandid | 17 | +1423 | 1577 | +74 | 1 | cisco.com |
 | 15 | Steven | 13 | +864 | 1622 | +8 | 3 | cisco.com |
 | 16 | Vanessa Rene Valderrama | 13 | +206 | 463 | -3 | 6 | linuxfoundation.org |
-| 17 | Andrew Yourtchenko | 11 | +2113 | 2122 | +191 | 2 | gmail.com |
-| 18 | Maxime Peim | 11 | +1711 | 3518 | -8 | 1 | gmail.com |
+| 17 | Maxime Peim | 12 | +1713 | 3529 | -8 | 1 | gmail.com |
+| 18 | Andrew Yourtchenko | 11 | +2113 | 2122 | +191 | 2 | gmail.com |
 | 19 | Naveen Joy | 10 | +792 | 2241 | -65 | 3 | cisco.com |
 | 20 | Damjan Marion | 9 | +657 | 948 | +40 | 1 | gmail.com |
 | 21 | Dave Barach | 9 | +533 | 588 | +53 | 2 | barachs.net |
@@ -108,23 +108,23 @@ The data presented in the table below covers the past 365 days.
 | 24 | Yoann Desmouceaux | 8 | +131 | 186 | +9 | 1 | cisco.com |
 | 25 | Kishor Dhanawade | 7 | +164 | 186 | +20 | 3 | marvell.com |
 | 26 | Vladimir Zhigulin | 7 | +124 | 175 | +10 | 1 | travelping.com |
-| 27 | Aritra Basu | 6 | +1334 | 1354 | +219 | 1 | cisco.com |
-| 28 | Ivan Shvedunov | 6 | +686 | 804 | +94 | 1 | netgate.com |
-| 29 | Matthew Smith | 6 | +38 | 86 | -1 | 1 | netgate.com |
-| 30 | dependabot[bot] | 6 | +6 | 12 | 0 | 1 | github.com |
+| 27 | dependabot[bot] | 7 | +7 | 14 | 0 | 1 | github.com |
+| 28 | Aritra Basu | 6 | +1334 | 1354 | +219 | 1 | cisco.com |
+| 29 | Ivan Shvedunov | 6 | +686 | 804 | +94 | 1 | netgate.com |
+| 30 | Matthew Smith | 6 | +38 | 86 | -1 | 1 | netgate.com |
 
 ---
 ## 📊 Repositories
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 15646 | +183400 | 77 | 3 | 2026-04-02 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6439 | +74636 | 6 | 3 | 2026-04-02 | ✅ |
-| [ci-management](https://github.com/gerrit.fd.io/ci-management) | 2859 | +2231 | 10 | 52 | 2026-02-13 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2508 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 26 | +3884 | 2 | 11 | 2026-03-25 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 1983 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3505 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 15656 | +183635 | 78 | 0 | 2026-04-07 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6443 | +74688 | 6 | 0 | 2026-04-07 | ✅ |
+| [ci-management](https://github.com/gerrit.fd.io/ci-management) | 2859 | +2221 | 10 | 53 | 2026-02-13 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2510 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 26 | +3884 | 2 | 12 | 2026-03-25 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 1985 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3506 | 2016-08-30 | 🛑 |
 
 **Total:** 7 repositories
 
