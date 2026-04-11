@@ -21,7 +21,7 @@
             <div class="metadata">
                 <p class="generated-at">
                     <strong>Generated:</strong>
-                    <time datetime="2026-04-11T07:21:10.684694+00:00">2026-04-11 07:21:10 UTC</time>
+                    <time datetime="2026-04-11T12:10:17.869912+00:00">2026-04-11 12:10:17 UTC</time>
                 </p>
                 <p class="schema-version">
                     <strong>Schema Version:</strong> 1.5.0
@@ -971,7 +971,7 @@
                 <td>144</td>
                 <td>2916</td>
                 <td>2</td>
-                <td>16</td>
+                <td>17</td>
                 <td>2026-03-25</td>
                 <td>✅</td>
             </tr>
@@ -1330,7 +1330,7 @@
                 <td>✅</td>
             </tr>
             <tr>
-                <td>ansible/roles/java-install</td>
+                <td>ansible/roles/docker-install</td>
                 <td>Python</td>
                 <td>Shell</td>
                 <td>✅</td>
@@ -1352,17 +1352,6 @@
                 <td>✅</td>
             </tr>
             <tr>
-                <td>ansible/roles/haveged-install</td>
-                <td>Python</td>
-                <td>Shell</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>❌</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>✅</td>
-            </tr>
-            <tr>
                 <td>ansible/roles/packer-install</td>
                 <td>Python</td>
                 <td>Shell</td>
@@ -1374,7 +1363,7 @@
                 <td>✅</td>
             </tr>
             <tr>
-                <td>ansible/roles/docker-install</td>
+                <td>ansible/roles/haveged-install</td>
                 <td>Python</td>
                 <td>Shell</td>
                 <td>✅</td>
@@ -1386,6 +1375,17 @@
             </tr>
             <tr>
                 <td>ansible/roles/lf-dev-libs</td>
+                <td>Python</td>
+                <td>Shell</td>
+                <td>✅</td>
+                <td>✅</td>
+                <td>❌</td>
+                <td>✅</td>
+                <td>✅</td>
+                <td>✅</td>
+            </tr>
+            <tr>
+                <td>ansible/roles/java-install</td>
                 <td>Python</td>
                 <td>Shell</td>
                 <td>✅</td>
@@ -1418,51 +1418,7 @@
                 <td>✅</td>
             </tr>
             <tr>
-                <td>puppet/modules/gce</td>
-                <td>Ruby</td>
-                <td>Shell</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>✅</td>
-                <td>❌</td>
-                <td>🛑</td>
-            </tr>
-            <tr>
-                <td>ansible/roles/sysstat-install</td>
-                <td>Python</td>
-                <td>Shell</td>
-                <td>❌</td>
-                <td>✅</td>
-                <td>❌</td>
-                <td>✅</td>
-                <td>❌</td>
-                <td>✅</td>
-            </tr>
-            <tr>
                 <td>clav2test/ccla-only-project</td>
-                <td>N/A</td>
-                <td></td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>🛑</td>
-            </tr>
-            <tr>
-                <td>puppet/modules/mailman3</td>
-                <td>Ruby</td>
-                <td>Python</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>❌</td>
-                <td>✅</td>
-                <td>❌</td>
-                <td>🛑</td>
-            </tr>
-            <tr>
-                <td>clav2test/icla-and-ccla-project</td>
                 <td>N/A</td>
                 <td></td>
                 <td>❌</td>
@@ -1484,15 +1440,48 @@
                 <td>✅</td>
             </tr>
             <tr>
-                <td>lfn/process</td>
-                <td>Python</td>
-                <td></td>
+                <td>puppet/modules/gce</td>
+                <td>Ruby</td>
+                <td>Shell</td>
                 <td>❌</td>
                 <td>❌</td>
-                <td>✅</td>
+                <td>❌</td>
                 <td>✅</td>
                 <td>❌</td>
                 <td>🛑</td>
+            </tr>
+            <tr>
+                <td>clav2test/icla-and-ccla-project</td>
+                <td>N/A</td>
+                <td></td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>🛑</td>
+            </tr>
+            <tr>
+                <td>puppet/modules/mailman3</td>
+                <td>Ruby</td>
+                <td>Python</td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>✅</td>
+                <td>❌</td>
+                <td>🛑</td>
+            </tr>
+            <tr>
+                <td>ansible/roles/sysstat-install</td>
+                <td>Python</td>
+                <td>Shell</td>
+                <td>❌</td>
+                <td>✅</td>
+                <td>❌</td>
+                <td>✅</td>
+                <td>❌</td>
+                <td>✅</td>
             </tr>
             <tr>
                 <td>ansible/roles/system-update</td>
@@ -1504,6 +1493,17 @@
                 <td>✅</td>
                 <td>✅</td>
                 <td>✅</td>
+            </tr>
+            <tr>
+                <td>lfn/process</td>
+                <td>Python</td>
+                <td></td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>✅</td>
+                <td>✅</td>
+                <td>❌</td>
+                <td>🛑</td>
             </tr>
             <tr>
                 <td>releng/ci-workshop</td>
@@ -1605,6 +1605,17 @@
                 <td>✅</td>
             </tr>
             <tr>
+                <td>releng/python-one-password</td>
+                <td>Python</td>
+                <td></td>
+                <td>❌</td>
+                <td>✅</td>
+                <td>✅</td>
+                <td>✅</td>
+                <td>❌</td>
+                <td>☑️</td>
+            </tr>
+            <tr>
                 <td>releng/sigul-docker</td>
                 <td>Dockerfile</td>
                 <td></td>
@@ -1625,17 +1636,6 @@
                 <td>❌</td>
                 <td>❌</td>
                 <td>🛑</td>
-            </tr>
-            <tr>
-                <td>releng/python-one-password</td>
-                <td>Python</td>
-                <td></td>
-                <td>❌</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>✅</td>
-                <td>❌</td>
-                <td>☑️</td>
             </tr>
             <tr>
                 <td>releng/lftools</td>
@@ -1868,7 +1868,7 @@
         <div class="container">
             <p class="attribution">Generated with ❤️ by <strong>Release Engineering</strong></p>
             <p class="timestamp">
-                <time datetime="2026-04-11T07:21:10.684694+00:00">2026-04-11 07:21:10 UTC</time>
+                <time datetime="2026-04-11T12:10:17.869912+00:00">2026-04-11 12:10:17 UTC</time>
             </p>
         </div>
     </footer><!-- Simple-DataTables JavaScript -->

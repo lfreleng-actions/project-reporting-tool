@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-04-10 07:31:02 UTC
+**Generated:** 2026-04-11 12:10:21 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -11,7 +11,6 @@
 - [Top Organizations](#organizations)
 - [Repository Feature Matrix](#features)
 - [Deployed CI/CD Jobs](#workflows)
-- [Unattributed Jenkins Jobs](#unattributed-jobs)
 
 ---
 
@@ -31,7 +30,7 @@
 | Inactive Repositories | 3 | 50.0% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 22.2K | - |
-| Total Lines of Code | 73.7K | - |
+| Total Lines of Code | 73.0K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -42,8 +41,8 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 154 | 1099 | +154713 | 285813 | +21 | 4 |
-| 2 | gmail.com | 114 | 270 | +19807 | 28436 | +41 | 4 |
+| 1 | cisco.com | 154 | 1103 | +154432 | 285805 | +20 | 4 |
+| 2 | gmail.com | 114 | 271 | +19909 | 28540 | +41 | 4 |
 | 3 | icloud.com | 2 | 164 | +49781 | 125652 | -159 | 3 |
 | 4 | hawari.fr | 1 | 20 | +16355 | 17562 | +757 | 1 |
 | 5 | marvell.com | 14 | 20 | +1077 | 1237 | +45 | 2 |
@@ -82,22 +81,22 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Florin Coras | 244 | +12927 | 18072 | +31 | 2 | cisco.com |
-| 2 | Matus Fabian | 230 | +33614 | 46008 | +92 | 2 | cisco.com |
+| 1 | Florin Coras | 247 | +12986 | 18162 | +31 | 2 | cisco.com |
+| 2 | Matus Fabian | 229 | +33731 | 46271 | +92 | 2 | cisco.com |
 | 3 | Dave Wallace | 216 | +14219 | 20440 | +37 | 4 | gmail.com |
 | 4 | Peter Mikus | 163 | +49778 | 125647 | -160 | 3 | icloud.com |
-| 5 | Damjan Marion | 158 | +45290 | 121138 | -193 | 1 | cisco.com |
-| 6 | Adrian Villin | 108 | +16923 | 26117 | +71 | 1 | cisco.com |
+| 5 | Damjan Marion | 160 | +45328 | 121176 | -190 | 1 | cisco.com |
+| 6 | Adrian Villin | 108 | +16149 | 25431 | +63 | 1 | cisco.com |
 | 7 | Tibor Frank | 104 | +8455 | 15535 | +13 | 2 | cisco.com |
 | 8 | Vratko Polak | 63 | +17158 | 33542 | +12 | 3 | cisco.com |
-| 9 | Benoît Ganne | 46 | +1942 | 3370 | +11 | 1 | cisco.com |
+| 9 | Benoît Ganne | 45 | +1940 | 3367 | +11 | 1 | cisco.com |
 | 10 | Semir Sionek | 39 | +1856 | 2286 | +36 | 1 | cisco.com |
 | 11 | Mohsin KAZMI | 29 | +3713 | 4177 | +112 | 2 | cisco.com |
-| 12 | Jerome Tollet | 21 | +5621 | 6189 | +240 | 1 | cisco.com |
+| 12 | Jerome Tollet | 22 | +5902 | 6479 | +242 | 1 | cisco.com |
 | 13 | Mohammed Hawari | 20 | +16355 | 17562 | +757 | 1 | hawari.fr |
 | 14 | Hadi Rayan Al-Sandid | 17 | +1423 | 1577 | +74 | 1 | cisco.com |
-| 15 | Steven | 13 | +864 | 1622 | +8 | 3 | cisco.com |
-| 16 | Maxime Peim | 12 | +1713 | 3529 | -8 | 1 | gmail.com |
+| 15 | Maxime Peim | 13 | +1815 | 3633 | 0 | 1 | gmail.com |
+| 16 | Steven | 13 | +864 | 1622 | +8 | 3 | cisco.com |
 | 17 | Andrew Yourtchenko | 9 | +2050 | 2059 | +226 | 1 | gmail.com |
 | 18 | Damjan Marion | 9 | +657 | 948 | +40 | 1 | gmail.com |
 | 19 | Dave Barach | 9 | +533 | 588 | +53 | 1 | barachs.net |
@@ -118,12 +117,12 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 15669 | +184313 | 79 | 0 | 2026-04-09 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6443 | +74624 | 6 | 2 | 2026-04-07 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2512 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 26 | +3884 | 2 | 15 | 2026-03-25 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 1987 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3509 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 15679 | +184134 | 79 | 0 | 2026-04-10 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6443 | +74624 | 6 | 4 | 2026-04-07 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2513 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 26 | +3884 | 2 | 16 | 2026-03-25 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 1989 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3510 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
@@ -144,42 +143,13 @@ The data presented in the table below covers the past 365 days.
 
 **Total GitHub workflows:** 35
 
-**Total Jenkins jobs:** 2
-
-| Gerrit Project | GitHub Workflows | Workflow Count | Jenkins Jobs | Job Count |
-|----------------|-------------------|----------------|--------------|-----------|
-| .github | gerrit-required-verify-non-voting.yaml<br>gerrit-verify.yaml | 2 |  | 0 |
-| csit | csit-cdash-version.yml<br>csit-dpdk-perf-mrr-weekly.yml<br>csit-hfr.yaml<br>csit-perf-report.yml<br>csit-trex-perf-ndrpdr-weekly.yml<br>csit-verify-tox.yaml<br>csit-vpp-perf-hoststack-daily.yml<br>csit-vpp-perf-mrr-daily.yml<br>csit-vpp-perf-mrr-weekly.yml<br>csit-vpp-perf-ndrpdr-weekly.yml<br>csit-vpp-perf-soak-weekly.yml<br>dependabot-updates<br>gerrit-comment-handler.yaml<br>github2gerrit.yaml<br>vpp-csit-bisect.yml | 15 | csit-info-yaml-verify | 1 |
-| vpp | dependabot-updates<br>gerrit-comment-handler.yml<br>gerrit-merge.yml<br>gerrit-verify.yml<br>github2gerrit.yaml<br>periodic-vpp-verify-cov.yml<br>periodic-vpp-verify-dpdk-rdma-ver.yml<br>periodic-vpp-verify-hst.yml<br>update-graph<br>vpp-csit-verify-api.yml<br>vpp-merge-docs.yml<br>vpp-merge-maketest.yml<br>vpp-verify-arm-drivers.yml<br>vpp-verify-checkstyle.yml<br>vpp-verify-docs.yml<br>vpp-verify-gcc.yml<br>vpp-verify-hst.yml<br>vpp-verify-maketest.yml | 18 | vpp-cov-verify-master-ubuntu2404-x86_64 | 1 |
+| Gerrit Project | GitHub Workflows | Workflow Count |
+|----------------|-------------------|----------------|
+| .github | gerrit-required-verify-non-voting.yaml<br>gerrit-verify.yaml | 2 |
+| csit | csit-cdash-version.yml<br>csit-dpdk-perf-mrr-weekly.yml<br>csit-hfr.yaml<br>csit-perf-report.yml<br>csit-trex-perf-ndrpdr-weekly.yml<br>csit-verify-tox.yaml<br>csit-vpp-perf-hoststack-daily.yml<br>csit-vpp-perf-mrr-daily.yml<br>csit-vpp-perf-mrr-weekly.yml<br>csit-vpp-perf-ndrpdr-weekly.yml<br>csit-vpp-perf-soak-weekly.yml<br>dependabot-updates<br>gerrit-comment-handler.yaml<br>github2gerrit.yaml<br>vpp-csit-bisect.yml | 15 |
+| vpp | dependabot-updates<br>gerrit-comment-handler.yml<br>gerrit-merge.yml<br>gerrit-verify.yml<br>github2gerrit.yaml<br>periodic-vpp-verify-cov.yml<br>periodic-vpp-verify-dpdk-rdma-ver.yml<br>periodic-vpp-verify-hst.yml<br>update-graph<br>vpp-csit-verify-api.yml<br>vpp-merge-docs.yml<br>vpp-merge-maketest.yml<br>vpp-verify-arm-drivers.yml<br>vpp-verify-checkstyle.yml<br>vpp-verify-docs.yml<br>vpp-verify-gcc.yml<br>vpp-verify-hst.yml<br>vpp-verify-maketest.yml | 18 |
 
 **Total:** 3 repositories with CI/CD jobs
-
----
-## Unattributed Jenkins Jobs
-
-
-These jobs could not be matched to any repository. They may be infrastructure jobs, release jobs, build pipelines, or jobs that use naming conventions different from the repository names. Consider reviewing the job names and repository naming patterns to improve attribution.
-
-
-**Total:** 13 unattributed jobs
-
-### Job Details
-
-| Job Name | Status | URL |
-|----------|--------|-----|
-| ci-management-info-yaml-verify | Success | [View Job](https://jenkins.fd.io/job/ci-management-info-yaml-verify/) |
-| ci-management-jenkins-cfg-merge | Success | [View Job](https://jenkins.fd.io/job/ci-management-jenkins-cfg-merge/) |
-| ci-management-jenkins-cfg-verify | Success | [View Job](https://jenkins.fd.io/job/ci-management-jenkins-cfg-verify/) |
-| ci-management-jenkins-sandbox-cleanup | Success | [View Job](https://jenkins.fd.io/job/ci-management-jenkins-sandbox-cleanup/) |
-| ci-management-jjb-deploy-job | Not Built | [View Job](https://jenkins.fd.io/job/ci-management-jjb-deploy-job/) |
-| ci-management-jjb-merge | Success | [View Job](https://jenkins.fd.io/job/ci-management-jjb-merge/) |
-| ci-management-jjb-verify | Success | [View Job](https://jenkins.fd.io/job/ci-management-jjb-verify/) |
-| ci-management-packer-merge-centos-7-builder | Success | [View Job](https://jenkins.fd.io/job/ci-management-packer-merge-centos-7-builder/) |
-| ci-management-packer-merge-centos-8-builder | Not Built | [View Job](https://jenkins.fd.io/job/ci-management-packer-merge-centos-8-builder/) |
-| ci-management-packer-verify | Success | [View Job](https://jenkins.fd.io/job/ci-management-packer-verify/) |
-| ci-management-packer-verify-build-centos-7-builder | Not Built | [View Job](https://jenkins.fd.io/job/ci-management-packer-verify-build-centos-7-builder/) |
-| ci-management-packer-verify-build-centos-8-builder | Not Built | [View Job](https://jenkins.fd.io/job/ci-management-packer-verify-build-centos-8-builder/) |
-| test_job | Success | [View Job](https://jenkins.fd.io/job/test_job/) |
 
 ---
 ## 📋 Committer INFO.yaml Report
