@@ -203,7 +203,7 @@ jobs:
           steps.threshold-check.outcome == 'failure' &&
           github.ref == 'refs/heads/main'
         # yamllint disable-line rule:line-length
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd  # v8.0.0
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         with:
           script: |
             const fs = require('fs');
@@ -223,7 +223,7 @@ jobs:
       - name: Comment on recent PRs
         if: steps.threshold-check.outcome == 'failure'
         # yamllint disable-line rule:line-length
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd  # v8.0.0
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         with:
           script: |
             const { data: prs } = await github.rest.pulls.list({
