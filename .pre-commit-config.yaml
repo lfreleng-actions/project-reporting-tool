@@ -105,6 +105,12 @@ repos:
       - id: codespell
         exclude: ^tests/fixtures/minimal_production_data\.json$
 
+  # Requires a mirror, primary repo lacks .pre-commit-hooks.yaml
+  - repo: https://github.com/DetachHead/basedpyright-prek-mirror
+    rev: d58fe7fc44458fa7e41e2d38c04598a3c87833f2  # frozen: 1.38.3
+    hooks:
+      - id: basedpyright
+
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: ed81924a8b1cecdaa570b072528fa80c9c4d6ccd  # frozen: 0.37.1
     hooks:
