@@ -29,6 +29,7 @@ For more information:
 
 from lf_releng_project_reporting._version import __version__
 
+
 __author__ = "The Linux Foundation"
 __license__ = "Apache-2.0"
 

@@ -22,11 +22,13 @@ from .base_client import BaseAPIClient
 
 class GerritAPIError(Exception):
     """Base exception for Gerrit API errors."""
+
     pass
 
 
 class GerritConnectionError(Exception):
     """Raised when connection to Gerrit server fails."""
+
     pass
 
 
@@ -97,9 +99,7 @@ class GerritAPIDiscovery:
         # First, try to follow redirects from the base URL
         redirect_path = self._discover_via_redirect(host)
         if redirect_path:
-            test_paths = [redirect_path] + [
-                p for p in self.COMMON_PATHS if p != redirect_path
-            ]
+            test_paths = [redirect_path] + [p for p in self.COMMON_PATHS if p != redirect_path]
         else:
             test_paths = self.COMMON_PATHS
 
@@ -114,8 +114,7 @@ class GerritAPIDiscovery:
 
         # If all paths fail, raise an error
         raise GerritAPIError(
-            f"Could not discover Gerrit API endpoint for {host}. "
-            f"Tested paths: {test_paths}"
+            f"Could not discover Gerrit API endpoint for {host}. Tested paths: {test_paths}"
         )
 
     def _discover_via_redirect(self, host: str) -> str | None:
@@ -175,10 +174,7 @@ class GerritAPIDiscovery:
         """
         try:
             # Strip Gerrit's security prefix
-            if response_text.startswith(")]}'"):
-                json_text = response_text[4:]
-            else:
-                json_text = response_text
+            json_text = response_text[4:] if response_text.startswith(")]}'") else response_text
 
             data = json.loads(json_text)
             return isinstance(data, dict)
@@ -345,7 +341,7 @@ class GerritAPIClient(BaseAPIClient):
         host: str,
         base_url: str | None = None,
         timeout: float = 30.0,
-        stats: Any | None = None
+        stats: Any | None = None,
     ):
         """
         Initialize Gerrit API client.
@@ -356,9 +352,8 @@ class GerritAPIClient(BaseAPIClient):
             timeout: Request timeout in seconds
             stats: Statistics tracker object
         """
+        super().__init__(timeout=timeout, stats=stats)
         self.host = host
-        self.timeout = timeout
-        self.stats = stats
         self.logger = logging.getLogger(__name__)
 
         if base_url:
@@ -380,11 +375,13 @@ class GerritAPIClient(BaseAPIClient):
 
     def __enter__(self):
         """Enter context manager."""
+        super().__enter__()
         return self
 
-    def __exit__(self, *args):
+    def __exit__(self, exc_type, exc_val, exc_tb):
         """Exit context manager and cleanup."""
         self.close()
+        return super().__exit__(exc_type, exc_val, exc_tb)
 
     def close(self):
         """Close HTTP client."""

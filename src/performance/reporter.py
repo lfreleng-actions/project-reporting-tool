@@ -28,16 +28,18 @@ import logging
 import time
 from collections import defaultdict, deque
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta
+from datetime import datetime
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple, Union
+from typing import Any
+
 
 logger = logging.getLogger(__name__)
 
 
 class MetricType(Enum):
     """Metric types."""
+
     TIMING = "timing"
     COUNTER = "counter"
     GAUGE = "gauge"
@@ -46,6 +48,7 @@ class MetricType(Enum):
 
 class AlertSeverity(Enum):
     """Alert severity levels."""
+
     INFO = "info"
     WARNING = "warning"
     ERROR = "error"
@@ -55,14 +58,15 @@ class AlertSeverity(Enum):
 @dataclass
 class Metric:
     """Individual metric data point."""
+
     name: str
     value: float
     metric_type: MetricType
     timestamp: float = field(default_factory=time.time)
-    tags: Dict[str, str] = field(default_factory=dict)
+    tags: dict[str, str] = field(default_factory=dict)
     unit: str = ""
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary."""
         return {
             "name": self.name,
@@ -77,6 +81,7 @@ class Metric:
 @dataclass
 class MetricTrend:
     """Trend analysis for a metric."""
+
     metric_name: str
     current_value: float
     previous_value: float
@@ -86,7 +91,9 @@ class MetricTrend:
 
     def format(self) -> str:
         """Format trend as string."""
-        arrow = "↑" if self.trend_direction == "up" else "↓" if self.trend_direction == "down" else "→"
+        arrow = (
+            "↑" if self.trend_direction == "up" else "↓" if self.trend_direction == "down" else "→"
+        )
         color = "✅" if self.is_improvement else "⚠️" if abs(self.change_percentage) > 5 else "ℹ️"
 
         return (
@@ -98,6 +105,7 @@ class MetricTrend:
 @dataclass
 class Alert:
     """Performance alert."""
+
     severity: AlertSeverity
     metric_name: str
     message: str
@@ -120,13 +128,14 @@ class Alert:
 @dataclass
 class AlertRule:
     """Alert rule definition."""
+
     metric_name: str
     threshold: float
     comparison: str  # ">", "<", ">=", "<=", "=="
     severity: AlertSeverity
     message_template: str
 
-    def evaluate(self, value: float) -> Optional[Alert]:
+    def evaluate(self, value: float) -> Alert | None:
         """Evaluate rule against value."""
         triggered = False
 
@@ -160,13 +169,14 @@ class AlertRule:
 @dataclass
 class PerformanceReport:
     """Performance report data structure."""
-    generated_at: float = field(default_factory=time.time)
-    metrics: List[Metric] = field(default_factory=list)
-    trends: List[MetricTrend] = field(default_factory=list)
-    alerts: List[Alert] = field(default_factory=list)
-    summary: Dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    generated_at: float = field(default_factory=time.time)
+    metrics: list[Metric] = field(default_factory=list)
+    trends: list[MetricTrend] = field(default_factory=list)
+    alerts: list[Alert] = field(default_factory=list)
+    summary: dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary."""
         return {
             "generated_at": self.generated_at,
@@ -261,15 +271,15 @@ class MetricsCollector:
 
     def __init__(self):
         """Initialize metrics collector."""
-        self.metrics: List[Metric] = []
-        self._metric_history: Dict[str, deque[Metric]] = defaultdict(lambda: deque(maxlen=100))
+        self.metrics: list[Metric] = []
+        self._metric_history: dict[str, deque[Metric]] = defaultdict(lambda: deque(maxlen=100))
 
     def add_metric(
         self,
         name: str,
         value: float,
         metric_type: MetricType = MetricType.GAUGE,
-        tags: Optional[Dict[str, str]] = None,
+        tags: dict[str, str] | None = None,
         unit: str = "",
     ) -> None:
         """
@@ -293,11 +303,11 @@ class MetricsCollector:
         self.metrics.append(metric)
         self._metric_history[name].append(metric)
 
-    def get_metric_history(self, name: str) -> List[Metric]:
+    def get_metric_history(self, name: str) -> list[Metric]:
         """Get metric history."""
         return list(self._metric_history.get(name, []))
 
-    def get_latest_metric(self, name: str) -> Optional[Metric]:
+    def get_latest_metric(self, name: str) -> Metric | None:
         """Get latest metric value."""
         history = list(self._metric_history.get(name, []))
         return history[-1] if history else None
@@ -316,9 +326,9 @@ class MetricsVisualizer:
 
     def create_ascii_chart(
         self,
-        values: List[float],
+        values: list[float],
         width: int = 60,
-        height: int = 10,
+        _height: int = 10,
         title: str = "",
     ) -> str:
         """
@@ -357,7 +367,7 @@ class MetricsVisualizer:
 
     def create_trend_chart(
         self,
-        metrics: List[Metric],
+        metrics: list[Metric],
         width: int = 60,
         height: int = 10,
     ) -> str:
@@ -381,7 +391,7 @@ class MetricsVisualizer:
     def export_html(
         self,
         report: PerformanceReport,
-        output_path: Union[str, Path],
+        output_path: str | Path,
     ) -> None:
         """
         Export report as HTML.
@@ -461,7 +471,7 @@ class MetricsVisualizer:
 <body>
     <div class="container">
         <h1>Performance Report</h1>
-        <p class="timestamp">Generated: {datetime.fromtimestamp(report.generated_at).strftime('%Y-%m-%d %H:%M:%S')}</p>
+        <p class="timestamp">Generated: {datetime.fromtimestamp(report.generated_at).strftime("%Y-%m-%d %H:%M:%S")}</p>
 
         <h2>Summary</h2>
         <div class="summary">
@@ -483,7 +493,11 @@ class MetricsVisualizer:
 
         if report.alerts:
             for alert in report.alerts:
-                alert_class = "error" if alert.severity in [AlertSeverity.ERROR, AlertSeverity.CRITICAL] else ""
+                alert_class = (
+                    "error"
+                    if alert.severity in [AlertSeverity.ERROR, AlertSeverity.CRITICAL]
+                    else ""
+                )
                 html += f"""
         <div class="alert {alert_class}">
             <strong>{alert.severity.value.upper()}</strong>: {alert.message}
@@ -536,8 +550,8 @@ class PerformanceReporter:
         """Initialize performance reporter."""
         self.collector = MetricsCollector()
         self.visualizer = MetricsVisualizer()
-        self.alert_rules: List[AlertRule] = []
-        self._baseline_metrics: Dict[str, float] = {}
+        self.alert_rules: list[AlertRule] = []
+        self._baseline_metrics: dict[str, float] = {}
 
         # Default alert rules
         self._add_default_rules()
@@ -612,7 +626,7 @@ class PerformanceReporter:
             try:
                 report = profiler.get_report()
 
-                if hasattr(report, 'total_time'):
+                if hasattr(report, "total_time"):
                     self.collector.add_metric(
                         "execution_time",
                         report.total_time,
@@ -620,7 +634,7 @@ class PerformanceReporter:
                         unit="s",
                     )
 
-                if hasattr(report, 'operation_count'):
+                if hasattr(report, "operation_count"):
                     self.collector.add_metric(
                         "total_operations",
                         report.operation_count,
@@ -701,12 +715,12 @@ class PerformanceReporter:
             except Exception as e:
                 logger.warning(f"Failed to collect batch processor metrics: {e}")
 
-    def set_baseline(self, metrics: Dict[str, float]) -> None:
+    def set_baseline(self, metrics: dict[str, float]) -> None:
         """Set baseline metrics for comparison."""
         self._baseline_metrics = metrics.copy()
         logger.info(f"Baseline set with {len(metrics)} metrics")
 
-    def calculate_trends(self) -> List[MetricTrend]:
+    def calculate_trends(self) -> list[MetricTrend]:
         """Calculate trends by comparing to baseline."""
         trends = []
 
@@ -737,10 +751,7 @@ class PerformanceReporter:
                 }
 
                 desired_direction = improvement_metrics.get(metric.name, "stable")
-                is_improvement = (
-                    trend_direction == desired_direction or
-                    trend_direction == "stable"
-                )
+                is_improvement = trend_direction == desired_direction or trend_direction == "stable"
 
                 trend = MetricTrend(
                     metric_name=metric.name,
@@ -755,7 +766,7 @@ class PerformanceReporter:
 
         return trends
 
-    def evaluate_alerts(self) -> List[Alert]:
+    def evaluate_alerts(self) -> list[Alert]:
         """Evaluate alert rules against metrics."""
         alerts = []
 
@@ -784,9 +795,9 @@ class PerformanceReporter:
 
         # Add alert count
         summary["total_alerts"] = str(len(alerts))
-        summary["critical_alerts"] = str(sum(
-            1 for a in alerts if a.severity == AlertSeverity.CRITICAL
-        ))
+        summary["critical_alerts"] = str(
+            sum(1 for a in alerts if a.severity == AlertSeverity.CRITICAL)
+        )
 
         report = PerformanceReport(
             metrics=self.collector.metrics.copy(),
@@ -805,7 +816,7 @@ class PerformanceReporter:
     def save_report(
         self,
         report: PerformanceReport,
-        output_path: Union[str, Path],
+        output_path: str | Path,
         format: str = "json",
     ) -> None:
         """

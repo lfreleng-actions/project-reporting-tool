@@ -10,7 +10,8 @@ based on email addresses and names.
 
 import logging
 import re
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any
+
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +24,7 @@ class CommitterMatcher:
     name-based fuzzy matching for cases where email doesn't match.
     """
 
-    def __init__(self, config: Optional[Dict[str, Any]] = None):
+    def __init__(self, config: dict[str, Any] | None = None):
         """
         Initialize the matcher.
 
@@ -59,8 +60,8 @@ class CommitterMatcher:
         self,
         committer_email: str,
         committer_name: str,
-        authors: List[Dict[str, Any]],
-    ) -> Optional[Dict[str, Any]]:
+        authors: list[dict[str, Any]],
+    ) -> dict[str, Any] | None:
         """
         Find the best matching Git author for a committer.
 
@@ -81,9 +82,7 @@ class CommitterMatcher:
         if self.email_match_enabled and committer_email:
             email_match = self._match_by_email(committer_email, authors)
             if email_match:
-                self.logger.debug(
-                    f"Matched '{committer_name}' via email: {committer_email}"
-                )
+                self.logger.debug(f"Matched '{committer_name}' via email: {committer_email}")
                 return email_match
 
         # Fall back to name matching
@@ -101,8 +100,8 @@ class CommitterMatcher:
         return None
 
     def _match_by_email(
-        self, committer_email: str, authors: List[Dict[str, Any]]
-    ) -> Optional[Dict[str, Any]]:
+        self, committer_email: str, authors: list[dict[str, Any]]
+    ) -> dict[str, Any] | None:
         """
         Match committer by email address.
 
@@ -133,8 +132,8 @@ class CommitterMatcher:
         return None
 
     def _match_by_name(
-        self, committer_name: str, authors: List[Dict[str, Any]]
-    ) -> Optional[Dict[str, Any]]:
+        self, committer_name: str, authors: list[dict[str, Any]]
+    ) -> dict[str, Any] | None:
         """
         Match committer by name with fuzzy matching.
 
@@ -166,8 +165,8 @@ class CommitterMatcher:
         return self._fuzzy_name_match(normalized_committer, authors)
 
     def _fuzzy_name_match(
-        self, normalized_committer: str, authors: List[Dict[str, Any]]
-    ) -> Optional[Dict[str, Any]]:
+        self, normalized_committer: str, authors: list[dict[str, Any]]
+    ) -> dict[str, Any] | None:
         """
         Perform fuzzy name matching.
 
@@ -283,9 +282,9 @@ class CommitterMatcher:
 
     def match_committers_bulk(
         self,
-        committers: List[Dict[str, str]],
-        authors: List[Dict[str, Any]],
-    ) -> Dict[str, Optional[Dict[str, Any]]]:
+        committers: list[dict[str, str]],
+        authors: list[dict[str, Any]],
+    ) -> dict[str, dict[str, Any] | None]:
         """
         Match multiple committers to authors in bulk.
 
@@ -313,9 +312,9 @@ class CommitterMatcher:
 
     def get_match_statistics(
         self,
-        committers: List[Dict[str, str]],
-        authors: List[Dict[str, Any]],
-    ) -> Dict[str, int]:
+        committers: list[dict[str, str]],
+        authors: list[dict[str, Any]],
+    ) -> dict[str, int]:
         """
         Get matching statistics for a set of committers.
 
@@ -367,8 +366,8 @@ class CommitterMatcher:
 def match_committer_to_authors(
     committer_email: str,
     committer_name: str,
-    authors: List[Dict[str, Any]],
-) -> Optional[Dict[str, Any]]:
+    authors: list[dict[str, Any]],
+) -> dict[str, Any] | None:
     """
     Convenience function to match a single committer to authors.
 

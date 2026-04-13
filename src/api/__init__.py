@@ -33,22 +33,19 @@ from .jenkins_client import JenkinsAPIClient
 
 __all__ = [
     # Base classes and types
-    'APIResponse',
-    'APIError',
-    'BaseAPIClient',
-
+    "APIResponse",
+    "APIError",
+    "BaseAPIClient",
     # GitHub API
-    'GitHubAPIClient',
-
+    "GitHubAPIClient",
     # Gerrit API
-    'GerritAPIClient',
-    'GerritAPIDiscovery',
-    'GerritAPIError',
-    'GerritConnectionError',
-    'GerritURLBuilder',
-
+    "GerritAPIClient",
+    "GerritAPIDiscovery",
+    "GerritAPIError",
+    "GerritConnectionError",
+    "GerritURLBuilder",
     # Jenkins API
-    'JenkinsAPIClient',
+    "JenkinsAPIClient",
 ]
 
-__version__ = '1.0.0'
+__version__ = "1.0.0"

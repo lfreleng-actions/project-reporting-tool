@@ -10,22 +10,23 @@ ProcessPoolExecutor (for CPU-bound) based on operation type classification.
 Phase 7: Concurrency Refinement
 """
 
+import logging
 import os
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, Future
+import threading
+from collections.abc import Callable
+from concurrent.futures import Future, ProcessPoolExecutor, ThreadPoolExecutor
 from dataclasses import dataclass
 from enum import Enum
-from typing import Callable, Any, Optional, Dict, Union
-import threading
-import logging
+from typing import Any
 
 
 class OperationType(Enum):
     """Classification of operation types for optimal executor selection."""
 
-    CPU_BOUND = "cpu"      # Computation-heavy: use ProcessPoolExecutor
-    IO_BOUND = "io"        # I/O-heavy: use ThreadPoolExecutor
-    MIXED = "mixed"        # Mixed workload: use adaptive strategy
-    AUTO = "auto"          # Automatic detection
+    CPU_BOUND = "cpu"  # Computation-heavy: use ProcessPoolExecutor
+    IO_BOUND = "io"  # I/O-heavy: use ThreadPoolExecutor
+    MIXED = "mixed"  # Mixed workload: use adaptive strategy
+    AUTO = "auto"  # Automatic detection
 
 
 @dataclass
@@ -67,9 +68,9 @@ class HybridExecutor:
 
     def __init__(
         self,
-        thread_workers: Optional[int] = None,
-        process_workers: Optional[int] = None,
-        enable_processes: bool = False
+        thread_workers: int | None = None,
+        process_workers: int | None = None,
+        enable_processes: bool = False,
     ):
         """
         Initialize hybrid executor.
@@ -89,15 +90,15 @@ class HybridExecutor:
         self.enable_processes = enable_processes
 
         # Executors (created in __enter__)
-        self._thread_pool: Optional[ThreadPoolExecutor] = None
-        self._process_pool: Optional[ProcessPoolExecutor] = None
+        self._thread_pool: ThreadPoolExecutor | None = None
+        self._process_pool: ProcessPoolExecutor | None = None
 
         # Statistics
         self._stats = ExecutorStats()
         self._stats_lock = threading.Lock()
 
         # Operation classification cache
-        self._operation_types: Dict[str, OperationType] = {}
+        self._operation_types: dict[str, OperationType] = {}
 
         # Logger
         self.logger = logging.getLogger(__name__)
@@ -114,8 +115,7 @@ class HybridExecutor:
             )
         else:
             self.logger.info(
-                f"Started hybrid executor: "
-                f"threads={self.thread_workers}, processes=disabled"
+                f"Started hybrid executor: threads={self.thread_workers}, processes=disabled"
             )
 
         return self
@@ -137,12 +137,8 @@ class HybridExecutor:
         return False
 
     def submit(
-        self,
-        operation_type: OperationType,
-        fn: Callable,
-        *args,
-        **kwargs
-    ) -> Future:
+        self, operation_type: OperationType, fn: Callable[..., Any], *args: Any, **kwargs: Any
+    ) -> Future[Any]:
         """
         Submit a task to the appropriate executor.
 
@@ -167,7 +163,7 @@ class HybridExecutor:
             actual_op_type = self._classify_operation(fn)
 
         # Determine which executor to use and track submission
-        executor: Union[ThreadPoolExecutor, ProcessPoolExecutor]
+        executor: ThreadPoolExecutor | ProcessPoolExecutor
         if actual_op_type == OperationType.CPU_BOUND and self._process_pool:
             executor = self._process_pool
             with self._stats_lock:
@@ -186,8 +182,9 @@ class HybridExecutor:
         wrapped_fn = self._wrap_task(fn, actual_op_type)
         return executor.submit(wrapped_fn, *args, **kwargs)
 
-    def _wrap_task(self, fn: Callable, op_type: OperationType) -> Callable:
+    def _wrap_task(self, fn: Callable[..., Any], op_type: OperationType) -> Callable[..., Any]:
         """Wrap task to track statistics."""
+
         def wrapper(*args, **kwargs):
             try:
                 result = fn(*args, **kwargs)
@@ -197,7 +194,7 @@ class HybridExecutor:
                     else:
                         self._stats.io_tasks_completed += 1
                 return result
-            except Exception as e:
+            except Exception:
                 with self._stats_lock:
                     if op_type == OperationType.CPU_BOUND:
                         self._stats.cpu_tasks_failed += 1
@@ -207,7 +204,7 @@ class HybridExecutor:
 
         return wrapper
 
-    def _classify_operation(self, fn: Callable) -> OperationType:
+    def _classify_operation(self, fn: Callable[..., Any]) -> OperationType:
         """
         Classify operation type based on function characteristics.
 
@@ -227,26 +224,46 @@ class HybridExecutor:
             return self._operation_types[fn_name]
 
         # Heuristic classification based on function name
-        io_keywords = ['fetch', 'request', 'download', 'upload', 'read', 'write',
-                       'api', 'http', 'file', 'git', 'clone', 'pull', 'push']
-        cpu_keywords = ['parse', 'compute', 'calculate', 'process', 'analyze',
-                       'aggregate', 'transform', 'render', 'compile', 'build']
+        io_keywords = [
+            "fetch",
+            "request",
+            "download",
+            "upload",
+            "read",
+            "write",
+            "api",
+            "http",
+            "file",
+            "git",
+            "clone",
+            "pull",
+            "push",
+        ]
+        cpu_keywords = [
+            "parse",
+            "compute",
+            "calculate",
+            "process",
+            "analyze",
+            "aggregate",
+            "transform",
+            "render",
+            "compile",
+            "build",
+        ]
 
         # Count keyword matches
         io_matches = sum(1 for kw in io_keywords if kw in fn_name)
         cpu_matches = sum(1 for kw in cpu_keywords if kw in fn_name)
 
-        if cpu_matches > io_matches:
-            op_type = OperationType.CPU_BOUND
-        else:
-            # Default to I/O-bound (safer choice for repository analysis)
-            op_type = OperationType.IO_BOUND
+        # Default to I/O-bound (safer choice for repository analysis)
+        op_type = OperationType.CPU_BOUND if cpu_matches > io_matches else OperationType.IO_BOUND
 
         # Cache classification
         self._operation_types[fn_name] = op_type
         return op_type
 
-    def submit_io_bound(self, fn: Callable, *args, **kwargs) -> Future:
+    def submit_io_bound(self, fn: Callable[..., Any], *args: Any, **kwargs: Any) -> Future[Any]:
         """
         Convenience method for I/O-bound tasks.
 
@@ -260,7 +277,7 @@ class HybridExecutor:
         """
         return self.submit(OperationType.IO_BOUND, fn, *args, **kwargs)
 
-    def submit_cpu_bound(self, fn: Callable, *args, **kwargs) -> Future:
+    def submit_cpu_bound(self, fn: Callable[..., Any], *args: Any, **kwargs: Any) -> Future[Any]:
         """
         Convenience method for CPU-bound tasks.
 
@@ -288,5 +305,5 @@ class HybridExecutor:
                 cpu_tasks_completed=self._stats.cpu_tasks_completed,
                 io_tasks_completed=self._stats.io_tasks_completed,
                 cpu_tasks_failed=self._stats.cpu_tasks_failed,
-                io_tasks_failed=self._stats.io_tasks_failed
+                io_tasks_failed=self._stats.io_tasks_failed,
             )

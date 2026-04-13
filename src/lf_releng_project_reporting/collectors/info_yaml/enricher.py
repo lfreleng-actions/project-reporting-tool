@@ -12,11 +12,12 @@ Supports both synchronous and asynchronous URL validation for optimal performanc
 
 import asyncio
 import logging
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 from domain.info_yaml import CommitterInfo, ProjectInfo
 from lf_releng_project_reporting.collectors.info_yaml.matcher import CommitterMatcher
 from lf_releng_project_reporting.collectors.info_yaml.validator import URLValidator
+
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +32,7 @@ class InfoYamlEnricher:
 
     def __init__(
         self,
-        activity_windows: Optional[Dict[str, int]] = None,
+        activity_windows: dict[str, int] | None = None,
         validate_urls: bool = True,
         url_timeout: float = 10.0,
         url_retries: int = 2,
@@ -76,7 +77,7 @@ class InfoYamlEnricher:
     def enrich_project(
         self,
         project: ProjectInfo,
-        git_metrics: List[Dict[str, Any]],
+        git_metrics: list[dict[str, Any]],
     ) -> ProjectInfo:
         """
         Enrich a single project with Git data.
@@ -111,11 +112,11 @@ class InfoYamlEnricher:
 
     def enrich_projects(
         self,
-        projects: List[ProjectInfo],
-        git_metrics: List[Dict[str, Any]],
+        projects: list[ProjectInfo],
+        git_metrics: list[dict[str, Any]],
         use_async_validation: bool = True,
         max_concurrent_urls: int = 10,
-    ) -> List[ProjectInfo]:
+    ) -> list[ProjectInfo]:
         """
         Enrich multiple projects with Git data.
 
@@ -147,7 +148,7 @@ class InfoYamlEnricher:
     def _enrich_project_without_url(
         self,
         project: ProjectInfo,
-        git_metrics: List[Dict[str, Any]],
+        git_metrics: list[dict[str, Any]],
     ) -> ProjectInfo:
         """
         Enrich a project with Git data without URL validation.
@@ -174,7 +175,7 @@ class InfoYamlEnricher:
 
         return project
 
-    def _validate_urls_sync_batch(self, projects: List[ProjectInfo]) -> None:
+    def _validate_urls_sync_batch(self, projects: list[ProjectInfo]) -> None:
         """
         Validate URLs synchronously for a batch of projects.
 
@@ -183,14 +184,12 @@ class InfoYamlEnricher:
         """
         for project in projects:
             if project.issue_tracking.url:
-                is_valid, error = self.url_validator.validate(
-                    project.issue_tracking.url
-                )
+                is_valid, error = self.url_validator.validate(project.issue_tracking.url)
                 project.issue_tracking.is_valid = is_valid
                 project.issue_tracking.validation_error = error
 
     def _validate_urls_async_batch(
-        self, projects: List[ProjectInfo], max_concurrent: int = 10
+        self, projects: list[ProjectInfo], max_concurrent: int = 10
     ) -> None:
         """
         Validate URLs asynchronously for a batch of projects.
@@ -200,7 +199,7 @@ class InfoYamlEnricher:
             max_concurrent: Maximum concurrent validations
         """
         # Collect all URLs to validate
-        url_to_projects: Dict[str, List[ProjectInfo]] = {}
+        url_to_projects: dict[str, list[ProjectInfo]] = {}
         for project in projects:
             url = project.issue_tracking.url
             if url:
@@ -214,14 +213,11 @@ class InfoYamlEnricher:
         # Validate all URLs asynchronously
         urls = list(url_to_projects.keys())
         self.logger.info(
-            f"Validating {len(urls)} unique URLs asynchronously "
-            f"(max_concurrent={max_concurrent})"
+            f"Validating {len(urls)} unique URLs asynchronously (max_concurrent={max_concurrent})"
         )
 
         # Always use asyncio.run() in synchronous context
-        results = asyncio.run(
-            self.url_validator.validate_bulk_async(urls, max_concurrent)
-        )
+        results = asyncio.run(self.url_validator.validate_bulk_async(urls, max_concurrent))
 
         # Apply results to projects
         for url, (is_valid, error) in results.items():
@@ -229,9 +225,7 @@ class InfoYamlEnricher:
                 project.issue_tracking.is_valid = is_valid
                 project.issue_tracking.validation_error = error
 
-    def _build_repo_lookup(
-        self, git_metrics: List[Dict[str, Any]]
-    ) -> Dict[str, Dict[str, Any]]:
+    def _build_repo_lookup(self, git_metrics: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
         """
         Build a lookup dictionary from Git metrics.
 
@@ -256,8 +250,8 @@ class InfoYamlEnricher:
     def _find_matching_repos(
         self,
         project: ProjectInfo,
-        repo_lookup: Dict[str, Dict[str, Any]],
-    ) -> List[Dict[str, Any]]:
+        repo_lookup: dict[str, dict[str, Any]],
+    ) -> list[dict[str, Any]]:
         """
         Find Git repositories matching a project.
 
@@ -277,9 +271,7 @@ class InfoYamlEnricher:
         # Try exact match on project path
         if project.project_path in repo_lookup:
             matched.append(repo_lookup[project.project_path])
-            self.logger.debug(
-                f"Matched project '{project.project_name}' via project_path"
-            )
+            self.logger.debug(f"Matched project '{project.project_name}' via project_path")
 
         # Try matching against listed repositories
         for repo_name in project.repositories:
@@ -297,7 +289,7 @@ class InfoYamlEnricher:
     def _enrich_with_git_data(
         self,
         project: ProjectInfo,
-        matched_repos: List[Dict[str, Any]],
+        matched_repos: list[dict[str, Any]],
     ) -> ProjectInfo:
         """
         Enrich project with Git data from matched repositories.
@@ -370,15 +362,11 @@ class InfoYamlEnricher:
         project.has_git_data = False
         project.project_days_since_last_commit = None
 
-        self.logger.debug(
-            f"No Git data for project '{project.project_name}', marked as unknown"
-        )
+        self.logger.debug(f"No Git data for project '{project.project_name}', marked as unknown")
 
         return project
 
-    def _find_most_recent_activity(
-        self, matched_repos: List[Dict[str, Any]]
-    ) -> Optional[int]:
+    def _find_most_recent_activity(self, matched_repos: list[dict[str, Any]]) -> int | None:
         """
         Find the most recent activity across multiple repositories.
 
@@ -394,15 +382,12 @@ class InfoYamlEnricher:
             repo_info = repo_metrics.get("repository", {})
             days_since = repo_info.get("days_since_last_commit")
 
-            if days_since is not None:
-                if most_recent is None or days_since < most_recent:
-                    most_recent = days_since
+            if days_since is not None and (most_recent is None or days_since < most_recent):
+                most_recent = days_since
 
         return most_recent
 
-    def _calculate_activity_status(
-        self, days_since_commit: Optional[int]
-    ) -> Tuple[str, str]:
+    def _calculate_activity_status(self, days_since_commit: int | None) -> tuple[str, str]:
         """
         Calculate activity status and color based on days since last commit.
 
@@ -429,9 +414,7 @@ class InfoYamlEnricher:
         else:
             return ("inactive", "red")
 
-    def get_enrichment_statistics(
-        self, projects: List[ProjectInfo]
-    ) -> Dict[str, Any]:
+    def get_enrichment_statistics(self, projects: list[ProjectInfo]) -> dict[str, Any]:
         """
         Get statistics about enrichment results.
 
@@ -441,7 +424,7 @@ class InfoYamlEnricher:
         Returns:
             Dictionary with enrichment statistics
         """
-        stats: Dict[str, Any] = {
+        stats: dict[str, Any] = {
             "total_projects": len(projects),
             "with_git_data": 0,
             "without_git_data": 0,
@@ -476,12 +459,8 @@ class InfoYamlEnricher:
             for committer in project.committers:
                 status = committer.activity_status
                 color = committer.activity_color
-                stats["status_counts"][status] = (
-                    stats["status_counts"].get(status, 0) + 1
-                )
-                stats["color_counts"][color] = (
-                    stats["color_counts"].get(color, 0) + 1
-                )
+                stats["status_counts"][status] = stats["status_counts"].get(status, 0) + 1
+                stats["color_counts"][color] = stats["color_counts"].get(color, 0) + 1
 
             # URL validation
             if project.issue_tracking.url:
@@ -500,7 +479,7 @@ class InfoYamlEnricher:
         self.url_validator.clear_cache()
         self.logger.debug("URL validation cache cleared")
 
-    def get_url_cache_stats(self) -> Dict[str, int]:
+    def get_url_cache_stats(self) -> dict[str, int]:
         """
         Get URL validation cache statistics.
 
@@ -513,8 +492,8 @@ class InfoYamlEnricher:
 
 def enrich_project_with_git_data(
     project: ProjectInfo,
-    git_metrics: List[Dict[str, Any]],
-    activity_windows: Optional[Dict[str, int]] = None,
+    git_metrics: list[dict[str, Any]],
+    activity_windows: dict[str, int] | None = None,
 ) -> ProjectInfo:
     """
     Convenience function to enrich a single project.
@@ -532,12 +511,12 @@ def enrich_project_with_git_data(
 
 
 def enrich_projects_with_git_data(
-    projects: List[ProjectInfo],
-    git_metrics: List[Dict[str, Any]],
-    activity_windows: Optional[Dict[str, int]] = None,
+    projects: list[ProjectInfo],
+    git_metrics: list[dict[str, Any]],
+    activity_windows: dict[str, int] | None = None,
     use_async_validation: bool = True,
     max_concurrent_urls: int = 10,
-) -> List[ProjectInfo]:
+) -> list[ProjectInfo]:
     """
     Convenience function to enrich multiple projects.
 

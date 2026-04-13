@@ -8,11 +8,12 @@ This module provides statistics tracking for API calls to external services
 (GitHub, Gerrit, Jenkins) including success/error counts and performance metrics.
 """
 
+import logging
 import os
 import threading
-from typing import Dict, Any, Optional
 from datetime import datetime
-import logging
+from typing import Any
+
 
 logger = logging.getLogger(__name__)
 
@@ -28,10 +29,10 @@ class APIStatistics:
     def __init__(self):
         """Initialize API statistics tracking."""
         self._lock = threading.Lock()
-        self._stats: Dict[str, Dict[str, int]] = {
-            'github': {'success': 0, 'error': 0, 'exception': 0},
-            'gerrit': {'success': 0, 'error': 0, 'exception': 0},
-            'jenkins': {'success': 0, 'error': 0, 'exception': 0},
+        self._stats: dict[str, dict[str, int]] = {
+            "github": {"success": 0, "error": 0, "exception": 0},
+            "gerrit": {"success": 0, "error": 0, "exception": 0},
+            "jenkins": {"success": 0, "error": 0, "exception": 0},
         }
         self._info_master_fetched = False
 
@@ -44,9 +45,9 @@ class APIStatistics:
         """
         with self._lock:
             if service in self._stats:
-                self._stats[service]['success'] += 1
+                self._stats[service]["success"] += 1
 
-    def record_error(self, service: str, status_code: Optional[int] = None) -> None:
+    def record_error(self, service: str, status_code: int | None = None) -> None:
         """
         Record an API error (non-2xx response).
 
@@ -56,7 +57,7 @@ class APIStatistics:
         """
         with self._lock:
             if service in self._stats:
-                self._stats[service]['error'] += 1
+                self._stats[service]["error"] += 1
                 logger.debug(f"{service} API error: {status_code}")
 
     def record_exception(self, service: str, exception: Exception) -> None:
@@ -69,7 +70,7 @@ class APIStatistics:
         """
         with self._lock:
             if service in self._stats:
-                self._stats[service]['exception'] += 1
+                self._stats[service]["exception"] += 1
                 logger.debug(f"{service} API exception: {type(exception).__name__}")
 
     def record_info_master(self, fetched: bool) -> None:
@@ -95,7 +96,7 @@ class APIStatistics:
         with self._lock:
             if service in self._stats:
                 stats = self._stats[service]
-                return stats['success'] + stats['error'] + stats['exception']
+                return stats["success"] + stats["error"] + stats["exception"]
             return 0
 
     def get_total_errors(self, service: str) -> int:
@@ -111,7 +112,7 @@ class APIStatistics:
         with self._lock:
             if service in self._stats:
                 stats = self._stats[service]
-                return stats['error'] + stats['exception']
+                return stats["error"] + stats["exception"]
             return 0
 
     def has_errors(self) -> bool:
@@ -123,11 +124,11 @@ class APIStatistics:
         """
         with self._lock:
             for service_stats in self._stats.values():
-                if service_stats['error'] > 0 or service_stats['exception'] > 0:
+                if service_stats["error"] > 0 or service_stats["exception"] > 0:
                     return True
             return False
 
-    def _get_snapshot(self) -> Dict[str, Any]:
+    def _get_snapshot(self) -> dict[str, Any]:
         """
         Get a snapshot of current statistics (thread-safe).
 
@@ -136,8 +137,8 @@ class APIStatistics:
         """
         with self._lock:
             return {
-                'stats': {k: v.copy() for k, v in self._stats.items()},
-                'info_master_fetched': self._info_master_fetched
+                "stats": {k: v.copy() for k, v in self._stats.items()},
+                "info_master_fetched": self._info_master_fetched,
             }
 
     def format_console_output(self) -> str:
@@ -148,13 +149,10 @@ class APIStatistics:
             Formatted string for console display, or empty string if no calls made
         """
         snapshot = self._get_snapshot()
-        stats = snapshot['stats']
+        stats = snapshot["stats"]
 
         # Check if any calls were made
-        has_calls = any(
-            s['success'] + s['error'] + s['exception'] > 0
-            for s in stats.values()
-        )
+        has_calls = any(s["success"] + s["error"] + s["exception"] > 0 for s in stats.values())
 
         if not has_calls:
             return ""
@@ -162,11 +160,11 @@ class APIStatistics:
         lines = ["\n📊 API Call Statistics:"]
 
         for service, service_stats in stats.items():
-            total = service_stats['success'] + service_stats['error'] + service_stats['exception']
+            total = service_stats["success"] + service_stats["error"] + service_stats["exception"]
             if total > 0:
-                success = service_stats['success']
-                error = service_stats['error']
-                exception = service_stats['exception']
+                success = service_stats["success"]
+                error = service_stats["error"]
+                exception = service_stats["exception"]
 
                 # Calculate success rate
                 success_rate = (success / total * 100) if total > 0 else 0
@@ -186,7 +184,7 @@ class APIStatistics:
                 )
 
         # Add info-master status if relevant
-        if snapshot['info_master_fetched']:
+        if snapshot["info_master_fetched"]:
             lines.append("   ✅ Info-master repository fetched")
 
         return "\n".join(lines)
@@ -203,35 +201,38 @@ class APIStatistics:
             return
 
         snapshot = self._get_snapshot()
-        stats = snapshot['stats']
+        stats = snapshot["stats"]
 
         # Check if any calls were made
-        has_calls = any(
-            s['success'] + s['error'] + s['exception'] > 0
-            for s in stats.values()
-        )
+        has_calls = any(s["success"] + s["error"] + s["exception"] > 0 for s in stats.values())
 
         try:
-            with open(step_summary, 'a') as f:
+            with open(step_summary, "a") as f:
                 f.write("\n## 📊 API Call Statistics\n\n")
 
                 if not has_calls:
                     # No API calls were made
                     f.write("_No API calls were made during this run._\n\n")
-                    if snapshot['info_master_fetched']:
+                    if snapshot["info_master_fetched"]:
                         f.write("**Info-master repository:** ✅ Fetched successfully\n\n")
                     return
 
                 # Write statistics table
-                f.write("| Service | Total Calls | Success | Errors | Exceptions | Success Rate |\n")
+                f.write(
+                    "| Service | Total Calls | Success | Errors | Exceptions | Success Rate |\n"
+                )
                 f.write("|---------|-------------|---------|--------|------------|-------------|\n")
 
                 for service, service_stats in stats.items():
-                    total = service_stats['success'] + service_stats['error'] + service_stats['exception']
+                    total = (
+                        service_stats["success"]
+                        + service_stats["error"]
+                        + service_stats["exception"]
+                    )
                     if total > 0:
-                        success = service_stats['success']
-                        error = service_stats['error']
-                        exception = service_stats['exception']
+                        success = service_stats["success"]
+                        error = service_stats["error"]
+                        exception = service_stats["exception"]
                         success_rate = (success / total * 100) if total > 0 else 0
 
                         # Status emoji
@@ -247,7 +248,7 @@ class APIStatistics:
                             f"{error} | {exception} | {success_rate:.1f}% |\n"
                         )
 
-                if snapshot['info_master_fetched']:
+                if snapshot["info_master_fetched"]:
                     f.write("\n**Info-master repository:** ✅ Fetched successfully\n")
 
                 f.write("\n")
@@ -255,7 +256,7 @@ class APIStatistics:
         except Exception as e:
             logger.warning(f"Failed to write API statistics to step summary: {e}")
 
-    def get_summary_dict(self) -> Dict[str, Any]:
+    def get_summary_dict(self) -> dict[str, Any]:
         """
         Get statistics as a dictionary for JSON serialization.
 
@@ -263,24 +264,24 @@ class APIStatistics:
             Dictionary with statistics data
         """
         snapshot = self._get_snapshot()
-        stats = snapshot['stats']
+        stats = snapshot["stats"]
 
-        summary = {
-            'services': {},
-            'info_master_fetched': snapshot['info_master_fetched'],
-            'timestamp': datetime.now().isoformat()
+        summary: dict[str, Any] = {
+            "services": {},
+            "info_master_fetched": snapshot["info_master_fetched"],
+            "timestamp": datetime.now().isoformat(),
         }
 
         for service, service_stats in stats.items():
-            total = service_stats['success'] + service_stats['error'] + service_stats['exception']
+            total = service_stats["success"] + service_stats["error"] + service_stats["exception"]
             if total > 0:
-                success_rate = (service_stats['success'] / total * 100) if total > 0 else 0
-                summary['services'][service] = {
-                    'total_calls': total,
-                    'success': service_stats['success'],
-                    'errors': service_stats['error'],
-                    'exceptions': service_stats['exception'],
-                    'success_rate': round(success_rate, 2)
+                success_rate = (service_stats["success"] / total * 100) if total > 0 else 0
+                summary["services"][service] = {
+                    "total_calls": total,
+                    "success": service_stats["success"],
+                    "errors": service_stats["error"],
+                    "exceptions": service_stats["exception"],
+                    "success_rate": round(success_rate, 2),
                 }
 
         return summary

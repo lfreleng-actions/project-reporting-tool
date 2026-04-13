@@ -22,19 +22,20 @@ Example:
     >>> print(report.format())
 """
 
-import time
-import tracemalloc
-from contextlib import contextmanager
-from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple, Any
-from enum import Enum
 import json
 import os
+import time
+from contextlib import contextmanager
+from dataclasses import dataclass, field
+from enum import Enum
+from typing import Any, Optional
+
 import psutil
 
 
 class OperationCategory(Enum):
     """Categories for organizing operations in profiling."""
+
     GIT = "git"
     API = "api"
     ANALYSIS = "analysis"
@@ -48,6 +49,7 @@ class OperationCategory(Enum):
 @dataclass
 class OperationMetric:
     """Metrics for a single operation execution."""
+
     name: str
     category: str
     start_time: float
@@ -57,8 +59,8 @@ class OperationMetric:
     memory_end: int  # bytes
     memory_delta: int  # bytes
     success: bool = True
-    error: Optional[str] = None
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    error: str | None = None
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     @property
     def duration_ms(self) -> float:
@@ -74,6 +76,7 @@ class OperationMetric:
 @dataclass
 class AggregatedMetrics:
     """Aggregated statistics for an operation type."""
+
     name: str
     category: str
     count: int
@@ -118,8 +121,8 @@ class OperationTimer:
         self,
         name: str,
         category: str = "other",
-        profiler: Optional['PerformanceProfiler'] = None,
-        metadata: Optional[Dict[str, Any]] = None
+        profiler: Optional["PerformanceProfiler"] = None,
+        metadata: dict[str, Any] | None = None,
     ):
         """
         Initialize operation timer.
@@ -135,16 +138,16 @@ class OperationTimer:
         self.profiler = profiler
         self.metadata = metadata or {}
 
-        self.start_time: Optional[float] = None
-        self.end_time: Optional[float] = None
-        self.duration: Optional[float] = None
-        self.memory_start: Optional[int] = None
-        self.memory_end: Optional[int] = None
-        self.memory_delta: Optional[int] = None
+        self.start_time: float | None = None
+        self.end_time: float | None = None
+        self.duration: float | None = None
+        self.memory_start: int | None = None
+        self.memory_end: int | None = None
+        self.memory_delta: int | None = None
         self.success = True
-        self.error: Optional[str] = None
+        self.error: str | None = None
 
-    def __enter__(self) -> 'OperationTimer':
+    def __enter__(self) -> "OperationTimer":
         """Start timing and memory tracking."""
         self.start_time = time.perf_counter()
 
@@ -167,9 +170,10 @@ class OperationTimer:
         # Get final memory usage
         try:
             process = psutil.Process()
-            self.memory_end = process.memory_info().rss
+            mem_end = process.memory_info().rss
+            self.memory_end = mem_end
             if self.memory_start is not None:
-                self.memory_delta = self.memory_end - self.memory_start
+                self.memory_delta = mem_end - self.memory_start
         except (ImportError, Exception):
             self.memory_end = self.memory_start if self.memory_start is not None else 0
             self.memory_delta = 0
@@ -180,7 +184,12 @@ class OperationTimer:
             self.error = f"{exc_type.__name__}: {exc_val}"
 
         # Register with profiler if provided
-        if self.profiler and self.start_time is not None and self.end_time is not None and self.duration is not None:
+        if (
+            self.profiler
+            and self.start_time is not None
+            and self.end_time is not None
+            and self.duration is not None
+        ):
             metric = OperationMetric(
                 name=self.name,
                 category=self.category,
@@ -192,7 +201,7 @@ class OperationTimer:
                 memory_delta=self.memory_delta or 0,
                 success=self.success,
                 error=self.error,
-                metadata=self.metadata
+                metadata=self.metadata,
             )
             self.profiler.record_operation(metric)
 
@@ -214,9 +223,9 @@ class MemoryTracker:
 
     def __init__(self):
         """Initialize memory tracker."""
-        self.snapshots: List[Tuple[str, int, float]] = []
-        self.start_memory: Optional[int] = None
-        self.start_time: Optional[float] = None
+        self.snapshots: list[tuple[str, int, float]] = []
+        self.start_memory: int | None = None
+        self.start_time: float | None = None
         self.tracking = False
 
     def start(self):
@@ -225,8 +234,9 @@ class MemoryTracker:
         self.start_time = time.perf_counter()
         try:
             process = psutil.Process()
-            self.start_memory = process.memory_info().rss
-            self.snapshots = [("start", self.start_memory, 0.0)]
+            start_mem = process.memory_info().rss
+            self.start_memory = start_mem
+            self.snapshots = [("start", start_mem, 0.0)]
         except (ImportError, Exception):
             self.start_memory = 0
             self.snapshots = []
@@ -255,7 +265,7 @@ class MemoryTracker:
         self.snapshot("end")
         self.tracking = False
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """
         Get memory usage statistics.
 
@@ -263,10 +273,7 @@ class MemoryTracker:
             Dictionary with memory statistics
         """
         if not self.snapshots:
-            return {
-                "available": False,
-                "reason": "psutil not available or no snapshots taken"
-            }
+            return {"available": False, "reason": "psutil not available or no snapshots taken"}
 
         memories = [mem for _, mem, _ in self.snapshots]
         start_mem = memories[0]
@@ -280,13 +287,9 @@ class MemoryTracker:
             "peak_mb": peak_mem / (1024 * 1024),
             "delta_mb": (end_mem - start_mem) / (1024 * 1024),
             "snapshots": [
-                {
-                    "label": label,
-                    "memory_mb": mem / (1024 * 1024),
-                    "elapsed_seconds": elapsed
-                }
+                {"label": label, "memory_mb": mem / (1024 * 1024), "elapsed_seconds": elapsed}
                 for label, mem, elapsed in self.snapshots
-            ]
+            ],
         }
 
 
@@ -311,11 +314,11 @@ class PerformanceProfiler:
             name: Name for this profiler instance
         """
         self.name = name
-        self.operations: List[OperationMetric] = []
-        self.custom_metrics: Dict[str, Any] = {}
+        self.operations: list[OperationMetric] = []
+        self.custom_metrics: dict[str, Any] = {}
         self.memory_tracker = MemoryTracker()
-        self.start_time: Optional[float] = None
-        self.end_time: Optional[float] = None
+        self.start_time: float | None = None
+        self.end_time: float | None = None
 
     def start(self):
         """Start profiling session."""
@@ -329,10 +332,7 @@ class PerformanceProfiler:
 
     @contextmanager
     def track_operation(
-        self,
-        name: str,
-        category: str = "other",
-        metadata: Optional[Dict[str, Any]] = None
+        self, name: str, category: str = "other", metadata: dict[str, Any] | None = None
     ):
         """
         Context manager for tracking an operation.
@@ -378,14 +378,14 @@ class PerformanceProfiler:
         """
         self.memory_tracker.snapshot(label)
 
-    def get_aggregated_metrics(self) -> Dict[str, AggregatedMetrics]:
+    def get_aggregated_metrics(self) -> dict[str, AggregatedMetrics]:
         """
         Get aggregated metrics by operation name.
 
         Returns:
             Dictionary mapping operation names to aggregated metrics
         """
-        operation_groups: Dict[str, List[OperationMetric]] = {}
+        operation_groups: dict[str, list[OperationMetric]] = {}
 
         for op in self.operations:
             key = f"{op.category}:{op.name}"
@@ -409,12 +409,12 @@ class PerformanceProfiler:
                 total_memory_delta=sum(memory_deltas),
                 avg_memory_delta=sum(memory_deltas) / len(memory_deltas),
                 success_count=sum(1 for op in ops if op.success),
-                error_count=sum(1 for op in ops if not op.success)
+                error_count=sum(1 for op in ops if not op.success),
             )
 
         return aggregated
 
-    def get_report(self) -> 'ProfileReport':
+    def get_report(self) -> "ProfileReport":
         """
         Generate performance report.
 
@@ -473,7 +473,7 @@ class ProfileReport:
             lines.append("\nOperation Summary:")
             lines.append("-" * 70)
 
-            by_category: Dict[str, List[AggregatedMetrics]] = {}
+            by_category: dict[str, list[AggregatedMetrics]] = {}
             for metrics in self.aggregated.values():
                 cat = metrics.category
                 if cat not in by_category:
@@ -482,12 +482,16 @@ class ProfileReport:
 
             for category in sorted(by_category.keys()):
                 lines.append(f"\n{category.upper()}:")
-                for metrics in sorted(by_category[category], key=lambda m: m.total_duration, reverse=True):
+                for metrics in sorted(
+                    by_category[category], key=lambda m: m.total_duration, reverse=True
+                ):
                     lines.append(f"  {metrics.name}:")
                     lines.append(f"    Count:        {metrics.count}")
                     lines.append(f"    Total Time:   {metrics.total_duration:.2f}s")
                     lines.append(f"    Avg Time:     {metrics.avg_duration_ms:.1f}ms")
-                    lines.append(f"    Min/Max:      {metrics.min_duration*1000:.1f}ms / {metrics.max_duration*1000:.1f}ms")
+                    lines.append(
+                        f"    Min/Max:      {metrics.min_duration * 1000:.1f}ms / {metrics.max_duration * 1000:.1f}ms"
+                    )
                     if metrics.avg_memory_delta != 0:
                         lines.append(f"    Avg Memory:   {metrics.avg_memory_mb:+.1f} MB")
                     lines.append(f"    Success Rate: {metrics.success_rate:.1f}%")
@@ -514,7 +518,7 @@ class ProfileReport:
         lines.append("=" * 70)
         return "\n".join(lines)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """
         Export report as dictionary.
 
@@ -541,12 +545,12 @@ class ProfileReport:
                     "min_duration": m.min_duration,
                     "max_duration": m.max_duration,
                     "avg_memory_mb": m.avg_memory_mb,
-                    "success_rate": m.success_rate
+                    "success_rate": m.success_rate,
                 }
                 for key, m in self.aggregated.items()
             },
             "custom_metrics": self.profiler.custom_metrics,
-            "operation_count": len(self.profiler.operations)
+            "operation_count": len(self.profiler.operations),
         }
 
     def to_json(self, indent: int = 2) -> str:
@@ -571,13 +575,13 @@ class ProfileReport:
         """
         os.makedirs(os.path.dirname(filepath) if os.path.dirname(filepath) else ".", exist_ok=True)
 
-        with open(filepath, 'w') as f:
+        with open(filepath, "w") as f:
             if format == "json":
                 f.write(self.to_json())
             else:
                 f.write(self.format(detailed=True))
 
-    def compare_to_baseline(self, baseline_path: str) -> Dict[str, Any]:
+    def compare_to_baseline(self, baseline_path: str) -> dict[str, Any]:
         """
         Compare this report to a baseline.
 
@@ -587,15 +591,15 @@ class ProfileReport:
         Returns:
             Comparison dictionary with improvements/regressions
         """
-        with open(baseline_path, 'r') as f:
+        with open(baseline_path) as f:
             baseline = json.load(f)
 
         current = self.to_dict()
-        comparison = {
+        comparison: dict[str, Any] = {
             "baseline_duration": baseline.get("total_duration"),
             "current_duration": current.get("total_duration"),
             "duration_change_pct": None,
-            "operation_comparisons": {}
+            "operation_comparisons": {},
         }
 
         # Overall duration comparison
@@ -623,7 +627,7 @@ class ProfileReport:
                     "baseline_avg": baseline_avg,
                     "current_avg": current_avg,
                     "change_pct": change_pct,
-                    "improved": change_pct < 0
+                    "improved": change_pct < 0,
                 }
 
         return comparison
@@ -643,10 +647,13 @@ def profile_operation(name: str, category: str = "other"):
         ... def process():
         ...     pass
     """
+
     def decorator(func):
         def wrapper(*args, **kwargs):
             timer = OperationTimer(name, category)
             with timer:
                 return func(*args, **kwargs)
+
         return wrapper
+
     return decorator

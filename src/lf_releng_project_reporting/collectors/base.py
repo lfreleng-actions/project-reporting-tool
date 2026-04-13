@@ -9,10 +9,11 @@ must implement, providing a consistent interface for data collection
 from various sources.
 """
 
+import logging
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Dict, Any, Optional
-import logging
+from typing import Any
+
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +26,7 @@ class BaseCollector(ABC):
     data from their respective sources (Git repositories, APIs, etc.).
     """
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: dict[str, Any]):
         """
         Initialize the collector.
 
@@ -36,7 +37,7 @@ class BaseCollector(ABC):
         self.logger = logging.getLogger(self.__class__.__name__)
 
     @abstractmethod
-    def collect(self, source: Path, **kwargs) -> Dict[str, Any]:
+    def collect(self, source: Path, **kwargs) -> dict[str, Any]:
         """
         Collect data from the specified source.
 
@@ -86,7 +87,7 @@ class BaseCollector(ABC):
         Returns:
             Configuration value or default
         """
-        keys = key.split('.')
+        keys = key.split(".")
         value = self.config
 
         for k in keys:
@@ -104,4 +105,4 @@ class BaseCollector(ABC):
         Returns:
             True if collector is enabled (default: True)
         """
-        return bool(self.get_config_value('enabled', True))
+        return bool(self.get_config_value("enabled", True))

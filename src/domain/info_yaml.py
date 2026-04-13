@@ -8,9 +8,9 @@ Represents project metadata and committer information from INFO.yaml files
 in the LF info-master repository.
 """
 
+import contextlib
 from dataclasses import dataclass, field
-from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 
 @dataclass
@@ -37,7 +37,7 @@ class PersonInfo:
         if not self.name or self.name == "Unknown":
             raise ValueError("Person name cannot be empty or 'Unknown'")
 
-    def to_dict(self) -> Dict[str, str]:
+    def to_dict(self) -> dict[str, str]:
         """Convert to dictionary for serialization."""
         return {
             "name": self.name,
@@ -48,7 +48,7 @@ class PersonInfo:
         }
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "PersonInfo":
+    def from_dict(cls, data: dict[str, Any]) -> "PersonInfo":
         """Create PersonInfo from dictionary."""
         if not data or not isinstance(data, dict):
             raise ValueError("Invalid person data")
@@ -87,7 +87,7 @@ class CommitterInfo:
     timezone: str = ""
     activity_status: str = "unknown"
     activity_color: str = "gray"
-    days_since_last_commit: Optional[int] = None
+    days_since_last_commit: int | None = None
 
     def __post_init__(self) -> None:
         """Validate committer information."""
@@ -98,26 +98,23 @@ class CommitterInfo:
         valid_statuses = {"current", "active", "inactive", "unknown"}
         if self.activity_status not in valid_statuses:
             raise ValueError(
-                f"activity_status must be one of {valid_statuses}, "
-                f"got '{self.activity_status}'"
+                f"activity_status must be one of {valid_statuses}, got '{self.activity_status}'"
             )
 
         # Validate activity color
         valid_colors = {"green", "orange", "red", "gray"}
         if self.activity_color not in valid_colors:
             raise ValueError(
-                f"activity_color must be one of {valid_colors}, "
-                f"got '{self.activity_color}'"
+                f"activity_color must be one of {valid_colors}, got '{self.activity_color}'"
             )
 
         # Validate days_since_last_commit if present
         if self.days_since_last_commit is not None and self.days_since_last_commit < 0:
             raise ValueError(
-                f"days_since_last_commit must be non-negative, "
-                f"got {self.days_since_last_commit}"
+                f"days_since_last_commit must be non-negative, got {self.days_since_last_commit}"
             )
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for serialization."""
         return {
             "name": self.name,
@@ -131,7 +128,7 @@ class CommitterInfo:
         }
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "CommitterInfo":
+    def from_dict(cls, data: dict[str, Any]) -> "CommitterInfo":
         """Create CommitterInfo from dictionary."""
         if not data or not isinstance(data, dict):
             raise ValueError("Invalid committer data")
@@ -177,7 +174,7 @@ class IssueTracking:
     is_valid: bool = False
     validation_error: str = ""
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for serialization."""
         return {
             "type": self.type,
@@ -188,7 +185,7 @@ class IssueTracking:
         }
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "IssueTracking":
+    def from_dict(cls, data: dict[str, Any]) -> "IssueTracking":
         """Create IssueTracking from dictionary."""
         if not data or not isinstance(data, dict):
             return cls()
@@ -220,7 +217,7 @@ class IssueTracking:
             return ""
 
         # If we have a key and the URL looks incomplete (ends with /), append the key
-        if self.key and self.url.rstrip('/').endswith('/projects'):
+        if self.key and self.url.rstrip("/").endswith("/projects"):
             return f"{self.url.rstrip('/')}/{self.key}"
 
         return self.url
@@ -257,14 +254,14 @@ class ProjectInfo:
     full_path: str
     creation_date: str = "Unknown"
     lifecycle_state: str = "Unknown"
-    project_lead: Optional[PersonInfo] = None
-    committers: List[CommitterInfo] = field(default_factory=list)
+    project_lead: PersonInfo | None = None
+    committers: list[CommitterInfo] = field(default_factory=list)
     issue_tracking: IssueTracking = field(default_factory=IssueTracking)
-    repositories: List[str] = field(default_factory=list)
+    repositories: list[str] = field(default_factory=list)
     yaml_file_path: str = ""
     has_git_data: bool = False
-    project_days_since_last_commit: Optional[int] = None
-    errors: List[str] = field(default_factory=list)
+    project_days_since_last_commit: int | None = None
+    errors: list[str] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         """Validate project information."""
@@ -287,7 +284,7 @@ class ProjectInfo:
                 f"got {self.project_days_since_last_commit}"
             )
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for serialization."""
         return {
             "project_name": self.project_name,
@@ -307,7 +304,7 @@ class ProjectInfo:
         }
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "ProjectInfo":
+    def from_dict(cls, data: dict[str, Any]) -> "ProjectInfo":
         """Create ProjectInfo from dictionary."""
         if not data or not isinstance(data, dict):
             raise ValueError("Invalid project data")
@@ -316,11 +313,8 @@ class ProjectInfo:
         project_lead = None
         lead_data = data.get("project_lead")
         if lead_data:
-            try:
+            with contextlib.suppress(ValueError):
                 project_lead = PersonInfo.from_dict(lead_data)
-            except ValueError:
-                # Invalid lead data, skip
-                pass
 
         # Parse committers
         committers = []
@@ -382,7 +376,7 @@ class ProjectInfo:
         """Check if issue tracker URL is valid."""
         return self.issue_tracking.is_valid
 
-    def get_committers_by_status(self, status: str) -> List[CommitterInfo]:
+    def get_committers_by_status(self, status: str) -> list[CommitterInfo]:
         """
         Get committers filtered by activity status.
 
@@ -394,7 +388,7 @@ class ProjectInfo:
         """
         return [c for c in self.committers if c.activity_status == status]
 
-    def get_committers_by_color(self, color: str) -> List[CommitterInfo]:
+    def get_committers_by_color(self, color: str) -> list[CommitterInfo]:
         """
         Get committers filtered by activity color.
 
@@ -429,7 +423,7 @@ class LifecycleSummary:
         if not 0 <= self.percentage <= 100:
             raise ValueError(f"percentage must be 0-100, got {self.percentage}")
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for serialization."""
         return {
             "state": self.state,
@@ -438,7 +432,7 @@ class LifecycleSummary:
         }
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "LifecycleSummary":
+    def from_dict(cls, data: dict[str, Any]) -> "LifecycleSummary":
         """Create LifecycleSummary from dictionary."""
         return cls(
             state=data.get("state", "Unknown"),

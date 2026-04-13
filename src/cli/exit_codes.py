@@ -19,7 +19,6 @@ Phase 9: CLI & UX Improvements
 """
 
 from enum import IntEnum
-from typing import Dict, Optional
 
 
 class ExitCode(IntEnum):
@@ -102,7 +101,7 @@ def get_exit_code_description(code: int) -> str:
         >>> get_exit_code_description(0)
         'SUCCESS: Operation completed successfully with no errors or warnings.'
     """
-    descriptions: Dict[ExitCode, str] = {
+    descriptions: dict[ExitCode, str] = {
         ExitCode.SUCCESS: "SUCCESS: Operation completed successfully with no errors or warnings.",
         ExitCode.ERROR: "ERROR: General error occurred (configuration, API, or processing failure).",
         ExitCode.PARTIAL: "PARTIAL: Operation completed but with warnings or incomplete data.",
@@ -115,7 +114,7 @@ def get_exit_code_description(code: int) -> str:
     return descriptions.get(exit_code, f"UNKNOWN: Unknown exit code {code}")
 
 
-def format_exit_message(code: int, message: Optional[str] = None) -> str:
+def format_exit_message(code: int, message: str | None = None) -> str:
     """
     Format a complete exit message with code description.
 

@@ -19,11 +19,11 @@ Features:
 
 import logging
 import time
+from collections import defaultdict
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Dict, List, Optional, Callable
-from collections import defaultdict
+from typing import Any
 
 
 class LogPhase(Enum):
@@ -63,13 +63,13 @@ class LogContext:
         extra: Additional context fields
     """
 
-    repository: Optional[str] = None
-    phase: Optional[LogPhase] = None
-    operation: Optional[str] = None
-    window: Optional[str] = None
-    extra: Dict[str, Any] = field(default_factory=dict)
+    repository: str | None = None
+    phase: LogPhase | None = None
+    operation: str | None = None
+    window: str | None = None
+    extra: dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert context to dictionary for logging."""
         context = {}
 
@@ -114,11 +114,11 @@ class LogEntry:
     message: str
     context: LogContext
     timestamp: float = field(default_factory=time.time)
-    duration_ms: Optional[float] = None
+    duration_ms: float | None = None
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert log entry to dictionary."""
-        entry: Dict[str, Any] = {
+        entry: dict[str, Any] = {
             "level": self.level.value,
             "message": self.message,
             "timestamp": self.timestamp,
@@ -142,11 +142,11 @@ class LogAggregator:
     """
 
     def __init__(self) -> None:
-        self.entries: List[LogEntry] = []
-        self.counts_by_level: Dict[str, int] = defaultdict(int)
-        self.errors_by_repo: Dict[str, List[str]] = defaultdict(list)
-        self.warnings_by_repo: Dict[str, List[str]] = defaultdict(list)
-        self.performance_by_phase: Dict[str, List[float]] = defaultdict(list)
+        self.entries: list[LogEntry] = []
+        self.counts_by_level: dict[str, int] = defaultdict(int)
+        self.errors_by_repo: dict[str, list[str]] = defaultdict(list)
+        self.warnings_by_repo: dict[str, list[str]] = defaultdict(list)
+        self.performance_by_phase: dict[str, list[float]] = defaultdict(list)
 
     def add_entry(self, entry: LogEntry) -> None:
         """Add a log entry to the aggregator."""
@@ -164,14 +164,14 @@ class LogAggregator:
         if entry.duration_ms is not None and entry.context.phase:
             self.performance_by_phase[entry.context.phase.value].append(entry.duration_ms)
 
-    def get_summary(self) -> Dict[str, Any]:
+    def get_summary(self) -> dict[str, Any]:
         """
         Get summary of aggregated logs.
 
         Returns:
             Dictionary with log counts, errors, and performance metrics.
         """
-        summary = {
+        summary: dict[str, Any] = {
             "log_summary": dict(self.counts_by_level),
             "total_entries": len(self.entries),
         }
@@ -211,7 +211,7 @@ class LogAggregator:
 
         return summary
 
-    def get_partial_failures(self) -> List[Dict[str, Any]]:
+    def get_partial_failures(self) -> list[dict[str, Any]]:
         """
         Get list of repositories with partial failures (warnings but not errors).
 
@@ -222,11 +222,13 @@ class LogAggregator:
 
         for repo, warnings in self.warnings_by_repo.items():
             if repo not in self.errors_by_repo:  # No errors, only warnings
-                partial_failures.append({
-                    "repository": repo,
-                    "warning_count": len(warnings),
-                    "sample_warnings": warnings[:3],
-                })
+                partial_failures.append(
+                    {
+                        "repository": repo,
+                        "warning_count": len(warnings),
+                        "sample_warnings": warnings[:3],
+                    }
+                )
 
         return partial_failures
 
@@ -238,7 +240,7 @@ class StructuredLogger:
     Provides context management, performance tracking, and log aggregation.
     """
 
-    def __init__(self, logger: logging.Logger, aggregator: Optional[LogAggregator] = None):
+    def __init__(self, logger: logging.Logger, aggregator: LogAggregator | None = None):
         """
         Initialize structured logger.
 
@@ -248,7 +250,7 @@ class StructuredLogger:
         """
         self.logger = logger
         self.aggregator = aggregator or LogAggregator()
-        self._context_stack: List[LogContext] = [LogContext()]
+        self._context_stack: list[LogContext] = [LogContext()]
 
     @property
     def current_context(self) -> LogContext:
@@ -260,11 +262,7 @@ class StructuredLogger:
         return result
 
     def _log(
-        self,
-        level: LogLevel,
-        message: str,
-        duration_ms: Optional[float] = None,
-        **extra_context: Any
+        self, level: LogLevel, message: str, duration_ms: float | None = None, **extra_context: Any
     ) -> None:
         """
         Internal logging method.
@@ -337,11 +335,11 @@ class StructuredLogger:
     @contextmanager
     def context(
         self,
-        repository: Optional[str] = None,
-        phase: Optional[LogPhase] = None,
-        operation: Optional[str] = None,
-        window: Optional[str] = None,
-        **extra: Any
+        repository: str | None = None,
+        phase: LogPhase | None = None,
+        operation: str | None = None,
+        window: str | None = None,
+        **extra: Any,
     ):
         """
         Context manager for adding logging context.
@@ -397,19 +395,17 @@ class StructuredLogger:
                     duration_ms=duration_ms,
                 )
 
-    def get_summary(self) -> Dict[str, Any]:
+    def get_summary(self) -> dict[str, Any]:
         """Get aggregated log summary."""
         return self.aggregator.get_summary()
 
-    def get_partial_failures(self) -> List[Dict[str, Any]]:
+    def get_partial_failures(self) -> list[dict[str, Any]]:
         """Get list of repositories with partial failures."""
         return self.aggregator.get_partial_failures()
 
 
 def create_structured_logger(
-    name: str,
-    level: int = logging.INFO,
-    aggregator: Optional[LogAggregator] = None
+    name: str, level: int = logging.INFO, aggregator: LogAggregator | None = None
 ) -> StructuredLogger:
     """
     Create a structured logger instance.
@@ -428,12 +424,7 @@ def create_structured_logger(
     return StructuredLogger(logger, aggregator)
 
 
-def log_with_context(
-    logger: StructuredLogger,
-    level: str,
-    message: str,
-    **context: Any
-) -> None:
+def log_with_context(logger: StructuredLogger, level: str, message: str, **context: Any) -> None:
     """
     Helper function to log with context fields.
 

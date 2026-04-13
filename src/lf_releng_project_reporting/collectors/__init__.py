@@ -15,4 +15,5 @@ from .base import BaseCollector
 from .git import GitDataCollector
 from .info_yaml import INFOYamlCollector
 
-__all__ = ['BaseCollector', 'GitDataCollector', 'INFOYamlCollector']
+
+__all__ = ["BaseCollector", "GitDataCollector", "INFOYamlCollector"]

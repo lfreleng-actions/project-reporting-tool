@@ -15,4 +15,5 @@ global summaries including:
 
 from .data import DataAggregator
 
-__all__ = ['DataAggregator']
+
+__all__ = ["DataAggregator"]

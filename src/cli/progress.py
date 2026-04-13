@@ -12,16 +12,18 @@ Phase 9: CLI & UX Improvements
 
 import sys
 import time
+from collections.abc import Iterator
 from contextlib import contextmanager
-from typing import Optional, Iterator, Any
-from pathlib import Path
+from typing import Any
+
 
 try:
-    from tqdm import tqdm
+    from tqdm import tqdm  # pyright: ignore[reportMissingModuleSource]
+
     TQDM_AVAILABLE = True
 except ImportError:
     tqdm = None
-    TQDM_AVAILABLE = False
+    TQDM_AVAILABLE = False  # pyright: ignore[reportConstantRedefinition]
 
 
 class ProgressIndicator:
@@ -41,7 +43,7 @@ class ProgressIndicator:
 
     def __init__(
         self,
-        total: Optional[int] = None,
+        total: int | None = None,
         desc: str = "Progress",
         disable: bool = False,
         unit: str = "item",
@@ -64,7 +66,7 @@ class ProgressIndicator:
         self.leave = leave
         self.current = 0
         self.pbar = None
-        self._start_time: Optional[float] = None
+        self._start_time: float | None = None
 
     def __enter__(self):
         """Enter context manager."""
@@ -73,7 +75,7 @@ class ProgressIndicator:
 
         self._start_time = time.time()
 
-        if TQDM_AVAILABLE:
+        if TQDM_AVAILABLE and tqdm is not None:
             # Use tqdm if available
             self.pbar = tqdm(
                 total=self.total,
@@ -85,7 +87,7 @@ class ProgressIndicator:
         else:
             # Simple text-based indicator
             if self.total:
-                print(f"{self.desc}: 0/{self.total} (0.0%)", file=sys.stderr, end='', flush=True)
+                print(f"{self.desc}: 0/{self.total} (0.0%)", file=sys.stderr, end="", flush=True)
             else:
                 print(f"{self.desc}: Starting...", file=sys.stderr, flush=True)
 
@@ -102,8 +104,10 @@ class ProgressIndicator:
             # Complete simple indicator
             if self.total and self.leave:
                 elapsed = time.time() - self._start_time
-                print(f"\r{self.desc}: {self.current}/{self.total} (100.0%) - {elapsed:.1f}s",
-                      file=sys.stderr)
+                print(
+                    f"\r{self.desc}: {self.current}/{self.total} (100.0%) - {elapsed:.1f}s",
+                    file=sys.stderr,
+                )
             elif self.leave:
                 print(file=sys.stderr)
 
@@ -125,8 +129,12 @@ class ProgressIndicator:
             # Update simple indicator
             if self.total:
                 percent = (self.current / self.total) * 100
-                print(f"\r{self.desc}: {self.current}/{self.total} ({percent:.1f}%)",
-                      file=sys.stderr, end='', flush=True)
+                print(
+                    f"\r{self.desc}: {self.current}/{self.total} ({percent:.1f}%)",
+                    file=sys.stderr,
+                    end="",
+                    flush=True,
+                )
 
     def set_description(self, desc: str):
         """
@@ -143,8 +151,12 @@ class ProgressIndicator:
         if self.pbar:
             self.pbar.set_description(desc)  # type: ignore[unreachable]
         else:
-            print(f"\r{desc}: {self.current}/{self.total if self.total else '?'}",
-                  file=sys.stderr, end='', flush=True)
+            print(
+                f"\r{desc}: {self.current}/{self.total if self.total else '?'}",
+                file=sys.stderr,
+                end="",
+                flush=True,
+            )
 
     def set_postfix_str(self, s: str):
         """
@@ -156,7 +168,7 @@ class ProgressIndicator:
         if self.disable:
             return
 
-        if self.pbar and hasattr(self.pbar, 'set_postfix_str'):  # type: ignore[unreachable]
+        if self.pbar and hasattr(self.pbar, "set_postfix_str"):  # type: ignore[unreachable]
             self.pbar.set_postfix_str(s)  # type: ignore[unreachable]
 
     def write(self, msg: str):
@@ -169,7 +181,7 @@ class ProgressIndicator:
         if self.disable:
             return
 
-        if self.pbar and hasattr(self.pbar, 'write'):  # type: ignore[unreachable]
+        if self.pbar and hasattr(self.pbar, "write"):  # type: ignore[unreachable]
             self.pbar.write(msg, file=sys.stderr)  # type: ignore[unreachable]
         else:
             print(f"\n{msg}", file=sys.stderr)
@@ -303,8 +315,8 @@ class OperationFeedback:
 
 @contextmanager
 def progress_bar(
-    iterable: Optional[Any] = None,
-    total: Optional[int] = None,
+    iterable: Any | None = None,
+    total: int | None = None,
     desc: str = "Progress",
     disable: bool = False,
     unit: str = "item",
@@ -394,7 +406,7 @@ def estimate_time_remaining(current: int, total: int, elapsed: float) -> str:
         return f"{hours}h {minutes}m"
 
 
-def format_count(count: int, singular: str, plural: Optional[str] = None) -> str:
+def format_count(count: int, singular: str, plural: str | None = None) -> str:
     """
     Format count with appropriate singular/plural form.
 
@@ -416,7 +428,7 @@ def format_count(count: int, singular: str, plural: Optional[str] = None) -> str
     """
     if plural is None:
         # Handle -y endings (repository -> repositories)
-        if singular.endswith('y') and len(singular) > 1 and singular[-2] not in 'aeiou':
+        if singular.endswith("y") and len(singular) > 1 and singular[-2] not in "aeiou":
             plural = singular[:-1] + "ies"
         else:
             plural = singular + "s"
@@ -426,10 +438,10 @@ def format_count(count: int, singular: str, plural: Optional[str] = None) -> str
 
 
 __all__ = [
-    'ProgressIndicator',
-    'OperationFeedback',
-    'progress_bar',
-    'estimate_time_remaining',
-    'format_count',
-    'TQDM_AVAILABLE',
+    "ProgressIndicator",
+    "OperationFeedback",
+    "progress_bar",
+    "estimate_time_remaining",
+    "format_count",
+    "TQDM_AVAILABLE",
 ]

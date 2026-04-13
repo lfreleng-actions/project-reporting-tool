@@ -10,9 +10,10 @@ including committer activity tables and lifecycle state summaries.
 Phase 3: Rendering & Report Integration
 """
 
-from typing import Any, Dict, List, Optional
-from domain.info_yaml import ProjectInfo, CommitterInfo, LifecycleSummary
 import logging
+from typing import Any
+
+from domain.info_yaml import CommitterInfo, LifecycleSummary, ProjectInfo
 
 
 class InfoYamlRenderer:
@@ -38,7 +39,7 @@ class InfoYamlRenderer:
         >>> lifecycle_md = renderer.render_lifecycle_summary_markdown(projects)
     """
 
-    def __init__(self, logger: Optional[logging.Logger] = None):
+    def __init__(self, logger: logging.Logger | None = None):
         """
         Initialize INFO.yaml renderer.
 
@@ -48,9 +49,7 @@ class InfoYamlRenderer:
         self.logger = logger or logging.getLogger(__name__)
 
     def render_committer_report_markdown(
-        self,
-        projects: List[ProjectInfo],
-        group_by_server: bool = False
+        self, projects: list[ProjectInfo], group_by_server: bool = False
     ) -> str:
         """
         Render committer INFO.yaml report as Markdown.
@@ -93,10 +92,7 @@ class InfoYamlRenderer:
 
         return "\n".join(lines)
 
-    def render_lifecycle_summary_markdown(
-        self,
-        projects: List[ProjectInfo]
-    ) -> str:
+    def render_lifecycle_summary_markdown(self, projects: list[ProjectInfo]) -> str:
         """
         Render lifecycle state summary as Markdown.
 
@@ -120,19 +116,14 @@ class InfoYamlRenderer:
         lines.append("|----------------|---------------------|------------|")
 
         for summary in summaries:
-            lines.append(
-                f"| {summary.state} | {summary.count} | {summary.percentage:.1f}% |"
-            )
+            lines.append(f"| {summary.state} | {summary.count} | {summary.percentage:.1f}% |")
 
         lines.append("")
         lines.append(f"**Total Projects:** {len(projects)}")
 
         return "\n".join(lines)
 
-    def _render_committer_table(
-        self,
-        projects: List[ProjectInfo]
-    ) -> List[str]:
+    def _render_committer_table(self, projects: list[ProjectInfo]) -> list[str]:
         """
         Render committer table for a list of projects.
 
@@ -144,7 +135,7 @@ class InfoYamlRenderer:
         """
         lines = [
             "| Project | Creation Date | Lifecycle State | Project Lead | Committers |",
-            "|---------|---------------|-----------------|--------------|------------|"
+            "|---------|---------------|-----------------|--------------|------------|",
         ]
 
         for project in projects:
@@ -191,7 +182,7 @@ class InfoYamlRenderer:
             return (
                 f'<span style="color: red;" '
                 f'title="⚠️ Broken project issue-tracker link: {error_msg}">'
-                f'{project_name}</span>'
+                f"{project_name}</span>"
             )
 
     def _format_project_lead(self, project: ProjectInfo) -> str:
@@ -237,19 +228,13 @@ class InfoYamlRenderer:
         lead_name = project.project_lead.name if project.project_lead else None
 
         # Filter out project lead
-        committers = [
-            c for c in project.committers
-            if c.name != lead_name
-        ]
+        committers = [c for c in project.committers if c.name != lead_name]
 
         if not committers:
             return "None"
 
         # Format each committer with color
-        formatted = [
-            self._format_person_with_color(c)
-            for c in committers
-        ]
+        formatted = [self._format_person_with_color(c) for c in committers]
 
         return "<br>".join(formatted)
 
@@ -279,9 +264,8 @@ class InfoYamlRenderer:
         return f'<span style="color: {color};" title="{tooltip}">{name}</span>'
 
     def _group_projects_by_server(
-        self,
-        projects: List[ProjectInfo]
-    ) -> Dict[str, List[ProjectInfo]]:
+        self, projects: list[ProjectInfo]
+    ) -> dict[str, list[ProjectInfo]]:
         """
         Group projects by Gerrit server.
 
@@ -291,7 +275,7 @@ class InfoYamlRenderer:
         Returns:
             Dictionary mapping server names to project lists
         """
-        grouped: Dict[str, List[ProjectInfo]] = {}
+        grouped: dict[str, list[ProjectInfo]] = {}
 
         for project in projects:
             server = project.gerrit_server
@@ -301,10 +285,7 @@ class InfoYamlRenderer:
 
         return grouped
 
-    def _calculate_lifecycle_summaries(
-        self,
-        projects: List[ProjectInfo]
-    ) -> List[LifecycleSummary]:
+    def _calculate_lifecycle_summaries(self, projects: list[ProjectInfo]) -> list[LifecycleSummary]:
         """
         Calculate lifecycle state summaries from projects.
 
@@ -318,7 +299,7 @@ class InfoYamlRenderer:
             return []
 
         # Count projects by lifecycle state
-        state_counts: Dict[str, int] = {}
+        state_counts: dict[str, int] = {}
         total = len(projects)
 
         for project in projects:
@@ -329,13 +310,7 @@ class InfoYamlRenderer:
         summaries = []
         for state, count in state_counts.items():
             percentage = (count / total * 100) if total > 0 else 0.0
-            summaries.append(
-                LifecycleSummary(
-                    state=state,
-                    count=count,
-                    percentage=percentage
-                )
-            )
+            summaries.append(LifecycleSummary(state=state, count=count, percentage=percentage))
 
         # Sort by count (descending), then by state name
         summaries.sort(key=lambda s: (-s.count, s.state))
@@ -343,9 +318,7 @@ class InfoYamlRenderer:
         return summaries
 
     def render_full_report_markdown(
-        self,
-        projects: List[ProjectInfo],
-        group_by_server: bool = False
+        self, projects: list[ProjectInfo], group_by_server: bool = False
     ) -> str:
         """
         Render complete INFO.yaml report with committers and lifecycle summary.
@@ -361,8 +334,7 @@ class InfoYamlRenderer:
 
         # Committer report
         committer_report = self.render_committer_report_markdown(
-            projects,
-            group_by_server=group_by_server
+            projects, group_by_server=group_by_server
         )
         if committer_report:
             sections.append(committer_report)
@@ -375,10 +347,8 @@ class InfoYamlRenderer:
         return "\n\n".join(sections)
 
     def build_template_context(
-        self,
-        projects: List[ProjectInfo],
-        group_by_server: bool = False
-    ) -> Dict[str, Any]:
+        self, projects: list[ProjectInfo], group_by_server: bool = False
+    ) -> dict[str, Any]:
         """
         Build context dictionary for Jinja2 templates.
 
@@ -393,7 +363,7 @@ class InfoYamlRenderer:
         sorted_projects = sorted(projects, key=lambda p: p.project_name)
 
         # Build context
-        context: Dict[str, Any] = {
+        context: dict[str, Any] = {
             "projects": [p.to_dict() for p in sorted_projects],
             "total_projects": len(projects),
             "group_by_server": group_by_server,
@@ -407,8 +377,7 @@ class InfoYamlRenderer:
         if group_by_server:
             grouped = self._group_projects_by_server(sorted_projects)
             context["projects_by_server"] = {
-                server: [p.to_dict() for p in projs]
-                for server, projs in grouped.items()
+                server: [p.to_dict() for p in projs] for server, projs in grouped.items()
             }
 
         return context

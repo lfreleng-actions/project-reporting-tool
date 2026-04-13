@@ -13,9 +13,9 @@ Supports both synchronous and asynchronous validation for optimal performance.
 import asyncio
 import logging
 import time
-from typing import Any, Dict, List, Optional, Tuple
 
 import httpx
+
 
 logger = logging.getLogger(__name__)
 
@@ -51,7 +51,7 @@ class URLValidator:
         self.cache_enabled = cache_enabled
 
         # Cache for validation results: {url: (is_valid, error_message)}
-        self._cache: Dict[str, Tuple[bool, str]] = {}
+        self._cache: dict[str, tuple[bool, str]] = {}
 
         self.logger = logging.getLogger(self.__class__.__name__)
         self.logger.debug(
@@ -59,7 +59,7 @@ class URLValidator:
             f"cache={cache_enabled}"
         )
 
-    def validate(self, url: str) -> Tuple[bool, str]:
+    def validate(self, url: str) -> tuple[bool, str]:
         """
         Validate a URL by making an HTTP HEAD request.
 
@@ -88,7 +88,7 @@ class URLValidator:
 
         return result
 
-    def _validate_with_retry(self, url: str) -> Tuple[bool, str]:
+    def _validate_with_retry(self, url: str) -> tuple[bool, str]:
         """
         Validate URL with retry logic and exponential backoff.
 
@@ -103,39 +103,32 @@ class URLValidator:
         for attempt in range(self.retries + 1):  # +1 for initial attempt
             try:
                 # Use httpx to check URL
-                with httpx.Client(
-                    follow_redirects=True, timeout=self.timeout
-                ) as client:
+                with httpx.Client(follow_redirects=True, timeout=self.timeout) as client:
                     # Use HEAD request for efficiency
                     response = client.head(url)
 
                     # Check status code
                     if response.status_code < 400:
                         self.logger.debug(
-                            f"URL validation succeeded for {url}: "
-                            f"HTTP {response.status_code}"
+                            f"URL validation succeeded for {url}: HTTP {response.status_code}"
                         )
                         return (True, "")
                     else:
                         # HTTP error - don't retry
                         error_msg = f"HTTP {response.status_code}"
-                        self.logger.debug(
-                            f"URL validation failed for {url}: {error_msg}"
-                        )
+                        self.logger.debug(f"URL validation failed for {url}: {error_msg}")
                         return (False, error_msg)
 
             except httpx.ConnectError as e:
                 last_error = "Connection failed"
                 self.logger.debug(
-                    f"Connection error for {url} (attempt {attempt + 1}/"
-                    f"{self.retries + 1}): {e}"
+                    f"Connection error for {url} (attempt {attempt + 1}/{self.retries + 1}): {e}"
                 )
 
             except httpx.TimeoutException as e:
                 last_error = f"Timeout after {self.timeout}s"
                 self.logger.debug(
-                    f"Timeout for {url} (attempt {attempt + 1}/"
-                    f"{self.retries + 1}): {e}"
+                    f"Timeout for {url} (attempt {attempt + 1}/{self.retries + 1}): {e}"
                 )
 
             except httpx.UnsupportedProtocol as e:
@@ -161,8 +154,7 @@ class URLValidator:
                 # Exponential backoff: 1s, 2s, 4s, etc.
                 retry_delay = 1.0 * (2**attempt)
                 self.logger.debug(
-                    f"Retrying {url} in {retry_delay}s "
-                    f"(attempt {attempt + 1}/{self.retries + 1})"
+                    f"Retrying {url} in {retry_delay}s (attempt {attempt + 1}/{self.retries + 1})"
                 )
                 time.sleep(retry_delay)
 
@@ -171,7 +163,7 @@ class URLValidator:
         self.logger.debug(f"URL validation failed for {url}: {error_msg}")
         return (False, error_msg)
 
-    def validate_bulk(self, urls: list[str]) -> Dict[str, Tuple[bool, str]]:
+    def validate_bulk(self, urls: list[str]) -> dict[str, tuple[bool, str]]:
         """
         Validate multiple URLs sequentially.
 
@@ -191,7 +183,7 @@ class URLValidator:
 
         return results
 
-    async def validate_async(self, url: str) -> Tuple[bool, str]:
+    async def validate_async(self, url: str) -> tuple[bool, str]:
         """
         Validate a URL asynchronously by making an HTTP HEAD request.
 
@@ -220,7 +212,7 @@ class URLValidator:
 
         return result
 
-    async def _validate_with_retry_async(self, url: str) -> Tuple[bool, str]:
+    async def _validate_with_retry_async(self, url: str) -> tuple[bool, str]:
         """
         Validate URL asynchronously with retry logic and exponential backoff.
 
@@ -235,39 +227,32 @@ class URLValidator:
         for attempt in range(self.retries + 1):  # +1 for initial attempt
             try:
                 # Use httpx async client to check URL
-                async with httpx.AsyncClient(
-                    follow_redirects=True, timeout=self.timeout
-                ) as client:
+                async with httpx.AsyncClient(follow_redirects=True, timeout=self.timeout) as client:
                     # Use HEAD request for efficiency
                     response = await client.head(url)
 
                     # Check status code
                     if response.status_code < 400:
                         self.logger.debug(
-                            f"URL validation succeeded for {url}: "
-                            f"HTTP {response.status_code}"
+                            f"URL validation succeeded for {url}: HTTP {response.status_code}"
                         )
                         return (True, "")
                     else:
                         # HTTP error - don't retry
                         error_msg = f"HTTP {response.status_code}"
-                        self.logger.debug(
-                            f"URL validation failed for {url}: {error_msg}"
-                        )
+                        self.logger.debug(f"URL validation failed for {url}: {error_msg}")
                         return (False, error_msg)
 
             except httpx.ConnectError as e:
                 last_error = "Connection failed"
                 self.logger.debug(
-                    f"Connection error for {url} (attempt {attempt + 1}/"
-                    f"{self.retries + 1}): {e}"
+                    f"Connection error for {url} (attempt {attempt + 1}/{self.retries + 1}): {e}"
                 )
 
             except httpx.TimeoutException as e:
                 last_error = f"Timeout after {self.timeout}s"
                 self.logger.debug(
-                    f"Timeout for {url} (attempt {attempt + 1}/"
-                    f"{self.retries + 1}): {e}"
+                    f"Timeout for {url} (attempt {attempt + 1}/{self.retries + 1}): {e}"
                 )
 
             except httpx.UnsupportedProtocol as e:
@@ -293,8 +278,7 @@ class URLValidator:
                 # Exponential backoff: 1s, 2s, 4s, etc.
                 retry_delay = 1.0 * (2**attempt)
                 self.logger.debug(
-                    f"Retrying {url} in {retry_delay}s "
-                    f"(attempt {attempt + 1}/{self.retries + 1})"
+                    f"Retrying {url} in {retry_delay}s (attempt {attempt + 1}/{self.retries + 1})"
                 )
                 await asyncio.sleep(retry_delay)
 
@@ -304,8 +288,8 @@ class URLValidator:
         return (False, error_msg)
 
     async def validate_bulk_async(
-        self, urls: List[str], max_concurrent: int = 10
-    ) -> Dict[str, Tuple[bool, str]]:
+        self, urls: list[str], max_concurrent: int = 10
+    ) -> dict[str, tuple[bool, str]]:
         """
         Validate multiple URLs concurrently using async HTTP requests.
 
@@ -328,7 +312,7 @@ class URLValidator:
         # Create semaphore to limit concurrent connections
         semaphore = asyncio.Semaphore(max_concurrent)
 
-        async def validate_with_semaphore(url: str) -> Tuple[str, Tuple[bool, str]]:
+        async def validate_with_semaphore(url: str) -> tuple[str, tuple[bool, str]]:
             """Validate a single URL with semaphore control."""
             async with semaphore:
                 result = await self.validate_async(url)
@@ -349,7 +333,7 @@ class URLValidator:
         elapsed = time.time() - start_time
         self.logger.info(
             f"Completed validation of {len(valid_urls)} URLs in {elapsed:.2f}s "
-            f"({len(valid_urls)/elapsed:.1f} URLs/s)"
+            f"({len(valid_urls) / elapsed:.1f} URLs/s)"
         )
 
         # Convert results to dictionary
@@ -369,7 +353,7 @@ class URLValidator:
         self._cache.clear()
         self.logger.debug("Validation cache cleared")
 
-    def get_cache_stats(self) -> Dict[str, int]:
+    def get_cache_stats(self) -> dict[str, int]:
         """
         Get cache statistics.
 
@@ -382,13 +366,11 @@ class URLValidator:
         stats = {
             "total_entries": len(self._cache),
             "valid_entries": sum(1 for is_valid, _ in self._cache.values() if is_valid),
-            "invalid_entries": sum(
-                1 for is_valid, _ in self._cache.values() if not is_valid
-            ),
+            "invalid_entries": sum(1 for is_valid, _ in self._cache.values() if not is_valid),
         }
         return stats
 
-    def get_cached_result(self, url: str) -> Optional[Tuple[bool, str]]:
+    def get_cached_result(self, url: str) -> tuple[bool, str] | None:
         """
         Get cached validation result for a URL.
 
@@ -413,7 +395,7 @@ class URLValidator:
         return url in self._cache
 
 
-def validate_url(url: str, timeout: float = 10.0, retries: int = 2) -> Tuple[bool, str]:
+def validate_url(url: str, timeout: float = 10.0, retries: int = 2) -> tuple[bool, str]:
     """
     Convenience function to validate a single URL.
 
@@ -431,7 +413,7 @@ def validate_url(url: str, timeout: float = 10.0, retries: int = 2) -> Tuple[boo
 
 def validate_urls(
     urls: list[str], timeout: float = 10.0, retries: int = 2
-) -> Dict[str, Tuple[bool, str]]:
+) -> dict[str, tuple[bool, str]]:
     """
     Convenience function to validate multiple URLs sequentially.
 
@@ -448,11 +430,11 @@ def validate_urls(
 
 
 async def validate_urls_async(
-    urls: List[str],
+    urls: list[str],
     timeout: float = 10.0,
     retries: int = 2,
     max_concurrent: int = 10,
-) -> Dict[str, Tuple[bool, str]]:
+) -> dict[str, tuple[bool, str]]:
     """
     Convenience function to validate multiple URLs concurrently.
 
@@ -479,12 +461,12 @@ async def validate_urls_async(
 
 
 def validate_urls_sync(
-    urls: List[str],
+    urls: list[str],
     timeout: float = 10.0,
     retries: int = 2,
     max_concurrent: int = 10,
     use_async: bool = True,
-) -> Dict[str, Tuple[bool, str]]:
+) -> dict[str, tuple[bool, str]]:
     """
     Convenience function to validate multiple URLs with automatic async/sync selection.
 
@@ -512,12 +494,10 @@ def validate_urls_sync(
         try:
             # Try to get existing event loop
             try:
-                loop = asyncio.get_running_loop()
+                asyncio.get_running_loop()
                 # We're already in an async context, can't use asyncio.run()
                 # Fall back to sync validation
-                logger.debug(
-                    "Event loop already running, falling back to sync validation"
-                )
+                logger.debug("Event loop already running, falling back to sync validation")
                 return validate_urls(urls, timeout=timeout, retries=retries)
             except RuntimeError:
                 # No event loop exists, create one with asyncio.run()

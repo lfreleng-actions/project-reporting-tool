@@ -23,10 +23,11 @@ from .matcher import CommitterMatcher
 from .parser import INFOYamlParser
 from .validator import URLValidator
 
+
 __all__ = [
-    'INFOYamlCollector',
-    'INFOYamlParser',
-    'InfoYamlEnricher',
-    'CommitterMatcher',
-    'URLValidator',
+    "INFOYamlCollector",
+    "INFOYamlParser",
+    "InfoYamlEnricher",
+    "CommitterMatcher",
+    "URLValidator",
 ]

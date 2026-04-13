@@ -10,7 +10,7 @@ extracting project metadata, committer information, and organizational data.
 
 import logging
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import yaml
 
@@ -20,6 +20,7 @@ from domain.info_yaml import (
     PersonInfo,
     ProjectInfo,
 )
+
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +43,7 @@ class INFOYamlParser:
         self.info_master_path = info_master_path
         self.logger = logging.getLogger(self.__class__.__name__)
 
-    def parse_file(self, yaml_file: Path) -> Optional[ProjectInfo]:
+    def parse_file(self, yaml_file: Path) -> ProjectInfo | None:
         """
         Parse a single INFO.yaml file.
 
@@ -63,7 +64,7 @@ class INFOYamlParser:
                 return None
 
             # Load YAML content
-            with open(yaml_file, "r", encoding="utf-8") as f:
+            with open(yaml_file, encoding="utf-8") as f:
                 data = yaml.safe_load(f)
 
             if not data:
@@ -81,7 +82,7 @@ class INFOYamlParser:
             self.logger.error(f"Unexpected error parsing {yaml_file}: {e}")
             return None
 
-    def parse_directory(self, directory: Path) -> List[ProjectInfo]:
+    def parse_directory(self, directory: Path) -> list[ProjectInfo]:
         """
         Recursively parse all INFO.yaml files in a directory.
 
@@ -116,9 +117,7 @@ class INFOYamlParser:
         self.logger.info(f"Successfully parsed {len(projects)} projects")
         return projects
 
-    def _extract_project_info(
-        self, yaml_file: Path, data: Dict[str, Any]
-    ) -> Optional[ProjectInfo]:
+    def _extract_project_info(self, yaml_file: Path, data: dict[str, Any]) -> ProjectInfo | None:
         """
         Extract project information from parsed YAML data.
 
@@ -188,7 +187,7 @@ class INFOYamlParser:
             self.logger.error(f"Error extracting project info from {yaml_file}: {e}")
             return None
 
-    def _extract_person(self, person_data: Any) -> Optional[PersonInfo]:
+    def _extract_person(self, person_data: Any) -> PersonInfo | None:
         """
         Extract person information from YAML data.
 
@@ -224,7 +223,7 @@ class INFOYamlParser:
             self.logger.warning(f"Invalid person data: {e}")
             return None
 
-    def _extract_committers(self, committers_data: Any) -> List[CommitterInfo]:
+    def _extract_committers(self, committers_data: Any) -> list[CommitterInfo]:
         """
         Extract committers list from YAML data.
 
@@ -297,7 +296,7 @@ class INFOYamlParser:
             validation_error="",
         )
 
-    def _extract_repositories(self, repositories_data: Any) -> List[str]:
+    def _extract_repositories(self, repositories_data: Any) -> list[str]:
         """
         Extract repositories list from YAML data.
 
@@ -320,9 +319,7 @@ class INFOYamlParser:
         return repositories
 
 
-def parse_info_yaml_file(
-    yaml_file: Path, info_master_path: Path
-) -> Optional[ProjectInfo]:
+def parse_info_yaml_file(yaml_file: Path, info_master_path: Path) -> ProjectInfo | None:
     """
     Convenience function to parse a single INFO.yaml file.
 
@@ -337,7 +334,7 @@ def parse_info_yaml_file(
     return parser.parse_file(yaml_file)
 
 
-def parse_info_yaml_directory(directory: Path) -> List[ProjectInfo]:
+def parse_info_yaml_directory(directory: Path) -> list[ProjectInfo]:
     """
     Convenience function to parse all INFO.yaml files in a directory.
 

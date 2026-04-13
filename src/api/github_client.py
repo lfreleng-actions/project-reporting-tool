@@ -13,21 +13,20 @@ Enhanced with standardized error handling and response envelopes.
 
 import logging
 import os
-from typing import Any, Dict, List, Optional
+from typing import Any
+
 
 try:
     import httpx
 except ImportError:
     from cli.errors import ConfigurationError
+
     raise ConfigurationError(
         "httpx package is required for GitHub API client",
-        suggestion="Install with: pip install httpx"
-    )
+        suggestion="Install with: pip install httpx",
+    ) from None
 
 from .base_client import (
-    APIResponse,
-    APIError,
-    ErrorType,
     BaseAPIClient,
 )
 
@@ -48,8 +47,8 @@ class GitHubAPIClient(BaseAPIClient):
         self,
         token: str,
         timeout: float = 30.0,
-        stats: Optional[Any] = None,
-        use_envelope: bool = False
+        stats: Any | None = None,
+        use_envelope: bool = False,
     ):
         """
         Initialize GitHub API client with token.
@@ -82,7 +81,7 @@ class GitHubAPIClient(BaseAPIClient):
 
     def close(self):
         """Close the httpx client and clean up resources."""
-        if hasattr(self, 'client'):
+        if hasattr(self, "client"):
             self.client.close()
 
     def _write_to_step_summary(self, message: str) -> None:
@@ -100,11 +99,7 @@ class GitHubAPIClient(BaseAPIClient):
             except Exception as e:
                 self.logger.debug(f"Could not write to GITHUB_STEP_SUMMARY: {e}")
 
-    def get_repository_workflows(
-        self,
-        owner: str,
-        repo: str
-    ) -> List[Dict[str, Any]]:
+    def get_repository_workflows(self, owner: str, repo: str) -> list[dict[str, Any]]:
         """
         Get all workflows for a repository.
 
@@ -137,9 +132,7 @@ class GitHubAPIClient(BaseAPIClient):
 
             elif response.status_code == 403:
                 self._record_error("github", 403)
-                error_msg = (
-                    f"⚠️ **GitHub API Permission Denied** for `{owner}/{repo}`\n\n"
-                )
+                error_msg = f"⚠️ **GitHub API Permission Denied** for `{owner}/{repo}`\n\n"
                 try:
                     error_body = response.json()
                     error_message = error_body.get("message", response.text)
@@ -179,28 +172,32 @@ class GitHubAPIClient(BaseAPIClient):
                     workflow_state = workflow.get("state", "unknown")
                     color = self._compute_workflow_color_from_state(workflow_state)
 
-                    workflows.append({
-                        "id": workflow.get("id"),
-                        "name": workflow.get("name"),
-                        "path": workflow_path,
-                        "state": workflow_state,
-                        "status": "unknown",
-                        "color": color,
-                        "urls": {
-                            "workflow_page": (
-                                f"https://github.com/{owner}/{repo}/actions/workflows/"
-                                f"{os.path.basename(workflow_path) if workflow_path else ''}"
-                            ),
-                            "source": source_url,
-                            "badge": workflow.get("badge_url"),
-                        },
-                    })
+                    workflows.append(
+                        {
+                            "id": workflow.get("id"),
+                            "name": workflow.get("name"),
+                            "path": workflow_path,
+                            "state": workflow_state,
+                            "status": "unknown",
+                            "color": color,
+                            "urls": {
+                                "workflow_page": (
+                                    f"https://github.com/{owner}/{repo}/actions/workflows/"
+                                    f"{os.path.basename(workflow_path) if workflow_path else ''}"
+                                ),
+                                "source": source_url,
+                                "badge": workflow.get("badge_url"),
+                            },
+                        }
+                    )
 
                 return workflows
 
             elif response.status_code == 404:
                 self._record_error("github", 404)
-                self.logger.warning(f"❌ Repository {owner}/{repo} not found (404) - may not exist on GitHub or token lacks access")
+                self.logger.warning(
+                    f"❌ Repository {owner}/{repo} not found (404) - may not exist on GitHub or token lacks access"
+                )
                 return []
 
             else:
@@ -213,18 +210,12 @@ class GitHubAPIClient(BaseAPIClient):
 
         except Exception as e:
             self._record_exception("github")
-            self.logger.error(
-                f"❌ Error: GitHub API query exception for {owner}/{repo}: {e}"
-            )
+            self.logger.error(f"❌ Error: GitHub API query exception for {owner}/{repo}: {e}")
             return []
 
     def get_workflow_runs_status(
-        self,
-        owner: str,
-        repo: str,
-        workflow_id: int,
-        limit: int = 10
-    ) -> Dict[str, Any]:
+        self, owner: str, repo: str, workflow_id: int, limit: int = 10
+    ) -> dict[str, Any]:
         """
         Get recent workflow runs for a specific workflow to determine status.
 
@@ -273,9 +264,7 @@ class GitHubAPIClient(BaseAPIClient):
                 # Compute standardized status from conclusion and run status
                 conclusion = latest_run.get("conclusion", "unknown")
                 run_status = latest_run.get("status", "unknown")
-                standardized_status = self._compute_workflow_status(
-                    conclusion, run_status
-                )
+                standardized_status = self._compute_workflow_status(conclusion, run_status)
 
                 return {
                     "status": standardized_status,
@@ -289,9 +278,7 @@ class GitHubAPIClient(BaseAPIClient):
                         "html_url": latest_run.get("html_url"),
                         "head_branch": latest_run.get("head_branch"),
                         "head_sha": (
-                            latest_run.get("head_sha")[:7]
-                            if latest_run.get("head_sha")
-                            else None
+                            latest_run.get("head_sha")[:7] if latest_run.get("head_sha") else None
                         ),
                     },
                 }
@@ -311,11 +298,7 @@ class GitHubAPIClient(BaseAPIClient):
             )
             return {"status": "error", "last_run": None}
 
-    def get_repository_workflow_status_summary(
-        self,
-        owner: str,
-        repo: str
-    ) -> Dict[str, Any]:
+    def get_repository_workflow_status_summary(self, owner: str, repo: str) -> dict[str, Any]:
         """
         Get comprehensive workflow status summary for a repository.
 
@@ -349,19 +332,19 @@ class GitHubAPIClient(BaseAPIClient):
                 merged_workflow = {**workflow, **status_info}
 
                 # Update URLs with source URL if not already present
-                if "urls" in merged_workflow and workflow.get("path"):
-                    if not merged_workflow["urls"].get("source"):
-                        merged_workflow["urls"]["source"] = (
-                            f"https://github.com/{owner}/{repo}/blob/master/"
-                            f"{workflow['path']}"
-                        )
+                if (
+                    "urls" in merged_workflow
+                    and workflow.get("path")
+                    and not merged_workflow["urls"].get("source")
+                ):
+                    merged_workflow["urls"]["source"] = (
+                        f"https://github.com/{owner}/{repo}/blob/master/{workflow['path']}"
+                    )
 
                 # Update color based on runtime status if available
                 if "status" in status_info and status_info["status"]:
-                    merged_workflow["color"] = (
-                        self._compute_workflow_color_from_runtime_status(
-                            status_info["status"]
-                        )
+                    merged_workflow["color"] = self._compute_workflow_color_from_runtime_status(
+                        status_info["status"]
                     )
 
                 workflow_statuses.append(merged_workflow)

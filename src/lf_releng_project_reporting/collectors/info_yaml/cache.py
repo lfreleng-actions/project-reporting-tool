@@ -16,7 +16,8 @@ import pickle
 import time
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Generic, Optional, TypeVar
+from typing import Any, Generic, TypeVar
+
 
 logger = logging.getLogger(__name__)
 
@@ -43,10 +44,10 @@ class CacheEntry(Generic[T]):
     created_at: float
     accessed_at: float
     access_count: int = 0
-    ttl: Optional[float] = None
+    ttl: float | None = None
     size_bytes: int = 0
 
-    def is_expired(self, current_time: Optional[float] = None) -> bool:
+    def is_expired(self, current_time: float | None = None) -> bool:
         """
         Check if the cache entry has expired.
 
@@ -84,8 +85,8 @@ class LRUCache(Generic[T]):
     def __init__(
         self,
         max_entries: int = 1000,
-        max_size_bytes: Optional[int] = None,
-        default_ttl: Optional[float] = None,
+        max_size_bytes: int | None = None,
+        default_ttl: float | None = None,
     ):
         """
         Initialize the LRU cache.
@@ -99,7 +100,7 @@ class LRUCache(Generic[T]):
         self.max_size_bytes = max_size_bytes
         self.default_ttl = default_ttl
 
-        self._cache: Dict[str, CacheEntry[T]] = {}
+        self._cache: dict[str, CacheEntry[T]] = {}
         self._total_size_bytes = 0
 
         # Statistics
@@ -113,7 +114,7 @@ class LRUCache(Generic[T]):
             f"max_size_bytes={max_size_bytes}, default_ttl={default_ttl}"
         )
 
-    def get(self, key: str, default: Optional[T] = None) -> Optional[T]:
+    def get(self, key: str, default: T | None = None) -> T | None:
         """
         Get a value from the cache.
 
@@ -146,7 +147,7 @@ class LRUCache(Generic[T]):
         self,
         key: str,
         value: T,
-        ttl: Optional[float] = None,
+        ttl: float | None = None,
     ) -> None:
         """
         Set a value in the cache.
@@ -182,8 +183,7 @@ class LRUCache(Generic[T]):
         self._total_size_bytes += size_bytes
 
         self.logger.debug(
-            f"Cached entry: key={key}, size={size_bytes}B, "
-            f"total_entries={len(self._cache)}"
+            f"Cached entry: key={key}, size={size_bytes}B, total_entries={len(self._cache)}"
         )
 
     def delete(self, key: str) -> bool:
@@ -228,10 +228,7 @@ class LRUCache(Generic[T]):
 
         # Check size limit
         if self.max_size_bytes is not None:
-            while (
-                self._total_size_bytes + incoming_size > self.max_size_bytes
-                and self._cache
-            ):
+            while self._total_size_bytes + incoming_size > self.max_size_bytes and self._cache:
                 self._evict_lru()
 
     def _evict_lru(self) -> None:
@@ -265,7 +262,7 @@ class LRUCache(Generic[T]):
             # Fallback estimate
             return 1024  # 1KB default
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """
         Get cache statistics.
 
@@ -273,9 +270,7 @@ class LRUCache(Generic[T]):
             Dictionary with cache statistics
         """
         total_requests = self._hits + self._misses
-        hit_rate = (
-            (self._hits / total_requests * 100) if total_requests > 0 else 0.0
-        )
+        hit_rate = (self._hits / total_requests * 100) if total_requests > 0 else 0.0
 
         return {
             "entries": len(self._cache),
@@ -297,11 +292,7 @@ class LRUCache(Generic[T]):
             Number of entries pruned
         """
         current_time = time.time()
-        expired_keys = [
-            key
-            for key, entry in self._cache.items()
-            if entry.is_expired(current_time)
-        ]
+        expired_keys = [key for key, entry in self._cache.items() if entry.is_expired(current_time)]
 
         for key in expired_keys:
             self._evict_entry(key)
@@ -344,7 +335,7 @@ class PersistentCache:
         self.logger = logging.getLogger(self.__class__.__name__)
         self.logger.debug(f"PersistentCache initialized: dir={cache_dir}, format={format}")
 
-    def get(self, key: str) -> Optional[Any]:
+    def get(self, key: str) -> Any | None:
         """
         Get a value from persistent storage.
 
@@ -361,7 +352,7 @@ class PersistentCache:
 
         try:
             if self.format == "json":
-                with open(cache_file, "r") as f:
+                with open(cache_file) as f:
                     return json.load(f)
             elif self.format == "pickle":
                 with open(cache_file, "rb") as f:
@@ -475,7 +466,7 @@ class MultiLevelCache(Generic[T]):
     def __init__(
         self,
         memory_cache: LRUCache[T],
-        disk_cache: Optional[PersistentCache] = None,
+        disk_cache: PersistentCache | None = None,
     ):
         """
         Initialize the multi-level cache.
@@ -494,7 +485,7 @@ class MultiLevelCache(Generic[T]):
             f"disk={disk_cache is not None}"
         )
 
-    def get(self, key: str, default: Optional[T] = None) -> Optional[T]:
+    def get(self, key: str, default: T | None = None) -> T | None:
         """
         Get a value from the cache.
 
@@ -525,7 +516,7 @@ class MultiLevelCache(Generic[T]):
 
         return default
 
-    def set(self, key: str, value: T, ttl: Optional[float] = None) -> None:
+    def set(self, key: str, value: T, ttl: float | None = None) -> None:
         """
         Set a value in the cache.
 
@@ -564,7 +555,7 @@ class MultiLevelCache(Generic[T]):
         if self.disk_cache is not None:
             self.disk_cache.clear()
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """
         Get statistics for all cache levels.
 
@@ -587,11 +578,11 @@ class MultiLevelCache(Generic[T]):
 
 
 def create_info_yaml_cache(
-    cache_dir: Optional[Path] = None,
+    cache_dir: Path | None = None,
     max_memory_entries: int = 1000,
-    ttl: Optional[float] = 3600,  # 1 hour default
+    ttl: float | None = 3600,  # 1 hour default
     enable_disk_cache: bool = True,
-) -> MultiLevelCache:
+) -> MultiLevelCache[Any]:
     """
     Factory function to create a configured multi-level cache for INFO.yaml data.
 

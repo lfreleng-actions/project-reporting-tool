@@ -12,7 +12,8 @@ import logging
 import subprocess
 import time
 from pathlib import Path
-from typing import Any, Optional, Tuple
+from typing import Any
+
 
 logger = logging.getLogger(__name__)
 
@@ -46,9 +47,7 @@ class JJBRepoManager:
         except Exception as e:
             logger.warning(f"Failed to create cache directory {self.cache_dir}: {e}")
 
-    def ensure_repos(
-        self, ci_management_url: str, branch: str = "master"
-    ) -> Tuple[Path, Path]:
+    def ensure_repos(self, ci_management_url: str, branch: str = "master") -> tuple[Path, Path]:
         """
         Ensure ci-management and global-jjb repositories are available.
 
@@ -91,9 +90,7 @@ class JJBRepoManager:
 
         return ci_mgmt_path, global_jjb_path
 
-    def _ensure_repo(
-        self, path: Path, url: str, branch: str, name: str
-    ) -> Path:
+    def _ensure_repo(self, path: Path, url: str, branch: str, name: str) -> Path:
         """
         Ensure a git repository exists and is up-to-date.
 
@@ -183,9 +180,7 @@ class JJBRepoManager:
                 logger.debug(f"Successfully updated {name} repository")
                 logger.debug(f"Git pull output: {result.stdout.strip()}")
             else:
-                logger.warning(
-                    f"Failed to update {name} repository: {result.stderr.strip()}"
-                )
+                logger.warning(f"Failed to update {name} repository: {result.stderr.strip()}")
                 logger.warning("Continuing with existing cached version")
 
         except subprocess.TimeoutExpired:
@@ -195,9 +190,7 @@ class JJBRepoManager:
             logger.warning(f"Error updating {name} repository: {e}")
             logger.warning("Continuing with existing cached version")
 
-    def _clone_repo(
-        self, path: Path, url: str, branch: str, name: str
-    ) -> None:
+    def _clone_repo(self, path: Path, url: str, branch: str, name: str) -> None:
         """
         Clone a git repository.
 
@@ -240,14 +233,14 @@ class JJBRepoManager:
                 logger.error(error_msg)
                 raise RuntimeError(error_msg)
 
-        except subprocess.TimeoutExpired:
+        except subprocess.TimeoutExpired as err:
             error_msg = f"Timeout cloning {name} repository from {url}"
             logger.error(error_msg)
-            raise RuntimeError(error_msg)
+            raise RuntimeError(error_msg) from err
         except Exception as e:
             error_msg = f"Error cloning {name} repository: {e}"
             logger.error(error_msg)
-            raise RuntimeError(error_msg)
+            raise RuntimeError(error_msg) from e
 
     def _is_valid_repo(self, path: Path) -> bool:
         """
@@ -284,7 +277,7 @@ class JJBRepoManager:
             logger.warning(f"Error validating repository at {path}: {e}")
             return False
 
-    def clean_cache(self, older_than: Optional[int] = None) -> None:
+    def clean_cache(self, older_than: int | None = None) -> None:
         """
         Clean cached repositories.
 
@@ -316,6 +309,7 @@ class JJBRepoManager:
                     logger.debug(f"Removing cached repository: {repo_dir}")
                     try:
                         import shutil
+
                         shutil.rmtree(repo_dir)
                     except Exception as e:
                         logger.warning(f"Failed to remove {repo_dir}: {e}")
@@ -323,7 +317,7 @@ class JJBRepoManager:
         except Exception as e:
             logger.warning(f"Error cleaning cache: {e}")
 
-    def get_cache_info(self) -> dict:
+    def get_cache_info(self) -> dict[str, Any]:
         """
         Get information about cached repositories.
 
@@ -361,12 +355,14 @@ class JJBRepoManager:
                 except Exception:
                     age_hours = 0
 
-                info["repositories"].append({
-                    "name": repo_dir.name,
-                    "path": str(repo_dir),
-                    "size_mb": size / (1024 * 1024),
-                    "age_hours": age_hours,
-                })
+                info["repositories"].append(
+                    {
+                        "name": repo_dir.name,
+                        "path": str(repo_dir),
+                        "size_mb": size / (1024 * 1024),
+                        "age_hours": age_hours,
+                    }
+                )
 
                 info["total_size_mb"] += size / (1024 * 1024)
 

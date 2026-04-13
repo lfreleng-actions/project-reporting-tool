@@ -36,6 +36,7 @@ from .repository_metrics import RepositoryMetrics
 from .time_window import TimeWindow, TimeWindowStats
 from .workflow_status import WorkflowStatus
 
+
 __all__ = [
     "AuthorMetrics",
     "CommitterInfo",

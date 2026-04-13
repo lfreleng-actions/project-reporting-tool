@@ -26,24 +26,25 @@ Example:
 
 import multiprocessing
 import threading
-import queue
 import time
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, Future, as_completed
-from dataclasses import dataclass, field
-from typing import Callable, List, Dict, Any, Optional, Tuple, Union
-from enum import Enum
 import traceback
-import os
+from collections.abc import Callable
+from concurrent.futures import Future, ProcessPoolExecutor, ThreadPoolExecutor, as_completed
+from dataclasses import dataclass, field
+from enum import Enum
+from typing import Any
 
 
 class WorkerType(Enum):
     """Type of worker pool to use."""
+
     THREAD = "thread"
     PROCESS = "process"
 
 
 class ProcessingStatus(Enum):
     """Status of a processing task."""
+
     PENDING = "pending"
     RUNNING = "running"
     SUCCESS = "success"
@@ -55,6 +56,7 @@ class ProcessingStatus(Enum):
 @dataclass
 class WorkerConfig:
     """Configuration for parallel processing."""
+
     max_workers: int = 4
     worker_type: WorkerType = WorkerType.THREAD
     worker_timeout: int = 300  # seconds
@@ -93,14 +95,15 @@ class WorkerConfig:
 @dataclass
 class ProcessingResult:
     """Result from processing a single repository."""
+
     item_id: str
     status: ProcessingStatus
     result: Any = None
-    error: Optional[str] = None
-    error_traceback: Optional[str] = None
+    error: str | None = None
+    error_traceback: str | None = None
     start_time: float = 0.0
     end_time: float = 0.0
-    worker_id: Optional[int] = None
+    worker_id: int | None = None
     retry_count: int = 0
 
     @property
@@ -122,11 +125,12 @@ class ProcessingResult:
 @dataclass
 class AggregatedResults:
     """Aggregated results from parallel processing."""
+
     total: int
-    successful: List[ProcessingResult] = field(default_factory=list)
-    failed: List[ProcessingResult] = field(default_factory=list)
-    results: Dict[str, Any] = field(default_factory=dict)
-    errors: Dict[str, str] = field(default_factory=dict)
+    successful: list[ProcessingResult] = field(default_factory=list)
+    failed: list[ProcessingResult] = field(default_factory=list)
+    results: dict[str, Any] = field(default_factory=dict)
+    errors: dict[str, str] = field(default_factory=dict)
     total_duration: float = 0.0
 
     @property
@@ -171,7 +175,7 @@ class ResultAggregator:
         """
         self.total_items = total_items
         self.lock = threading.Lock()
-        self.results: List[ProcessingResult] = []
+        self.results: list[ProcessingResult] = []
         self.completed_count = 0
         self.start_time = time.perf_counter()
 
@@ -186,7 +190,7 @@ class ResultAggregator:
             self.results.append(result)
             self.completed_count += 1
 
-    def get_progress(self) -> Tuple[int, int]:
+    def get_progress(self) -> tuple[int, int]:
         """
         Get current progress.
 
@@ -218,7 +222,7 @@ class ResultAggregator:
                 failed=failed,
                 results=results_dict,
                 errors=errors_dict,
-                total_duration=end_time - self.start_time
+                total_duration=end_time - self.start_time,
             )
 
 
@@ -235,7 +239,7 @@ class WorkerPool:
         self,
         max_workers: int = 4,
         worker_type: WorkerType = WorkerType.THREAD,
-        worker_timeout: int = 300
+        worker_timeout: int = 300,
     ):
         """
         Initialize worker pool.
@@ -248,7 +252,7 @@ class WorkerPool:
         self.max_workers = max_workers
         self.worker_type = worker_type
         self.worker_timeout = worker_timeout
-        self.executor: Optional[Union[ThreadPoolExecutor, ProcessPoolExecutor]] = None
+        self.executor: ThreadPoolExecutor | ProcessPoolExecutor | None = None
 
     def __enter__(self):
         """Enter context manager."""
@@ -264,7 +268,7 @@ class WorkerPool:
             self.executor.shutdown(wait=True)
         return False
 
-    def submit(self, func: Callable, *args, **kwargs) -> Future:
+    def submit(self, func: Callable[..., Any], *args: Any, **kwargs: Any) -> Future[Any]:
         """
         Submit a task to the pool.
 
@@ -280,7 +284,7 @@ class WorkerPool:
             raise RuntimeError("WorkerPool must be used as context manager")
         return self.executor.submit(func, *args, **kwargs)
 
-    def map(self, func: Callable, items: List[Any]) -> List[Any]:
+    def map(self, func: Callable[..., Any], items: list[Any]) -> list[Any]:
         """
         Map function over items in parallel.
 
@@ -319,10 +323,10 @@ class ParallelRepositoryProcessor:
 
     def __init__(
         self,
-        max_workers: Optional[int] = None,
-        config: Optional[WorkerConfig] = None,
-        profiler: Optional[Any] = None,
-        progress_callback: Optional[Callable[[int, int], None]] = None
+        max_workers: int | None = None,
+        config: WorkerConfig | None = None,
+        profiler: Any | None = None,
+        progress_callback: Callable[[int, int], None] | None = None,
     ):
         """
         Initialize parallel processor.
@@ -351,11 +355,7 @@ class ParallelRepositoryProcessor:
             return self._worker_counter
 
     def _process_item(
-        self,
-        item: Any,
-        processor_func: Callable,
-        worker_id: int,
-        retry_count: int = 0
+        self, item: Any, processor_func: Callable[..., Any], worker_id: int, retry_count: int = 0
     ) -> ProcessingResult:
         """
         Process a single item.
@@ -369,14 +369,14 @@ class ParallelRepositoryProcessor:
         Returns:
             ProcessingResult
         """
-        item_id = str(item) if not isinstance(item, dict) else item.get('id', str(item))
+        item_id = str(item) if not isinstance(item, dict) else item.get("id", str(item))
 
         result = ProcessingResult(
             item_id=item_id,
             status=ProcessingStatus.RUNNING,
             start_time=time.perf_counter(),
             worker_id=worker_id,
-            retry_count=retry_count
+            retry_count=retry_count,
         )
 
         try:
@@ -385,7 +385,7 @@ class ParallelRepositoryProcessor:
                 with self.profiler.track_operation(
                     f"process_item_{item_id}",
                     category="analysis",
-                    metadata={"worker_id": worker_id, "retry": retry_count}
+                    metadata={"worker_id": worker_id, "retry": retry_count},
                 ):
                     output = processor_func(item)
             else:
@@ -409,7 +409,7 @@ class ParallelRepositoryProcessor:
 
         return result
 
-    def _batch_items(self, items: List[Any]) -> List[List[Any]]:
+    def _batch_items(self, items: list[Any]) -> list[list[Any]]:
         """
         Batch items for processing.
 
@@ -420,13 +420,13 @@ class ParallelRepositoryProcessor:
             List of batches
         """
         batch_size = self.config.batch_size
-        return [items[i:i + batch_size] for i in range(0, len(items), batch_size)]
+        return [items[i : i + batch_size] for i in range(0, len(items), batch_size)]
 
     def process_repositories(
         self,
-        repositories: List[Any],
+        repositories: list[Any],
         processor_func: Callable[[Any], Any],
-        batch_mode: bool = False
+        _batch_mode: bool = False,
     ) -> AggregatedResults:
         """
         Process multiple repositories in parallel.
@@ -463,20 +463,14 @@ class ParallelRepositoryProcessor:
         with WorkerPool(
             max_workers=self.config.max_workers,
             worker_type=self.config.worker_type,
-            worker_timeout=self.config.worker_timeout
+            worker_timeout=self.config.worker_timeout,
         ) as pool:
-
             # Submit all tasks
-            futures: Dict[Future, Tuple[Any, int]] = {}
+            futures: dict[Future[Any], tuple[Any, int]] = {}
 
             for item in repositories:
                 worker_id = self._get_worker_id()
-                future = pool.submit(
-                    self._process_item,
-                    item,
-                    processor_func,
-                    worker_id
-                )
+                future = pool.submit(self._process_item, item, processor_func, worker_id)
                 futures[future] = (item, worker_id)
 
             # Collect results as they complete
@@ -507,7 +501,7 @@ class ParallelRepositoryProcessor:
                         item_id=item_id,
                         status=ProcessingStatus.TIMEOUT,
                         error=f"Task timed out after {self.config.worker_timeout}s",
-                        worker_id=worker_id
+                        worker_id=worker_id,
                     )
                     aggregator.add_result(timeout_result)
 
@@ -519,7 +513,7 @@ class ParallelRepositoryProcessor:
                         status=ProcessingStatus.FAILED,
                         error=f"Unexpected error: {str(e)}",
                         error_traceback=traceback.format_exc(),
-                        worker_id=worker_id
+                        worker_id=worker_id,
                     )
                     aggregator.add_result(error_result)
 
@@ -529,7 +523,7 @@ class ParallelRepositoryProcessor:
 
         return aggregator.get_results()
 
-    def get_worker_utilization(self, results: AggregatedResults) -> Dict[str, Any]:
+    def get_worker_utilization(self, results: AggregatedResults) -> dict[str, Any]:
         """
         Calculate worker utilization statistics.
 
@@ -544,12 +538,12 @@ class ParallelRepositoryProcessor:
                 "total_workers": self.config.max_workers,
                 "utilized_workers": 0,
                 "utilization_rate": 0.0,
-                "avg_items_per_worker": 0.0
+                "avg_items_per_worker": 0.0,
             }
 
         # Count unique workers
         worker_ids = set()
-        worker_counts: Dict[int, int] = {}
+        worker_counts: dict[int, int] = {}
 
         for result in results.successful + results.failed:
             if result.worker_id:
@@ -563,17 +557,14 @@ class ParallelRepositoryProcessor:
             "utilized_workers": utilized_workers,
             "utilization_rate": (utilized_workers / self.config.max_workers * 100),
             "avg_items_per_worker": results.total / utilized_workers if utilized_workers > 0 else 0,
-            "items_per_worker": worker_counts
+            "items_per_worker": worker_counts,
         }
 
 
 # Convenience function for simple parallel mapping
 def parallel_map(
-    func: Callable,
-    items: List[Any],
-    max_workers: Optional[int] = None,
-    timeout: int = 300
-) -> List[Any]:
+    func: Callable[..., Any], items: list[Any], max_workers: int | None = None, timeout: int = 300
+) -> list[Any]:
     """
     Simple parallel map function.
 

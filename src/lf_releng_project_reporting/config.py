@@ -12,20 +12,22 @@ This module handles:
 - Setting up time windows
 """
 
-from pathlib import Path
-from typing import Any, Dict, Optional, List
-import yaml
-import json
 import hashlib
+import json
 import logging
 from datetime import datetime, timedelta
+from pathlib import Path
+from typing import Any
+
+import yaml
 
 from .exceptions import ConfigurationError
+
 
 logger = logging.getLogger(__name__)
 
 
-def deep_merge_dicts(base: Dict[str, Any], override: Dict[str, Any]) -> Dict[str, Any]:
+def deep_merge_dicts(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
     """
     Deep merge two dictionaries, with override taking precedence.
 
@@ -47,7 +49,7 @@ def deep_merge_dicts(base: Dict[str, Any], override: Dict[str, Any]) -> Dict[str
     return result
 
 
-def load_yaml_config(config_path: Path) -> Dict[str, Any]:
+def load_yaml_config(config_path: Path) -> dict[str, Any]:
     """
     Load YAML configuration file.
 
@@ -61,29 +63,26 @@ def load_yaml_config(config_path: Path) -> Dict[str, Any]:
         ConfigurationError: If file cannot be loaded or parsed
     """
     try:
-        with open(config_path, 'r') as f:
+        with open(config_path) as f:
             config = yaml.safe_load(f)
             if config is None:
                 return {}
             if not isinstance(config, dict):
-                raise ConfigurationError(f"Configuration file must contain a YAML dictionary: {config_path}")
+                raise ConfigurationError(
+                    f"Configuration file must contain a YAML dictionary: {config_path}"
+                )
             return config
-    except FileNotFoundError:
-        raise ConfigurationError(f"Configuration file not found: {config_path}")
+    except FileNotFoundError as err:
+        raise ConfigurationError(f"Configuration file not found: {config_path}") from err
     except yaml.YAMLError as e:
-        raise ConfigurationError(f"Invalid YAML in configuration file {config_path}: {e}")
+        raise ConfigurationError(f"Invalid YAML in configuration file {config_path}: {e}") from e
     except Exception as e:
-        raise ConfigurationError(f"Error loading configuration file {config_path}: {e}")
-
-
-
+        raise ConfigurationError(f"Error loading configuration file {config_path}: {e}") from e
 
 
 def load_configuration(
-    project: str,
-    config_dir: Optional[Path] = None,
-    default_config_name: Optional[str] = None
-) -> Dict[str, Any]:
+    project: str, config_dir: Path | None = None, default_config_name: str | None = None
+) -> dict[str, Any]:
     """
     Load and merge configuration files.
 
@@ -107,11 +106,8 @@ def load_configuration(
     Returns:
         Merged configuration dictionary
     """
-    if config_dir is None:
-        config_dir = Path("configuration")
-    else:
-        # Ensure config_dir is a Path object
-        config_dir = Path(config_dir)
+    # Ensure config_dir is a Path object (default: "configuration")
+    config_dir = Path("configuration") if config_dir is None else Path(config_dir)
 
     if default_config_name is None:
         default_config_name = "default.yaml"
@@ -131,7 +127,7 @@ def load_configuration(
 
     # Try loading by filename first (with .yaml and .config extensions)
     project_lower = project.lower()
-    for extension in ['.yaml', '.config']:
+    for extension in [".yaml", ".config"]:
         candidate_path = config_dir / f"{project_lower}{extension}"
         if candidate_path.exists():
             try:
@@ -163,7 +159,7 @@ def load_configuration(
             try:
                 candidate_config = load_yaml_config(config_file)
                 # Check if this config has a 'project' field that matches
-                if candidate_config.get('project') == project:
+                if candidate_config.get("project") == project:
                     project_config = candidate_config
                     project_path = config_file
                     logger.debug(f"Found project configuration in {config_file}")
@@ -185,7 +181,7 @@ def load_configuration(
         logger.debug(f"Loaded project configuration from {project_path}")
 
     # Ensure project name is set
-    merged_config['project'] = project
+    merged_config["project"] = project
 
     # Apply intelligent auto-derivation
     merged_config = apply_auto_derivation(merged_config)
@@ -193,7 +189,7 @@ def load_configuration(
     return merged_config
 
 
-def compute_config_digest(config: Dict[str, Any]) -> str:
+def compute_config_digest(config: dict[str, Any]) -> str:
     """
     Compute SHA256 digest of configuration for caching purposes.
 
@@ -207,7 +203,7 @@ def compute_config_digest(config: Dict[str, Any]) -> str:
     return hashlib.sha256(config_json.encode()).hexdigest()
 
 
-def setup_time_windows(config: Dict[str, Any]) -> Dict[str, datetime]:
+def setup_time_windows(config: dict[str, Any]) -> dict[str, datetime]:
     """
     Set up time windows from configuration.
 
@@ -227,23 +223,23 @@ def setup_time_windows(config: Dict[str, Any]) -> Dict[str, datetime]:
     time_windows = {}
     now = datetime.now()
 
-    if 'time_windows' not in config:
+    if "time_windows" not in config:
         logger.warning("No time_windows defined in configuration, using defaults")
         return {
-            'last_30': now - timedelta(days=30),
-            'last_90': now - timedelta(days=90),
-            'last_365': now - timedelta(days=365),
+            "last_30": now - timedelta(days=30),
+            "last_90": now - timedelta(days=90),
+            "last_365": now - timedelta(days=365),
         }
 
-    for window_name, window_config in config['time_windows'].items():
+    for window_name, window_config in config["time_windows"].items():
         # Support both simple integer format and dictionary format
         if isinstance(window_config, int):
             # Simple format: last_30: 30
             days = window_config
             time_windows[window_name] = now - timedelta(days=days)
-        elif isinstance(window_config, dict) and 'days' in window_config:
+        elif isinstance(window_config, dict) and "days" in window_config:
             # Dictionary format: last_30: {days: 30}
-            days = window_config['days']
+            days = window_config["days"]
             time_windows[window_name] = now - timedelta(days=days)
         else:
             logger.warning(f"Time window '{window_name}' invalid format, skipping")
@@ -251,7 +247,7 @@ def setup_time_windows(config: Dict[str, Any]) -> Dict[str, datetime]:
     return time_windows
 
 
-def validate_loaded_config(config: Dict[str, Any]) -> None:
+def validate_loaded_config(config: dict[str, Any]) -> None:
     """
     Validate loaded configuration has required fields.
 
@@ -261,36 +257,35 @@ def validate_loaded_config(config: Dict[str, Any]) -> None:
     Raises:
         ConfigurationError: If required fields are missing or invalid
     """
-    required_fields = ['project']
+    required_fields = ["project"]
 
     for field in required_fields:
         if field not in config:
             raise ConfigurationError(f"Required configuration field missing: {field}")
 
     # Validate time windows if present
-    if 'time_windows' in config:
-        if not isinstance(config['time_windows'], dict):
+    if "time_windows" in config:
+        if not isinstance(config["time_windows"], dict):
             raise ConfigurationError("time_windows must be a dictionary")
 
-        for window_name, window_config in config['time_windows'].items():
+        for window_name, window_config in config["time_windows"].items():
             if not isinstance(window_config, dict):
                 raise ConfigurationError(f"Time window '{window_name}' must be a dictionary")
-            if 'days' not in window_config:
+            if "days" not in window_config:
                 raise ConfigurationError(f"Time window '{window_name}' missing 'days' field")
-            if not isinstance(window_config['days'], int) or window_config['days'] <= 0:
+            if not isinstance(window_config["days"], int) or window_config["days"] <= 0:
                 raise ConfigurationError(
                     f"Time window '{window_name}' days must be a positive integer"
                 )
 
     # Validate activity thresholds if present
-    if 'activity_thresholds' in config:
-        if not isinstance(config['activity_thresholds'], dict):
-            raise ConfigurationError("activity_thresholds must be a dictionary")
+    if "activity_thresholds" in config and not isinstance(config["activity_thresholds"], dict):
+        raise ConfigurationError("activity_thresholds must be a dictionary")
 
     logger.debug("Configuration validation passed")
 
 
-def save_resolved_config(config: Dict[str, Any], output_path: Path) -> None:
+def save_resolved_config(config: dict[str, Any], output_path: Path) -> None:
     """
     Save resolved/merged configuration to file.
 
@@ -300,14 +295,14 @@ def save_resolved_config(config: Dict[str, Any], output_path: Path) -> None:
     """
     try:
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(output_path, 'w') as f:
+        with open(output_path, "w") as f:
             yaml.dump(config, f, default_flow_style=False, sort_keys=False)
         logger.info(f"Saved resolved configuration to {output_path}")
     except Exception as e:
         logger.error(f"Failed to save configuration to {output_path}: {e}")
 
 
-def apply_auto_derivation(config: Dict[str, Any]) -> Dict[str, Any]:
+def apply_auto_derivation(config: dict[str, Any]) -> dict[str, Any]:
     """
     Apply intelligent auto-derivation of configuration values.
 
@@ -324,65 +319,72 @@ def apply_auto_derivation(config: Dict[str, Any]) -> Dict[str, Any]:
         Configuration with auto-derived values
     """
     # Get Gerrit host if available
-    gerrit_host = config.get('gerrit', {}).get('host', '')
+    gerrit_host = config.get("gerrit", {}).get("host", "")
 
     # Auto-set gerrit.enabled based on host presence
-    if 'gerrit' not in config:
-        config['gerrit'] = {}
+    if "gerrit" not in config:
+        config["gerrit"] = {}
 
     if gerrit_host:
         # Gerrit is available - ensure it's enabled
-        config['gerrit']['enabled'] = config.get('gerrit', {}).get('enabled', True)
+        config["gerrit"]["enabled"] = config.get("gerrit", {}).get("enabled", True)
 
         # Auto-derive GitHub organization from Gerrit host for mirrored projects
-        if not config.get('extensions', {}).get('github_api', {}).get('github_org'):
+        if not config.get("extensions", {}).get("github_api", {}).get("github_org"):
             # Extract org name from gerrit.{org}.org pattern
             # Examples: gerrit.onap.org -> onap, gerrit.o-ran-sc.org -> o-ran-sc
-            parts = gerrit_host.split('.')
-            if len(parts) >= 2 and parts[0] == 'gerrit':
+            parts = gerrit_host.split(".")
+            if len(parts) >= 2 and parts[0] == "gerrit":
                 github_org = parts[1]
-                logger.debug(f"Auto-derived github_org '{github_org}' from Gerrit host '{gerrit_host}'")
+                logger.debug(
+                    f"Auto-derived github_org '{github_org}' from Gerrit host '{gerrit_host}'"
+                )
 
                 # Ensure extensions.github_api structure exists
-                if 'extensions' not in config:
-                    config['extensions'] = {}
-                if 'github_api' not in config['extensions']:
-                    config['extensions']['github_api'] = {}
+                if "extensions" not in config:
+                    config["extensions"] = {}
+                if "github_api" not in config["extensions"]:
+                    config["extensions"]["github_api"] = {}
 
-                config['extensions']['github_api']['github_org'] = github_org
-                config['_github_org_auto_derived'] = True
+                config["extensions"]["github_api"]["github_org"] = github_org
+                config["_github_org_auto_derived"] = True
     else:
         # No Gerrit host - disable Gerrit integration
-        config['gerrit']['enabled'] = False
-        logger.debug("No gerrit.host configured - Gerrit integration disabled (GitHub-native project)")
+        config["gerrit"]["enabled"] = False
+        logger.debug(
+            "No gerrit.host configured - Gerrit integration disabled (GitHub-native project)"
+        )
 
         # For GitHub-native projects, github_org comes from GITHUB_ORG environment variable
         # which is set by the workflow from PROJECTS_JSON matrix.github field
         # The environment variable is read by util/github_org.py determine_github_org()
         import os
-        github_org_env = os.environ.get('GITHUB_ORG', '')
-        if github_org_env and not config.get('extensions', {}).get('github_api', {}).get('github_org'):
+
+        github_org_env = os.environ.get("GITHUB_ORG", "")
+        if github_org_env and not config.get("extensions", {}).get("github_api", {}).get(
+            "github_org"
+        ):
             logger.debug(f"Using GitHub org from environment: {github_org_env}")
-            if 'extensions' not in config:
-                config['extensions'] = {}
-            if 'github_api' not in config['extensions']:
-                config['extensions']['github_api'] = {}
-            config['extensions']['github_api']['github_org'] = github_org_env
-            config['_github_org_from_env'] = True
+            if "extensions" not in config:
+                config["extensions"] = {}
+            if "github_api" not in config["extensions"]:
+                config["extensions"]["github_api"] = {}
+            config["extensions"]["github_api"]["github_org"] = github_org_env
+            config["_github_org_from_env"] = True
 
     # Auto-derive info_yaml.clone_url (always use standard LF location)
-    if 'info_yaml' not in config:
-        config['info_yaml'] = {}
+    if "info_yaml" not in config:
+        config["info_yaml"] = {}
 
-    if not config['info_yaml'].get('clone_url'):
+    if not config["info_yaml"].get("clone_url"):
         standard_info_yaml_url = "https://gerrit.linuxfoundation.org/infra/releng/info-master"
-        config['info_yaml']['clone_url'] = standard_info_yaml_url
+        config["info_yaml"]["clone_url"] = standard_info_yaml_url
         logger.debug(f"Auto-derived info_yaml.clone_url: {standard_info_yaml_url}")
 
     return config
 
 
-def write_config_to_step_summary(config: Dict[str, Any]) -> None:
+def write_config_to_step_summary(config: dict[str, Any]) -> None:
     """
     Write configuration to GitHub Actions step summary.
 
@@ -399,7 +401,7 @@ def write_config_to_step_summary(config: Dict[str, Any]) -> None:
         return
 
     try:
-        with open(step_summary, 'a') as f:
+        with open(step_summary, "a") as f:
             f.write("\n## 📋 Configuration\n\n")
             f.write("```yaml\n")
             yaml.dump(config, f, default_flow_style=False, sort_keys=False)

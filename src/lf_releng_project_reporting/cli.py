@@ -13,16 +13,14 @@ This module provides a rich, user-friendly command-line interface with:
 """
 
 import sys
-from pathlib import Path
-from typing import Optional, List
 from enum import Enum
+from pathlib import Path
+from typing import Annotated
 
 import typer
-from rich.console import Console
-from rich.panel import Panel
-from rich.table import Table
 from rich import print as rprint
-from typing_extensions import Annotated
+from rich.console import Console
+
 
 # Initialize Typer app with rich formatting
 app = typer.Typer(
@@ -39,6 +37,7 @@ console = Console()
 
 class OutputFormat(str, Enum):
     """Output format options."""
+
     JSON = "json"
     MARKDOWN = "md"
     HTML = "html"
@@ -47,6 +46,7 @@ class OutputFormat(str, Enum):
 
 class InitTemplate(str, Enum):
     """Configuration template options."""
+
     MINIMAL = "minimal"
     STANDARD = "standard"
     FULL = "full"
@@ -54,6 +54,7 @@ class InitTemplate(str, Enum):
 
 class ExitCode(int, Enum):
     """Standard exit codes."""
+
     SUCCESS = 0
     ERROR = 1
     PARTIAL = 2
@@ -66,7 +67,10 @@ def version_callback(value: bool):
     """Show version and exit."""
     if value:
         from lf_releng_project_reporting import __version__
-        rprint(f"[bold cyan]lf-releng-project-reporting[/bold cyan] version [green]{__version__}[/green]")
+
+        rprint(
+            f"[bold cyan]lf-releng-project-reporting[/bold cyan] version [green]{__version__}[/green]"
+        )
         raise typer.Exit()
 
 
@@ -74,7 +78,7 @@ def version_callback(value: bool):
 def generate(
     # Required arguments
     project: Annotated[
-        Optional[str],
+        str | None,
         typer.Option(
             "--project",
             "-p",
@@ -83,7 +87,7 @@ def generate(
         ),
     ] = None,
     repos_path: Annotated[
-        Optional[Path],
+        Path | None,
         typer.Option(
             "--repos-path",
             "-r",
@@ -95,10 +99,9 @@ def generate(
             rich_help_panel="Required Arguments",
         ),
     ] = None,
-
     # Configuration options
     config_dir: Annotated[
-        Optional[Path],
+        Path | None,
         typer.Option(
             "--config-dir",
             help="Configuration directory containing YAML files",
@@ -109,7 +112,7 @@ def generate(
         ),
     ] = None,
     output_dir: Annotated[
-        Optional[Path],
+        Path | None,
         typer.Option(
             "--output-dir",
             "-o",
@@ -125,7 +128,6 @@ def generate(
             rich_help_panel="Configuration",
         ),
     ] = "GITHUB_TOKEN",
-
     # Output options
     output_format: Annotated[
         OutputFormat,
@@ -144,7 +146,6 @@ def generate(
             rich_help_panel="Output Options",
         ),
     ] = False,
-
     # Behavioral options
     cache: Annotated[
         bool,
@@ -155,7 +156,7 @@ def generate(
         ),
     ] = False,
     workers: Annotated[
-        Optional[int],
+        int | None,
         typer.Option(
             "--workers",
             "-w",
@@ -164,7 +165,6 @@ def generate(
             rich_help_panel="Performance",
         ),
     ] = None,
-
     # Verbosity options
     verbose: Annotated[
         int,
@@ -185,7 +185,6 @@ def generate(
             rich_help_panel="Logging",
         ),
     ] = False,
-
     # Validation options
     dry_run: Annotated[
         bool,
@@ -195,11 +194,9 @@ def generate(
             rich_help_panel="Validation",
         ),
     ] = False,
-
-
     # Version
-    version: Annotated[
-        Optional[bool],
+    _version: Annotated[
+        bool | None,
         typer.Option(
             "--version",
             callback=version_callback,
@@ -244,8 +241,9 @@ def generate(
         lf-releng-project-reporting generate -p my-project -r ./repos --github-token-env CLASSIC_READ_ONLY_PAT_TOKEN
     """
     # Import here to avoid circular imports and speed up CLI loading
-    from lf_releng_project_reporting.main import main as reporting_main
     from argparse import Namespace
+
+    from lf_releng_project_reporting.main import main as reporting_main
 
     # Validate required arguments
     if not project:
@@ -287,7 +285,7 @@ def generate(
         raise typer.Exit(code=exit_code)
     except KeyboardInterrupt:
         console.print("\n[yellow]Operation cancelled by user[/yellow]")
-        raise typer.Exit(code=130)
+        raise typer.Exit(code=130) from None
 
 
 # Note: init command removed - not yet implemented
@@ -302,12 +300,11 @@ def generate(
 # Use 'lf-releng-project-reporting generate --dry-run' for configuration validation
 
 
-
 @app.callback(invoke_without_command=True)
 def main(
     ctx: typer.Context,
-    version: Annotated[
-        Optional[bool],
+    _version: Annotated[
+        bool | None,
         typer.Option(
             "--version",
             "-V",
@@ -346,12 +343,12 @@ def cli_main():
         app()
     except KeyboardInterrupt:
         console.print("\n[yellow]Operation cancelled by user[/yellow]")
-        raise typer.Exit(code=130)
+        raise typer.Exit(code=130) from None
     except Exception as e:
         console.print(f"[red bold]Error:[/red bold] {e}")
         if "--verbose" in sys.argv or "-v" in sys.argv:
             console.print_exception()
-        raise typer.Exit(code=ExitCode.ERROR)
+        raise typer.Exit(code=ExitCode.ERROR) from None
 
 
 if __name__ == "__main__":

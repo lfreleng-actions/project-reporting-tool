@@ -13,14 +13,9 @@ Extracted from generate_reports.py as part of Phase 1 refactoring.
 import logging
 import zipfile
 from pathlib import Path
-from typing import Optional
 
 
-def create_report_bundle(
-    project_output_dir: Path,
-    project: str,
-    logger: logging.Logger
-) -> Path:
+def create_report_bundle(project_output_dir: Path, project: str, logger: logging.Logger) -> Path:
     """
     Package all report artifacts into a ZIP file.
 
@@ -56,10 +51,7 @@ def create_report_bundle(
     zip_path = project_output_dir / f"{project}_report_bundle.zip"
 
     # Count files to be added (for logging)
-    files_to_add = [
-        f for f in project_output_dir.iterdir()
-        if f.is_file() and f != zip_path
-    ]
+    files_to_add = [f for f in project_output_dir.iterdir() if f.is_file() and f != zip_path]
 
     if not files_to_add:
         logger.warning(f"No files found to bundle in {project_output_dir}")
@@ -80,7 +72,7 @@ def create_report_bundle(
     return zip_path
 
 
-def validate_zip_bundle(zip_path: Path, expected_files: Optional[list[str]] = None) -> bool:
+def validate_zip_bundle(zip_path: Path, expected_files: list[str] | None = None) -> bool:
     """
     Validate that a ZIP bundle is readable and contains expected files.
 

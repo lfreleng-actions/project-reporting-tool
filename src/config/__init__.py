@@ -31,6 +31,7 @@ from .validator import (
     validate_config_file,
 )
 
+
 __all__ = [
     "ConfigValidator",
     "ValidationCategory",

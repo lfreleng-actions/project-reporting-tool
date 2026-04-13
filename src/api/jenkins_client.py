@@ -27,7 +27,7 @@ try:
 
     JJB_ATTRIBUTION_AVAILABLE = True
 except ImportError:
-    JJB_ATTRIBUTION_AVAILABLE = False
+    JJB_ATTRIBUTION_AVAILABLE = False  # pyright: ignore[reportConstantRedefinition]
     JJBAttribution = None
     JJBRepoManager = None
 
@@ -76,6 +76,7 @@ class JenkinsAPIClient(BaseAPIClient):
             JENKINS_USER: Username for Jenkins authentication (optional)
             JENKINS_API_TOKEN: API token for Jenkins authentication (optional)
         """
+        super().__init__(timeout=timeout, stats=stats)
         self.host = host
         self.timeout = timeout
         self.allow_http_fallback = allow_http_fallback
@@ -136,6 +137,8 @@ class JenkinsAPIClient(BaseAPIClient):
 
             # Setup repository manager
             cache_dir = Path(config.get("cache_dir", "/tmp"))
+            if JJBRepoManager is None:
+                return
             repo_mgr = JJBRepoManager(cache_dir)
 
             # Get ci-management URL (auto-derive from Gerrit host if not provided)
@@ -167,6 +170,8 @@ class JenkinsAPIClient(BaseAPIClient):
             ci_mgmt_path, global_jjb_path = repo_mgr.ensure_repos(ci_mgmt_url, branch)
 
             # Initialize parser
+            if JJBAttribution is None:
+                return
             self.jjb_attribution = JJBAttribution(ci_mgmt_path, global_jjb_path)
             self.jjb_attribution.load_templates()
 
@@ -185,15 +190,15 @@ class JenkinsAPIClient(BaseAPIClient):
             self.jjb_attribution = None
             self.jjb_attribution_enabled = False
 
-
-
     def __enter__(self):
         """Enter context manager."""
+        super().__enter__()
         return self
 
-    def __exit__(self, *args):
+    def __exit__(self, exc_type, exc_val, exc_tb):
         """Exit context manager and cleanup."""
         self.close()
+        return super().__exit__(exc_type, exc_val, exc_tb)
 
     def close(self):
         """Close the HTTP client."""
@@ -765,11 +770,11 @@ class JenkinsAPIClient(BaseAPIClient):
             # Check if the prefix is a known job-type prefix or contains one
             # If not, this might be a parent-child pattern (e.g., sdc-tosca)
             is_valid_infix = False
-            if prefix_part in known_job_prefixes:
-                is_valid_infix = True
-            elif any(prefix_part.startswith(p + "-") for p in known_job_prefixes):
-                is_valid_infix = True
-            elif any(prefix_part.endswith("-" + p) for p in known_job_prefixes):
+            if (
+                prefix_part in known_job_prefixes
+                or any(prefix_part.startswith(p + "-") for p in known_job_prefixes)
+                or any(prefix_part.endswith("-" + p) for p in known_job_prefixes)
+            ):
                 is_valid_infix = True
             elif "_" in prefix_part:
                 # Underscore in prefix suggests it's a complex job name, not parent-child

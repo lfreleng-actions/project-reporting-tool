@@ -27,22 +27,22 @@ Example:
 import hashlib
 import json
 import logging
-import os
 import pickle
 import shutil
 import threading
 import time
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple, Union
+from typing import Any
+
 
 logger = logging.getLogger(__name__)
 
 
 class CacheType(Enum):
     """Types of cached data."""
+
     REPOSITORY_METADATA = "repo_metadata"
     GIT_OPERATION = "git_operation"
     API_RESPONSE = "api_response"
@@ -52,6 +52,7 @@ class CacheType(Enum):
 @dataclass
 class CacheEntry:
     """Individual cache entry with metadata."""
+
     key: str
     value: Any
     created_at: float
@@ -80,6 +81,7 @@ class CacheEntry:
 @dataclass
 class CacheStats:
     """Cache performance statistics."""
+
     hits: int = 0
     misses: int = 0
     sets: int = 0
@@ -107,7 +109,7 @@ class CacheStats:
         """Get total size in megabytes."""
         return self.total_size_bytes / (1024 * 1024)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary."""
         return {
             "hits": self.hits,
@@ -142,7 +144,7 @@ class CacheKey:
     """Utilities for generating cache keys."""
 
     @staticmethod
-    def repository(repo_url: str, ref: Optional[str] = None) -> str:
+    def repository(repo_url: str, ref: str | None = None) -> str:
         """Generate key for repository metadata."""
         key = f"repo:{repo_url}"
         if ref:
@@ -150,7 +152,7 @@ class CacheKey:
         return CacheKey._hash(key)
 
     @staticmethod
-    def git_operation(repo_url: str, operation: str, params: Optional[Dict] = None) -> str:
+    def git_operation(repo_url: str, operation: str, params: dict[str, Any] | None = None) -> str:
         """Generate key for git operation result."""
         key = f"git:{repo_url}:{operation}"
         if params:
@@ -160,7 +162,7 @@ class CacheKey:
         return CacheKey._hash(key)
 
     @staticmethod
-    def api_response(endpoint: str, params: Optional[Dict] = None) -> str:
+    def api_response(endpoint: str, params: dict[str, Any] | None = None) -> str:
         """Generate key for API response."""
         key = f"api:{endpoint}"
         if params:
@@ -169,7 +171,9 @@ class CacheKey:
         return CacheKey._hash(key)
 
     @staticmethod
-    def analysis_result(repo_url: str, analysis_type: str, config: Optional[Dict] = None) -> str:
+    def analysis_result(
+        repo_url: str, analysis_type: str, config: dict[str, Any] | None = None
+    ) -> str:
         """Generate key for analysis result."""
         key = f"analysis:{repo_url}:{analysis_type}"
         if config:
@@ -194,7 +198,7 @@ class CacheManager:
 
     def __init__(
         self,
-        cache_dir: Union[str, Path] = ".report-cache",
+        cache_dir: str | Path = ".report-cache",
         ttl: float = 3600,
         max_size_mb: float = 1000,
         auto_cleanup: bool = True,
@@ -214,7 +218,7 @@ class CacheManager:
         self.auto_cleanup = auto_cleanup
 
         # In-memory cache
-        self._cache: Dict[str, CacheEntry] = {}
+        self._cache: dict[str, CacheEntry] = {}
         self._lock = threading.RLock()
 
         # Statistics
@@ -277,7 +281,7 @@ class CacheManager:
 
         self._update_stats()
 
-    def get(self, key: str) -> Optional[Any]:
+    def get(self, key: str) -> Any | None:
         """
         Get value from cache.
 
@@ -311,7 +315,7 @@ class CacheManager:
         self,
         key: str,
         value: Any,
-        ttl: Optional[float] = None,
+        ttl: float | None = None,
         cache_type: CacheType = CacheType.REPOSITORY_METADATA,
     ) -> bool:
         """
@@ -361,9 +365,7 @@ class CacheManager:
                 cache_file = self._get_cache_file(key, cache_type)
                 with open(cache_file, "wb") as f:
                     pickle.dump(entry, f)
-                logger.debug(
-                    f"Cached: {key} (size={size_bytes/1024:.1f}KB, ttl={ttl}s)"
-                )
+                logger.debug(f"Cached: {key} (size={size_bytes / 1024:.1f}KB, ttl={ttl}s)")
             except Exception as e:
                 logger.error(f"Failed to persist cache entry {key}: {e}")
                 # Keep in memory even if disk write fails
@@ -404,10 +406,7 @@ class CacheManager:
         import fnmatch
 
         with self._lock:
-            keys_to_invalidate = [
-                key for key in self._cache.keys()
-                if fnmatch.fnmatch(key, pattern)
-            ]
+            keys_to_invalidate = [key for key in self._cache if fnmatch.fnmatch(key, pattern)]
 
             for key in keys_to_invalidate:
                 entry = self._cache[key]
@@ -462,10 +461,7 @@ class CacheManager:
             Number of entries cleaned up
         """
         with self._lock:
-            expired_keys = [
-                key for key, entry in self._cache.items()
-                if entry.is_expired()
-            ]
+            expired_keys = [key for key, entry in self._cache.items() if entry.is_expired()]
 
             for key in expired_keys:
                 entry = self._cache[key]
@@ -488,10 +484,7 @@ class CacheManager:
             return
 
         # Need to evict - use LRU strategy
-        entries = sorted(
-            self._cache.items(),
-            key=lambda x: x[1].last_accessed
-        )
+        entries = sorted(self._cache.items(), key=lambda x: x[1].last_accessed)
 
         evicted = 0
         for key, entry in entries:
@@ -515,9 +508,7 @@ class CacheManager:
             return
 
         self._stats.entry_count = len(self._cache)
-        self._stats.total_size_bytes = sum(
-            entry.size_bytes for entry in self._cache.values()
-        )
+        self._stats.total_size_bytes = sum(entry.size_bytes for entry in self._cache.values())
 
         ages = [entry.age_seconds() for entry in self._cache.values()]
         self._stats.oldest_entry_age = max(ages)
@@ -529,7 +520,7 @@ class CacheManager:
             self._update_stats()
             return self._stats
 
-    def get_entries(self, cache_type: Optional[CacheType] = None) -> List[CacheEntry]:
+    def get_entries(self, cache_type: CacheType | None = None) -> list[CacheEntry]:
         """
         Get all cache entries.
 
@@ -542,10 +533,7 @@ class CacheManager:
         with self._lock:
             if cache_type is None:
                 return list(self._cache.values())
-            return [
-                entry for entry in self._cache.values()
-                if entry.cache_type == cache_type
-            ]
+            return [entry for entry in self._cache.values() if entry.cache_type == cache_type]
 
 
 class RepositoryCache:
@@ -560,7 +548,7 @@ class RepositoryCache:
         """
         self.cache = cache_manager
 
-    def get_metadata(self, repo_url: str, ref: Optional[str] = None) -> Optional[Dict[str, Any]]:
+    def get_metadata(self, repo_url: str, ref: str | None = None) -> dict[str, Any] | None:
         """
         Get cached repository metadata.
 
@@ -577,9 +565,9 @@ class RepositoryCache:
     def set_metadata(
         self,
         repo_url: str,
-        metadata: Dict[str, Any],
-        ref: Optional[str] = None,
-        ttl: Optional[float] = None,
+        metadata: dict[str, Any],
+        ref: str | None = None,
+        ttl: float | None = None,
     ) -> bool:
         """
         Cache repository metadata.
@@ -628,8 +616,8 @@ class GitOperationCache:
         self,
         repo_url: str,
         operation: str,
-        params: Optional[Dict] = None,
-    ) -> Optional[Any]:
+        params: dict[str, Any] | None = None,
+    ) -> Any | None:
         """
         Get cached git operation result.
 
@@ -649,8 +637,8 @@ class GitOperationCache:
         repo_url: str,
         operation: str,
         result: Any,
-        params: Optional[Dict] = None,
-        ttl: Optional[float] = None,
+        params: dict[str, Any] | None = None,
+        ttl: float | None = None,
     ) -> bool:
         """
         Cache git operation result.
@@ -698,8 +686,8 @@ class APIResponseCache:
     def get_response(
         self,
         endpoint: str,
-        params: Optional[Dict] = None,
-    ) -> Optional[Any]:
+        params: dict[str, Any] | None = None,
+    ) -> Any | None:
         """
         Get cached API response.
 
@@ -717,8 +705,8 @@ class APIResponseCache:
         self,
         endpoint: str,
         response: Any,
-        params: Optional[Dict] = None,
-        ttl: Optional[float] = None,
+        params: dict[str, Any] | None = None,
+        ttl: float | None = None,
     ) -> bool:
         """
         Cache API response.
@@ -752,8 +740,8 @@ class AnalysisResultCache:
         self,
         repo_url: str,
         analysis_type: str,
-        config: Optional[Dict] = None,
-    ) -> Optional[Any]:
+        config: dict[str, Any] | None = None,
+    ) -> Any | None:
         """
         Get cached analysis result.
 
@@ -773,8 +761,8 @@ class AnalysisResultCache:
         repo_url: str,
         analysis_type: str,
         result: Any,
-        config: Optional[Dict] = None,
-        ttl: Optional[float] = None,
+        config: dict[str, Any] | None = None,
+        ttl: float | None = None,
     ) -> bool:
         """
         Cache analysis result.
@@ -808,7 +796,7 @@ class AnalysisResultCache:
 
 
 def create_cache_manager(
-    cache_dir: Union[str, Path] = ".report-cache",
+    cache_dir: str | Path = ".report-cache",
     ttl: float = 3600,
     max_size_mb: float = 1000,
     auto_cleanup: bool = True,

@@ -8,9 +8,9 @@ TimeWindow represents a named time period (e.g., "1y", "90d") with start/end dat
 TimeWindowStats provides a typed container for metrics aggregated over a time window.
 """
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime
-from typing import Any, Dict
+from typing import Any
 
 from cli.error_helpers import wrap_validation_error
 
@@ -30,7 +30,7 @@ class TimeWindow:
     name: str
     days: int
     start_date: str  # ISO 8601 format
-    end_date: str    # ISO 8601 format
+    end_date: str  # ISO 8601 format
 
     def __post_init__(self) -> None:
         """Validate time window parameters."""
@@ -39,37 +39,34 @@ class TimeWindow:
                 "must be positive",
                 field="TimeWindow.days",
                 value=str(self.days),
-                expected="integer > 0"
+                expected="integer > 0",
             )
 
         if not self.name:
-            raise wrap_validation_error(
-                "cannot be empty",
-                field="TimeWindow.name"
-            )
+            raise wrap_validation_error("cannot be empty", field="TimeWindow.name")
 
         # Validate ISO 8601 format by attempting to parse
         try:
-            datetime.fromisoformat(self.start_date.replace('Z', '+00:00'))
+            datetime.fromisoformat(self.start_date.replace("Z", "+00:00"))
         except (ValueError, AttributeError) as e:
             raise wrap_validation_error(
                 f"invalid ISO 8601 format: {e}",
                 field="TimeWindow.start_date",
                 value=self.start_date,
-                expected="ISO 8601 timestamp (e.g., '2024-01-01T00:00:00Z')"
+                expected="ISO 8601 timestamp (e.g., '2024-01-01T00:00:00Z')",
             ) from e
 
         try:
-            datetime.fromisoformat(self.end_date.replace('Z', '+00:00'))
+            datetime.fromisoformat(self.end_date.replace("Z", "+00:00"))
         except (ValueError, AttributeError) as e:
             raise wrap_validation_error(
                 f"invalid ISO 8601 format: {e}",
                 field="TimeWindow.end_date",
                 value=self.end_date,
-                expected="ISO 8601 timestamp (e.g., '2024-12-31T23:59:59Z')"
+                expected="ISO 8601 timestamp (e.g., '2024-12-31T23:59:59Z')",
             ) from e
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """
         Convert to dictionary for JSON serialization.
 
@@ -83,7 +80,7 @@ class TimeWindow:
         }
 
     @classmethod
-    def from_dict(cls, name: str, data: Dict[str, Any]) -> "TimeWindow":
+    def from_dict(cls, name: str, data: dict[str, Any]) -> "TimeWindow":
         """
         Create TimeWindow from legacy dictionary format.
 
@@ -131,28 +128,28 @@ class TimeWindowStats:
                 "must be non-negative",
                 field="TimeWindowStats.commits",
                 value=str(self.commits),
-                expected="integer >= 0"
+                expected="integer >= 0",
             )
         if self.lines_added < 0:
             raise wrap_validation_error(
                 "must be non-negative",
                 field="TimeWindowStats.lines_added",
                 value=str(self.lines_added),
-                expected="integer >= 0"
+                expected="integer >= 0",
             )
         if self.lines_removed < 0:
             raise wrap_validation_error(
                 "must be non-negative",
                 field="TimeWindowStats.lines_removed",
                 value=str(self.lines_removed),
-                expected="integer >= 0"
+                expected="integer >= 0",
             )
         if self.contributors < 0:
             raise wrap_validation_error(
                 "must be non-negative",
                 field="TimeWindowStats.contributors",
                 value=str(self.contributors),
-                expected="integer >= 0"
+                expected="integer >= 0",
             )
 
         # lines_net can be negative (net deletion)
@@ -163,10 +160,10 @@ class TimeWindowStats:
                 f"must equal lines_added - lines_removed ({self.lines_added} - {self.lines_removed} = {expected_net})",
                 field="TimeWindowStats.lines_net",
                 value=str(self.lines_net),
-                expected=f"{expected_net}"
+                expected=f"{expected_net}",
             )
 
-    def to_dict(self) -> Dict[str, int]:
+    def to_dict(self) -> dict[str, int]:
         """
         Convert to dictionary for JSON serialization.
 
@@ -186,7 +183,7 @@ class TimeWindowStats:
         return result
 
     @classmethod
-    def from_dict(cls, data: Dict[str, int]) -> "TimeWindowStats":
+    def from_dict(cls, data: dict[str, int]) -> "TimeWindowStats":
         """
         Create TimeWindowStats from dictionary.
 

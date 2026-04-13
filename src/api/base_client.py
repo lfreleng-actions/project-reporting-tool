@@ -12,23 +12,22 @@ Extracted from generate_reports.py as part of Phase 2 refactoring.
 """
 
 import logging
-import time
 from dataclasses import dataclass, field
-from typing import Any, Dict, Optional, TypeVar, Generic
 from enum import Enum
+from typing import Any, Generic, TypeVar
 
 
 class ErrorType(Enum):
     """Classification of API errors."""
 
-    NETWORK = "network"              # Connection/timeout errors
-    HTTP_CLIENT = "http_client"      # 4xx errors (bad request, auth, etc.)
-    HTTP_SERVER = "http_server"      # 5xx errors (server errors)
-    RATE_LIMIT = "rate_limit"        # Rate limiting (429)
-    PARSE = "parse"                  # Response parsing errors
-    VALIDATION = "validation"        # Response validation errors
-    TIMEOUT = "timeout"              # Request timeout
-    UNKNOWN = "unknown"              # Uncategorized errors
+    NETWORK = "network"  # Connection/timeout errors
+    HTTP_CLIENT = "http_client"  # 4xx errors (bad request, auth, etc.)
+    HTTP_SERVER = "http_server"  # 5xx errors (server errors)
+    RATE_LIMIT = "rate_limit"  # Rate limiting (429)
+    PARSE = "parse"  # Response parsing errors
+    VALIDATION = "validation"  # Response validation errors
+    TIMEOUT = "timeout"  # Request timeout
+    UNKNOWN = "unknown"  # Uncategorized errors
 
 
 @dataclass
@@ -41,8 +40,8 @@ class APIError:
 
     type: ErrorType
     message: str
-    status_code: Optional[int] = None
-    details: Dict[str, Any] = field(default_factory=dict)
+    status_code: int | None = None
+    details: dict[str, Any] = field(default_factory=dict)
 
     def __str__(self) -> str:
         """Human-readable error description."""
@@ -51,17 +50,17 @@ class APIError:
             parts.append(f"(HTTP {self.status_code})")
         return " ".join(parts)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for JSON serialization."""
         return {
             "type": self.type.value,
             "message": self.message,
             "status_code": self.status_code,
-            "details": self.details
+            "details": self.details,
         }
 
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 @dataclass
@@ -95,9 +94,9 @@ class APIResponse(Generic[T]):
     """
 
     ok: bool
-    data: Optional[T] = None
-    error: Optional[APIError] = None
-    meta: Dict[str, Any] = field(default_factory=dict)
+    data: T | None = None
+    error: APIError | None = None
+    meta: dict[str, Any] = field(default_factory=dict)
 
     def __post_init__(self):
         """Validate response envelope invariants."""
@@ -107,7 +106,7 @@ class APIResponse(Generic[T]):
             raise ValueError("Error response must have error")
 
     @classmethod
-    def success(cls, data: T, meta: Optional[Dict[str, Any]] = None) -> 'APIResponse[T]':
+    def success(cls, data: T, meta: dict[str, Any] | None = None) -> "APIResponse[T]":
         """
         Create a success response.
 
@@ -121,7 +120,7 @@ class APIResponse(Generic[T]):
         return cls(ok=True, data=data, meta=meta or {})
 
     @classmethod
-    def failure(cls, error: APIError, meta: Optional[Dict[str, Any]] = None) -> 'APIResponse[T]':
+    def failure(cls, error: APIError, meta: dict[str, Any] | None = None) -> "APIResponse[T]":
         """
         Create a failure response.
 
@@ -134,12 +133,9 @@ class APIResponse(Generic[T]):
         """
         return cls(ok=False, error=error, meta=meta or {})
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for JSON serialization."""
-        result = {
-            "ok": self.ok,
-            "meta": self.meta
-        }
+        result: dict[str, Any] = {"ok": self.ok, "meta": self.meta}
         if self.ok:
             result["data"] = self.data
         else:
@@ -168,7 +164,7 @@ class BaseAPIClient:
         max_retries: int = 3,
         retry_delay: float = 1.0,
         stats: Any = None,
-        logger: Optional[logging.Logger] = None
+        logger: logging.Logger | None = None,
     ):
         """
         Initialize base API client.
@@ -221,8 +217,12 @@ class BaseAPIClient:
             return False
 
         # Retry rate limits, server errors, network errors, timeouts
-        if error_type in (ErrorType.RATE_LIMIT, ErrorType.HTTP_SERVER,
-                         ErrorType.NETWORK, ErrorType.TIMEOUT):
+        if error_type in (
+            ErrorType.RATE_LIMIT,
+            ErrorType.HTTP_SERVER,
+            ErrorType.NETWORK,
+            ErrorType.TIMEOUT,
+        ):
             return attempt < self.max_retries
 
         return False
@@ -239,7 +239,7 @@ class BaseAPIClient:
         """
         # Exponential backoff: delay * 2^attempt
         # e.g., 1s, 2s, 4s, 8s...
-        return float(self.retry_delay * (2 ** attempt))
+        return float(self.retry_delay * (2**attempt))
 
     def _record_success(self, api_name: str):
         """Record successful API call in statistics."""

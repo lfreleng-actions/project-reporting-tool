@@ -15,7 +15,7 @@ metrics into global summaries including:
 
 import logging
 from collections import defaultdict
-from typing import Any, Dict, List, cast
+from typing import Any, cast
 
 
 class DataAggregator:
@@ -25,9 +25,7 @@ class DataAggregator:
         self.config = config
         self.logger = logger
 
-    def aggregate_global_data(
-        self, repo_metrics: list[dict[str, Any]]
-    ) -> dict[str, Any]:
+    def aggregate_global_data(self, repo_metrics: list[dict[str, Any]]) -> dict[str, Any]:
         """
         Aggregate all repository metrics into global summaries.
 
@@ -44,12 +42,8 @@ class DataAggregator:
         self._analyze_repository_commit_status(repo_metrics)
 
         # Configuration values for unified activity status
-        current_threshold = self.config.get("activity_thresholds", {}).get(
-            "current_days", 365
-        )
-        active_threshold = self.config.get("activity_thresholds", {}).get(
-            "active_days", 1095
-        )
+        self.config.get("activity_thresholds", {}).get("current_days", 365)
+        self.config.get("activity_thresholds", {}).get("active_days", 1095)
 
         # Primary time window for rankings (configurable, defaults to last_365)
         primary_window = self.config.get("primary_reporting_window", "last_365")
@@ -85,9 +79,7 @@ class DataAggregator:
 
             # Count total commits and lines of code
             total_commits += repo.get("commit_counts", {}).get(primary_window, 0)
-            total_lines_added += (
-                repo.get("loc_stats", {}).get(primary_window, {}).get("added", 0)
-            )
+            total_lines_added += repo.get("loc_stats", {}).get(primary_window, {}).get("added", 0)
 
             # Check if repository has no commits at all (use the explicit flag)
             has_any_commits = repo.get("has_any_commits", False)
@@ -216,15 +208,11 @@ class DataAggregator:
         self.logger.info(
             f"Aggregation complete: {len(current_repos)} current, {len(active_repos)} active, {len(inactive_repos)} inactive, {len(no_commit_repos)} no-commit repositories"
         )
-        self.logger.info(
-            f"Found {len(authors)} authors across {len(organizations)} organizations"
-        )
+        self.logger.info(f"Found {len(authors)} authors across {len(organizations)} organizations")
 
         return summaries
 
-    def _analyze_repository_commit_status(
-        self, repo_metrics: list[dict[str, Any]]
-    ) -> None:
+    def _analyze_repository_commit_status(self, repo_metrics: list[dict[str, Any]]) -> None:
         """Diagnostic function to analyze repository commit status."""
         self.logger.info("=== Repository Analysis ===")
 
@@ -245,9 +233,7 @@ class DataAggregator:
                 repos_with_commits += 1
             else:
                 repos_no_commits += 1
-                if (
-                    len(sample_no_commit_repos) < 3
-                ):  # Collect sample for detailed analysis
+                if len(sample_no_commit_repos) < 3:  # Collect sample for detailed analysis
                     sample_no_commit_repos.append(
                         {"gerrit_project": repo_name, "commit_counts": commit_counts}
                     )
@@ -261,9 +247,7 @@ class DataAggregator:
             for repo in sample_no_commit_repos:
                 self.logger.info(f"  - {repo['gerrit_project']}")
 
-    def compute_author_rollups(
-        self, repo_metrics: list[dict[str, Any]]
-    ) -> list[dict[str, Any]]:
+    def compute_author_rollups(self, repo_metrics: list[dict[str, Any]]) -> list[dict[str, Any]]:
         """
         Aggregate author metrics across all repositories.
 
@@ -314,15 +298,15 @@ class DataAggregator:
                     author_aggregates[email]["lines_added"][window_name] += author.get(
                         "lines_added", {}
                     ).get(window_name, 0)
-                    author_aggregates[email]["lines_removed"][window_name] += (
-                        author.get("lines_removed", {}).get(window_name, 0)
-                    )
+                    author_aggregates[email]["lines_removed"][window_name] += author.get(
+                        "lines_removed", {}
+                    ).get(window_name, 0)
                     author_aggregates[email]["lines_net"][window_name] += author.get(
                         "lines_net", {}
                     ).get(window_name, 0)
 
         # Convert to list format and finalize repository counts
-        authors: List[Dict[str, Any]] = []
+        authors: list[dict[str, Any]] = []
         for email, data in author_aggregates.items():
             author_record = {
                 "name": data["name"],
@@ -334,24 +318,18 @@ class DataAggregator:
                 "lines_removed": dict(data["lines_removed"]),
                 "lines_net": dict(data["lines_net"]),
                 "repositories_touched": {
-                    window: set(repos)
-                    for window, repos in data["repositories_touched"].items()
+                    window: set(repos) for window, repos in data["repositories_touched"].items()
                 },
                 "repositories_count": {
-                    window: len(repos)
-                    for window, repos in data["repositories_touched"].items()
+                    window: len(repos) for window, repos in data["repositories_touched"].items()
                 },
             }
             authors.append(author_record)
 
-        self.logger.info(
-            f"Aggregated {len(authors)} unique authors across repositories"
-        )
+        self.logger.info(f"Aggregated {len(authors)} unique authors across repositories")
         return authors
 
-    def compute_org_rollups(
-        self, authors: list[dict[str, Any]]
-    ) -> list[dict[str, Any]]:
+    def compute_org_rollups(self, authors: list[dict[str, Any]]) -> list[dict[str, Any]]:
         """
         Aggregate organization metrics from author data.
 
@@ -382,23 +360,21 @@ class DataAggregator:
 
             # Sum metrics across all time windows
             for window_name in author.get("commits", {}):
-                org_aggregates[domain]["commits"][window_name] += author.get(
-                    "commits", {}
-                ).get(window_name, 0)
+                org_aggregates[domain]["commits"][window_name] += author.get("commits", {}).get(
+                    window_name, 0
+                )
                 org_aggregates[domain]["lines_added"][window_name] += author.get(
                     "lines_added", {}
                 ).get(window_name, 0)
                 org_aggregates[domain]["lines_removed"][window_name] += author.get(
                     "lines_removed", {}
                 ).get(window_name, 0)
-                org_aggregates[domain]["lines_net"][window_name] += author.get(
-                    "lines_net", {}
-                ).get(window_name, 0)
+                org_aggregates[domain]["lines_net"][window_name] += author.get("lines_net", {}).get(
+                    window_name, 0
+                )
 
                 # Track unique repositories per organization
-                author_repos = author.get("repositories_touched", {}).get(
-                    window_name, set()
-                )
+                author_repos = author.get("repositories_touched", {}).get(window_name, set())
                 if author_repos:
                     repos_set = cast(
                         set[str],
@@ -417,15 +393,12 @@ class DataAggregator:
                 "lines_removed": dict(data["lines_removed"]),
                 "lines_net": dict(data["lines_net"]),
                 "repositories_count": {
-                    window: len(repos)
-                    for window, repos in data["repositories_count"].items()
+                    window: len(repos) for window, repos in data["repositories_count"].items()
                 },
             }
             organizations.append(org_record)
 
-        self.logger.info(
-            f"Aggregated {len(organizations)} organizations from author domains"
-        )
+        self.logger.info(f"Aggregated {len(organizations)} organizations from author domains")
         return organizations
 
     def rank_entities(
@@ -460,7 +433,7 @@ class DataAggregator:
                     return 0  # Default for other metrics
 
             # Ensure numeric return value
-            if not isinstance(value, (int, float)):
+            if not isinstance(value, int | float):
                 return 0
             return value
 
@@ -476,13 +449,9 @@ class DataAggregator:
 
         # Sort with primary metric (reverse if specified) and secondary name (always ascending)
         if reverse:
-            sorted_entities = sorted(
-                entities, key=lambda x: (-get_sort_value(x), get_name(x))
-            )
+            sorted_entities = sorted(entities, key=lambda x: (-get_sort_value(x), get_name(x)))
         else:
-            sorted_entities = sorted(
-                entities, key=lambda x: (get_sort_value(x), get_name(x))
-            )
+            sorted_entities = sorted(entities, key=lambda x: (get_sort_value(x), get_name(x)))
 
         if limit and limit > 0:
             return sorted_entities[:limit]

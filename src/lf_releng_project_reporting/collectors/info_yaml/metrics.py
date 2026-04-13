@@ -11,7 +11,8 @@ of the INFO.yaml reporting feature.
 import logging
 import time
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any
+
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +32,7 @@ class TimingMetric:
     operation: str
     duration_ms: float
     timestamp: float
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -55,8 +56,8 @@ class CollectionMetrics:
 
     # Committer statistics
     total_committers: int = 0
-    committers_by_status: Dict[str, int] = field(default_factory=dict)
-    committers_by_color: Dict[str, int] = field(default_factory=dict)
+    committers_by_status: dict[str, int] = field(default_factory=dict)
+    committers_by_color: dict[str, int] = field(default_factory=dict)
 
     # URL validation statistics
     total_urls: int = 0
@@ -72,8 +73,8 @@ class CollectionMetrics:
     total_duration_ms: float = 0.0
 
     # Error tracking
-    errors: List[str] = field(default_factory=list)
-    warnings: List[str] = field(default_factory=list)
+    errors: list[str] = field(default_factory=list)
+    warnings: list[str] = field(default_factory=list)
 
     def __post_init__(self):
         """Initialize nested dictionaries."""
@@ -93,7 +94,7 @@ class CollectionMetrics:
                 "gray": 0,
             }
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """
         Convert metrics to a dictionary.
 
@@ -130,9 +131,7 @@ class CollectionMetrics:
                 "validation_success_rate": self._calculate_percentage(
                     self.valid_urls, self.total_urls
                 ),
-                "cache_hit_rate": self._calculate_percentage(
-                    self.urls_from_cache, self.total_urls
-                ),
+                "cache_hit_rate": self._calculate_percentage(self.urls_from_cache, self.total_urls),
             },
             "performance": {
                 "collection_ms": round(self.collection_duration_ms, 2),
@@ -201,7 +200,7 @@ class MetricsCollector:
     def __init__(self):
         """Initialize the metrics collector."""
         self.metrics = CollectionMetrics()
-        self._timing_stack: List[TimingMetric] = []
+        self._timing_stack: list[TimingMetric] = []
         self.logger = logging.getLogger(self.__class__.__name__)
 
     def start_timer(self, operation: str, **metadata) -> None:
@@ -242,9 +241,7 @@ class MetricsCollector:
         if metric.operation != operation:
             # Put it back and raise error
             self._timing_stack.append(metric)
-            raise ValueError(
-                f"Timer mismatch: expected '{metric.operation}', got '{operation}'"
-            )
+            raise ValueError(f"Timer mismatch: expected '{metric.operation}', got '{operation}'")
 
         # Calculate duration
         duration_ms = (time.time() - metric.timestamp) * 1000
@@ -253,9 +250,7 @@ class MetricsCollector:
         # Record in metrics
         self._record_timing(operation, duration_ms)
 
-        self.logger.debug(
-            f"Stopped timer for operation: {operation} ({duration_ms:.2f}ms)"
-        )
+        self.logger.debug(f"Stopped timer for operation: {operation} ({duration_ms:.2f}ms)")
 
         return duration_ms
 
@@ -308,8 +303,8 @@ class MetricsCollector:
     def record_committers(
         self,
         total: int,
-        by_status: Dict[str, int],
-        by_color: Dict[str, int],
+        by_status: dict[str, int],
+        by_color: dict[str, int],
     ) -> None:
         """
         Record committer statistics.
@@ -410,7 +405,7 @@ class TimerContext:
         self,
         collector: MetricsCollector,
         operation: str,
-        metadata: Dict[str, Any],
+        metadata: dict[str, Any],
     ):
         """
         Initialize timer context.

@@ -28,22 +28,22 @@ Example:
 
 import gc
 import logging
-import os
 import sys
 import threading
 import time
-import weakref
+from collections.abc import Callable, Generator, Iterator
 from dataclasses import dataclass, field
-from datetime import datetime
 from enum import Enum
 from pathlib import Path
-from typing import Any, Callable, Dict, Generator, Iterator, List, Optional, Set, Tuple, Union
+from typing import Any
+
 
 logger = logging.getLogger(__name__)
 
 
 class MemoryUnit(Enum):
     """Memory size units."""
+
     BYTES = 1
     KB = 1024
     MB = 1024 * 1024
@@ -53,6 +53,7 @@ class MemoryUnit(Enum):
 @dataclass
 class MemoryStats:
     """Memory usage statistics."""
+
     current_mb: float = 0.0
     peak_mb: float = 0.0
     allocated_mb: float = 0.0
@@ -62,7 +63,7 @@ class MemoryStats:
     lazy_loads: int = 0
     stream_reads: int = 0
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary."""
         return {
             "current_mb": self.current_mb,
@@ -91,10 +92,11 @@ class MemoryStats:
 @dataclass
 class MemorySnapshot:
     """Memory snapshot at a point in time."""
+
     timestamp: float
     memory_mb: float
     operation: str
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 class LazyProxy:
@@ -125,7 +127,7 @@ class LazyProxy:
 
     def __getattr__(self, name: str) -> Any:
         """Proxy attribute access to loaded object."""
-        if name.startswith('_'):
+        if name.startswith("_"):
             return object.__getattribute__(self, name)
         return getattr(self._load(), name)
 
@@ -137,7 +139,7 @@ class LazyProxy:
         """Proxy length to loaded object."""
         return len(self._load())
 
-    def __iter__(self) -> Iterator:
+    def __iter__(self) -> Iterator[Any]:
         """Proxy iteration to loaded object."""
         return iter(self._load())
 
@@ -153,7 +155,7 @@ class LazyLoader:
 
     def __init__(self):
         """Initialize lazy loader."""
-        self._proxies: Dict[str, LazyProxy] = {}
+        self._proxies: dict[str, LazyProxy] = {}
         self._load_count = 0
         self._lock = threading.Lock()
 
@@ -203,7 +205,7 @@ class LazyLoader:
             self._proxies.clear()
             self._load_count = 0
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Get lazy loading statistics."""
         loaded = sum(1 for p in self._proxies.values() if p._loaded)
         return {
@@ -236,8 +238,8 @@ class StreamProcessor:
 
     def read_file_chunks(
         self,
-        file_path: Union[str, Path],
-        encoding: str = 'utf-8',
+        file_path: str | Path,
+        encoding: str = "utf-8",
     ) -> Generator[str, None, None]:
         """
         Read file in chunks.
@@ -251,7 +253,7 @@ class StreamProcessor:
         """
         file_path = Path(file_path)
 
-        with open(file_path, 'r', encoding=encoding, buffering=self.buffer_size) as f:
+        with open(file_path, encoding=encoding, buffering=self.buffer_size) as f:
             while True:
                 chunk = f.read(self.chunk_size)
                 if not chunk:
@@ -263,8 +265,8 @@ class StreamProcessor:
 
     def read_lines(
         self,
-        file_path: Union[str, Path],
-        encoding: str = 'utf-8',
+        file_path: str | Path,
+        encoding: str = "utf-8",
     ) -> Generator[str, None, None]:
         """
         Read file line by line.
@@ -278,7 +280,7 @@ class StreamProcessor:
         """
         file_path = Path(file_path)
 
-        with open(file_path, 'r', encoding=encoding, buffering=self.buffer_size) as f:
+        with open(file_path, encoding=encoding, buffering=self.buffer_size) as f:
             for line in f:
                 self._read_count += 1
                 self._bytes_read += len(line.encode(encoding))
@@ -286,11 +288,11 @@ class StreamProcessor:
 
     def process_large_file(
         self,
-        file_path: Union[str, Path],
+        file_path: str | Path,
         processor: Callable[[str], Any],
-        encoding: str = 'utf-8',
+        encoding: str = "utf-8",
         line_mode: bool = True,
-    ) -> List[Any]:
+    ) -> list[Any]:
         """
         Process large file without loading entirely into memory.
 
@@ -318,7 +320,7 @@ class StreamProcessor:
 
         return results
 
-    def should_stream(self, file_path: Union[str, Path], threshold_mb: float = 10) -> bool:
+    def should_stream(self, file_path: str | Path, threshold_mb: float = 10) -> bool:
         """
         Check if file should be streamed.
 
@@ -336,7 +338,7 @@ class StreamProcessor:
         size_mb = file_path.stat().st_size / (1024 * 1024)
         return size_mb >= threshold_mb
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Get streaming statistics."""
         return {
             "read_count": self._read_count,
@@ -363,10 +365,10 @@ class MemoryMonitor:
         self.alert_threshold_mb = alert_threshold_mb
         self.sample_interval = sample_interval
 
-        self._snapshots: List[MemorySnapshot] = []
+        self._snapshots: list[MemorySnapshot] = []
         self._peak_mb = 0.0
         self._monitoring = False
-        self._monitor_thread: Optional[threading.Thread] = None
+        self._monitor_thread: threading.Thread | None = None
         self._lock = threading.Lock()
 
     def get_current_memory(self) -> float:
@@ -378,22 +380,26 @@ class MemoryMonitor:
         """
         try:
             import psutil
+
             process = psutil.Process()
             return float(process.memory_info().rss / (1024 * 1024))
         except ImportError:
             # Fallback to gc stats if psutil not available
             import gc
+
             gc.collect()
 
             # Rough estimate from gc stats
             stats = gc.get_stats()
             if stats:
                 # Very rough estimate
-                collected = sum(s.get('collected', 0) for s in stats)
+                collected = sum(s.get("collected", 0) for s in stats)
                 return float(collected / 1000)  # Very approximate
             return 0.0
 
-    def snapshot(self, operation: str = "", metadata: Optional[Dict] = None) -> MemorySnapshot:
+    def snapshot(
+        self, operation: str = "", metadata: dict[str, Any] | None = None
+    ) -> MemorySnapshot:
         """
         Take a memory snapshot.
 
@@ -455,9 +461,9 @@ class MemoryMonitor:
 
     def get_snapshots(
         self,
-        operation: Optional[str] = None,
-        since: Optional[float] = None,
-    ) -> List[MemorySnapshot]:
+        operation: str | None = None,
+        since: float | None = None,
+    ) -> list[MemorySnapshot]:
         """
         Get memory snapshots.
 
@@ -553,7 +559,7 @@ class MemoryOptimizer:
         self._env_optimized = True
         logger.info("Environment optimized for memory efficiency")
 
-    def optimize_git_config(self) -> Dict[str, str]:
+    def optimize_git_config(self) -> dict[str, str]:
         """
         Get git configuration for memory optimization.
 
@@ -561,20 +567,20 @@ class MemoryOptimizer:
             Git config dictionary
         """
         return {
-            'core.packedGitLimit': '256m',
-            'core.packedGitWindowSize': '256m',
-            'pack.windowMemory': '256m',
-            'pack.packSizeLimit': '256m',
-            'pack.threads': '1',
-            'core.preloadIndex': 'true',
-            'core.fscache': 'true',
+            "core.packedGitLimit": "256m",
+            "core.packedGitWindowSize": "256m",
+            "pack.windowMemory": "256m",
+            "pack.packSizeLimit": "256m",
+            "pack.threads": "1",
+            "core.preloadIndex": "true",
+            "core.fscache": "true",
         }
 
     def create_lazy(
         self,
         loader: Callable[[], Any],
         name: str = "",
-    ) -> Union[LazyProxy, Any]:
+    ) -> LazyProxy | Any:
         """
         Create lazy-loaded object.
 
@@ -590,7 +596,7 @@ class MemoryOptimizer:
 
         return self.lazy_loader.create_lazy(loader, name)
 
-    def should_stream(self, file_path: Union[str, Path]) -> bool:
+    def should_stream(self, file_path: str | Path) -> bool:
         """
         Check if file should be streamed.
 
@@ -604,10 +610,10 @@ class MemoryOptimizer:
 
     def stream_file(
         self,
-        file_path: Union[str, Path],
+        file_path: str | Path,
         processor: Callable[[str], Any],
         line_mode: bool = True,
-    ) -> List[Any]:
+    ) -> list[Any]:
         """
         Stream and process large file.
 
@@ -625,7 +631,7 @@ class MemoryOptimizer:
             line_mode=line_mode,
         )
 
-    def track_memory(self, operation: str) -> 'MemoryContext':
+    def track_memory(self, operation: str) -> "MemoryContext":
         """
         Context manager for tracking memory during operation.
 
@@ -680,9 +686,9 @@ class MemoryOptimizer:
             allocated_mb=current_mb,  # Approximate
             gc_collections=self._gc_runs,
             gc_collected=self._gc_collected,
-            tracked_objects=lazy_stats['total_proxies'],
-            lazy_loads=lazy_stats['loaded_proxies'],
-            stream_reads=stream_stats['read_count'],
+            tracked_objects=lazy_stats["total_proxies"],
+            lazy_loads=lazy_stats["loaded_proxies"],
+            stream_reads=stream_stats["read_count"],
         )
 
     def reset(self) -> None:
@@ -707,21 +713,17 @@ class MemoryContext:
         """
         self.optimizer = optimizer
         self.operation = operation
-        self._start_snapshot: Optional[MemorySnapshot] = None
-        self._end_snapshot: Optional[MemorySnapshot] = None
+        self._start_snapshot: MemorySnapshot | None = None
+        self._end_snapshot: MemorySnapshot | None = None
 
-    def __enter__(self) -> 'MemoryContext':
+    def __enter__(self) -> "MemoryContext":
         """Enter context."""
-        self._start_snapshot = self.optimizer.monitor.snapshot(
-            operation=f"{self.operation}_start"
-        )
+        self._start_snapshot = self.optimizer.monitor.snapshot(operation=f"{self.operation}_start")
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb) -> None:
         """Exit context."""
-        self._end_snapshot = self.optimizer.monitor.snapshot(
-            operation=f"{self.operation}_end"
-        )
+        self._end_snapshot = self.optimizer.monitor.snapshot(operation=f"{self.operation}_end")
 
         # Run GC if needed
         self.optimizer.run_gc()

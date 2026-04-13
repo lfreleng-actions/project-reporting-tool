@@ -9,8 +9,9 @@ definitions from ci-management repositories to accurately allocate Jenkins jobs 
 Gerrit projects using authoritative JJB configuration files.
 """
 
-from .jjb_parser import JJBAttribution, JJBProject, JJBJobDefinition
+from .jjb_parser import JJBAttribution, JJBJobDefinition, JJBProject
 from .repo_manager import JJBRepoManager
+
 
 __all__ = [
     "JJBAttribution",

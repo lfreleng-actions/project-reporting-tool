@@ -9,26 +9,23 @@ and can be used throughout the application.
 """
 
 from .formatting import (
-    format_number,
-    format_age,
     UNKNOWN_AGE,
+    format_age,
+    format_number,
 )
-
+from .github_org import determine_github_org
 from .zip_bundle import create_report_bundle
 
-from .github_org import determine_github_org
 
 __all__ = [
     # Formatting utilities
-    'format_number',
-    'format_age',
-    'UNKNOWN_AGE',
-
+    "format_number",
+    "format_age",
+    "UNKNOWN_AGE",
     # ZIP bundling
-    'create_report_bundle',
-
+    "create_report_bundle",
     # GitHub organization detection
-    'determine_github_org',
+    "determine_github_org",
 ]
 
-__version__ = '1.0.0'
+__version__ = "1.0.0"

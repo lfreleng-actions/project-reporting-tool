@@ -9,7 +9,7 @@ LOC statistics, contributor counts, and activity status.
 """
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 
 @dataclass
@@ -45,21 +45,21 @@ class RepositoryMetrics:
     local_path: str
 
     # Activity metrics
-    last_commit_timestamp: Optional[str] = None
-    days_since_last_commit: Optional[int] = None
+    last_commit_timestamp: str | None = None
+    days_since_last_commit: int | None = None
     activity_status: str = "inactive"
     has_any_commits: bool = False
     total_commits_ever: int = 0
 
     # Time-windowed metrics
-    commit_counts: Dict[str, int] = field(default_factory=dict)
-    loc_stats: Dict[str, Dict[str, int]] = field(default_factory=dict)
-    unique_contributors: Dict[str, int] = field(default_factory=dict)
+    commit_counts: dict[str, int] = field(default_factory=dict)
+    loc_stats: dict[str, dict[str, int]] = field(default_factory=dict)
+    unique_contributors: dict[str, int] = field(default_factory=dict)
 
     # Additional data
-    features: Dict[str, Any] = field(default_factory=dict)
-    authors: List[Dict[str, Any]] = field(default_factory=list)
-    errors: List[str] = field(default_factory=list)
+    features: dict[str, Any] = field(default_factory=dict)
+    authors: list[dict[str, Any]] = field(default_factory=list)
+    errors: list[str] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         """Validate repository metrics after initialization."""
@@ -77,8 +77,7 @@ class RepositoryMetrics:
         valid_statuses = {"current", "active", "inactive"}
         if self.activity_status not in valid_statuses:
             raise ValueError(
-                f"activity_status must be one of {valid_statuses}, "
-                f"got '{self.activity_status}'"
+                f"activity_status must be one of {valid_statuses}, got '{self.activity_status}'"
             )
 
         # Validate non-negative counts
@@ -95,20 +94,14 @@ class RepositoryMetrics:
         # Validate commit counts are non-negative
         for window, count in self.commit_counts.items():
             if count < 0:
-                raise ValueError(
-                    f"commit_counts['{window}'] must be non-negative, got {count}"
-                )
+                raise ValueError(f"commit_counts['{window}'] must be non-negative, got {count}")
 
         # Validate LOC stats are non-negative (except net which can be negative)
         for window, stats in self.loc_stats.items():
             if stats.get("added", 0) < 0:
-                raise ValueError(
-                    f"loc_stats['{window}']['added'] must be non-negative"
-                )
+                raise ValueError(f"loc_stats['{window}']['added'] must be non-negative")
             if stats.get("removed", 0) < 0:
-                raise ValueError(
-                    f"loc_stats['{window}']['removed'] must be non-negative"
-                )
+                raise ValueError(f"loc_stats['{window}']['removed'] must be non-negative")
             # Validate net = added - removed
             added = stats.get("added", 0)
             removed = stats.get("removed", 0)
@@ -133,7 +126,7 @@ class RepositoryMetrics:
                 "Inconsistent state: has_any_commits is False but total_commits_ever > 0"
             )
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """
         Convert to dictionary for JSON serialization.
 
@@ -161,7 +154,7 @@ class RepositoryMetrics:
         }
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "RepositoryMetrics":
+    def from_dict(cls, data: dict[str, Any]) -> "RepositoryMetrics":
         """
         Create RepositoryMetrics from legacy dictionary format.
 
@@ -218,7 +211,7 @@ class RepositoryMetrics:
         """
         return self.commit_counts.get(window, 0)
 
-    def get_loc_stats_for_window(self, window: str) -> Dict[str, int]:
+    def get_loc_stats_for_window(self, window: str) -> dict[str, int]:
         """
         Get LOC statistics for a specific time window.
 

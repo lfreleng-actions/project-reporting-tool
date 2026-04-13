@@ -12,12 +12,9 @@ with proper error handling and logging.
 import logging
 import subprocess
 from pathlib import Path
-from typing import Optional
 
 
-def safe_git_command(
-    cmd: list[str], cwd: Optional[Path], logger: logging.Logger
-) -> tuple[bool, str]:
+def safe_git_command(cmd: list[str], cwd: Path | None, logger: logging.Logger) -> tuple[bool, str]:
     """
     Execute a git command safely with error handling.
 

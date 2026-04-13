@@ -22,7 +22,7 @@ Example:
 """
 
 import threading
-from typing import Any, Dict, List, Optional, Set
+from typing import Any
 
 
 class JenkinsAllocationContext:
@@ -47,16 +47,12 @@ class JenkinsAllocationContext:
     def __init__(self):
         """Initialize a new allocation context with empty state."""
         self._lock = threading.Lock()
-        self.allocated_jobs: Set[str] = set()
-        self.job_cache: Dict[str, List[Dict[str, Any]]] = {}
-        self.all_jobs: Dict[str, Any] = {}
-        self.orphaned_jobs: Dict[str, Any] = {}
+        self.allocated_jobs: set[str] = set()
+        self.job_cache: dict[str, list[dict[str, Any]]] = {}
+        self.all_jobs: dict[str, Any] = {}
+        self.orphaned_jobs: dict[str, Any] = {}
 
-    def allocate_jobs(
-        self,
-        repo_name: str,
-        jobs: List[Dict[str, Any]]
-    ) -> List[Dict[str, Any]]:
+    def allocate_jobs(self, _repo_name: str, jobs: list[dict[str, Any]]) -> list[dict[str, Any]]:
         """
         Allocate jobs to a repository, filtering out already-allocated jobs.
 
@@ -86,7 +82,7 @@ class JenkinsAllocationContext:
                     self.allocated_jobs.add(job_name)
             return allocated
 
-    def get_cached_jobs(self, repo_name: str) -> Optional[List[Dict[str, Any]]]:
+    def get_cached_jobs(self, repo_name: str) -> list[dict[str, Any]] | None:
         """
         Get cached jobs for a repository.
 
@@ -101,7 +97,7 @@ class JenkinsAllocationContext:
         with self._lock:
             return self.job_cache.get(repo_name)
 
-    def cache_jobs(self, repo_name: str, jobs: List[Dict[str, Any]]) -> None:
+    def cache_jobs(self, repo_name: str, jobs: list[dict[str, Any]]) -> None:
         """
         Cache jobs for a repository.
 
@@ -114,7 +110,7 @@ class JenkinsAllocationContext:
         with self._lock:
             self.job_cache[repo_name] = jobs
 
-    def set_all_jobs(self, all_jobs: Dict[str, Any]) -> None:
+    def set_all_jobs(self, all_jobs: dict[str, Any]) -> None:
         """
         Set the complete list of all Jenkins jobs (typically fetched once).
 
@@ -126,7 +122,7 @@ class JenkinsAllocationContext:
         with self._lock:
             self.all_jobs = all_jobs
 
-    def get_all_jobs(self) -> Dict[str, Any]:
+    def get_all_jobs(self) -> dict[str, Any]:
         """
         Get the complete list of all Jenkins jobs.
 
@@ -139,7 +135,7 @@ class JenkinsAllocationContext:
         with self._lock:
             return self.all_jobs
 
-    def set_orphaned_jobs(self, orphaned: Dict[str, Any]) -> None:
+    def set_orphaned_jobs(self, orphaned: dict[str, Any]) -> None:
         """
         Set orphaned jobs (jobs that don't match any repository).
 
@@ -151,7 +147,7 @@ class JenkinsAllocationContext:
         with self._lock:
             self.orphaned_jobs = orphaned
 
-    def get_orphaned_jobs(self) -> Dict[str, Any]:
+    def get_orphaned_jobs(self) -> dict[str, Any]:
         """
         Get orphaned jobs.
 
@@ -178,7 +174,7 @@ class JenkinsAllocationContext:
             self.all_jobs.clear()
             self.orphaned_jobs.clear()
 
-    def get_allocation_summary(self) -> Dict[str, Any]:
+    def get_allocation_summary(self) -> dict[str, Any]:
         """
         Get a summary of the current allocation state for auditing/debugging.
 
@@ -216,7 +212,7 @@ class JenkinsAllocationContext:
         with self._lock:
             return job_name in self.allocated_jobs
 
-    def get_allocated_job_names(self) -> List[str]:
+    def get_allocated_job_names(self) -> list[str]:
         """
         Get a list of all allocated job names.
 
