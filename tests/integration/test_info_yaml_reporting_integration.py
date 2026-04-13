@@ -16,6 +16,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
+from utils.assertions import assert_host_in_collection
 
 from domain.info_yaml import ProjectInfo
 from lf_releng_project_reporting.collectors.info_yaml import INFOYamlCollector
@@ -246,8 +247,8 @@ class TestINFOYamlCollectorIntegration:
 
         # Verify servers
         assert len(result["servers"]) == 2
-        assert "gerrit.example.org" in result["servers"]
-        assert "gerrit.other.org" in result["servers"]
+        assert_host_in_collection(result["servers"], "gerrit.example.org")
+        assert_host_in_collection(result["servers"], "gerrit.other.org")
 
         # Verify lifecycle summary
         lifecycle_summary = result["lifecycle_summary"]

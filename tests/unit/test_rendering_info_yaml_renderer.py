@@ -11,6 +11,7 @@ Phase 3: Rendering & Report Integration
 """
 
 import pytest
+from utils.assertions import assert_host_in_collection
 
 from domain.info_yaml import (
     CommitterInfo,
@@ -301,15 +302,15 @@ class TestGroupProjectsByServer:
         projects = [sample_project]
         grouped = renderer._group_projects_by_server(projects)
         assert len(grouped) == 1
-        assert "gerrit.example.org" in grouped
+        assert_host_in_collection(grouped, "gerrit.example.org")
         assert len(grouped["gerrit.example.org"]) == 1
 
     def test_group_projects_multiple_servers(self, renderer, sample_projects):
         """Test grouping with multiple servers."""
         grouped = renderer._group_projects_by_server(sample_projects)
         assert len(grouped) == 2
-        assert "gerrit.example.org" in grouped
-        assert "gerrit.other.org" in grouped
+        assert_host_in_collection(grouped, "gerrit.example.org")
+        assert_host_in_collection(grouped, "gerrit.other.org")
         assert len(grouped["gerrit.example.org"]) == 2
         assert len(grouped["gerrit.other.org"]) == 1
 
@@ -500,8 +501,8 @@ class TestBuildTemplateContext:
         assert context["group_by_server"] is True
         assert "projects_by_server" in context
         assert len(context["projects_by_server"]) == 2
-        assert "gerrit.example.org" in context["projects_by_server"]
-        assert "gerrit.other.org" in context["projects_by_server"]
+        assert_host_in_collection(context["projects_by_server"], "gerrit.example.org")
+        assert_host_in_collection(context["projects_by_server"], "gerrit.other.org")
 
     def test_build_context_not_grouped(self, renderer, sample_projects):
         """Test context building without server grouping."""
