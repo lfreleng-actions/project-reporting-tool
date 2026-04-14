@@ -1,16 +1,11 @@
 # 📊 GitHub Project Analysis Report: AGL
 
-**Generated:** 2026-04-13 07:34:24 UTC
+**Generated:** 2026-04-14 07:31:39 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
 
 - [Global Summary](#summary)
-- [Gerrit Projects](#repositories)
-- [Top Contributors](#contributors)
-- [Top Organizations](#organizations)
-- [Repository Feature Matrix](#features)
-- [Deployed CI/CD Jobs](#workflows)
 - [Unattributed Jenkins Jobs](#unattributed-jobs)
 
 ---
@@ -25,165 +20,13 @@
 
 | Metric | Count | Percentage |
 | --- | --- | --- |
-| Total Repositories | 24 | 100% |
-| Current Repositories | 3 | 12.5% |
-| Active Repositories | 18 | 75.0% |
-| Inactive Repositories | 2 | 8.3% |
-| No Apparent Commits | 1 | 4.2% |
-| Total Commits | 3.4K | - |
-| Total Lines of Code | 17.2M | - |
-
----
-## 🏢 Top Organizations
-
-The data presented in the table below covers the past 365 days.
-
-**Organizations Found:** 44
-
-| Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | konsulko.com | 9 | 23 | +291 | 1043 | -20 | 13 |
-| 2 | co.jp | 9 | 22 | +1008 | 8237 | -282 | 4 |
-| 3 | linuxfoundation.org | 2 | 18 | +527 | 9237 | -454 | 23 |
-| 4 | panasonic.com | 4 | 9 | +469 | 1022 | -9 | 2 |
-| 5 | gmail.com | 20 | 8 | +240 | 264 | +27 | 7 |
-| 6 | ac.uk | 1 | 0 | 0 | 0 | 0 | 1 |
-| 7 | adit-jv.com | 1 | 0 | 0 | 0 | 0 | 1 |
-| 8 | advancedtelematic.com | 2 | 0 | 0 | 0 | 0 | 1 |
-| 9 | amazon.com | 1 | 0 | 0 | 0 | 0 | 1 |
-| 10 | autistici.org | 1 | 0 | 0 | 0 | 0 | 1 |
-| 11 | automotivelinux.org | 1 | 0 | 0 | 0 | 0 | 2 |
-| 12 | breizhme.net | 1 | 0 | 0 | 0 | 0 | 1 |
-| 13 | co.uk | 1 | 0 | 0 | 0 | 0 | 1 |
-| 14 | collabora.com | 4 | 0 | 0 | 0 | 0 | 6 |
-| 15 | com.au | 1 | 0 | 0 | 0 | 0 | 1 |
-| 16 | fridu.net | 1 | 0 | 0 | 0 | 0 | 3 |
-| 17 | fujitsu.com | 10 | 0 | 0 | 0 | 0 | 12 |
-| 18 | github.com | 2 | 0 | 0 | 0 | 0 | 1 |
-| 19 | gmx.de | 1 | 0 | 0 | 0 | 0 | 1 |
-| 20 | grammer.com | 1 | 0 | 0 | 0 | 0 | 1 |
-| 21 | igalia.com | 5 | 0 | 0 | 0 | 0 | 2 |
-| 22 | intel.com | 2 | 0 | 0 | 0 | 0 | 1 |
-| 23 | iot.bzh | 18 | 0 | 0 | 0 | 0 | 10 |
-| 24 | irdeto.com | 1 | 0 | 0 | 0 | 0 | 1 |
-| 25 | live.fr | 1 | 0 | 0 | 0 | 0 | 1 |
-| 26 | luzny.cz | 1 | 0 | 0 | 0 | 0 | 1 |
-| 27 | mera.com | 1 | 0 | 0 | 0 | 0 | 1 |
-| 28 | microchip.com | 2 | 0 | 0 | 0 | 0 | 1 |
-| 29 | msn.com | 1 | 0 | 0 | 0 | 0 | 1 |
-| 30 | nexty-ele.com | 3 | 0 | 0 | 0 | 0 | 4 |
-
----
-## 👥 Top Contributors
-
-The data presented in the table below covers the past 365 days.
-
-**Contributors Found:** 129
-
-| Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Scott Murray | 23 | +291 | 1043 | -20 | 12 | konsulko.com |
-| 2 | Naoto Yamaguchi | 22 | +1008 | 8237 | -282 | 2 | co.jp |
-| 3 | Jan-Simon Möller | 18 | +527 | 9237 | -454 | 23 | linuxfoundation.org |
-| 4 | Kenta Murakami | 9 | +469 | 1022 | -9 | 1 | panasonic.com |
-| 5 | Saalim Quadri | 7 | +181 | 183 | +25 | 2 | gmail.com |
-| 6 | Anuj-S62 | 1 | +59 | 81 | +37 | 2 | gmail.com |
-| 7 | Adam Parker | 0 | 0 | 0 | 0 | 1 | gmail.com |
-| 8 | Alistair Francis | 0 | 0 | 0 | 0 | 1 | wdc.com |
-| 9 | Andriy Tryshnivskyy | 0 | 0 | 0 | 0 | 1 | opensynergy.com |
-| 10 | Angelos Mouzakitis | 0 | 0 | 0 | 0 | 2 | virtualopensystems.com |
-| 11 | Anh Nguyen | 0 | 0 | 0 | 0 | 1 | renesas.com |
-| 12 | Anmol Anmol | 0 | 0 | 0 | 0 | 1 | gmail.com |
-| 13 | Antia Puentes | 0 | 0 | 0 | 0 | 1 | igalia.com |
-| 14 | Anton Gerasimov | 0 | 0 | 0 | 0 | 1 | advancedtelematic.com |
-| 15 | Ashok Sidipotu | 0 | 0 | 0 | 0 | 2 | collabora.com |
-| 16 | Bechir Mghirbi | 0 | 0 | 0 | 0 | 1 | grammer.com |
-| 17 | Changhyeok Bae | 0 | 0 | 0 | 0 | 1 | gmail.com |
-| 18 | Christian Gromm | 0 | 0 | 0 | 0 | 1 | microchip.com |
-| 19 | Clément Bénier | 0 | 0 | 0 | 0 | 3 | iot.bzh |
-| 20 | CorentinLGS | 0 | 0 | 0 | 0 | 2 | gmail.com |
-| 21 | CorentinLGS | 0 | 0 | 0 | 0 | 1 | github.com |
-| 22 | Damian Hobson-Garcia | 0 | 0 | 0 | 0 | 1 | co.jp |
-| 23 | Dennis Field | 0 | 0 | 0 | 0 | 1 | radiosound.com |
-| 24 | Denys Dmytriyenko | 0 | 0 | 0 | 0 | 2 | konsulko.com |
-| 25 | Dominig ar Foll | 0 | 0 | 0 | 0 | 3 | fridu.net |
-| 26 | Edi Feschiyan | 0 | 0 | 0 | 0 | 2 | konsulko.com |
-| 27 | Evgeniy Didin | 0 | 0 | 0 | 0 | 1 | synopsys.com |
-| 28 | Felipe Erias | 0 | 0 | 0 | 0 | 1 | igalia.com |
-| 29 | Forlot Romain [IoT.bzh] | 0 | 0 | 0 | 0 | 1 | iot.bzh |
-| 30 | Frederic Marec | 0 | 0 | 0 | 0 | 8 | iot.bzh |
-
----
-## 📊 Repositories
-
-| Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
-| --- | --- | --- | --- | --- | --- | --- |
-| [src/app-framework-binder](https://github.com/gerrit.automotivelinux.org/src/app-framework-binder) | 1306 | 0 | 0 | 789 | 2024-02-13 | ☑️ |
-| [AGL/meta-agl-devel](https://github.com/gerrit.automotivelinux.org/AGL/meta-agl-devel) | 898 | +1823 | 6 | 46 | 2026-02-25 | ✅ |
-| [AGL/AGL-repo](https://github.com/gerrit.automotivelinux.org/AGL/AGL-repo) | 452 | +553 | 4 | 25 | 2026-03-18 | ✅ |
-| [docs-sources](https://github.com/gerrit.automotivelinux.org/docs-sources) | 297 | 0 | 0 | 2125 | 2020-06-17 | 🛑 |
-| [src/xds/xds-docs](https://github.com/gerrit.automotivelinux.org/src/xds/xds-docs) | 91 | 0 | 0 | 789 | 2024-02-13 | ☑️ |
-| [src/app-framework-demo](https://github.com/gerrit.automotivelinux.org/src/app-framework-demo) | 79 | 0 | 0 | 789 | 2024-02-13 | ☑️ |
-| [src/pipewire-ic-ipc](https://github.com/gerrit.automotivelinux.org/src/pipewire-ic-ipc) | 46 | 0 | 0 | 789 | 2024-02-13 | ☑️ |
-| [apps/flutter-homescreen](https://github.com/gerrit.automotivelinux.org/apps/flutter-homescreen) | 40 | 0 | 0 | 789 | 2024-02-13 | ☑️ |
-| [apps/tbtnavi](https://github.com/gerrit.automotivelinux.org/apps/tbtnavi) | 39 | 0 | 0 | 457 | 2025-01-10 | ☑️ |
-| [apps/agl-service-audiomixer](https://github.com/gerrit.automotivelinux.org/apps/agl-service-audiomixer) | 37 | +159 | 1 | 174 | 2025-10-20 | ✅ |
-| [apps/agl-service-geoclue](https://github.com/gerrit.automotivelinux.org/apps/agl-service-geoclue) | 21 | 0 | 0 | 789 | 2024-02-13 | ☑️ |
-| [apps/agl-service-weather](https://github.com/gerrit.automotivelinux.org/apps/agl-service-weather) | 19 | 0 | 0 | 789 | 2024-02-13 | ☑️ |
-| [apps/agl-service-geofence](https://github.com/gerrit.automotivelinux.org/apps/agl-service-geofence) | 15 | 0 | 0 | 789 | 2024-02-13 | ☑️ |
-| [apps/alexa-viewer](https://github.com/gerrit.automotivelinux.org/apps/alexa-viewer) | 12 | 0 | 0 | 789 | 2024-02-13 | ☑️ |
-| [src/libqtsoundmanager](https://github.com/gerrit.automotivelinux.org/src/libqtsoundmanager) | 11 | 0 | 0 | 789 | 2024-02-13 | ☑️ |
-| [apps/als-meter-demo](https://github.com/gerrit.automotivelinux.org/apps/als-meter-demo) | 8 | 0 | 0 | 789 | 2024-02-13 | ☑️ |
-| [apps/agl-cluster-demo-gauges](https://github.com/gerrit.automotivelinux.org/apps/agl-cluster-demo-gauges) | 7 | 0 | 0 | 789 | 2024-02-13 | ☑️ |
-| [apps/flutter-mediaplayer](https://github.com/gerrit.automotivelinux.org/apps/flutter-mediaplayer) | 5 | 0 | 0 | 789 | 2024-02-13 | ☑️ |
-| [apps/agl-telematics-demo-recorder](https://github.com/gerrit.automotivelinux.org/apps/agl-telematics-demo-recorder) | 4 | 0 | 0 | 789 | 2024-02-13 | ☑️ |
-| [apps/aroundview](https://github.com/gerrit.automotivelinux.org/apps/aroundview) | 4 | 0 | 0 | 789 | 2024-02-13 | ☑️ |
-| [apps/demo3-settings](https://github.com/gerrit.automotivelinux.org/apps/demo3-settings) | 3 | 0 | 0 | 789 | 2024-02-13 | ☑️ |
-| [src/virtio/qemu](https://github.com/gerrit.automotivelinux.org/src/virtio/qemu) | 3 | 0 | 0 | 915 | 2023-10-10 | ☑️ |
-| [src/agl-js-api](https://github.com/gerrit.automotivelinux.org/src/agl-js-api) | 1 | 0 | 0 | 1978 | 2020-11-11 | 🛑 |
-
-**Total:** 23 repositories
-
----
-## 🔧 Gerrit Project Feature Matrix
-
-| Gerrit Project | Primary Type | Other Types | Dependabot | Pre-commit | ReadTheDocs | .gitreview | G2G | Status |
-|----------------|--------------|-------------|------------|------------|-------------|------------|-----|--------|
-| AGL/AGL-repo | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
-| apps/agl-cluster-demo-gauges | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/agl-service-audiomixer | C | C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
-| apps/agl-service-geofence | C++ | C, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/agl-service-geoclue | C++ | C, D, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| src/xds/xds-docs | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/agl-telematics-demo-recorder | C++ | C, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/alexa-viewer | C++ | C, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/agl-service-weather | C++ | C, D, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/als-meter-demo | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/aroundview | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/demo3-settings | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/flutter-mediaplayer | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| src/agl-js-api | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
-| apps/tbtnavi | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| src/libqtsoundmanager | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| zzz_acl | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
-| src/pipewire-ic-ipc | C |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/flutter-homescreen | Groovy | C, Swift, Kotlin, HTML | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| docs-sources | CSS | Shell, HTML | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
-| src/app-framework-binder | C | JavaScript, Shell, C++, D, HTML, CSS | ❌ | ❌ | ✅ | ✅ | ❌ | ☑️ |
-| AGL/meta-agl-devel | Rust | Shell, C | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
-| src/app-framework-demo | JavaScript | SCSS, HTML, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| src/virtio/qemu | C | JavaScript, TypeScript, Python, Shell, Go, Rust, Java, C++, .NET, PHP, Swift, D, HTML, CSS, Lua, PLpgSQL | ❌ | ❌ | ✅ | ❌ | ❌ | ☑️ |
-
----
-## 🏁 Deployed CI/CD Jobs
-
-**Total GitHub workflows:** 1
-
-| Gerrit Project | GitHub Workflows | Workflow Count |
-|----------------|-------------------|----------------|
-| src/virtio/qemu | lockdown.yml | 1 |
-
-**Total:** 1 repositories with CI/CD jobs
+| Total Repositories | 0 | 100% |
+| Current Repositories | 0 | 0.0% |
+| Active Repositories | 0 | 0.0% |
+| Inactive Repositories | 0 | 0.0% |
+| No Apparent Commits | 0 | 0.0% |
+| Total Commits | 0 | - |
+| Total Lines of Code | 0 | - |
 
 ---
 ## Unattributed Jenkins Jobs
