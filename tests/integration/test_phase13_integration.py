@@ -19,6 +19,7 @@ from pathlib import Path
 
 import pytest
 import yaml
+from utils.assertions import assert_host_in_text
 
 from cli.arguments import create_argument_parser
 from cli.error_context import (
@@ -310,7 +311,7 @@ class TestErrorHandlingIntegration:
         formatted = context.format(verbose=True)
 
         assert "Documentation" in formatted or "docs" in formatted.lower()
-        assert "github.com" in formatted.lower()
+        assert_host_in_text(formatted.lower(), "github.com")
 
     def test_error_context_shows_related_errors(self):
         """Test error context shows related errors."""

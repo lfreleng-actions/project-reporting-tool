@@ -17,6 +17,7 @@ from typing import Any
 from unittest.mock import MagicMock, Mock, patch
 
 import pytest
+from utils.assertions import assert_host_in_text
 
 
 # Add src to path for imports
@@ -119,7 +120,7 @@ class TestGerritURLBuilder:
         """Test string representation."""
         builder = GerritURLBuilder("gerrit.onap.org", "/r")
         repr_str = repr(builder)
-        assert "gerrit.onap.org" in repr_str
+        assert_host_in_text(repr_str, "gerrit.onap.org")
         assert "/r" in repr_str
 
     def test_from_base_url_with_prefix(self):
@@ -260,7 +261,7 @@ class TestGerritAPIDiscovery:
             with patch.object(discovery, "_validate_projects_response", return_value=True):
                 base_url = discovery.discover_base_url("gerrit.example.org")
 
-            assert "gerrit.example.org" in base_url
+            assert_host_in_text(base_url, "gerrit.example.org")
             discovery.close()
 
     def test_discover_base_url_with_r_path(self):

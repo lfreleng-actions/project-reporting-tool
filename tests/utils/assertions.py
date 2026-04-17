@@ -10,9 +10,11 @@ assertions and reduce code duplication across test files.
 """
 
 import json
+import re
 from datetime import datetime
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 import jsonschema
 import pytest
@@ -545,3 +547,108 @@ def assert_coverage_threshold(
             f"{module_name} coverage of {coverage_percent:.1f}% "
             f"is below minimum {min_coverage:.1f}%"
         )
+
+
+# ============================================================================
+# URL / Hostname Assertions
+# ============================================================================
+
+
+def assert_host_in_text(text: str, expected_host: str, message: str | None = None) -> None:
+    """
+    Assert that expected_host appears in text as a proper hostname.
+
+    Uses boundary-aware matching rather than naive substring checking,
+    satisfying CodeQL py/incomplete-url-substring-sanitization.
+
+    Handles hostnames appearing in:
+    - Full URLs (https://github.com/org/repo)
+    - SSH URLs (git@github.com:org/repo)
+    - Standalone identifiers (section headings, labels, repr output)
+
+    Args:
+        text: The text to search
+        expected_host: The hostname to find
+        message: Optional custom error message
+
+    Raises:
+        pytest.fail.Exception: If hostname is not found in text
+    """
+    expected_lower = expected_host.lower()
+
+    # Strategy 1: find HTTP(S) URLs and parse their hostnames
+    for url_match in re.finditer(r"https?://[^\s<>\"']+", text):
+        parsed = urlparse(url_match.group())
+        if parsed.hostname and (
+            parsed.hostname == expected_lower or parsed.hostname.endswith("." + expected_lower)
+        ):
+            return
+
+    # Strategy 2: boundary-aware match for the hostname as a token
+    # (covers SSH URLs, rendered labels, dict reprs, etc.)
+    # The lookbehind also accepts '.' to match subdomain contexts
+    host_pat = re.escape(expected_lower)
+    if re.search(
+        r"(?:^|(?<=[\s/,;:\"'>@.\[({]))" + host_pat + r"(?=$|[\s/,;:\"'<\])}])",
+        text,
+        flags=re.IGNORECASE,
+    ):
+        return
+
+    msg = message or f"Expected host '{expected_host}' not found in text"
+    pytest.fail(msg)
+
+
+def assert_any_host_in_text(
+    text: str, expected_hosts: list[str], message: str | None = None
+) -> None:
+    """
+    Assert that at least one of expected_hosts appears in text.
+
+    Convenience wrapper around :func:`assert_host_in_text` for cases
+    where any one of several hostnames satisfies the assertion.
+
+    Args:
+        text: The text to search
+        expected_hosts: List of hostnames, at least one must be present
+        message: Optional custom error message
+
+    Raises:
+        pytest.fail.Exception: If none of the hostnames are found in text
+    """
+    for host in expected_hosts:
+        try:
+            assert_host_in_text(text, host)
+            return
+        except (AssertionError, pytest.fail.Exception):
+            continue
+
+    hosts_str = ", ".join(expected_hosts)
+    msg = message or f"None of the expected hosts [{hosts_str}] found in text"
+    pytest.fail(msg)
+
+
+def assert_host_in_collection(
+    collection: Any, expected_host: str, message: str | None = None
+) -> None:
+    """
+    Assert that expected_host is a member of a collection.
+
+    Uses explicit equality comparison rather than the ``in`` operator
+    on hostname strings, satisfying CodeQL
+    py/incomplete-url-substring-sanitization.
+
+    Works with dicts (checks keys), lists, sets, and other iterables.
+
+    Args:
+        collection: The collection to check (dict, list, set, etc.)
+        expected_host: The hostname to find
+        message: Optional custom error message
+
+    Raises:
+        pytest.fail.Exception: If hostname is not found in collection
+    """
+    found = any(item == expected_host for item in collection)
+    if not found:
+        msg = message or f"Expected host '{expected_host}' not found in collection"
+        pytest.fail(msg)

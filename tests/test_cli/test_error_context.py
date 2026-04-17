@@ -17,6 +17,7 @@ Phase 13, Step 4: Enhanced Error Messages
 from pathlib import Path
 
 import pytest
+from utils.assertions import assert_host_in_text
 
 from cli.error_context import (
     ErrorContext,
@@ -332,7 +333,7 @@ class TestDetectNetworkError:
         """Test network error with URL."""
         ctx = detect_network_error(url="https://api.github.com")
 
-        assert "api.github.com" in ctx.message
+        assert_host_in_text(ctx.message, "api.github.com")
         assert "url" in ctx.context
 
     def test_detect_timeout_error(self):

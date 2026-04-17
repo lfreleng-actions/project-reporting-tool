@@ -13,6 +13,7 @@ import logging
 import re
 
 import pytest
+from utils.assertions import assert_any_host_in_text
 
 from rendering.renderer import ModernReportRenderer
 
@@ -162,7 +163,7 @@ class TestHTMLOrganizationRendering:
             )
 
             # Verify organization domains appear
-            assert "example.com" in org_html or "acme.org" in org_html
+            assert_any_host_in_text(org_html, ["example.com", "acme.org"])
 
 
 class TestHTMLDataIntegrity:

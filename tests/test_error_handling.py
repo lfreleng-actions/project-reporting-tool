@@ -13,6 +13,7 @@ import tempfile
 from pathlib import Path
 
 import pytest
+from utils.assertions import assert_host_in_text
 
 from cli.error_helpers import (
     CLIPermissionError,
@@ -308,7 +309,7 @@ class TestWrapNetworkError:
         """Test network error with URL."""
         original = Exception("Timeout")
         error = wrap_network_error(original, url="https://api.github.com")
-        assert "api.github.com" in str(error)
+        assert_host_in_text(str(error), "api.github.com")
 
     def test_ssl_error(self):
         """Test SSL certificate error."""

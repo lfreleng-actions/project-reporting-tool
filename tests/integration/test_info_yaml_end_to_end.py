@@ -15,6 +15,7 @@ import tempfile
 from pathlib import Path
 
 import pytest
+from utils.assertions import assert_host_in_collection, assert_host_in_text
 
 from domain.info_yaml import ProjectInfo
 from lf_releng_project_reporting.collectors.info_yaml import INFOYamlCollector, InfoYamlEnricher
@@ -656,16 +657,16 @@ class TestEndToEndRealWorldScenarios:
             servers[project.gerrit_server].append(project)
 
         assert len(servers) == 2  # Two different servers
-        assert "gerrit.example.org" in servers
-        assert "gerrit.other.org" in servers
+        assert_host_in_collection(servers, "gerrit.example.org")
+        assert_host_in_collection(servers, "gerrit.other.org")
 
         # Render with grouping
         renderer = InfoYamlRenderer()
         markdown = renderer.render_full_report_markdown(projects, group_by_server=True)
 
         # Verify both servers in output
-        assert "gerrit.example.org" in markdown
-        assert "gerrit.other.org" in markdown
+        assert_host_in_text(markdown, "gerrit.example.org")
+        assert_host_in_text(markdown, "gerrit.other.org")
 
     def test_activity_status_distribution(
         self, create_test_projects, base_config, sample_git_metrics

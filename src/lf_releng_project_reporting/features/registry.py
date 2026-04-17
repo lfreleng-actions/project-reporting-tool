@@ -22,6 +22,7 @@ import os
 import re
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Tuple
+from urllib.parse import urlparse
 
 # Import API clients for GitHub integration
 from api.github_client import GitHubAPIClient
@@ -50,7 +51,9 @@ class FeatureRegistry:
         {"present": True, "files": [".github/dependabot.yml"]}
     """
 
-    def __init__(self, config: Dict[str, Any], logger: logging.Logger, api_stats: Optional[Any] = None) -> None:
+    def __init__(
+        self, config: Dict[str, Any], logger: logging.Logger, api_stats: Optional[Any] = None
+    ) -> None:
         """
         Initialize the feature registry.
 
@@ -314,8 +317,7 @@ class FeatureRegistry:
             try:
                 # Get all files in the workflows directory
                 workflow_files = [
-                    f for f in workflows_dir.iterdir()
-                    if f.is_file() and not f.name.startswith('.')
+                    f for f in workflows_dir.iterdir() if f.is_file() and not f.name.startswith(".")
                 ]
 
                 # Test each workflow file against each regex pattern
@@ -333,9 +335,7 @@ class FeatureRegistry:
 
             except OSError as e:
                 # Log error reading directory but continue
-                self.logger.warning(
-                    f"Error reading workflows directory {workflows_dir}: {e}"
-                )
+                self.logger.warning(f"Error reading workflows directory {workflows_dir}: {e}")
 
         # Sort found files for consistent ordering
         found_files.sort()
@@ -378,9 +378,7 @@ class FeatureRegistry:
                 with open(config_path, "r", encoding="utf-8") as f:
                     content = f.read()
                     # Count number of repos/hooks (basic analysis)
-                    repos_count = len(
-                        re.findall(r"^\s*-\s*repo:", content, re.MULTILINE)
-                    )
+                    repos_count = len(re.findall(r"^\s*-\s*repo:", content, re.MULTILINE))
                     result["repos_count"] = repos_count
             except (IOError, UnicodeDecodeError):
                 pass
@@ -482,9 +480,7 @@ class FeatureRegistry:
             return {
                 "detected_types": ["jjb"],
                 "primary_type": "jjb",
-                "details": [
-                    {"type": "jjb", "files": ["repository_name"], "confidence": 100}
-                ],
+                "details": [{"type": "jjb", "files": ["repository_name"], "confidence": 100}],
             }
 
         project_types = {
@@ -507,13 +503,26 @@ class FeatureRegistry:
                 "poetry.lock",
                 "**/*.py",
             ],
-            "Dockerfile": ["Dockerfile", "**/*.dockerfile", "docker-compose.yml", "docker-compose.yaml"],
+            "Dockerfile": [
+                "Dockerfile",
+                "**/*.dockerfile",
+                "docker-compose.yml",
+                "docker-compose.yaml",
+            ],
             "Shell": ["**/*.sh", "**/*.bash", "**/*.zsh", "**/*.ksh"],
             "Go": ["go.mod", "go.sum", "**/*.go"],
             "Rust": ["Cargo.toml", "Cargo.lock", "**/*.rs"],
             "Java": ["**/*.java"],
             "Java/Ant": ["build.xml", "ivy.xml"],
-            "C++": ["**/*.cpp", "**/*.hpp", "**/*.cc", "**/*.hh", "**/*.cxx", "**/*.hxx", "CMakeLists.txt"],
+            "C++": [
+                "**/*.cpp",
+                "**/*.hpp",
+                "**/*.cc",
+                "**/*.hh",
+                "**/*.cxx",
+                "**/*.hxx",
+                "CMakeLists.txt",
+            ],
             "C": ["**/*.c", "**/*.h"],
             ".NET": ["**/*.csproj", "**/*.sln", "project.json", "**/*.vbproj", "**/*.fsproj"],
             "Ruby": ["Gemfile", "Rakefile", "**/*.gemspec", "**/*.rb"],
@@ -570,7 +579,9 @@ class FeatureRegistry:
         # If we have Java files with Maven or Gradle, create combined types
         if has_java and has_maven:
             # Combine Java + Maven confidence
-            combined_confidence = confidence_scores.get("Java", 0) + confidence_scores.get("Maven", 0)
+            combined_confidence = confidence_scores.get("Java", 0) + confidence_scores.get(
+                "Maven", 0
+            )
             detected_types.append(
                 {"type": "Java/Maven", "files": [], "confidence": combined_confidence}
             )
@@ -589,7 +600,9 @@ class FeatureRegistry:
 
         if has_java and has_gradle:
             # Combine Java + Gradle confidence
-            combined_confidence = confidence_scores.get("Java", 0) + confidence_scores.get("Gradle", 0)
+            combined_confidence = confidence_scores.get("Java", 0) + confidence_scores.get(
+                "Gradle", 0
+            )
             detected_types.append(
                 {"type": "Java/Gradle", "files": [], "confidence": combined_confidence}
             )
@@ -612,7 +625,9 @@ class FeatureRegistry:
         # Boost Dockerfile priority if found at root
         if "Dockerfile" in confidence_scores:
             dockerfile_at_root = (repo_path / "Dockerfile").exists()
-            docker_compose_at_root = (repo_path / "docker-compose.yml").exists() or (repo_path / "docker-compose.yaml").exists()
+            docker_compose_at_root = (repo_path / "docker-compose.yml").exists() or (
+                repo_path / "docker-compose.yaml"
+            ).exists()
             if dockerfile_at_root or docker_compose_at_root:
                 # Boost by 50% if Dockerfile/docker-compose at root
                 confidence_scores["Dockerfile"] = int(confidence_scores["Dockerfile"] * 1.5)
@@ -621,7 +636,9 @@ class FeatureRegistry:
         if "Robot Framework" in confidence_scores:
             if "test" in repo_name_lower or "testsuite" in repo_name_lower:
                 # Boost by 100% for test repos
-                confidence_scores["Robot Framework"] = int(confidence_scores["Robot Framework"] * 2.0)
+                confidence_scores["Robot Framework"] = int(
+                    confidence_scores["Robot Framework"] * 2.0
+                )
 
         # Boost Shell priority if many shell scripts found
         if "Shell" in confidence_scores and confidence_scores["Shell"] >= 5:
@@ -773,12 +790,8 @@ class FeatureRegistry:
 
         # Get classification patterns from config
         workflow_config = self.config.get("workflows", {}).get("classify", {})
-        verify_patterns = workflow_config.get(
-            "verify", ["verify", "test", "ci", "check"]
-        )
-        merge_patterns = workflow_config.get(
-            "merge", ["merge", "release", "deploy", "publish"]
-        )
+        verify_patterns = workflow_config.get("verify", ["verify", "test", "ci", "check"])
+        merge_patterns = workflow_config.get("merge", ["merge", "release", "deploy", "publish"])
 
         workflow_files = []
         classified = {"verify": 0, "merge": 0, "other": 0}
@@ -821,9 +834,7 @@ class FeatureRegistry:
 
         # Try GitHub API integration if enabled and token available
         github_api_enabled = (
-            self.config.get("extensions", {})
-            .get("github_api", {})
-            .get("enabled", False)
+            self.config.get("extensions", {}).get("github_api", {}).get("enabled", False)
         )
         # Get the configured environment variable name (defaults to GITHUB_TOKEN)
         github_token_env = self.config.get("_github_token_env", "GITHUB_TOKEN")
@@ -847,32 +858,21 @@ class FeatureRegistry:
                 f"Workflow status will not be queried for {repo_path.name}"
             )
 
-        if (
-            github_api_enabled
-            and github_token
-            and self.github_org
-            and is_github_repo
-        ):
+        if github_api_enabled and github_token and self.github_org and is_github_repo:
             try:
                 owner, repo_name = self._extract_github_repo_info(repo_path, self.github_org)
-                self.logger.debug(
-                    f"Attempting GitHub API query for {owner}/{repo_name}"
-                )
+                self.logger.debug(f"Attempting GitHub API query for {owner}/{repo_name}")
                 if owner and repo_name:
                     github_client = GitHubAPIClient(github_token, stats=self.api_stats)
-                    github_status = (
-                        github_client.get_repository_workflow_status_summary(
-                            owner, repo_name
-                        )
+                    github_status = github_client.get_repository_workflow_status_summary(
+                        owner, repo_name
                     )
 
                     # Merge GitHub API data with static analysis
                     result["github_api_data"] = github_status
                     result["has_runtime_status"] = True
 
-                    self.logger.debug(
-                        f"Retrieved GitHub workflow status for {owner}/{repo_name}"
-                    )
+                    self.logger.debug(f"Retrieved GitHub workflow status for {owner}/{repo_name}")
 
                     # If no local workflows were found but GitHub has workflows, use GitHub as source
                     # This handles cases where Gerrit is primary but GitHub mirror has workflows
@@ -893,9 +893,7 @@ class FeatureRegistry:
                             )
 
             except Exception as e:
-                self.logger.warning(
-                    f"Failed to fetch GitHub workflow status for {repo_path}: {e}"
-                )
+                self.logger.warning(f"Failed to fetch GitHub workflow status for {repo_path}: {e}")
 
         return result
 
@@ -1051,11 +1049,39 @@ class FeatureRegistry:
             # Read git config or remote files
             config_file = git_dir / "config"
             if config_file.exists():
-                with open(config_file, "r") as f:
+                with open(config_file, "r", encoding="utf-8") as f:
                     content = f.read()
-                    # Check for GitHub remotes
-                    if "github.com" in content.lower():
-                        return True
+                    # Parse remote URLs from git config,
+                    # restricting to [remote "..."] sections
+                    # and skipping commented lines.
+                    in_remote_section = False
+                    for line in content.splitlines():
+                        stripped = line.strip()
+
+                        if not stripped or stripped.startswith(("#", ";")):
+                            continue
+
+                        section_match = re.match(r"^\[(.+)\]$", stripped)
+                        if section_match:
+                            section_name = section_match.group(1).strip().lower()
+                            in_remote_section = section_name.startswith("remote ")
+                            continue
+
+                        if not in_remote_section:
+                            continue
+
+                        url_match = re.match(r"^url\s*=\s*(.+)$", stripped)
+                        if not url_match:
+                            continue
+
+                        remote_url = url_match.group(1).strip()
+                        parsed = urlparse(remote_url)
+                        if parsed.hostname and parsed.hostname.lower() == "github.com":
+                            return True
+                        # Handle SSH URLs (git@github.com:org/repo)
+                        ssh_match = re.match(r"[^@]+@([^:]+):", remote_url)
+                        if ssh_match and ssh_match.group(1).lower() == "github.com":
+                            return True
 
             # For ONAP and other projects that are mirrored on GitHub,
             # check if they have GitHub workflows (indicates GitHub presence)
@@ -1096,18 +1122,14 @@ class FeatureRegistry:
                     response = github_client.client.get(f"/repos/{owner}/{repo_name}")
                     return bool(response.status_code == 200)
                 except Exception as e:
-                    self.logger.debug(
-                        f"GitHub API check failed for {owner}/{repo_name}: {e}"
-                    )
+                    self.logger.debug(f"GitHub API check failed for {owner}/{repo_name}: {e}")
 
             # Fallback: make a simple HTTP request without authentication
             try:
                 import httpx
 
                 with httpx.Client(timeout=10.0) as client:
-                    response = client.get(
-                        f"https://api.github.com/repos/{owner}/{repo_name}"
-                    )
+                    response = client.get(f"https://api.github.com/repos/{owner}/{repo_name}")
                     return bool(response.status_code == 200)
             except Exception as e:
                 self.logger.debug(
@@ -1118,9 +1140,7 @@ class FeatureRegistry:
         except Exception:
             return False
 
-    def _extract_github_repo_info(
-        self, repo_path: Path, github_org: str = ""
-    ) -> Tuple[str, str]:
+    def _extract_github_repo_info(self, repo_path: Path, github_org: str = "") -> Tuple[str, str]:
         """
         Extract GitHub owner and repo name from git remote or configuration.
 
@@ -1201,7 +1221,7 @@ class FeatureRegistry:
 
             if gerrit_host_index >= 0 and gerrit_host_index < len(path_parts) - 1:
                 # Get all path components after the gerrit host
-                repo_parts = path_parts[gerrit_host_index + 1:]
+                repo_parts = path_parts[gerrit_host_index + 1 :]
                 if repo_parts:
                     # Join multi-level paths with hyphens
                     # e.g., ["aai", "babel"] -> "aai-babel"
@@ -1219,9 +1239,7 @@ class FeatureRegistry:
             return github_org, repo_name
 
         except Exception as e:
-            self.logger.debug(
-                f"Failed to infer GitHub info for {repo_path}: {e}"
-            )
+            self.logger.debug(f"Failed to infer GitHub info for {repo_path}: {e}")
             return "", ""
 
     def _check_gitreview(self, repo_path: Path) -> Dict[str, Any]:
