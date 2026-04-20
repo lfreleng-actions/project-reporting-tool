@@ -20,7 +20,9 @@ try:
     import jinja2
 except ImportError:
     raise ImportError(
-        "Jinja2 is required for template rendering. Install it with: pip install Jinja2>=3.1.0"
+        "Jinja2 is required for template rendering. "
+        "Install it with: pip install 'Jinja2>=3.1.6' "
+        "(see the project's pyproject.toml for the authoritative version pin)."
     ) from None
 
 from .context import RenderContext

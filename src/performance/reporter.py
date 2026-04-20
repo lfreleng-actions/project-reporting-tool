@@ -328,7 +328,7 @@ class MetricsVisualizer:
         self,
         values: list[float],
         width: int = 60,
-        _height: int = 10,
+        height: int = 10,  # noqa: ARG002
         title: str = "",
     ) -> str:
         """

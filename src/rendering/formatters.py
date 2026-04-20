@@ -269,7 +269,7 @@ def format_date(
         except (ValueError, AttributeError):
             return date  # Return as-is if can't parse
 
-    if isinstance(date, datetime.datetime | datetime.date):
+    if isinstance(date, (datetime.datetime, datetime.date)):
         return date.strftime(format_str)
 
     return str(date)  # type: ignore[unreachable]

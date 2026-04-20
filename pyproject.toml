@@ -261,6 +261,23 @@ module = [
 ]
 ignore_missing_imports = true
 
+# Basedpyright / Pyright configuration
+[tool.basedpyright]
+pythonVersion = "3.10"
+include = ["src"]
+# Use standard (stock pyright) checking mode rather than the stricter
+# basedpyright-specific defaults. The codebase uses mypy (see
+# [tool.mypy] above) as the primary type checker; basedpyright runs
+# in pre-commit at --level error only to catch gross type errors.
+typeCheckingMode = "standard"
+# Third-party deps cannot be installed into the pre-commit.ci
+# basedpyright environment (exceeds 250 MiB tier limit), so suppress
+# unresolved import diagnostics for third-party modules. mypy
+# provides import-resolution coverage (with ignore_missing_imports
+# overrides for the modules that lack type stubs).
+reportMissingImports = "none"
+reportMissingModuleSource = "none"
+
 # Ruff configuration
 [tool.ruff]
 line-length = 100
@@ -293,6 +310,10 @@ ignore = [
     "E501",  # line too long (handled by formatter)
     "B008",  # do not perform function calls in argument defaults
     "B905",  # zip strict parameter (Python 3.10+)
+    "UP038", # Use `X | Y` in isinstance calls: deprecated upstream
+             # (tuple form is more idiomatic and has better runtime
+             # performance); keeping the tuple form also matches
+             # Copilot review guidance.
 ]
 
 [tool.ruff.lint.per-file-ignores]

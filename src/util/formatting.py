@@ -45,7 +45,7 @@ def format_number(value: int | float, signed: bool = False) -> str:
         >>> format_number(-5000)
         '-5.0K'
     """
-    if not isinstance(value, int | float):
+    if not isinstance(value, (int, float)):
         return "0"  # type: ignore[unreachable]
 
     # Handle negative numbers

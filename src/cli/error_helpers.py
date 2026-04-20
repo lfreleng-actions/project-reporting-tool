@@ -384,9 +384,9 @@ def handle_cli_error(error: Exception, verbose: bool = False) -> int:
             traceback.print_tb(error.__traceback__, file=sys.stderr)
 
         # Return specific exit codes based on error type
-        if isinstance(error, ConfigurationError | InvalidArgumentError):
+        if isinstance(error, (ConfigurationError, InvalidArgumentError)):
             return 2
-        elif isinstance(error, APIError | NetworkError):
+        elif isinstance(error, (APIError, NetworkError)):
             return 3
         elif isinstance(error, CLIPermissionError):
             return 4

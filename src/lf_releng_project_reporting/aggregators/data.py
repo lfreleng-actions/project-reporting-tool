@@ -41,10 +41,6 @@ class DataAggregator:
         # Debug: Analyze repository commit status
         self._analyze_repository_commit_status(repo_metrics)
 
-        # Configuration values for unified activity status
-        self.config.get("activity_thresholds", {}).get("current_days", 365)
-        self.config.get("activity_thresholds", {}).get("active_days", 1095)
-
         # Primary time window for rankings (configurable, defaults to last_365)
         primary_window = self.config.get("primary_reporting_window", "last_365")
 
@@ -433,7 +429,7 @@ class DataAggregator:
                     return 0  # Default for other metrics
 
             # Ensure numeric return value
-            if not isinstance(value, int | float):
+            if not isinstance(value, (int, float)):
                 return 0
             return value
 

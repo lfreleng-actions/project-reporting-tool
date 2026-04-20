@@ -9,15 +9,24 @@ This module provides the core orchestration logic for report generation,
 coordinating configuration loading, repository analysis, and output generation.
 """
 
-import importlib.util
 import logging
 import os
 import sys
 from typing import Any
 
 
-if not importlib.util.find_spec("yaml"):
-    print("ERROR: PyYAML is required. Install with: pip install PyYAML", file=sys.stderr)
+# Verify PyYAML is importable (not merely discoverable on sys.path) so
+# that broken installs, missing C extensions, or shadowed modules are
+# surfaced with a friendly error at startup rather than crashing deep
+# inside lf_releng_project_reporting.config when it imports yaml.
+try:
+    import yaml as _yaml  # noqa: F401
+except ImportError:
+    print(
+        "ERROR: PyYAML is required. Install with: pip install 'PyYAML>=6.0.3' "
+        "(see the project's pyproject.toml for the authoritative version pin).",
+        file=sys.stderr,
+    )
     sys.exit(1)
 
 # Import utility modules

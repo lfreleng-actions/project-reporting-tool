@@ -571,12 +571,12 @@ class JJBAttribution:
             value = params.get(var, f"{{{var}}}")  # Keep placeholder if not found
 
             # Skip list/dict values - they need stream expansion
-            if isinstance(value, list | dict):
+            if isinstance(value, (list, dict)):
                 continue
 
             if isinstance(value, str):
                 result = result.replace(f"{{{var}}}", value)
-            elif isinstance(value, int | float | bool):
+            elif isinstance(value, (int, float, bool)):
                 result = result.replace(f"{{{var}}}", str(value))
 
         return result

@@ -373,16 +373,6 @@ class GerritAPIClient(BaseAPIClient):
             },
         )
 
-    def __enter__(self):
-        """Enter context manager."""
-        super().__enter__()
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        """Exit context manager and cleanup."""
-        self.close()
-        return super().__exit__(exc_type, exc_val, exc_tb)
-
     def close(self):
         """Close HTTP client."""
         if hasattr(self, "client"):

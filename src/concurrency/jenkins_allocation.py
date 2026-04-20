@@ -52,7 +52,7 @@ class JenkinsAllocationContext:
         self.all_jobs: dict[str, Any] = {}
         self.orphaned_jobs: dict[str, Any] = {}
 
-    def allocate_jobs(self, _repo_name: str, jobs: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    def allocate_jobs(self, repo_name: str, jobs: list[dict[str, Any]]) -> list[dict[str, Any]]:  # noqa: ARG002
         """
         Allocate jobs to a repository, filtering out already-allocated jobs.
 

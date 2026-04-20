@@ -426,7 +426,7 @@ class ParallelRepositoryProcessor:
         self,
         repositories: list[Any],
         processor_func: Callable[[Any], Any],
-        _batch_mode: bool = False,
+        batch_mode: bool = False,  # noqa: ARG002
     ) -> AggregatedResults:
         """
         Process multiple repositories in parallel.

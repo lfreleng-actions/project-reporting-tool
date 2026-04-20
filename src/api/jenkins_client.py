@@ -190,16 +190,6 @@ class JenkinsAPIClient(BaseAPIClient):
             self.jjb_attribution = None
             self.jjb_attribution_enabled = False
 
-    def __enter__(self):
-        """Enter context manager."""
-        super().__enter__()
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        """Exit context manager and cleanup."""
-        self.close()
-        return super().__exit__(exc_type, exc_val, exc_tb)
-
     def close(self):
         """Close the HTTP client."""
         if hasattr(self, "client"):
