@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-04-20 07:34:16 UTC
+**Generated:** 2026-04-21 07:32:04 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -30,7 +30,7 @@
 | Inactive Repositories | 3 | 50.0% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 22.3K | - |
-| Total Lines of Code | 72.9K | - |
+| Total Lines of Code | 76.6K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -41,14 +41,14 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 154 | 1105 | +153978 | 284476 | +21 | 4 |
-| 2 | gmail.com | 114 | 272 | +19902 | 28557 | +41 | 4 |
+| 1 | cisco.com | 154 | 1108 | +154050 | 284554 | +21 | 4 |
+| 2 | gmail.com | 114 | 273 | +20891 | 29547 | +44 | 4 |
 | 3 | icloud.com | 2 | 171 | +49725 | 125650 | -153 | 3 |
 | 4 | hawari.fr | 1 | 20 | +16355 | 17562 | +757 | 1 |
 | 5 | marvell.com | 14 | 19 | +843 | 939 | +39 | 2 |
 | 6 | netgate.com | 15 | 19 | +767 | 955 | +30 | 1 |
-| 7 | barachs.net | 2 | 9 | +533 | 588 | +53 | 1 |
-| 8 | github.com | 2 | 9 | +9 | 18 | 0 | 2 |
+| 7 | github.com | 2 | 10 | +10 | 20 | 0 | 2 |
+| 8 | barachs.net | 2 | 9 | +533 | 588 | +53 | 1 |
 | 9 | ipng.nl | 1 | 9 | +2878 | 3046 | +301 | 1 |
 | 10 | travelping.com | 4 | 7 | +124 | 175 | +10 | 1 |
 | 11 | employees.org | 1 | 6 | +14153 | 14245 | +2343 | 1 |
@@ -82,13 +82,13 @@ The data presented in the table below covers the past 365 days.
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | Florin Coras | 250 | +13700 | 19107 | +33 | 2 | cisco.com |
-| 2 | Matus Fabian | 232 | +34122 | 46898 | +92 | 2 | cisco.com |
-| 3 | Dave Wallace | 218 | +14243 | 20488 | +36 | 4 | gmail.com |
+| 2 | Matus Fabian | 234 | +34192 | 46972 | +91 | 2 | cisco.com |
+| 3 | Dave Wallace | 219 | +15232 | 21478 | +41 | 4 | gmail.com |
 | 4 | Peter Mikus | 170 | +49722 | 125645 | -154 | 3 | icloud.com |
 | 5 | Damjan Marion | 152 | +44145 | 118934 | -201 | 1 | cisco.com |
 | 6 | Adrian Villin | 108 | +16094 | 25364 | +63 | 1 | cisco.com |
 | 7 | Tibor Frank | 105 | +8459 | 15543 | +13 | 2 | cisco.com |
-| 8 | Vratko Polak | 68 | +17191 | 33591 | +11 | 3 | cisco.com |
+| 8 | Vratko Polak | 69 | +17193 | 33595 | +11 | 3 | cisco.com |
 | 9 | Benoît Ganne | 45 | +1940 | 3367 | +11 | 1 | cisco.com |
 | 10 | Semir Sionek | 38 | +1749 | 2174 | +34 | 1 | cisco.com |
 | 11 | Mohsin KAZMI | 28 | +3705 | 4165 | +115 | 2 | cisco.com |
@@ -97,12 +97,12 @@ The data presented in the table below covers the past 365 days.
 | 14 | Hadi Rayan Al-Sandid | 17 | +1423 | 1577 | +74 | 1 | cisco.com |
 | 15 | Steven | 14 | +917 | 1677 | +11 | 3 | cisco.com |
 | 16 | Maxime Peim | 13 | +1815 | 3633 | 0 | 1 | gmail.com |
-| 17 | Andrew Yourtchenko | 9 | +2050 | 2059 | +226 | 1 | gmail.com |
-| 18 | Damjan Marion | 9 | +657 | 948 | +40 | 1 | gmail.com |
-| 19 | Dave Barach | 9 | +533 | 588 | +53 | 1 | barachs.net |
-| 20 | Monendra Singh Kushwaha | 9 | +530 | 573 | +54 | 1 | marvell.com |
-| 21 | Pim van Pelt | 9 | +2878 | 3046 | +301 | 1 | ipng.nl |
-| 22 | dependabot[bot] | 9 | +9 | 18 | 0 | 1 | github.com |
+| 17 | dependabot[bot] | 10 | +10 | 20 | 0 | 1 | github.com |
+| 18 | Andrew Yourtchenko | 9 | +2050 | 2059 | +226 | 1 | gmail.com |
+| 19 | Damjan Marion | 9 | +657 | 948 | +40 | 1 | gmail.com |
+| 20 | Dave Barach | 9 | +533 | 588 | +53 | 1 | barachs.net |
+| 21 | Monendra Singh Kushwaha | 9 | +530 | 573 | +54 | 1 | marvell.com |
+| 22 | Pim van Pelt | 9 | +2878 | 3046 | +301 | 1 | ipng.nl |
 | 23 | Yoann Desmouceaux | 8 | +131 | 186 | +9 | 1 | cisco.com |
 | 24 | Ivan Shvedunov | 7 | +690 | 809 | +81 | 1 | netgate.com |
 | 25 | Kishor Dhanawade | 7 | +164 | 186 | +20 | 2 | marvell.com |
@@ -117,12 +117,12 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 15703 | +183430 | 78 | 0 | 2026-04-19 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6457 | +74596 | 6 | 0 | 2026-04-20 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2522 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 27 | +3884 | 2 | 4 | 2026-04-15 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 1997 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3519 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 15707 | +184491 | 78 | 4 | 2026-04-16 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6458 | +74597 | 6 | 1 | 2026-04-20 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2523 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 27 | +3884 | 2 | 5 | 2026-04-15 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 1998 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3520 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
