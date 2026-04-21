@@ -67,7 +67,7 @@ jobs:
       - name: Run comprehensive benchmarks
         timeout-minutes: 20
         run: |
-          uv run pytest tests/performance/test_benchmarks.py \
+          uv run pytest tests/performance_tests/test_benchmarks.py \
             -v \
             -m benchmark \
             --benchmark-only \
@@ -153,13 +153,15 @@ jobs:
         with:
           name: benchmark-history
           path: .benchmarks/
-          retention-days: 365
+          retention-days: 90
 
       - name: Check performance thresholds
         id: threshold-check
         timeout-minutes: 5
+        env:
+          PYTHONPATH: .
         run: |
-          PYTHONPATH=. pytest tests/performance/test_thresholds.py \
+          uv run pytest tests/performance_tests/test_thresholds.py \
             -v \
             -m performance \
             --tb=short \
@@ -193,8 +195,8 @@ jobs:
           ## Resources
 
           - Benchmark results: See artifacts
-          - Threshold tests: tests/performance/test_thresholds.py
-          - Performance docs: tests/performance/README.md
+          - Threshold tests: tests/performance_tests/test_thresholds.py
+          - Performance docs: tests/performance_tests/README.md
 
           EOF
 
@@ -284,7 +286,7 @@ jobs:
         timeout-minutes: 10
         run: |
           # Profile memory usage during tests
-          PYTHONPATH=. pytest tests/performance/ \
+          PYTHONPATH=. uv run pytest tests/performance_tests/ \
             -v \
             --no-cov \
             --tb=short \
@@ -397,9 +399,9 @@ jobs:
 
           ## Resources
 
-          - [Performance Tests](tests/performance/)
-          - [Threshold Definitions](tests/performance/conftest.py)
-          - [Benchmark Documentation](tests/performance/README.md)
+          - [Performance Tests](tests/performance_tests/)
+          - [Threshold Definitions](tests/performance_tests/conftest.py)
+          - [Benchmark Documentation](tests/performance_tests/README.md)
 
           EOF
 
@@ -409,4 +411,4 @@ jobs:
         with:
           name: performance-dashboard
           path: performance-dashboard.md
-          retention-days: 365
+          retention-days: 90
