@@ -1,37 +1,37 @@
 {
   "schema_version": "1.5.0",
-  "generated_at": "2026-04-21T07:32:03.094681+00:00",
+  "generated_at": "2026-04-22T07:31:47.238471+00:00",
   "project": "AGL",
-  "config_digest": "73a4cc838c58bee8fb8a74598162d1d08c57bbcc8cb2d13a52e8978aa4049894",
-  "script_version": "0.1.dev1+gc8f817d20",
+  "config_digest": "6c7dbdccf3a1d2d118214973a1f780e5d51495ad5b6efe2258ecee0a20868e5d",
+  "script_version": "0.1.dev1+g72682cabb",
   "time_windows": {
     "last_30": {
       "days": 30,
-      "start": "2026-03-22T07:32:03.094824+00:00",
-      "end": "2026-04-21T07:32:03.094824+00:00",
-      "start_timestamp": 1774164723.094824,
-      "end_timestamp": 1776756723.094824
+      "start": "2026-03-23T07:31:47.238613+00:00",
+      "end": "2026-04-22T07:31:47.238613+00:00",
+      "start_timestamp": 1774251107.238613,
+      "end_timestamp": 1776843107.238613
     },
     "last_90": {
       "days": 90,
-      "start": "2026-01-21T07:32:03.094824+00:00",
-      "end": "2026-04-21T07:32:03.094824+00:00",
-      "start_timestamp": 1768980723.094824,
-      "end_timestamp": 1776756723.094824
+      "start": "2026-01-22T07:31:47.238613+00:00",
+      "end": "2026-04-22T07:31:47.238613+00:00",
+      "start_timestamp": 1769067107.238613,
+      "end_timestamp": 1776843107.238613
     },
     "last_365": {
       "days": 365,
-      "start": "2025-04-21T07:32:03.094824+00:00",
-      "end": "2026-04-21T07:32:03.094824+00:00",
-      "start_timestamp": 1745220723.094824,
-      "end_timestamp": 1776756723.094824
+      "start": "2025-04-22T07:31:47.238613+00:00",
+      "end": "2026-04-22T07:31:47.238613+00:00",
+      "start_timestamp": 1745307107.238613,
+      "end_timestamp": 1776843107.238613
     },
     "last_3_years": {
       "days": 1095,
-      "start": "2023-04-22T07:32:03.094824+00:00",
-      "end": "2026-04-21T07:32:03.094824+00:00",
-      "start_timestamp": 1682148723.094824,
-      "end_timestamp": 1776756723.094824
+      "start": "2023-04-23T07:31:47.238613+00:00",
+      "end": "2026-04-22T07:31:47.238613+00:00",
+      "start_timestamp": 1682235107.238613,
+      "end_timestamp": 1776843107.238613
     }
   },
   "repositories": [],
@@ -482,7 +482,7 @@
         "name": "ci-platform-AGL-repo-verify",
         "url": "https://build.automotivelinux.org/job/ci-platform-AGL-repo-verify/",
         "buildable": true,
-        "color": "blue",
+        "color": "red",
         "disabled": false
       },
       {
@@ -546,7 +546,7 @@
         "name": "ci-platform-AGL-repo-verify-CIB-qemuarm64",
         "url": "https://build.automotivelinux.org/job/ci-platform-AGL-repo-verify-CIB-qemuarm64/",
         "buildable": true,
-        "color": "blue",
+        "color": "red",
         "disabled": false
       },
       {
