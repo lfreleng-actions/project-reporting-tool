@@ -16,10 +16,10 @@ Features:
 - Domain model validation errors
 """
 
+from collections import defaultdict
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Dict, List, Optional
-from collections import defaultdict
+from typing import Any
 
 
 class ErrorCategory(Enum):
@@ -107,12 +107,11 @@ class ErrorType(Enum):
 
 
 # Mapping of error types to categories
-ERROR_TYPE_CATEGORY_MAP: Dict[ErrorType, ErrorCategory] = {
+ERROR_TYPE_CATEGORY_MAP: dict[ErrorType, ErrorCategory] = {
     # Network
     ErrorType.NETWORK_TIMEOUT: ErrorCategory.NETWORK,
     ErrorType.NETWORK_CONNECTION: ErrorCategory.NETWORK,
     ErrorType.NETWORK_DNS: ErrorCategory.NETWORK,
-
     # API
     ErrorType.API_HTTP_CLIENT: ErrorCategory.API,
     ErrorType.API_HTTP_SERVER: ErrorCategory.API,
@@ -123,7 +122,6 @@ ERROR_TYPE_CATEGORY_MAP: Dict[ErrorType, ErrorCategory] = {
     ErrorType.API_PARSE: ErrorCategory.API,
     ErrorType.API_TIMEOUT: ErrorCategory.API,
     ErrorType.API_UNKNOWN: ErrorCategory.API,
-
     # Git
     ErrorType.GIT_NOT_FOUND: ErrorCategory.GIT,
     ErrorType.GIT_COMMAND_FAILED: ErrorCategory.GIT,
@@ -131,31 +129,26 @@ ERROR_TYPE_CATEGORY_MAP: Dict[ErrorType, ErrorCategory] = {
     ErrorType.GIT_INVALID_REPO: ErrorCategory.GIT,
     ErrorType.GIT_CLONE_FAILED: ErrorCategory.GIT,
     ErrorType.GIT_CHECKOUT_FAILED: ErrorCategory.GIT,
-
     # Validation
     ErrorType.VALIDATION_DOMAIN_MODEL: ErrorCategory.VALIDATION,
     ErrorType.VALIDATION_SCHEMA: ErrorCategory.VALIDATION,
     ErrorType.VALIDATION_CONSTRAINT: ErrorCategory.VALIDATION,
     ErrorType.VALIDATION_TYPE: ErrorCategory.VALIDATION,
     ErrorType.VALIDATION_REQUIRED_FIELD: ErrorCategory.VALIDATION,
-
     # Configuration
     ErrorType.CONFIG_MISSING: ErrorCategory.CONFIGURATION,
     ErrorType.CONFIG_INVALID: ErrorCategory.CONFIGURATION,
     ErrorType.CONFIG_PARSE: ErrorCategory.CONFIGURATION,
     ErrorType.CONFIG_SCHEMA: ErrorCategory.CONFIGURATION,
-
     # Data
     ErrorType.DATA_MISSING: ErrorCategory.DATA,
     ErrorType.DATA_CORRUPT: ErrorCategory.DATA,
     ErrorType.DATA_INCONSISTENT: ErrorCategory.DATA,
     ErrorType.DATA_CONVERSION: ErrorCategory.DATA,
-
     # Rendering
     ErrorType.RENDER_TEMPLATE: ErrorCategory.RENDERING,
     ErrorType.RENDER_FORMAT: ErrorCategory.RENDERING,
     ErrorType.RENDER_OUTPUT: ErrorCategory.RENDERING,
-
     # System
     ErrorType.SYSTEM_IO: ErrorCategory.SYSTEM,
     ErrorType.SYSTEM_PERMISSION: ErrorCategory.SYSTEM,
@@ -165,12 +158,11 @@ ERROR_TYPE_CATEGORY_MAP: Dict[ErrorType, ErrorCategory] = {
 
 
 # Mapping of error types to default severity
-ERROR_TYPE_SEVERITY_MAP: Dict[ErrorType, ErrorSeverity] = {
+ERROR_TYPE_SEVERITY_MAP: dict[ErrorType, ErrorSeverity] = {
     # Network - generally medium severity
     ErrorType.NETWORK_TIMEOUT: ErrorSeverity.MEDIUM,
     ErrorType.NETWORK_CONNECTION: ErrorSeverity.MEDIUM,
     ErrorType.NETWORK_DNS: ErrorSeverity.MEDIUM,
-
     # API - varies by type
     ErrorType.API_HTTP_CLIENT: ErrorSeverity.LOW,
     ErrorType.API_HTTP_SERVER: ErrorSeverity.MEDIUM,
@@ -181,7 +173,6 @@ ERROR_TYPE_SEVERITY_MAP: Dict[ErrorType, ErrorSeverity] = {
     ErrorType.API_PARSE: ErrorSeverity.MEDIUM,
     ErrorType.API_TIMEOUT: ErrorSeverity.MEDIUM,
     ErrorType.API_UNKNOWN: ErrorSeverity.MEDIUM,
-
     # Git - generally high severity for repo access
     ErrorType.GIT_NOT_FOUND: ErrorSeverity.HIGH,
     ErrorType.GIT_COMMAND_FAILED: ErrorSeverity.MEDIUM,
@@ -189,31 +180,26 @@ ERROR_TYPE_SEVERITY_MAP: Dict[ErrorType, ErrorSeverity] = {
     ErrorType.GIT_INVALID_REPO: ErrorSeverity.HIGH,
     ErrorType.GIT_CLONE_FAILED: ErrorSeverity.HIGH,
     ErrorType.GIT_CHECKOUT_FAILED: ErrorSeverity.MEDIUM,
-
     # Validation - medium severity (data quality issue)
     ErrorType.VALIDATION_DOMAIN_MODEL: ErrorSeverity.MEDIUM,
     ErrorType.VALIDATION_SCHEMA: ErrorSeverity.MEDIUM,
     ErrorType.VALIDATION_CONSTRAINT: ErrorSeverity.MEDIUM,
     ErrorType.VALIDATION_TYPE: ErrorSeverity.MEDIUM,
     ErrorType.VALIDATION_REQUIRED_FIELD: ErrorSeverity.MEDIUM,
-
     # Configuration - critical (blocks execution)
     ErrorType.CONFIG_MISSING: ErrorSeverity.CRITICAL,
     ErrorType.CONFIG_INVALID: ErrorSeverity.CRITICAL,
     ErrorType.CONFIG_PARSE: ErrorSeverity.CRITICAL,
     ErrorType.CONFIG_SCHEMA: ErrorSeverity.CRITICAL,
-
     # Data - varies by impact
     ErrorType.DATA_MISSING: ErrorSeverity.MEDIUM,
     ErrorType.DATA_CORRUPT: ErrorSeverity.HIGH,
     ErrorType.DATA_INCONSISTENT: ErrorSeverity.MEDIUM,
     ErrorType.DATA_CONVERSION: ErrorSeverity.MEDIUM,
-
     # Rendering - low to medium (report generation)
     ErrorType.RENDER_TEMPLATE: ErrorSeverity.MEDIUM,
     ErrorType.RENDER_FORMAT: ErrorSeverity.LOW,
     ErrorType.RENDER_OUTPUT: ErrorSeverity.HIGH,
-
     # System - critical (environment issue)
     ErrorType.SYSTEM_IO: ErrorSeverity.HIGH,
     ErrorType.SYSTEM_PERMISSION: ErrorSeverity.CRITICAL,
@@ -235,13 +221,13 @@ class ErrorContext:
         extra: Additional context fields
     """
 
-    repository: Optional[str] = None
-    operation: Optional[str] = None
-    phase: Optional[str] = None
-    window: Optional[str] = None
-    extra: Dict[str, Any] = field(default_factory=dict)
+    repository: str | None = None
+    operation: str | None = None
+    phase: str | None = None
+    window: str | None = None
+    extra: dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary."""
         result = {}
         if self.repository:
@@ -273,26 +259,22 @@ class ClassifiedError:
 
     error_type: ErrorType
     message: str
-    severity: Optional[ErrorSeverity] = None
-    category: Optional[ErrorCategory] = None
+    severity: ErrorSeverity | None = None
+    category: ErrorCategory | None = None
     context: ErrorContext = field(default_factory=ErrorContext)
-    original_exception: Optional[Exception] = None
+    original_exception: Exception | None = None
 
     def __post_init__(self) -> None:
         """Set default severity and category if not provided."""
         if self.severity is None:
-            self.severity = ERROR_TYPE_SEVERITY_MAP.get(
-                self.error_type, ErrorSeverity.MEDIUM
-            )
+            self.severity = ERROR_TYPE_SEVERITY_MAP.get(self.error_type, ErrorSeverity.MEDIUM)
 
         if self.category is None:
-            self.category = ERROR_TYPE_CATEGORY_MAP.get(
-                self.error_type, ErrorCategory.SYSTEM
-            )
+            self.category = ERROR_TYPE_CATEGORY_MAP.get(self.error_type, ErrorCategory.SYSTEM)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for reporting."""
-        result: Dict[str, Any] = {
+        result: dict[str, Any] = {
             "error_type": self.error_type.value,
             "category": self.category.value if self.category else None,
             "severity": self.severity.value if self.severity else None,
@@ -317,19 +299,19 @@ class ErrorTracker:
     """
 
     def __init__(self) -> None:
-        self.errors: List[ClassifiedError] = []
-        self.errors_by_type: Dict[ErrorType, List[ClassifiedError]] = defaultdict(list)
-        self.errors_by_category: Dict[ErrorCategory, List[ClassifiedError]] = defaultdict(list)
-        self.errors_by_severity: Dict[ErrorSeverity, List[ClassifiedError]] = defaultdict(list)
-        self.errors_by_repo: Dict[str, List[ClassifiedError]] = defaultdict(list)
+        self.errors: list[ClassifiedError] = []
+        self.errors_by_type: dict[ErrorType, list[ClassifiedError]] = defaultdict(list)
+        self.errors_by_category: dict[ErrorCategory, list[ClassifiedError]] = defaultdict(list)
+        self.errors_by_severity: dict[ErrorSeverity, list[ClassifiedError]] = defaultdict(list)
+        self.errors_by_repo: dict[str, list[ClassifiedError]] = defaultdict(list)
 
     def add_error(
         self,
         error_type: ErrorType,
         message: str,
-        severity: Optional[ErrorSeverity] = None,
-        context: Optional[ErrorContext] = None,
-        exception: Optional[Exception] = None,
+        severity: ErrorSeverity | None = None,
+        context: ErrorContext | None = None,
+        exception: Exception | None = None,
     ) -> ClassifiedError:
         """
         Add an error to the tracker.
@@ -368,23 +350,23 @@ class ErrorTracker:
         """Get total number of errors."""
         return len(self.errors)
 
-    def get_errors_by_severity(self, severity: ErrorSeverity) -> List[ClassifiedError]:
+    def get_errors_by_severity(self, severity: ErrorSeverity) -> list[ClassifiedError]:
         """Get all errors of a specific severity."""
         return self.errors_by_severity[severity]
 
-    def get_errors_by_category(self, category: ErrorCategory) -> List[ClassifiedError]:
+    def get_errors_by_category(self, category: ErrorCategory) -> list[ClassifiedError]:
         """Get all errors of a specific category."""
         return self.errors_by_category[category]
 
-    def get_errors_by_type(self, error_type: ErrorType) -> List[ClassifiedError]:
+    def get_errors_by_type(self, error_type: ErrorType) -> list[ClassifiedError]:
         """Get all errors of a specific type."""
         return self.errors_by_type[error_type]
 
-    def get_errors_by_repository(self, repository: str) -> List[ClassifiedError]:
+    def get_errors_by_repository(self, repository: str) -> list[ClassifiedError]:
         """Get all errors for a specific repository."""
         return self.errors_by_repo[repository]
 
-    def get_summary(self) -> Dict[str, Any]:
+    def get_summary(self) -> dict[str, Any]:
         """
         Get error summary statistics.
 
@@ -394,21 +376,18 @@ class ErrorTracker:
         return {
             "total_errors": len(self.errors),
             "by_severity": {
-                severity.value: len(errors)
-                for severity, errors in self.errors_by_severity.items()
+                severity.value: len(errors) for severity, errors in self.errors_by_severity.items()
             },
             "by_category": {
-                category.value: len(errors)
-                for category, errors in self.errors_by_category.items()
+                category.value: len(errors) for category, errors in self.errors_by_category.items()
             },
             "by_type": {
-                error_type.value: len(errors)
-                for error_type, errors in self.errors_by_type.items()
+                error_type.value: len(errors) for error_type, errors in self.errors_by_type.items()
             },
             "repositories_affected": len(self.errors_by_repo),
         }
 
-    def get_api_failures(self) -> Dict[str, Any]:
+    def get_api_failures(self) -> dict[str, Any]:
         """
         Get API-specific failure summary.
 
@@ -432,7 +411,7 @@ class ErrorTracker:
             "authentication_failures": len(self.errors_by_type[ErrorType.API_AUTHENTICATION]),
         }
 
-    def get_partial_failures(self) -> List[Dict[str, Any]]:
+    def get_partial_failures(self) -> list[dict[str, Any]]:
         """
         Get repositories with errors but some successful processing.
 
@@ -443,25 +422,25 @@ class ErrorTracker:
 
         for repo, errors in self.errors_by_repo.items():
             # Consider it a partial failure if there are errors but not critical ones
-            critical_errors = [
-                e for e in errors if e.severity == ErrorSeverity.CRITICAL
-            ]
+            critical_errors = [e for e in errors if e.severity == ErrorSeverity.CRITICAL]
 
             if errors and not critical_errors:
-                partial_failures.append({
-                    "repository": repo,
-                    "error_count": len(errors),
-                    "severity_breakdown": {
-                        severity.value: len([e for e in errors if e.severity == severity])
-                        for severity in ErrorSeverity
-                        if any(e.severity == severity for e in errors)
-                    },
-                    "sample_errors": [e.message for e in errors[:3]],
-                })
+                partial_failures.append(
+                    {
+                        "repository": repo,
+                        "error_count": len(errors),
+                        "severity_breakdown": {
+                            severity.value: len([e for e in errors if e.severity == severity])
+                            for severity in ErrorSeverity
+                            if any(e.severity == severity for e in errors)
+                        },
+                        "sample_errors": [e.message for e in errors[:3]],
+                    }
+                )
 
         return partial_failures
 
-    def get_detailed_report(self) -> List[Dict[str, Any]]:
+    def get_detailed_report(self) -> list[dict[str, Any]]:
         """
         Get detailed list of all errors.
 
@@ -473,7 +452,7 @@ class ErrorTracker:
 
 def classify_exception(
     exception: Exception,
-    context: Optional[ErrorContext] = None,
+    context: ErrorContext | None = None,
 ) -> ClassifiedError:
     """
     Classify a Python exception into an error type.
@@ -499,9 +478,7 @@ def classify_exception(
         error_type = ErrorType.SYSTEM_PERMISSION
     elif "IOError" in exc_type_name or "FileNotFoundError" in exc_type_name:
         error_type = ErrorType.SYSTEM_IO
-    elif "ValueError" in exc_type_name:
-        error_type = ErrorType.VALIDATION_TYPE
-    elif "TypeError" in exc_type_name:
+    elif "ValueError" in exc_type_name or "TypeError" in exc_type_name:
         error_type = ErrorType.VALIDATION_TYPE
 
     return ClassifiedError(

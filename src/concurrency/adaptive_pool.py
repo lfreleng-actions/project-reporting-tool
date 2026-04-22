@@ -10,19 +10,20 @@ task completion rate, and CPU utilization to optimize throughput.
 Phase 7: Concurrency Refinement
 """
 
+import logging
 import os
 import threading
 import time
-from concurrent.futures import ThreadPoolExecutor, Future
+from collections.abc import Callable
+from concurrent.futures import Future, ThreadPoolExecutor
 from dataclasses import dataclass
-from typing import Callable, Any, Optional, List
-from queue import Queue
-import logging
+from typing import Any
 
 
 @dataclass
 class PoolMetrics:
     """Metrics for adaptive pool sizing decisions."""
+
     queue_depth: int = 0
     active_workers: int = 0
     completed_tasks: int = 0
@@ -55,10 +56,10 @@ class AdaptiveThreadPool:
     def __init__(
         self,
         min_workers: int = 2,
-        max_workers: Optional[int] = None,
+        max_workers: int | None = None,
         scale_up_threshold: int = 10,
         scale_down_threshold: int = 2,
-        adjustment_interval: float = 5.0
+        adjustment_interval: float = 5.0,
     ):
         """
         Initialize adaptive thread pool.
@@ -77,7 +78,7 @@ class AdaptiveThreadPool:
         self.adjustment_interval = adjustment_interval
 
         # Current executor (may be replaced during scaling)
-        self._executor: Optional[ThreadPoolExecutor] = None
+        self._executor: ThreadPoolExecutor | None = None
         self._current_workers = min_workers
 
         # Metrics
@@ -85,11 +86,11 @@ class AdaptiveThreadPool:
         self._metrics_lock = threading.Lock()
 
         # Scaling controller
-        self._monitor_thread: Optional[threading.Thread] = None
+        self._monitor_thread: threading.Thread | None = None
         self._shutdown_event = threading.Event()
 
         # Task tracking
-        self._task_times: List[float] = []
+        self._task_times: list[float] = []
         self._task_times_lock = threading.Lock()
 
         # Logger
@@ -124,7 +125,7 @@ class AdaptiveThreadPool:
         )
         return False
 
-    def submit(self, fn: Callable, *args, **kwargs) -> Future:
+    def submit(self, fn: Callable[..., Any], *args: Any, **kwargs: Any) -> Future[Any]:
         """
         Submit a task to the pool.
 
@@ -149,8 +150,9 @@ class AdaptiveThreadPool:
 
         return future
 
-    def _wrap_task(self, fn: Callable) -> Callable:
+    def _wrap_task(self, fn: Callable[..., Any]) -> Callable[..., Any]:
         """Wrap task function to collect metrics."""
+
         def wrapper(*args, **kwargs):
             start_time = time.time()
             try:
@@ -159,7 +161,7 @@ class AdaptiveThreadPool:
                     self._metrics.completed_tasks += 1
                     self._metrics.queue_depth = max(0, self._metrics.queue_depth - 1)
                 return result
-            except Exception as e:
+            except Exception:
                 with self._metrics_lock:
                     self._metrics.failed_tasks += 1
                     self._metrics.queue_depth = max(0, self._metrics.queue_depth - 1)
@@ -177,9 +179,7 @@ class AdaptiveThreadPool:
     def _start_monitor(self):
         """Start background thread to monitor and adjust pool size."""
         self._monitor_thread = threading.Thread(
-            target=self._monitor_and_adjust,
-            daemon=True,
-            name="AdaptivePoolMonitor"
+            target=self._monitor_and_adjust, daemon=True, name="AdaptivePoolMonitor"
         )
         self._monitor_thread.start()
 
@@ -199,16 +199,18 @@ class AdaptiveThreadPool:
                 # Calculate average task duration
                 with self._task_times_lock:
                     if self._task_times:
-                        self._metrics.avg_task_duration = sum(self._task_times) / len(self._task_times)
+                        self._metrics.avg_task_duration = sum(self._task_times) / len(
+                            self._task_times
+                        )
 
                 # Decide whether to scale
                 should_scale_up = (
-                    queue_depth > self.scale_up_threshold and
-                    self._current_workers < self.max_workers
+                    queue_depth > self.scale_up_threshold
+                    and self._current_workers < self.max_workers
                 )
                 should_scale_down = (
-                    queue_depth < self.scale_down_threshold and
-                    self._current_workers > self.min_workers
+                    queue_depth < self.scale_down_threshold
+                    and self._current_workers > self.min_workers
                 )
 
                 if should_scale_up:
@@ -261,10 +263,12 @@ class AdaptiveThreadPool:
                 completed_tasks=self._metrics.completed_tasks,
                 failed_tasks=self._metrics.failed_tasks,
                 avg_task_duration=self._metrics.avg_task_duration,
-                last_adjustment=self._metrics.last_adjustment
+                last_adjustment=self._metrics.last_adjustment,
             )
 
-    def map(self, fn: Callable, *iterables, timeout: Optional[float] = None) -> List[Any]:
+    def map(
+        self, fn: Callable[..., Any], *iterables: Any, timeout: float | None = None
+    ) -> list[Any]:
         """
         Map function over iterables using the adaptive pool.
 
@@ -288,7 +292,7 @@ class AdaptiveThreadPool:
             try:
                 result = future.result(timeout=timeout)
                 results.append(result)
-            except Exception as e:
+            except Exception:
                 # Re-raise the exception
                 raise
 

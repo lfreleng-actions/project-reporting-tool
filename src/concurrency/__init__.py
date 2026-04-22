@@ -14,21 +14,22 @@ This package provides thread-safe abstractions for concurrent operations:
 Phase 7: Concurrency Refinement - Enhanced concurrency primitives
 """
 
-from .jenkins_allocation import JenkinsAllocationContext
 from .adaptive_pool import AdaptiveThreadPool, PoolMetrics
-from .hybrid_executor import (
-    HybridExecutor,
-    OperationType,
-    ExecutorStats,
-)
 from .error_handler import (
-    ConcurrentErrorHandler,
     CircuitBreaker,
+    CircuitOpenError,
+    ConcurrentErrorHandler,
     ErrorRecord,
     ErrorSeverity,
-    CircuitOpenError,
     with_retry,
 )
+from .hybrid_executor import (
+    ExecutorStats,
+    HybridExecutor,
+    OperationType,
+)
+from .jenkins_allocation import JenkinsAllocationContext
+
 
 __all__ = [
     "JenkinsAllocationContext",

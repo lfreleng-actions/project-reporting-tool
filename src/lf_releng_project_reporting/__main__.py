@@ -13,5 +13,6 @@ and is useful for development and testing.
 
 from lf_releng_project_reporting.cli import cli_main
 
+
 if __name__ == "__main__":
     cli_main()

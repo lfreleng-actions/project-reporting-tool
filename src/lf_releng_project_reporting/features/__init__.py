@@ -14,4 +14,5 @@ This package contains modules for detecting features in repositories:
 
 from .registry import FeatureRegistry
 
+
 __all__ = ["FeatureRegistry"]

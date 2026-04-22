@@ -20,8 +20,9 @@ The FeatureRegistry provides a plugin-style architecture for feature detection:
 import logging
 import os
 import re
+from collections.abc import Callable
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Any
 from urllib.parse import urlparse
 
 # Import API clients for GitHub integration
@@ -52,7 +53,7 @@ class FeatureRegistry:
     """
 
     def __init__(
-        self, config: Dict[str, Any], logger: logging.Logger, api_stats: Optional[Any] = None
+        self, config: dict[str, Any], logger: logging.Logger, api_stats: Any | None = None
     ) -> None:
         """
         Initialize the feature registry.
@@ -65,7 +66,7 @@ class FeatureRegistry:
         self.config = config
         self.logger = logger
         self.api_stats = api_stats
-        self.checks: Dict[str, Callable] = {}
+        self.checks: dict[str, Callable[..., Any]] = {}
 
         # Get GitHub organization from config (already determined centrally in main())
         self.github_org = self.config.get("github", "")
@@ -78,7 +79,7 @@ class FeatureRegistry:
 
         self._register_default_checks()
 
-    def register(self, feature_name: str, check_function: Callable) -> None:
+    def register(self, feature_name: str, check_function: Callable[..., Any]) -> None:
         """
         Register a feature detection function.
 
@@ -101,7 +102,7 @@ class FeatureRegistry:
         self.register("gitreview", self._check_gitreview)
         self.register("github_mirror", self._check_github_mirror)
 
-    def detect_features(self, repo_path: Path) -> Dict[str, Any]:
+    def detect_features(self, repo_path: Path) -> dict[str, Any]:
         """
         Scan repository for all enabled features.
 
@@ -131,7 +132,7 @@ class FeatureRegistry:
 
         return results
 
-    def _check_dependabot(self, repo_path: Path) -> Dict[str, Any]:
+    def _check_dependabot(self, repo_path: Path) -> dict[str, Any]:
         """
         Check for Dependabot configuration.
 
@@ -151,7 +152,7 @@ class FeatureRegistry:
 
         return {"present": len(found_files) > 0, "files": found_files}
 
-    def _check_github2gerrit_workflow(self, repo_path: Path) -> Dict[str, Any]:
+    def _check_github2gerrit_workflow(self, repo_path: Path) -> dict[str, Any]:
         """
         Check for GitHub to Gerrit workflow patterns.
 
@@ -175,12 +176,12 @@ class FeatureRegistry:
             "gerrit-submit",
         ]
 
-        matching_workflows: List[Dict[str, str]] = []
+        matching_workflows: list[dict[str, str]] = []
         try:
             # Process .yml files
             for workflow_file in workflows_dir.glob("*.yml"):
                 try:
-                    with open(workflow_file, "r", encoding="utf-8") as f:
+                    with open(workflow_file, encoding="utf-8") as f:
                         content = f.read().lower()
                         for pattern in gerrit_patterns:
                             if pattern in content:
@@ -191,13 +192,13 @@ class FeatureRegistry:
                                     }
                                 )
                                 break
-                except (IOError, UnicodeDecodeError):
+                except (OSError, UnicodeDecodeError):
                     continue
 
             # Also check .yaml files
             for workflow_file in workflows_dir.glob("*.yaml"):
                 try:
-                    with open(workflow_file, "r", encoding="utf-8") as f:
+                    with open(workflow_file, encoding="utf-8") as f:
                         content = f.read().lower()
                         for pattern in gerrit_patterns:
                             if pattern in content:
@@ -208,7 +209,7 @@ class FeatureRegistry:
                                     }
                                 )
                                 break
-                except (IOError, UnicodeDecodeError):
+                except (OSError, UnicodeDecodeError):
                     continue
 
         except OSError:
@@ -216,7 +217,7 @@ class FeatureRegistry:
 
         return {"present": len(matching_workflows) > 0, "workflows": matching_workflows}
 
-    def _check_g2g(self, repo_path: Path) -> Dict[str, Any]:
+    def _check_g2g(self, repo_path: Path) -> dict[str, Any]:
         """
         Check for specific GitHub to Gerrit workflow files.
 
@@ -301,7 +302,7 @@ class FeatureRegistry:
                 exact_filenames.append(pattern)
 
         found_files = []
-        matched_patterns: Dict[str, List[str]] = {}
+        matched_patterns: dict[str, list[str]] = {}
 
         # Check exact filenames first
         for filename in exact_filenames:
@@ -347,7 +348,7 @@ class FeatureRegistry:
             "matched_patterns": matched_patterns,
         }
 
-    def _check_pre_commit(self, repo_path: Path) -> Dict[str, Any]:
+    def _check_pre_commit(self, repo_path: Path) -> dict[str, Any]:
         """
         Check for pre-commit configuration.
 
@@ -366,7 +367,7 @@ class FeatureRegistry:
                 found_config = config_file
                 break
 
-        result: Dict[str, Any] = {
+        result: dict[str, Any] = {
             "present": found_config is not None,
             "config_file": found_config,
         }
@@ -375,17 +376,17 @@ class FeatureRegistry:
         if found_config:
             try:
                 config_path = repo_path / found_config
-                with open(config_path, "r", encoding="utf-8") as f:
+                with open(config_path, encoding="utf-8") as f:
                     content = f.read()
                     # Count number of repos/hooks (basic analysis)
                     repos_count = len(re.findall(r"^\s*-\s*repo:", content, re.MULTILINE))
                     result["repos_count"] = repos_count
-            except (IOError, UnicodeDecodeError):
+            except (OSError, UnicodeDecodeError):
                 pass
 
         return result
 
-    def _check_readthedocs(self, repo_path: Path) -> Dict[str, Any]:
+    def _check_readthedocs(self, repo_path: Path) -> dict[str, Any]:
         """
         Check for Read the Docs configuration.
 
@@ -436,7 +437,7 @@ class FeatureRegistry:
             "config_files": found_configs,
         }
 
-    def _check_sonatype_config(self, repo_path: Path) -> Dict[str, Any]:
+    def _check_sonatype_config(self, repo_path: Path) -> dict[str, Any]:
         """
         Check for Sonatype configuration files.
 
@@ -463,7 +464,7 @@ class FeatureRegistry:
 
         return {"present": len(found_configs) > 0, "config_files": found_configs}
 
-    def _check_project_types(self, repo_path: Path) -> Dict[str, Any]:
+    def _check_project_types(self, repo_path: Path) -> dict[str, Any]:
         """
         Detect project types based on configuration files and repository characteristics.
 
@@ -574,7 +575,6 @@ class FeatureRegistry:
         has_maven = "Maven" in confidence_scores
         has_gradle = "Gradle" in confidence_scores
         has_java = "Java" in confidence_scores
-        has_java_ant = "Java/Ant" in confidence_scores
 
         # If we have Java files with Maven or Gradle, create combined types
         if has_java and has_maven:
@@ -633,12 +633,11 @@ class FeatureRegistry:
                 confidence_scores["Dockerfile"] = int(confidence_scores["Dockerfile"] * 1.5)
 
         # Boost Robot Framework priority for test-related repos
-        if "Robot Framework" in confidence_scores:
-            if "test" in repo_name_lower or "testsuite" in repo_name_lower:
-                # Boost by 100% for test repos
-                confidence_scores["Robot Framework"] = int(
-                    confidence_scores["Robot Framework"] * 2.0
-                )
+        if "Robot Framework" in confidence_scores and (
+            "test" in repo_name_lower or "testsuite" in repo_name_lower
+        ):
+            # Boost by 100% for test repos
+            confidence_scores["Robot Framework"] = int(confidence_scores["Robot Framework"] * 2.0)
 
         # Boost Shell priority if many shell scripts found
         if "Shell" in confidence_scores and confidence_scores["Shell"] >= 5:
@@ -698,7 +697,7 @@ class FeatureRegistry:
         doc_indicators = self._get_doc_indicators(repo_path)
         return len(doc_indicators) >= 5  # Require more indicators for stronger confidence
 
-    def _get_doc_indicators(self, repo_path: Path) -> List[str]:
+    def _get_doc_indicators(self, repo_path: Path) -> list[str]:
         """
         Get list of documentation indicators found in the repository.
 
@@ -770,7 +769,7 @@ class FeatureRegistry:
 
         return indicators
 
-    def _check_workflows(self, repo_path: Path) -> Dict[str, Any]:
+    def _check_workflows(self, repo_path: Path) -> dict[str, Any]:
         """
         Analyze GitHub workflows with optional GitHub API integration.
 
@@ -898,8 +897,8 @@ class FeatureRegistry:
         return result
 
     def _analyze_workflow_file(
-        self, workflow_file: Path, verify_patterns: List[str], merge_patterns: List[str]
-    ) -> Dict[str, Any]:
+        self, workflow_file: Path, verify_patterns: list[str], merge_patterns: list[str]
+    ) -> dict[str, Any]:
         """
         Analyze a single workflow file for classification.
 
@@ -911,7 +910,7 @@ class FeatureRegistry:
         Returns:
             Dict with workflow information and classification
         """
-        workflow_info: Dict[str, Any] = {
+        workflow_info: dict[str, Any] = {
             "name": workflow_file.name,
             "classification": "other",
             "triggers": [],
@@ -919,7 +918,7 @@ class FeatureRegistry:
         }
 
         try:
-            with open(workflow_file, "r", encoding="utf-8") as f:
+            with open(workflow_file, encoding="utf-8") as f:
                 content = f.read().lower()
                 filename_lower = workflow_file.name.lower()
 
@@ -973,13 +972,13 @@ class FeatureRegistry:
                 ]
                 workflow_info["jobs"] = len(set(jobs))  # Remove duplicates
 
-        except (IOError, UnicodeDecodeError):
+        except (OSError, UnicodeDecodeError):
             # File couldn't be read, return basic info
             pass
 
         return workflow_info
 
-    def _check_github_mirror(self, repo_path: Path) -> Dict[str, Any]:
+    def _check_github_mirror(self, repo_path: Path) -> dict[str, Any]:
         """
         Check if repository has a GitHub mirror that actually exists.
 
@@ -1049,7 +1048,7 @@ class FeatureRegistry:
             # Read git config or remote files
             config_file = git_dir / "config"
             if config_file.exists():
-                with open(config_file, "r", encoding="utf-8") as f:
+                with open(config_file, encoding="utf-8") as f:
                     content = f.read()
                     # Parse remote URLs from git config,
                     # restricting to [remote "..."] sections
@@ -1085,12 +1084,9 @@ class FeatureRegistry:
 
             # For ONAP and other projects that are mirrored on GitHub,
             # check if they have GitHub workflows (indicates GitHub presence)
+            # If we have GitHub workflows, assume it's mirrored on GitHub
             workflows_dir = repo_path / ".github" / "workflows"
-            if workflows_dir.exists() and any(workflows_dir.iterdir()):
-                # If we have GitHub workflows, assume it's mirrored on GitHub
-                return True
-
-            return False
+            return workflows_dir.exists() and any(workflows_dir.iterdir())
         except Exception:
             return False
 
@@ -1140,7 +1136,7 @@ class FeatureRegistry:
         except Exception:
             return False
 
-    def _extract_github_repo_info(self, repo_path: Path, github_org: str = "") -> Tuple[str, str]:
+    def _extract_github_repo_info(self, repo_path: Path, github_org: str = "") -> tuple[str, str]:
         """
         Extract GitHub owner and repo name from git remote or configuration.
 
@@ -1159,7 +1155,7 @@ class FeatureRegistry:
                 # For mirrored repos, use configured github_org
                 return self._infer_github_info_from_path(repo_path, github_org)
 
-            with open(config_file, "r") as f:
+            with open(config_file) as f:
                 content = f.read()
 
             # Look for GitHub remote URLs
@@ -1184,7 +1180,7 @@ class FeatureRegistry:
 
     def _infer_github_info_from_path(
         self, repo_path: Path, github_org: str = ""
-    ) -> Tuple[str, str]:
+    ) -> tuple[str, str]:
         """
         Infer GitHub owner/repo from repository path for mirrored repos.
 
@@ -1242,7 +1238,7 @@ class FeatureRegistry:
             self.logger.debug(f"Failed to infer GitHub info for {repo_path}: {e}")
             return "", ""
 
-    def _check_gitreview(self, repo_path: Path) -> Dict[str, Any]:
+    def _check_gitreview(self, repo_path: Path) -> dict[str, Any]:
         """
         Check for .gitreview configuration file.
 
@@ -1260,13 +1256,13 @@ class FeatureRegistry:
         # Parse .gitreview file content
         config = {}
         try:
-            with open(gitreview_file, "r", encoding="utf-8") as f:
+            with open(gitreview_file, encoding="utf-8") as f:
                 for line in f:
                     line = line.strip()
                     if line and not line.startswith("#") and "=" in line:
                         key, value = line.split("=", 1)
                         config[key.strip()] = value.strip()
-        except (IOError, UnicodeDecodeError):
+        except (OSError, UnicodeDecodeError):
             # File exists but couldn't be read
             pass
 

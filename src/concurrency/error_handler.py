@@ -14,32 +14,33 @@ import logging
 import threading
 import time
 import traceback
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Any, Callable, Dict, List, Optional, Type
+from typing import Any
 
 
 class ErrorSeverity(Enum):
     """Severity levels for errors."""
 
-    TRANSIENT = "transient"     # Temporary error, retry may succeed
-    PERMANENT = "permanent"     # Permanent error, retry will fail
-    UNKNOWN = "unknown"         # Unknown error type
+    TRANSIENT = "transient"  # Temporary error, retry may succeed
+    PERMANENT = "permanent"  # Permanent error, retry will fail
+    UNKNOWN = "unknown"  # Unknown error type
 
 
 @dataclass
 class ErrorRecord:
     """Record of an error that occurred during concurrent execution."""
 
-    context: str                    # Context where error occurred (e.g., repo name)
-    error_type: str                 # Error class name
-    error_message: str              # Error message
-    severity: ErrorSeverity         # Error severity
+    context: str  # Context where error occurred (e.g., repo name)
+    error_type: str  # Error class name
+    error_message: str  # Error message
+    severity: ErrorSeverity  # Error severity
     timestamp: datetime = field(default_factory=datetime.now)
-    traceback: Optional[str] = None
+    traceback: str | None = None
     retry_count: int = 0
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 class ConcurrentErrorHandler:
@@ -67,7 +68,7 @@ class ConcurrentErrorHandler:
         >>> print(f"Total errors: {summary['total_errors']}")
     """
 
-    def __init__(self, logger: Optional[logging.Logger] = None):
+    def __init__(self, logger: logging.Logger | None = None):
         """
         Initialize error handler.
 
@@ -75,16 +76,16 @@ class ConcurrentErrorHandler:
             logger: Logger for error reporting (default: module logger)
         """
         self.logger = logger or logging.getLogger(__name__)
-        self._errors: List[ErrorRecord] = []
+        self._errors: list[ErrorRecord] = []
         self._lock = threading.Lock()
 
     def record_error(
         self,
         context: str,
         error: Exception,
-        severity: Optional[ErrorSeverity] = None,
+        severity: ErrorSeverity | None = None,
         retry_count: int = 0,
-        metadata: Optional[Dict[str, Any]] = None
+        metadata: dict[str, Any] | None = None,
     ):
         """
         Record an error that occurred during execution.
@@ -115,7 +116,7 @@ class ConcurrentErrorHandler:
             severity=severity,
             traceback=tb,
             retry_count=retry_count,
-            metadata=metadata or {}
+            metadata=metadata or {},
         )
 
         with self._lock:
@@ -129,8 +130,7 @@ class ConcurrentErrorHandler:
             )
         else:
             self.logger.error(
-                f"Error in {context}: {error_type}: {error_message} "
-                f"(retries: {retry_count})"
+                f"Error in {context}: {error_type}: {error_message} (retries: {retry_count})"
             )
 
     def _classify_severity(self, error: Exception) -> ErrorSeverity:
@@ -145,14 +145,22 @@ class ConcurrentErrorHandler:
         """
         # Transient errors (network, timeouts)
         transient_types = (
-            'TimeoutError', 'ConnectionError', 'HTTPError',
-            'NetworkError', 'TemporaryError', 'ServiceUnavailable'
+            "TimeoutError",
+            "ConnectionError",
+            "HTTPError",
+            "NetworkError",
+            "TemporaryError",
+            "ServiceUnavailable",
         )
 
         # Permanent errors (configuration, not found)
         permanent_types = (
-            'ValueError', 'KeyError', 'AttributeError',
-            'FileNotFoundError', 'PermissionError', 'NotImplementedError'
+            "ValueError",
+            "KeyError",
+            "AttributeError",
+            "FileNotFoundError",
+            "PermissionError",
+            "NotImplementedError",
         )
 
         error_type = type(error).__name__
@@ -164,7 +172,7 @@ class ConcurrentErrorHandler:
         else:
             return ErrorSeverity.UNKNOWN
 
-    def get_errors(self) -> List[ErrorRecord]:
+    def get_errors(self) -> list[ErrorRecord]:
         """
         Get all recorded errors.
 
@@ -174,7 +182,7 @@ class ConcurrentErrorHandler:
         with self._lock:
             return list(self._errors)
 
-    def get_summary(self) -> Dict[str, Any]:
+    def get_summary(self) -> dict[str, Any]:
         """
         Get error summary for reporting.
 
@@ -193,13 +201,13 @@ class ConcurrentErrorHandler:
 
         if not errors:
             return {
-                'total_errors': 0,
-                'errors_by_severity': {},
-                'errors_by_type': {},
-                'failed_contexts': [],
-                'transient_errors': 0,
-                'permanent_errors': 0,
-                'unknown_errors': 0
+                "total_errors": 0,
+                "errors_by_severity": {},
+                "errors_by_type": {},
+                "failed_contexts": [],
+                "transient_errors": 0,
+                "permanent_errors": 0,
+                "unknown_errors": 0,
             }
 
         # Group by severity
@@ -215,16 +223,16 @@ class ConcurrentErrorHandler:
             by_type[error_type] = by_type.get(error_type, 0) + 1
 
         # Get failed contexts
-        failed_contexts = list(set(e.context for e in errors))
+        failed_contexts = list({e.context for e in errors})
 
         return {
-            'total_errors': len(errors),
-            'errors_by_severity': by_severity,
-            'errors_by_type': by_type,
-            'failed_contexts': failed_contexts,
-            'transient_errors': by_severity.get('transient', 0),
-            'permanent_errors': by_severity.get('permanent', 0),
-            'unknown_errors': by_severity.get('unknown', 0)
+            "total_errors": len(errors),
+            "errors_by_severity": by_severity,
+            "errors_by_type": by_type,
+            "failed_contexts": failed_contexts,
+            "transient_errors": by_severity.get("transient", 0),
+            "permanent_errors": by_severity.get("permanent", 0),
+            "unknown_errors": by_severity.get("unknown", 0),
         }
 
     def has_errors(self) -> bool:
@@ -247,9 +255,9 @@ def with_retry(
     max_retries: int = 3,
     backoff_factor: float = 2.0,
     initial_delay: float = 1.0,
-    error_handler: Optional[ConcurrentErrorHandler] = None,
+    error_handler: ConcurrentErrorHandler | None = None,
     context: str = "unknown",
-    retry_on: tuple = (Exception,)
+    retry_on: tuple[type[Exception], ...] = (Exception,),
 ):
     """
     Decorator to add retry logic with exponential backoff to a function.
@@ -270,9 +278,10 @@ def with_retry(
         >>> def fetch_data():
         >>>     return requests.get('https://api.example.com/data')
     """
-    def decorator(fn: Callable) -> Callable:
+
+    def decorator(fn: Callable[..., Any]) -> Callable[..., Any]:
         def wrapper(*args, **kwargs):
-            last_exception: Optional[Exception] = None
+            last_exception: Exception | None = None
 
             for attempt in range(max_retries + 1):
                 try:
@@ -286,12 +295,12 @@ def with_retry(
                             context=context,
                             error=e,
                             retry_count=attempt,
-                            metadata={'max_retries': max_retries}
+                            metadata={"max_retries": max_retries},
                         )
 
                     # Don't sleep after last attempt
                     if attempt < max_retries:
-                        delay = initial_delay * (backoff_factor ** attempt)
+                        delay = initial_delay * (backoff_factor**attempt)
                         time.sleep(delay)
 
             # All retries exhausted, raise last exception
@@ -301,6 +310,7 @@ def with_retry(
             raise RuntimeError("Retry loop completed without exception or return")
 
         return wrapper
+
     return decorator
 
 
@@ -330,7 +340,7 @@ class CircuitBreaker:
         self,
         failure_threshold: int = 5,
         timeout: float = 60.0,
-        expected_exception: Type[Exception] = Exception
+        expected_exception: type[Exception] = Exception,
     ):
         """
         Initialize circuit breaker.
@@ -345,14 +355,14 @@ class CircuitBreaker:
         self.expected_exception = expected_exception
 
         self._failure_count = 0
-        self._last_failure_time: Optional[float] = None
+        self._last_failure_time: float | None = None
         self._state = "CLOSED"
         self._lock = threading.Lock()
 
         # Logger
         self.logger = logging.getLogger(__name__)
 
-    def call(self, fn: Callable, *args, **kwargs) -> Any:
+    def call(self, fn: Callable[..., Any], *args: Any, **kwargs: Any) -> Any:
         """
         Call function through circuit breaker.
 
@@ -393,17 +403,16 @@ class CircuitBreaker:
 
             return result
 
-        except self.expected_exception as e:
+        except self.expected_exception:
             with self._lock:
                 self._failure_count += 1
                 self._last_failure_time = time.time()
 
-                if self._failure_count >= self.failure_threshold:
-                    if self._state != "OPEN":
-                        self._state = "OPEN"
-                        self.logger.warning(
-                            f"Circuit breaker opened after {self._failure_count} failures"
-                        )
+                if self._failure_count >= self.failure_threshold and self._state != "OPEN":
+                    self._state = "OPEN"
+                    self.logger.warning(
+                        f"Circuit breaker opened after {self._failure_count} failures"
+                    )
 
             raise
 
@@ -438,4 +447,5 @@ class CircuitBreaker:
 
 class CircuitOpenError(Exception):
     """Raised when circuit breaker is open."""
+
     pass

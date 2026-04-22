@@ -26,24 +26,26 @@ import os
 import shutil
 import tempfile
 from pathlib import Path
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 from lf_releng_project_reporting.aggregators import DataAggregator
 from lf_releng_project_reporting.collectors import GitDataCollector, INFOYamlCollector
+from lf_releng_project_reporting.config import save_resolved_config
 from lf_releng_project_reporting.features import FeatureRegistry
 from rendering.renderer import ModernReportRenderer
 from util.git import safe_git_command
 from util.zip_bundle import create_report_bundle
-from lf_releng_project_reporting.config import save_resolved_config
+
 
 # Global API statistics (imported from main module)
-
 
 
 class RepositoryReporter:
     """Main orchestrator for repository reporting."""
 
-    def __init__(self, config: dict[str, Any], logger: logging.Logger, api_stats: Optional[Any] = None) -> None:
+    def __init__(
+        self, config: dict[str, Any], logger: logging.Logger, api_stats: Any | None = None
+    ) -> None:
         """
         Initialize the repository reporter.
 
@@ -60,7 +62,8 @@ class RepositoryReporter:
         self.aggregator = DataAggregator(config, logger)
         self.renderer = ModernReportRenderer(config, logger)
         self.info_yaml_collector = INFOYamlCollector(config)
-        self.info_master_temp_dir: Optional[str] = None
+        self.info_master_temp_dir: str | None = None
+        self._info_master_path: Path | None = None
 
     def _cleanup_info_master_repo(self) -> None:
         """Clean up the temporary info-master repository directory."""
@@ -74,7 +77,7 @@ class RepositoryReporter:
             except Exception as e:
                 self.logger.warning(f"Failed to clean up info-master repository: {e}")
 
-    def _clone_info_master_repo(self) -> Optional[Path]:
+    def _clone_info_master_repo(self) -> Path | None:
         """
         Clone the info-master repository for additional context data.
 
@@ -146,9 +149,7 @@ class RepositoryReporter:
         if info_master_path:
             self.logger.debug(f"Info-master repository available at: {info_master_path}")
         else:
-            self.logger.warning(
-                "Info-master repository not available - continuing without it"
-            )
+            self.logger.warning("Info-master repository not available - continuing without it")
 
         # Store info_master_path for INFO.yaml collection
         self._info_master_path = info_master_path
@@ -172,6 +173,7 @@ class RepositoryReporter:
         # Add Jenkins metadata if Jenkins is configured
         jenkins_config = self.config.get("jenkins", {})
         import os
+
         jenkins_host = os.environ.get("JENKINS_HOST") or jenkins_config.get("host", "")
 
         if jenkins_host or jenkins_config.get("enabled"):
@@ -210,15 +212,9 @@ class RepositoryReporter:
         report_data["repositories"] = successful_repos
 
         # Aggregate data (pass repository records directly)
-        report_data["authors"] = self.aggregator.compute_author_rollups(
-            successful_repos
-        )
-        report_data["organizations"] = self.aggregator.compute_org_rollups(
-            report_data["authors"]
-        )
-        report_data["summaries"] = self.aggregator.aggregate_global_data(
-            successful_repos
-        )
+        report_data["authors"] = self.aggregator.compute_author_rollups(successful_repos)
+        report_data["organizations"] = self.aggregator.compute_org_rollups(report_data["authors"])
+        report_data["summaries"] = self.aggregator.aggregate_global_data(successful_repos)
 
         # Collect INFO.yaml data if info-master is available
         # Filter to only the current Gerrit server to avoid cross-project contamination
@@ -250,21 +246,14 @@ class RepositoryReporter:
                 self.logger.debug("INFO.yaml collection skipped: disabled in configuration")
 
         # Log comprehensive Jenkins job allocation summary for auditing
-        if (
-            self.git_collector.jenkins_client
-            and self.git_collector._jenkins_initialized
-        ):
+        if self.git_collector.jenkins_client and self.git_collector._jenkins_initialized:
             allocation_summary = self.git_collector.get_jenkins_job_allocation_summary()
 
-            self.logger.info(f"Jenkins job allocation summary:")
-            self.logger.info(
-                f"  Total jobs: {allocation_summary['total_jenkins_jobs']}"
-            )
+            self.logger.info("Jenkins job allocation summary:")
+            self.logger.info(f"  Total jobs: {allocation_summary['total_jenkins_jobs']}")
             self.logger.info(f"  Allocated: {allocation_summary['allocated_jobs']}")
             self.logger.info(f"  Unallocated: {allocation_summary['unallocated_jobs']}")
-            self.logger.info(
-                f"  Allocation rate: {allocation_summary['allocation_percentage']}%"
-            )
+            self.logger.info(f"  Allocation rate: {allocation_summary['allocation_percentage']}%")
 
             # Validate allocation and report any issues
             validation_issues = self.git_collector.validate_jenkins_job_allocation()
@@ -274,12 +263,8 @@ class RepositoryReporter:
                     self.logger.debug(f"  - {issue}")
 
                 # Get final counts for reporting
-                allocation_summary = (
-                    self.git_collector.get_jenkins_job_allocation_summary()
-                )
-                orphaned_summary = (
-                    self.git_collector.get_orphaned_jenkins_jobs_summary()
-                )
+                allocation_summary = self.git_collector.get_jenkins_job_allocation_summary()
+                orphaned_summary = self.git_collector.get_orphaned_jenkins_jobs_summary()
 
                 total_jobs = allocation_summary.get("total_jenkins_jobs", 0)
                 allocated_jobs = allocation_summary.get("allocated_jobs", 0)
@@ -311,7 +296,9 @@ class RepositoryReporter:
                     if job_name in unallocated_job_names:
                         unallocated_job_details.append(job)
 
-                report_data["jenkins_allocation"]["unallocated_job_details"] = unallocated_job_details
+                report_data["jenkins_allocation"]["unallocated_job_details"] = (
+                    unallocated_job_details
+                )
 
             # Add orphaned jobs data to report
             orphaned_summary = self.git_collector.get_orphaned_jenkins_jobs_summary()
@@ -369,14 +356,12 @@ class RepositoryReporter:
         generated_files["json"] = json_path
 
         # Generate Markdown report
-        markdown_content = self.renderer.render_markdown_report(
-            report_data, markdown_path
-        )
+        self.renderer.render_markdown_report(report_data, markdown_path)
         generated_files["markdown"] = markdown_path
 
         # Generate HTML report (if not disabled)
         if not self.config.get("output", {}).get("no_html", False):
-            self.renderer.render_html_report(markdown_content, html_path)
+            self.renderer.render_html_report(report_data, html_path)
             generated_files["html"] = html_path
 
         # Save resolved configuration
@@ -416,7 +401,7 @@ class RepositoryReporter:
         gitreview_path = repos_path / ".gitreview"
         if gitreview_path.exists():
             try:
-                with open(gitreview_path, "r") as f:
+                with open(gitreview_path) as f:
                     for line in f:
                         if line.startswith("host="):
                             server = line.split("=", 1)[1].strip()
@@ -471,9 +456,7 @@ class RepositoryReporter:
                         # Validate against Gerrit API cache if available
                         if getattr(self.git_collector, "gerrit_projects_cache", None):
                             if rel_path in self.git_collector.gerrit_projects_cache:
-                                self.logger.debug(
-                                    f"Verified {rel_path} exists in Gerrit"
-                                )
+                                self.logger.debug(f"Verified {rel_path} exists in Gerrit")
                             else:
                                 self.logger.warning(
                                     f"Repository {rel_path} not found in Gerrit API cache"
@@ -482,9 +465,7 @@ class RepositoryReporter:
                         repo_dirs.append(repo_dir)
                 except (PermissionError, OSError) as e:
                     access_errors += 1
-                    self.logger.debug(
-                        f"Cannot access potential repository at {git_dir}: {e}"
-                    )
+                    self.logger.debug(f"Cannot access potential repository at {git_dir}: {e}")
         except (PermissionError, OSError) as e:
             self.logger.warning(f"Error during repository discovery: {e}")
 
@@ -495,15 +476,11 @@ class RepositoryReporter:
 
         self.logger.info(f"Discovered {len(unique_repos)} git repositories")
         if access_errors:
-            self.logger.debug(
-                f"Encountered {access_errors} access errors during discovery"
-            )
+            self.logger.debug(f"Encountered {access_errors} access errors during discovery")
 
         return unique_repos
 
-    def _analyze_repositories_parallel(
-        self, repo_dirs: list[Path]
-    ) -> list[dict[str, Any]]:
+    def _analyze_repositories_parallel(self, repo_dirs: list[Path]) -> list[dict[str, Any]]:
         """
         Analyze repositories with optional concurrency.
 
@@ -620,9 +597,9 @@ class RepositoryReporter:
             if isinstance(window_config, int):
                 # Simple format: last_30: 30
                 days = window_config
-            elif isinstance(window_config, dict) and 'days' in window_config:
+            elif isinstance(window_config, dict) and "days" in window_config:
                 # Dictionary format: last_30: {days: 30}
-                days = window_config['days']
+                days = window_config["days"]
             else:
                 self.logger.warning(f"Time window '{window_name}' has invalid format, skipping")
                 continue

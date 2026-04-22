@@ -24,25 +24,23 @@ Example:
     ...         print(f"WARNING: {warning.message}")
 """
 
+import importlib.util
 import json
 from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
-try:
-    import jsonschema
-    from jsonschema import Draft7Validator, validators
-    HAS_JSONSCHEMA = True
-except ImportError:
-    HAS_JSONSCHEMA = False
-
-from cli.errors import ConfigurationError
 from cli.error_helpers import wrap_config_error, wrap_file_error
+from cli.errors import ConfigurationError
+
+
+HAS_JSONSCHEMA = importlib.util.find_spec("jsonschema") is not None
 
 
 class ValidationLevel(Enum):
     """Severity level for validation issues."""
+
     ERROR = "error"
     WARNING = "warning"
     INFO = "info"
@@ -50,22 +48,24 @@ class ValidationLevel(Enum):
 
 class ValidationCategory(Enum):
     """Category of validation issue."""
-    SCHEMA = "schema"           # JSON schema violation
-    SEMANTIC = "semantic"       # Logical inconsistency
+
+    SCHEMA = "schema"  # JSON schema violation
+    SEMANTIC = "semantic"  # Logical inconsistency
     COMPATIBILITY = "compatibility"  # Version/compatibility issue
-    SECURITY = "security"       # Security concern
-    PERFORMANCE = "performance" # Performance impact
-    DEPRECATED = "deprecated"   # Deprecated setting
+    SECURITY = "security"  # Security concern
+    PERFORMANCE = "performance"  # Performance impact
+    DEPRECATED = "deprecated"  # Deprecated setting
 
 
 @dataclass
 class ValidationIssue:
     """Represents a single validation issue."""
+
     level: ValidationLevel
     category: ValidationCategory
     message: str
     path: str = ""
-    suggestion: Optional[str] = None
+    suggestion: str | None = None
 
     def __str__(self) -> str:
         """Format issue for display."""
@@ -81,10 +81,11 @@ class ValidationIssue:
 @dataclass
 class ValidationResult:
     """Result of configuration validation."""
+
     is_valid: bool
-    errors: List[ValidationIssue] = field(default_factory=list)
-    warnings: List[ValidationIssue] = field(default_factory=list)
-    infos: List[ValidationIssue] = field(default_factory=list)
+    errors: list[ValidationIssue] = field(default_factory=list)
+    warnings: list[ValidationIssue] = field(default_factory=list)
+    infos: list[ValidationIssue] = field(default_factory=list)
 
     @property
     def has_warnings(self) -> bool:
@@ -101,16 +102,18 @@ class ValidationResult:
         message: str,
         category: ValidationCategory = ValidationCategory.SCHEMA,
         path: str = "",
-        suggestion: Optional[str] = None
+        suggestion: str | None = None,
     ) -> None:
         """Add an error to the result."""
-        self.errors.append(ValidationIssue(
-            level=ValidationLevel.ERROR,
-            category=category,
-            message=message,
-            path=path,
-            suggestion=suggestion
-        ))
+        self.errors.append(
+            ValidationIssue(
+                level=ValidationLevel.ERROR,
+                category=category,
+                message=message,
+                path=path,
+                suggestion=suggestion,
+            )
+        )
         self.is_valid = False
 
     def add_warning(
@@ -118,32 +121,36 @@ class ValidationResult:
         message: str,
         category: ValidationCategory = ValidationCategory.SEMANTIC,
         path: str = "",
-        suggestion: Optional[str] = None
+        suggestion: str | None = None,
     ) -> None:
         """Add a warning to the result."""
-        self.warnings.append(ValidationIssue(
-            level=ValidationLevel.WARNING,
-            category=category,
-            message=message,
-            path=path,
-            suggestion=suggestion
-        ))
+        self.warnings.append(
+            ValidationIssue(
+                level=ValidationLevel.WARNING,
+                category=category,
+                message=message,
+                path=path,
+                suggestion=suggestion,
+            )
+        )
 
     def add_info(
         self,
         message: str,
         category: ValidationCategory = ValidationCategory.COMPATIBILITY,
         path: str = "",
-        suggestion: Optional[str] = None
+        suggestion: str | None = None,
     ) -> None:
         """Add an info message to the result."""
-        self.infos.append(ValidationIssue(
-            level=ValidationLevel.INFO,
-            category=category,
-            message=message,
-            path=path,
-            suggestion=suggestion
-        ))
+        self.infos.append(
+            ValidationIssue(
+                level=ValidationLevel.INFO,
+                category=category,
+                message=message,
+                path=path,
+                suggestion=suggestion,
+            )
+        )
 
 
 class ConfigValidator:
@@ -152,7 +159,7 @@ class ConfigValidator:
     CURRENT_SCHEMA_VERSION = "1.5.0"
     COMPATIBLE_SCHEMA_VERSIONS = ["1.0.0", "1.1.0", "1.2.0", "1.3.0", "1.4.0", "1.5.0"]
 
-    def __init__(self, schema_path: Optional[Path] = None):
+    def __init__(self, schema_path: Path | None = None):
         """Initialize validator with optional custom schema.
 
         Args:
@@ -161,38 +168,41 @@ class ConfigValidator:
         if not HAS_JSONSCHEMA:
             raise ConfigurationError(
                 "jsonschema package is required for configuration validation",
-                suggestion="Install with: pip install jsonschema"
+                suggestion="Install with: pip install jsonschema",
             )
+
+        # Import here after guard to satisfy type checker (possibly unbound)
+        from jsonschema import Draft7Validator as _Draft7Validator
 
         if schema_path is None:
             schema_path = Path(__file__).parent / "schema.json"
 
         self.schema_path = schema_path
         self.schema = self._load_schema()
-        self.validator = Draft7Validator(self.schema)
+        self.validator = _Draft7Validator(self.schema)
 
-    def _load_schema(self) -> Dict[str, Any]:
+    def _load_schema(self) -> dict[str, Any]:
         """Load JSON schema from file."""
         if not self.schema_path.exists():
             raise ConfigurationError(
                 f"Configuration schema not found: {self.schema_path}",
-                suggestion="Ensure schema.json exists in the config module or specify a custom schema path"
+                suggestion="Ensure schema.json exists in the config module or specify a custom schema path",
             )
 
         try:
-            with open(self.schema_path, 'r', encoding='utf-8') as f:
-                schema: Dict[str, Any] = json.load(f)
+            with open(self.schema_path, encoding="utf-8") as f:
+                schema: dict[str, Any] = json.load(f)
                 return schema
         except json.JSONDecodeError as e:
             raise wrap_config_error(
                 f"Invalid JSON in schema file: {e}",
                 config_path=self.schema_path,
-                suggestion="Check schema.json for valid JSON syntax"
-            )
+                suggestion="Check schema.json for valid JSON syntax",
+            ) from e
         except Exception as e:
-            raise wrap_file_error(e, self.schema_path, "read")
+            raise wrap_file_error(e, self.schema_path, "read") from e
 
-    def validate(self, config: Dict[str, Any]) -> ValidationResult:
+    def validate(self, config: dict[str, Any]) -> ValidationResult:
         """Validate configuration against schema and semantic rules.
 
         Args:
@@ -219,16 +229,9 @@ class ConfigValidator:
 
         return result
 
-    def _validate_schema(
-        self,
-        config: Dict[str, Any],
-        result: ValidationResult
-    ) -> None:
+    def _validate_schema(self, config: dict[str, Any], result: ValidationResult) -> None:
         """Validate against JSON schema."""
-        errors = sorted(
-            self.validator.iter_errors(config),
-            key=lambda e: e.path
-        )
+        errors = sorted(self.validator.iter_errors(config), key=lambda e: e.path)
 
         for error in errors:
             path = ".".join(str(p) for p in error.path) if error.path else "root"
@@ -239,7 +242,7 @@ class ConfigValidator:
                 message=message,
                 category=ValidationCategory.SCHEMA,
                 path=path,
-                suggestion=suggestion
+                suggestion=suggestion,
             )
 
     def _format_schema_error(self, error: Any) -> str:
@@ -264,7 +267,7 @@ class ConfigValidator:
         else:
             return str(error.message)
 
-    def _get_schema_error_suggestion(self, error: Any) -> Optional[str]:
+    def _get_schema_error_suggestion(self, error: Any) -> str | None:
         """Get helpful suggestion for schema error."""
         if error.validator == "required":
             missing = error.message.split("'")[1]
@@ -274,17 +277,13 @@ class ConfigValidator:
                 return "Add 'project: your-project-name' to your configuration"
         elif error.validator == "additionalProperties":
             # Find which property is not allowed
-            if hasattr(error, 'message') and "'" in error.message:
+            if hasattr(error, "message") and "'" in error.message:
                 extra_prop = error.message.split("'")[1]
                 return f"Remove '{extra_prop}' or check for typos in property name"
 
         return None
 
-    def _validate_semantics(
-        self,
-        config: Dict[str, Any],
-        result: ValidationResult
-    ) -> None:
+    def _validate_semantics(self, config: dict[str, Any], result: ValidationResult) -> None:
         """Validate semantic rules and logical consistency."""
 
         # Activity thresholds must be ordered correctly
@@ -297,7 +296,7 @@ class ConfigValidator:
                 message=f"activity_thresholds: current_days ({current}) must be less than active_days ({active})",
                 category=ValidationCategory.SEMANTIC,
                 path="activity_thresholds",
-                suggestion="Set current_days < active_days (e.g., current=365, active=1095)"
+                suggestion="Set current_days < active_days (e.g., current=365, active=1095)",
             )
 
         # Time windows should be ordered
@@ -312,7 +311,7 @@ class ConfigValidator:
                 message="Gerrit is enabled but no host specified",
                 category=ValidationCategory.SEMANTIC,
                 path="gerrit.host",
-                suggestion="Set gerrit.host to your Gerrit server hostname"
+                suggestion="Set gerrit.host to your Gerrit server hostname",
             )
 
         # Jenkins validation
@@ -322,29 +321,27 @@ class ConfigValidator:
                 message="Jenkins is enabled but no host specified",
                 category=ValidationCategory.SEMANTIC,
                 path="jenkins.host",
-                suggestion="Set jenkins.host to your Jenkins server hostname"
+                suggestion="Set jenkins.host to your Jenkins server hostname",
             )
 
         # GitHub API validation
         github = config.get("extensions", {}).get("github_api", {})
-        if github.get("enabled"):
-            if not github.get("token"):
-                result.add_warning(
-                    message="GitHub API is enabled but no token specified",
-                    category=ValidationCategory.SEMANTIC,
-                    path="extensions.github_api.token",
-                    suggestion="Set github_api.token or use GITHUB_TOKEN environment variable (or specify --github-token-env for custom variable)"
-                )
+        if github.get("enabled") and not github.get("token"):
+            result.add_warning(
+                message="GitHub API is enabled but no token specified",
+                category=ValidationCategory.SEMANTIC,
+                path="extensions.github_api.token",
+                suggestion="Set github_api.token or use GITHUB_TOKEN environment variable (or specify --github-token-env for custom variable)",
+            )
 
     def _validate_time_window_ordering(
-        self,
-        windows: Dict[str, int],
-        result: ValidationResult
+        self, windows: dict[str, int], result: ValidationResult
     ) -> None:
         """Validate that time windows are in ascending order."""
         expected_order = ["last_30_days", "last_90_days", "last_365_days", "last_3_years"]
         values: list[int] = [
-            windows[key] for key in expected_order
+            windows[key]
+            for key in expected_order
             if key in windows and windows.get(key) is not None
         ]
 
@@ -353,14 +350,10 @@ class ConfigValidator:
                 message="Time windows are not in ascending order",
                 category=ValidationCategory.SEMANTIC,
                 path="time_windows",
-                suggestion="Ensure last_30_days < last_90_days < last_365_days < last_3_years"
+                suggestion="Ensure last_30_days < last_90_days < last_365_days < last_3_years",
             )
 
-    def _validate_compatibility(
-        self,
-        config: Dict[str, Any],
-        result: ValidationResult
-    ) -> None:
+    def _validate_compatibility(self, config: dict[str, Any], result: ValidationResult) -> None:
         """Validate schema version compatibility."""
         schema_version = config.get("schema_version")
 
@@ -369,7 +362,7 @@ class ConfigValidator:
                 message="No schema_version specified in configuration",
                 category=ValidationCategory.COMPATIBILITY,
                 path="schema_version",
-                suggestion=f"Add 'schema_version: \"{self.CURRENT_SCHEMA_VERSION}\"'"
+                suggestion=f"Add 'schema_version: \"{self.CURRENT_SCHEMA_VERSION}\"'",
             )
             return
 
@@ -378,20 +371,16 @@ class ConfigValidator:
                 message=f"Unsupported schema version: {schema_version}",
                 category=ValidationCategory.COMPATIBILITY,
                 path="schema_version",
-                suggestion=f"Use one of: {', '.join(self.COMPATIBLE_SCHEMA_VERSIONS)}"
+                suggestion=f"Use one of: {', '.join(self.COMPATIBLE_SCHEMA_VERSIONS)}",
             )
         elif schema_version != self.CURRENT_SCHEMA_VERSION:
             result.add_info(
                 message=f"Using compatible but not current schema version (current: {self.CURRENT_SCHEMA_VERSION})",
                 category=ValidationCategory.COMPATIBILITY,
-                path="schema_version"
+                path="schema_version",
             )
 
-    def _validate_security(
-        self,
-        config: Dict[str, Any],
-        result: ValidationResult
-    ) -> None:
+    def _validate_security(self, config: dict[str, Any], result: ValidationResult) -> None:
         """Check for potential security issues."""
 
         # Check for hardcoded tokens
@@ -401,7 +390,7 @@ class ConfigValidator:
                 message="GitHub token appears to be hardcoded in configuration",
                 category=ValidationCategory.SECURITY,
                 path="extensions.github_api.token",
-                suggestion="Use environment variable GITHUB_TOKEN instead (or specify --github-token-env for custom variable)"
+                suggestion="Use environment variable GITHUB_TOKEN instead (or specify --github-token-env for custom variable)",
             )
 
         # Check privacy settings
@@ -411,14 +400,10 @@ class ConfigValidator:
                 message="Email masking and author anonymization are both disabled",
                 category=ValidationCategory.SECURITY,
                 path="privacy",
-                suggestion="Consider enabling privacy.mask_emails or privacy.anonymize_authors for public reports"
+                suggestion="Consider enabling privacy.mask_emails or privacy.anonymize_authors for public reports",
             )
 
-    def _validate_performance(
-        self,
-        config: Dict[str, Any],
-        result: ValidationResult
-    ) -> None:
+    def _validate_performance(self, config: dict[str, Any], result: ValidationResult) -> None:
         """Check for performance-impacting settings."""
 
         performance = config.get("performance", {})
@@ -429,7 +414,7 @@ class ConfigValidator:
                 message=f"High worker count ({max_workers}) may cause resource contention",
                 category=ValidationCategory.PERFORMANCE,
                 path="performance.max_workers",
-                suggestion="Consider using 4-16 workers for optimal performance"
+                suggestion="Consider using 4-16 workers for optimal performance",
             )
 
         # Check HTML table settings for large datasets
@@ -441,7 +426,7 @@ class ConfigValidator:
                 message=f"Large entries_per_page ({entries_per_page}) may slow down browser",
                 category=ValidationCategory.PERFORMANCE,
                 path="html_tables.entries_per_page",
-                suggestion="Use 20-100 entries per page for better browser performance"
+                suggestion="Use 20-100 entries per page for better browser performance",
             )
 
 
@@ -463,20 +448,20 @@ def validate_config_file(config_path: Path) -> ValidationResult:
     if not config_path.exists():
         raise ConfigurationError(
             f"Configuration file not found: {config_path}",
-            suggestion="Create a config.yaml file or specify a different path with --config"
+            suggestion="Create a config.yaml file or specify a different path with --config",
         )
 
     try:
-        with open(config_path, 'r', encoding='utf-8') as f:
+        with open(config_path, encoding="utf-8") as f:
             config = yaml.safe_load(f)
     except yaml.YAMLError as e:
         raise wrap_config_error(
             f"Invalid YAML syntax: {e}",
             config_path=config_path,
-            suggestion="Check YAML syntax - ensure proper indentation, no tabs, and valid structure"
-        )
+            suggestion="Check YAML syntax - ensure proper indentation, no tabs, and valid structure",
+        ) from e
     except Exception as e:
-        raise wrap_file_error(e, config_path, "read")
+        raise wrap_file_error(e, config_path, "read") from e
 
     if config is None:
         config = {}
@@ -484,8 +469,6 @@ def validate_config_file(config_path: Path) -> ValidationResult:
     validator = ConfigValidator()
     result = validator.validate(config)
     return result
-
-
 
 
 def print_validation_result(result: ValidationResult, verbose: bool = False) -> None:

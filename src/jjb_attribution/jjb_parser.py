@@ -13,9 +13,10 @@ import logging
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 import yaml
+
 
 logger = logging.getLogger(__name__)
 
@@ -59,15 +60,15 @@ def _jjb_tag_constructor(loader, node):
 
 
 # Register all JJB custom tags
-yaml.SafeLoader.add_constructor('!include-raw:', _jjb_tag_constructor)
-yaml.SafeLoader.add_constructor('!include-raw-escape:', _jjb_tag_constructor)
-yaml.SafeLoader.add_constructor('!include-raw-escape', _jjb_tag_constructor)
-yaml.SafeLoader.add_constructor('!include:', _jjb_tag_constructor)
-yaml.SafeLoader.add_constructor('!include', _jjb_tag_constructor)
-yaml.SafeLoader.add_constructor('!j2:', _jjb_tag_constructor)
-yaml.SafeLoader.add_constructor('!j2', _jjb_tag_constructor)
-yaml.SafeLoader.add_constructor('!j2-yaml:', _jjb_tag_constructor)
-yaml.SafeLoader.add_constructor('!j2-yaml', _jjb_tag_constructor)
+yaml.SafeLoader.add_constructor("!include-raw:", _jjb_tag_constructor)
+yaml.SafeLoader.add_constructor("!include-raw-escape:", _jjb_tag_constructor)
+yaml.SafeLoader.add_constructor("!include-raw-escape", _jjb_tag_constructor)
+yaml.SafeLoader.add_constructor("!include:", _jjb_tag_constructor)
+yaml.SafeLoader.add_constructor("!include", _jjb_tag_constructor)
+yaml.SafeLoader.add_constructor("!j2:", _jjb_tag_constructor)
+yaml.SafeLoader.add_constructor("!j2", _jjb_tag_constructor)
+yaml.SafeLoader.add_constructor("!j2-yaml:", _jjb_tag_constructor)
+yaml.SafeLoader.add_constructor("!j2-yaml", _jjb_tag_constructor)
 
 
 @dataclass
@@ -88,7 +89,7 @@ class JJBProject:
     """Represents a project block from a JJB YAML file."""
 
     name: str
-    gerrit_project: Optional[str]
+    gerrit_project: str | None
     jobs: list[JJBJobDefinition] = field(default_factory=list)
     parameters: dict[str, Any] = field(default_factory=dict)
 
@@ -177,12 +178,14 @@ class JJBAttribution:
         else:
             logger.warning(f"CI-Management JJB path does not exist: {self.jjb_path}")
 
-        logger.info(f"Loaded {len(self._templates)} job templates and {len(self._job_groups)} job groups")
+        logger.info(
+            f"Loaded {len(self._templates)} job templates and {len(self._job_groups)} job groups"
+        )
 
     def _load_template_file(self, template_file: Path) -> None:
         """Load templates and job-groups from a single YAML file."""
         try:
-            with open(template_file, "r", encoding="utf-8") as f:
+            with open(template_file, encoding="utf-8") as f:
                 data = yaml.safe_load(f)
 
             if not isinstance(data, list):
@@ -213,14 +216,16 @@ class JJBAttribution:
                         if group_name and jobs_list:
                             # Store the list of job templates in this group
                             self._job_groups[group_name] = jobs_list
-                            logger.debug(f"Loaded job-group: {group_name} with {len(jobs_list)} jobs")
+                            logger.debug(
+                                f"Loaded job-group: {group_name} with {len(jobs_list)} jobs"
+                            )
 
         except yaml.YAMLError as e:
             logger.warning(f"YAML error in {template_file}: {e}")
         except Exception as e:
             logger.warning(f"Error loading {template_file}: {e}")
 
-    def find_jjb_file(self, gerrit_project: str) -> Optional[Path]:
+    def find_jjb_file(self, gerrit_project: str) -> Path | None:
         """
         Find the JJB YAML file for a given Gerrit project.
 
@@ -251,7 +256,7 @@ class JJBAttribution:
 
         return jjb_file
 
-    def _find_jjb_file_strategies(self, gerrit_project: str) -> Optional[Path]:
+    def _find_jjb_file_strategies(self, gerrit_project: str) -> Path | None:
         """Try different strategies to find the JJB file."""
         # Strategy 1: Direct mapping with slashes to dashes
         # "aai/babel" -> "aai-babel.yaml"
@@ -292,19 +297,17 @@ class JJBAttribution:
         # Strategy 3: Search by scanning files for matching project field
         return self._search_by_project_field(gerrit_project)
 
-    def _search_by_project_field(self, gerrit_project: str) -> Optional[Path]:
+    def _search_by_project_field(self, gerrit_project: str) -> Path | None:
         """Search for JJB file by looking for 'project' field in YAML files."""
         if not self.jjb_path.exists():
             return None
 
         # Get all YAML files recursively
-        yaml_files = list(self.jjb_path.glob("**/*.yaml")) + list(
-            self.jjb_path.glob("**/*.yml")
-        )
+        yaml_files = list(self.jjb_path.glob("**/*.yaml")) + list(self.jjb_path.glob("**/*.yml"))
 
         for yaml_file in yaml_files:
             try:
-                with open(yaml_file, "r", encoding="utf-8") as f:
+                with open(yaml_file, encoding="utf-8") as f:
                     data = yaml.safe_load(f)
 
                 if not isinstance(data, list):
@@ -355,7 +358,7 @@ class JJBAttribution:
         projects: list[JJBProject] = []
 
         try:
-            with open(jjb_file, "r", encoding="utf-8") as f:
+            with open(jjb_file, encoding="utf-8") as f:
                 data = yaml.safe_load(f)
 
             if not isinstance(data, list):
@@ -384,7 +387,7 @@ class JJBAttribution:
 
         return projects
 
-    def _parse_project_block(self, project_block: dict[str, Any]) -> Optional[JJBProject]:
+    def _parse_project_block(self, project_block: dict[str, Any]) -> JJBProject | None:
         """Parse a single project block from JJB YAML."""
         try:
             name = project_block.get("name", "")
@@ -428,7 +431,9 @@ class JJBAttribution:
                             merged_params.update(params)
 
                         # Check if this is a job-group reference
-                        expanded_jobs = self._expand_job_group(template_name, project_name, merged_params)
+                        expanded_jobs = self._expand_job_group(
+                            template_name, project_name, merged_params
+                        )
 
                         if expanded_jobs:
                             # This was a job-group, add all expanded jobs
@@ -465,7 +470,9 @@ class JJBAttribution:
 
         return job_names
 
-    def _expand_job_group(self, job_name: str, project_name: str, params: dict[str, Any]) -> list[str]:
+    def _expand_job_group(
+        self, job_name: str, _project_name: str, _params: dict[str, Any]
+    ) -> list[str]:
         """
         Expand a job-group reference to its component job templates.
 
@@ -534,7 +541,11 @@ class JJBAttribution:
                 elif isinstance(stream_item, dict):
                     stream_name = list(stream_item.keys())[0]
                     # Extract nested variables from the stream dictionary
-                    stream_vars = stream_item[stream_name] if isinstance(stream_item[stream_name], dict) else {}
+                    stream_vars = (
+                        stream_item[stream_name]
+                        if isinstance(stream_item[stream_name], dict)
+                        else {}
+                    )
                 else:
                     continue
 
@@ -640,9 +651,7 @@ class JJBAttribution:
             return all_projects
 
         # Find all YAML files
-        yaml_files = list(self.jjb_path.glob("**/*.yaml")) + list(
-            self.jjb_path.glob("**/*.yml")
-        )
+        yaml_files = list(self.jjb_path.glob("**/*.yaml")) + list(self.jjb_path.glob("**/*.yml"))
 
         logger.info(f"Scanning {len(yaml_files)} JJB files...")
 
@@ -652,7 +661,7 @@ class JJBAttribution:
                 continue
 
             try:
-                with open(yaml_file, "r", encoding="utf-8") as f:
+                with open(yaml_file, encoding="utf-8") as f:
                     data = yaml.safe_load(f)
 
                 if not isinstance(data, list):

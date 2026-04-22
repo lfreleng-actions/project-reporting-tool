@@ -10,29 +10,29 @@ Helps migrate legacy errors to CLI error classes.
 Phase 9, Step 6: Enhanced Error Messages Integration
 """
 
-from pathlib import Path
-from typing import Optional, Union, Dict, Any
-import traceback
-import sys
 import builtins
+import sys
+import traceback
+from pathlib import Path
+from typing import Any
 
 from .errors import (
+    APIError,
     CLIError,
     ConfigurationError,
-    InvalidArgumentError,
-    APIError,
-    PermissionError as CLIPermissionError,
     DiskSpaceError,
-    ValidationError,
+    InvalidArgumentError,
     NetworkError,
+    ValidationError,
     suggest_common_fixes,
+)
+from .errors import (
+    PermissionError as CLIPermissionError,
 )
 
 
 def wrap_config_error(
-    message: str,
-    config_path: Optional[Path] = None,
-    suggestion: Optional[str] = None
+    message: str, config_path: Path | None = None, suggestion: str | None = None
 ) -> ConfigurationError:
     """
     Create configuration error with context.
@@ -66,11 +66,7 @@ def wrap_config_error(
     return ConfigurationError(message, suggestion=suggestion)
 
 
-def wrap_file_error(
-    error: Exception,
-    file_path: Union[str, Path],
-    operation: str = "access"
-) -> CLIError:
+def wrap_file_error(error: Exception, file_path: str | Path, operation: str = "access") -> CLIError:
     """
     Create appropriate error for file operation failures.
 
@@ -97,50 +93,41 @@ def wrap_file_error(
         if "config" in path_str.lower():
             return ConfigurationError(
                 message,
-                suggestion="Create the configuration file or specify a different path with --config"
+                suggestion="Create the configuration file or specify a different path with --config",
             )
         elif "template" in path_str.lower():
             return ConfigurationError(
-                message,
-                suggestion="Ensure template files are present in the templates directory"
+                message, suggestion="Ensure template files are present in the templates directory"
             )
         else:
-            return CLIError(
-                message,
-                suggestion=f"Verify the path exists and is accessible"
-            )
+            return CLIError(message, suggestion="Verify the path exists and is accessible")
 
     elif isinstance(error, builtins.PermissionError):
         return CLIPermissionError(
             f"Cannot {operation} file: {path_str}",
-            path=None  # Don't use path parameter to avoid message override
+            path=None,  # Don't use path parameter to avoid message override
         )
 
     elif isinstance(error, IsADirectoryError):
         return CLIError(
             f"Expected file but found directory: {path_str}",
-            suggestion="Specify a file path, not a directory"
+            suggestion="Specify a file path, not a directory",
         )
 
     elif "disk" in str(error).lower() or "space" in str(error).lower():
         return DiskSpaceError(
-            f"Disk space error while trying to {operation} {path_str}",
-            path=path_str
+            f"Disk space error while trying to {operation} {path_str}", path=path_str
         )
 
     else:
         # Generic file error
         return CLIError(
-            f"Failed to {operation} {path_str}: {error}",
-            suggestion=suggest_common_fixes(error)
+            f"Failed to {operation} {path_str}: {error}", suggestion=suggest_common_fixes(error)
         )
 
 
 def wrap_validation_error(
-    message: str,
-    field: Optional[str] = None,
-    value: Optional[str] = None,
-    expected: Optional[str] = None
+    message: str, field: str | None = None, value: str | None = None, expected: str | None = None
 ) -> ValidationError:
     """
     Create validation error with context.
@@ -181,10 +168,7 @@ def wrap_validation_error(
 
 
 def wrap_api_error(
-    error: Exception,
-    api_name: str,
-    endpoint: Optional[str] = None,
-    suggestion: Optional[str] = None
+    error: Exception, api_name: str, endpoint: str | None = None, suggestion: str | None = None
 ) -> APIError:
     """
     Create API error with context.
@@ -229,9 +213,7 @@ def wrap_api_error(
 
 
 def wrap_network_error(
-    error: Exception,
-    url: Optional[str] = None,
-    suggestion: Optional[str] = None
+    error: Exception, url: str | None = None, suggestion: str | None = None
 ) -> NetworkError:
     """
     Create network error with context.
@@ -269,9 +251,7 @@ def wrap_network_error(
 
 
 def format_error_context(
-    error: Exception,
-    context: Optional[Dict[str, Any]] = None,
-    include_traceback: bool = False
+    error: Exception, context: dict[str, Any] | None = None, include_traceback: bool = False
 ) -> str:
     """
     Format error with contextual information.
@@ -319,9 +299,9 @@ def format_error_context(
     # Traceback
     if include_traceback:
         lines.append("\nTraceback:")
-        lines.append(''.join(traceback.format_tb(error.__traceback__)))
+        lines.append("".join(traceback.format_tb(error.__traceback__)))
 
-    return '\n'.join(lines)
+    return "\n".join(lines)
 
 
 def safe_operation(operation_name: str, verbose: bool = False):
@@ -341,6 +321,7 @@ def safe_operation(operation_name: str, verbose: bool = False):
         ...     with open(path) as f:
         ...         return yaml.safe_load(f)
     """
+
     def decorator(func):
         def wrapper(*args, **kwargs):
             try:
@@ -351,13 +332,13 @@ def safe_operation(operation_name: str, verbose: bool = False):
             except FileNotFoundError as e:
                 # Convert to appropriate CLI error
                 path = args[0] if args else "unknown"
-                raise wrap_file_error(e, path, operation_name.lower())
+                raise wrap_file_error(e, path, operation_name.lower()) from e
             except PermissionError as e:
                 path = args[0] if args else "unknown"
-                raise wrap_file_error(e, path, operation_name.lower())
+                raise wrap_file_error(e, path, operation_name.lower()) from e
             except Exception as e:
                 # Generic error with context
-                context: Dict[str, Any] = {"operation": operation_name}
+                context: dict[str, Any] = {"operation": operation_name}
                 if args:
                     context["args"] = tuple(args)
                 if kwargs:
@@ -367,9 +348,8 @@ def safe_operation(operation_name: str, verbose: bool = False):
                     sys.stderr.write(format_error_context(e, context, include_traceback=True))
 
                 raise CLIError(
-                    f"{operation_name} failed: {e}",
-                    suggestion=suggest_common_fixes(e)
-                )
+                    f"{operation_name} failed: {e}", suggestion=suggest_common_fixes(e)
+                ) from e
 
         wrapper.__name__ = func.__name__
         wrapper.__doc__ = func.__doc__
@@ -399,18 +379,14 @@ def handle_cli_error(error: Exception, verbose: bool = False) -> int:
         # CLI error with structured information
         print(f"\n❌ {error}", file=sys.stderr)
 
-        if verbose and hasattr(error, '__traceback__'):
+        if verbose and hasattr(error, "__traceback__"):
             print("\nTraceback:", file=sys.stderr)
             traceback.print_tb(error.__traceback__, file=sys.stderr)
 
         # Return specific exit codes based on error type
-        if isinstance(error, ConfigurationError):
+        if isinstance(error, (ConfigurationError, InvalidArgumentError)):
             return 2
-        elif isinstance(error, InvalidArgumentError):
-            return 2
-        elif isinstance(error, APIError):
-            return 3
-        elif isinstance(error, NetworkError):
+        elif isinstance(error, (APIError, NetworkError)):
             return 3
         elif isinstance(error, CLIPermissionError):
             return 4

@@ -12,15 +12,14 @@ Phase: 8 - Renderer Modernization (Fixed for actual data schema)
 """
 
 import logging
-from typing import Any, Dict, List, Optional
 from datetime import datetime
+from typing import Any
+
 from .formatters import (
     format_number,
-    format_age,
-    format_percentage,
-    format_date,
     get_template_filters,
 )
+
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +46,7 @@ class RenderContext:
         >>> # Use template_vars in Jinja2 templates
     """
 
-    def __init__(self, data: Dict[str, Any], config: Dict[str, Any]):
+    def __init__(self, data: dict[str, Any], config: dict[str, Any]):
         """
         Initialize context builder.
 
@@ -58,7 +57,7 @@ class RenderContext:
         self.data = data
         self.config = config
 
-    def build(self) -> Dict[str, Any]:
+    def build(self) -> dict[str, Any]:
         """
         Build complete template context.
 
@@ -87,7 +86,7 @@ class RenderContext:
 
         return context
 
-    def _build_project_context(self) -> Dict[str, Any]:
+    def _build_project_context(self) -> dict[str, Any]:
         """Build project metadata context."""
         project_name = self.data.get("project", "Repository Analysis")
 
@@ -150,7 +149,7 @@ class RenderContext:
         # Otherwise, it's a GitHub-native project
         return "github"
 
-    def _build_terminology(self, project_type: str) -> Dict[str, str]:
+    def _build_terminology(self, project_type: str) -> dict[str, str]:
         """
         Build terminology dictionary based on project type.
 
@@ -174,11 +173,7 @@ class RenderContext:
             }
 
     def _build_repository_url(
-        self,
-        project_name: str,
-        host: str,
-        path_prefix: str,
-        project_type: str
+        self, project_name: str, host: str, path_prefix: str, project_type: str
     ) -> str:
         """
         Build URL to repository based on project type.
@@ -209,7 +204,7 @@ class RenderContext:
             # Example: https://github.com/opennetworkinglab/aether
             return f"https://github.com/{host}/{project_name}"
 
-    def _build_summary_context(self) -> Dict[str, Any]:
+    def _build_summary_context(self) -> dict[str, Any]:
         """Build summary statistics context."""
         summaries = self.data.get("summaries", {})
         counts = summaries.get("counts", {})
@@ -240,8 +235,12 @@ class RenderContext:
 
         # Get counts from summaries
         # Handle both 'repositories_analyzed' (old) and 'total_repositories' (new)
-        repositories_analyzed = counts.get("repositories_analyzed", counts.get("total_repositories", 0))
-        total_repositories = counts.get("total_repositories", counts.get("total_gerrit_projects", repositories_analyzed))
+        repositories_analyzed = counts.get(
+            "repositories_analyzed", counts.get("total_repositories", 0)
+        )
+        total_repositories = counts.get(
+            "total_repositories", counts.get("total_gerrit_projects", repositories_analyzed)
+        )
         current_count = counts.get("current_repositories", 0)
         active_count = counts.get("active_repositories", 0)
         inactive_count = counts.get("inactive_repositories", 0)
@@ -282,7 +281,7 @@ class RenderContext:
             "net_lines_formatted": format_number(total_lines_added - total_lines_removed),
         }
 
-    def _build_repositories_context(self) -> Dict[str, Any]:
+    def _build_repositories_context(self) -> dict[str, Any]:
         """Build repositories section context."""
         summaries = self.data.get("summaries", {})
 
@@ -323,6 +322,7 @@ class RenderContext:
             if last_commit_timestamp:
                 try:
                     from datetime import datetime
+
                     dt = datetime.fromisoformat(last_commit_timestamp.replace("Z", "+00:00"))
                     last_commit_date = dt.strftime("%Y-%m-%d")
                 except (ValueError, AttributeError):
@@ -330,12 +330,7 @@ class RenderContext:
 
             # Map activity status to emoji for display
             activity_status_raw = repo.get("activity_status", "unknown")
-            status_emoji_map = {
-                "current": "✅",
-                "active": "☑️",
-                "inactive": "🛑",
-                "unknown": "🛑"
-            }
+            status_emoji_map = {"current": "✅", "active": "☑️", "inactive": "🛑", "unknown": "🛑"}
             activity_status_emoji = status_emoji_map.get(activity_status_raw, "🛑")
 
             # Build Gerrit admin URL
@@ -347,10 +342,7 @@ class RenderContext:
             # Detect if this is a GitHub-native project (no gerrit_path_prefix typically)
             project_type = self._detect_project_type()
             repo_url = self._build_repository_url(
-                gerrit_project_name,
-                gerrit_host,
-                gerrit_path_prefix,
-                project_type
+                gerrit_project_name, gerrit_host, gerrit_path_prefix, project_type
             )
 
             transformed = {
@@ -396,7 +388,7 @@ class RenderContext:
             "has_repositories": len(all_repos) > 0,
         }
 
-    def _build_contributors_context(self) -> Dict[str, Any]:
+    def _build_contributors_context(self) -> dict[str, Any]:
         """Build contributors leaderboard context."""
         summaries = self.data.get("summaries", {})
 
@@ -448,7 +440,9 @@ class RenderContext:
             if isinstance(lines_removed_dict, dict):
                 total_lines_removed = lines_removed_dict.get(primary_window, 0)
             else:
-                total_lines_removed = lines_removed_dict if isinstance(lines_removed_dict, int) else 0
+                total_lines_removed = (
+                    lines_removed_dict if isinstance(lines_removed_dict, int) else 0
+                )
 
             if isinstance(lines_net_dict, dict):
                 net_lines = lines_net_dict.get(primary_window, 0)
@@ -516,7 +510,7 @@ class RenderContext:
             "has_contributors": len(top_commits) > 0 or len(top_loc) > 0,
         }
 
-    def _build_organizations_context(self) -> Dict[str, Any]:
+    def _build_organizations_context(self) -> dict[str, Any]:
         """Build organizations leaderboard context."""
         summaries = self.data.get("summaries", {})
 
@@ -566,7 +560,9 @@ class RenderContext:
             if isinstance(lines_removed_dict, dict):
                 total_lines_removed = lines_removed_dict.get(primary_window, 0)
             else:
-                total_lines_removed = lines_removed_dict if isinstance(lines_removed_dict, int) else 0
+                total_lines_removed = (
+                    lines_removed_dict if isinstance(lines_removed_dict, int) else 0
+                )
 
             if isinstance(lines_net_dict, dict):
                 net_lines = lines_net_dict.get(primary_window, 0)
@@ -601,7 +597,7 @@ class RenderContext:
             "has_organizations": len(top_orgs_raw) > 0,
         }
 
-    def _build_features_context(self) -> Dict[str, Any]:
+    def _build_features_context(self) -> dict[str, Any]:
         """Build features detection context."""
         repositories = self.data.get("repositories", [])
 
@@ -666,16 +662,20 @@ class RenderContext:
                     feature_value = bool(repo_features.get(feature, False))
 
                 # Normalize the feature name (strip has_ prefix if present)
-                normalized_name = feature.replace("has_", "") if feature.startswith("has_") else feature
+                normalized_name = (
+                    feature.replace("has_", "") if feature.startswith("has_") else feature
+                )
                 normalized_features[normalized_name] = feature_value
 
-            matrix.append({
-                "repo_name": repo.get("gerrit_project", "Unknown"),
-                "primary_type": primary_type_display,
-                "other_types": other_types_display,
-                "status": status,
-                "features": normalized_features
-            })
+            matrix.append(
+                {
+                    "repo_name": repo.get("gerrit_project", "Unknown"),
+                    "primary_type": primary_type_display,
+                    "other_types": other_types_display,
+                    "status": status,
+                    "features": normalized_features,
+                }
+            )
 
         return {
             "has_features": len(features_list) > 0,
@@ -685,7 +685,7 @@ class RenderContext:
             "repositories_count": len(repositories),
         }
 
-    def _build_workflows_context(self) -> Dict[str, Any]:
+    def _build_workflows_context(self) -> dict[str, Any]:
         """Build CI/CD workflows context."""
         repositories = self.data.get("repositories", [])
 
@@ -737,35 +737,43 @@ class RenderContext:
                     if gh_workflow.get("state") == "active":
                         # Extract filename from path for display (matching production)
                         workflow_path = gh_workflow.get("path", "")
-                        workflow_filename = workflow_path.split('/')[-1] if workflow_path else "Unknown"
+                        workflow_filename = (
+                            workflow_path.split("/")[-1] if workflow_path else "Unknown"
+                        )
 
-                        github_workflows.append({
-                            "name": workflow_filename,  # Use filename instead of title
-                            "path": workflow_path,
-                            "state": gh_workflow.get("state", "active"),
-                            "status": gh_workflow.get("status", "unknown"),
-                            "url": gh_workflow.get("urls", {}).get("workflow_page", ""),
-                        })
+                        github_workflows.append(
+                            {
+                                "name": workflow_filename,  # Use filename instead of title
+                                "path": workflow_path,
+                                "state": gh_workflow.get("state", "active"),
+                                "status": gh_workflow.get("status", "unknown"),
+                                "url": gh_workflow.get("urls", {}).get("workflow_page", ""),
+                            }
+                        )
             # Otherwise use the static workflow files data
             elif workflow_files:
                 for workflow_file in workflow_files:
-                    github_workflows.append({
-                        "name": workflow_file.get("name", "Unknown"),
-                        "path": workflow_file.get("name", ""),
-                        "state": "active",  # Assume active if found locally
-                        "status": "unknown",  # No runtime status available
-                        "url": "",  # No URL without GitHub API data
-                    })
+                    github_workflows.append(
+                        {
+                            "name": workflow_file.get("name", "Unknown"),
+                            "path": workflow_file.get("name", ""),
+                            "state": "active",  # Assume active if found locally
+                            "status": "unknown",  # No runtime status available
+                            "url": "",  # No URL without GitHub API data
+                        }
+                    )
 
             # Only include repos that have at least one job or workflow
             if jenkins_jobs or github_workflows:
-                repos_with_cicd.append({
-                    "gerrit_project": gerrit_project,
-                    "jenkins_jobs": jenkins_jobs,
-                    "jenkins_job_count": len(jenkins_jobs),
-                    "github_workflows": github_workflows,
-                    "github_workflow_count": len(github_workflows),
-                })
+                repos_with_cicd.append(
+                    {
+                        "gerrit_project": gerrit_project,
+                        "jenkins_jobs": jenkins_jobs,
+                        "jenkins_job_count": len(jenkins_jobs),
+                        "github_workflows": github_workflows,
+                        "github_workflow_count": len(github_workflows),
+                    }
+                )
 
                 total_jenkins_jobs += len(jenkins_jobs)
                 total_github_workflows += len(github_workflows)
@@ -779,13 +787,15 @@ class RenderContext:
 
             for job in jobs:
                 jenkins_color = job.get("color", "notbuilt")
-                all_jobs.append({
-                    "name": job.get("name", "Unknown"),
-                    "repo": repo_name,
-                    "status": job.get("status", "UNKNOWN"),
-                    "color": self._get_status_color(jenkins_color),
-                    "url": job.get("url", ""),
-                })
+                all_jobs.append(
+                    {
+                        "name": job.get("name", "Unknown"),
+                        "repo": repo_name,
+                        "status": job.get("status", "UNKNOWN"),
+                        "color": self._get_status_color(jenkins_color),
+                        "url": job.get("url", ""),
+                    }
+                )
 
         # Count by status
         status_counts: dict[str, int] = {}
@@ -805,7 +815,7 @@ class RenderContext:
             "total_count": len(all_jobs),
         }
 
-    def _build_orphaned_jobs_context(self) -> Dict[str, Any]:
+    def _build_orphaned_jobs_context(self) -> dict[str, Any]:
         """Build orphaned jobs context."""
         orphaned_data = self.data.get("orphaned_jenkins_jobs", {})
 
@@ -815,12 +825,14 @@ class RenderContext:
         # Transform jobs dict to list
         jobs_list = []
         for job_name, job_data in jobs_dict.items():
-            jobs_list.append({
-                "name": job_name,
-                "project": job_data.get("project_name", "Unknown"),
-                "state": job_data.get("state", "UNKNOWN"),
-                "score": job_data.get("score", 0),
-            })
+            jobs_list.append(
+                {
+                    "name": job_name,
+                    "project": job_data.get("project_name", "Unknown"),
+                    "state": job_data.get("state", "UNKNOWN"),
+                    "score": job_data.get("score", 0),
+                }
+            )
 
         # Sort by score descending
         jobs_list.sort(key=lambda x: x.get("score", 0), reverse=True)
@@ -832,7 +844,7 @@ class RenderContext:
             "has_orphaned_jobs": len(jobs_list) > 0,
         }
 
-    def _build_unattributed_jobs_context(self) -> Dict[str, Any]:
+    def _build_unattributed_jobs_context(self) -> dict[str, Any]:
         """Build unattributed jobs context."""
         jenkins_allocation = self.data.get("jenkins_allocation", {})
 
@@ -845,13 +857,15 @@ class RenderContext:
             # Convert to basic job list format
             unallocated_job_details = []
             for job_name in unallocated_job_names:
-                unallocated_job_details.append({
-                    "name": job_name,
-                    "url": "",
-                    "color": "",
-                    "buildable": True,
-                    "disabled": False,
-                })
+                unallocated_job_details.append(
+                    {
+                        "name": job_name,
+                        "url": "",
+                        "color": "",
+                        "buildable": True,
+                        "disabled": False,
+                    }
+                )
 
         # Build jobs list with computed status
         jobs_list = []
@@ -869,12 +883,14 @@ class RenderContext:
             if job_data.get("disabled", False):
                 status = "Disabled"
 
-            jobs_list.append({
-                "name": job_name,
-                "status": status,
-                "color": color,
-                "url": url,
-            })
+            jobs_list.append(
+                {
+                    "name": job_name,
+                    "status": status,
+                    "color": color,
+                    "url": url,
+                }
+            )
 
         # Sort alphabetically by name
         jobs_list.sort(key=lambda x: x.get("name", "").lower())
@@ -887,7 +903,7 @@ class RenderContext:
         if len(jobs_list) > 0:
             # Check if this is a GitHub-only or Gerrit project
             # Note: project_metadata may not be available, so we check config
-            jenkins_config = self.config.get("jenkins", {})
+            self.config.get("jenkins", {})
             gerrit_config = self.config.get("gerrit", {})
             has_gerrit = bool(gerrit_config.get("host"))
 
@@ -938,7 +954,7 @@ class RenderContext:
 
         return status_map.get(color_base, "Unknown")
 
-    def _build_time_windows_context(self) -> List[Dict[str, Any]]:
+    def _build_time_windows_context(self) -> list[dict[str, Any]]:
         """Build time windows context."""
         time_windows = self.data.get("time_windows", [])
 
@@ -949,22 +965,24 @@ class RenderContext:
         transformed = []
         for window in time_windows:
             if isinstance(window, dict):
-                transformed.append({
-                    "name": window.get("name", "Unknown"),
-                    "days": window.get("days", 0),
-                    "description": window.get("description", ""),
-                    "start_date": window.get("start_date", "N/A"),
-                    "end_date": window.get("end_date", "N/A"),
-                    "commits": window.get("commits", 0),
-                    "contributors": window.get("contributors", 0),
-                    "lines_added": window.get("lines_added", 0),
-                    "lines_removed": window.get("lines_removed", 0),
-                    "net_lines": window.get("net_lines", 0),
-                })
+                transformed.append(
+                    {
+                        "name": window.get("name", "Unknown"),
+                        "days": window.get("days", 0),
+                        "description": window.get("description", ""),
+                        "start_date": window.get("start_date", "N/A"),
+                        "end_date": window.get("end_date", "N/A"),
+                        "commits": window.get("commits", 0),
+                        "contributors": window.get("contributors", 0),
+                        "lines_added": window.get("lines_added", 0),
+                        "lines_removed": window.get("lines_removed", 0),
+                        "net_lines": window.get("net_lines", 0),
+                    }
+                )
 
         return transformed
 
-    def _build_info_yaml_context(self) -> Dict[str, Any]:
+    def _build_info_yaml_context(self) -> dict[str, Any]:
         """Build INFO.yaml report context."""
         info_yaml = self.data.get("info_yaml", {})
 
@@ -979,13 +997,14 @@ class RenderContext:
             "lifecycle_summary": lifecycle_summary,
             "total_projects": total_projects,
             "servers": servers,
-            "has_projects": len(projects) > 0 or error is not None,  # Show section if there's data or error
+            "has_projects": len(projects) > 0
+            or error is not None,  # Show section if there's data or error
             "has_lifecycle_summary": len(lifecycle_summary) > 0,
             "error": error,
             "has_error": error is not None,
         }
 
-    def _build_config_context(self) -> Dict[str, Any]:
+    def _build_config_context(self) -> dict[str, Any]:
         """Build configuration context."""
         # Get project name from config
         project_config = self.config.get("project", "Repository Analysis")
@@ -1019,10 +1038,12 @@ class RenderContext:
         ]
 
         # Start with all sections enabled by default
-        include_sections = {section: True for section in all_sections}
+        include_sections = dict.fromkeys(all_sections, True)
 
         # Check if output.include_sections is a dict (new style config)
-        if "include_sections" in output_config and isinstance(output_config["include_sections"], dict):
+        if "include_sections" in output_config and isinstance(
+            output_config["include_sections"], dict
+        ):
             # Merge provided sections with defaults
             include_sections.update(output_config["include_sections"])
         else:
@@ -1043,7 +1064,9 @@ class RenderContext:
         }
 
         # Get table_of_contents setting - check render config first, then output config
-        table_of_contents = render_config.get("table_of_contents", output_config.get("table_of_contents", True))
+        table_of_contents = render_config.get(
+            "table_of_contents", output_config.get("table_of_contents", True)
+        )
 
         return {
             "project_name": project_name,
@@ -1055,7 +1078,7 @@ class RenderContext:
             "html_tables": html_tables,
         }
 
-    def _build_toc_context(self) -> Dict[str, Any]:
+    def _build_toc_context(self) -> dict[str, Any]:
         """Build table of contents context."""
         config = self._build_config_context()
 
@@ -1068,83 +1091,113 @@ class RenderContext:
 
         # Summary (always included if enabled)
         if config["include_sections"].get("summary", True):
-            sections.append({
-                "title": "Global Summary",
-                "anchor": "summary",
-                "level": 1,
-            })
+            sections.append(
+                {
+                    "title": "Global Summary",
+                    "anchor": "summary",
+                    "level": 1,
+                }
+            )
 
         # Repositories (comes before contributors to match expected order)
         repositories = self._build_repositories_context()
-        if config["include_sections"].get("repositories", True) and repositories["has_repositories"]:
-            sections.append({
-                "title": "Gerrit Projects",
-                "anchor": "repositories",
-                "level": 1,
-            })
+        if (
+            config["include_sections"].get("repositories", True)
+            and repositories["has_repositories"]
+        ):
+            sections.append(
+                {
+                    "title": "Gerrit Projects",
+                    "anchor": "repositories",
+                    "level": 1,
+                }
+            )
 
         # Contributors
         contributors = self._build_contributors_context()
-        if config["include_sections"].get("contributors", True) and contributors["has_contributors"]:
-            sections.append({
-                "title": "Top Contributors",
-                "anchor": "contributors",
-                "level": 1,
-            })
+        if (
+            config["include_sections"].get("contributors", True)
+            and contributors["has_contributors"]
+        ):
+            sections.append(
+                {
+                    "title": "Top Contributors",
+                    "anchor": "contributors",
+                    "level": 1,
+                }
+            )
 
         # Organizations
         organizations = self._build_organizations_context()
-        if config["include_sections"].get("organizations", True) and organizations["has_organizations"]:
-            sections.append({
-                "title": "Top Organizations",
-                "anchor": "organizations",
-                "level": 1,
-            })
+        if (
+            config["include_sections"].get("organizations", True)
+            and organizations["has_organizations"]
+        ):
+            sections.append(
+                {
+                    "title": "Top Organizations",
+                    "anchor": "organizations",
+                    "level": 1,
+                }
+            )
 
         # Features
         features = self._build_features_context()
         if config["include_sections"].get("features", True) and features["has_features"]:
-            sections.append({
-                "title": "Repository Feature Matrix",
-                "anchor": "features",
-                "level": 1,
-            })
+            sections.append(
+                {
+                    "title": "Repository Feature Matrix",
+                    "anchor": "features",
+                    "level": 1,
+                }
+            )
 
         # Workflows (use "Deployed CI/CD Jobs" to match test expectations)
         workflows = self._build_workflows_context()
         if config["include_sections"].get("workflows", True) and workflows["has_workflows"]:
-            sections.append({
-                "title": "Deployed CI/CD Jobs",
-                "anchor": "workflows",
-                "level": 1,
-            })
+            sections.append(
+                {
+                    "title": "Deployed CI/CD Jobs",
+                    "anchor": "workflows",
+                    "level": 1,
+                }
+            )
 
         # Orphaned Jobs
         orphaned = self._build_orphaned_jobs_context()
         if config["include_sections"].get("orphaned_jobs", True) and orphaned["has_orphaned_jobs"]:
-            sections.append({
-                "title": "Orphaned Jenkins Jobs",
-                "anchor": "orphaned-jobs",
-                "level": 1,
-            })
+            sections.append(
+                {
+                    "title": "Orphaned Jenkins Jobs",
+                    "anchor": "orphaned-jobs",
+                    "level": 1,
+                }
+            )
 
         # Unattributed Jobs
         unattributed = self._build_unattributed_jobs_context()
-        if config["include_sections"].get("unattributed_jobs", True) and unattributed["has_unattributed_jobs"]:
-            sections.append({
-                "title": "Unattributed Jenkins Jobs",
-                "anchor": "unattributed-jobs",
-                "level": 1,
-            })
+        if (
+            config["include_sections"].get("unattributed_jobs", True)
+            and unattributed["has_unattributed_jobs"]
+        ):
+            sections.append(
+                {
+                    "title": "Unattributed Jenkins Jobs",
+                    "anchor": "unattributed-jobs",
+                    "level": 1,
+                }
+            )
 
         # Time Windows
         time_windows = self._build_time_windows_context()
         if config["include_sections"].get("time_windows", True) and len(time_windows) > 0:
-            sections.append({
-                "title": "Time Windows",
-                "anchor": "time-windows",
-                "level": 1,
-            })
+            sections.append(
+                {
+                    "title": "Time Windows",
+                    "anchor": "time-windows",
+                    "level": 1,
+                }
+            )
 
         return {
             "sections": sections,

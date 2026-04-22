@@ -9,34 +9,38 @@ This module provides the core orchestration logic for report generation,
 coordinating configuration loading, repository analysis, and output generation.
 """
 
-import datetime
 import logging
 import os
 import sys
-from pathlib import Path
-from typing import Any, Dict, Optional, Union
+from typing import Any
 
+
+# Verify PyYAML is importable (not merely discoverable on sys.path) so
+# that broken installs, missing C extensions, or shadowed modules are
+# surfaced with a friendly error at startup rather than crashing deep
+# inside lf_releng_project_reporting.config when it imports yaml.
 try:
-    import yaml
+    import yaml as _yaml  # noqa: F401
 except ImportError:
     print(
-        "ERROR: PyYAML is required. Install with: pip install PyYAML", file=sys.stderr
+        "ERROR: PyYAML is required. Install with: pip install 'PyYAML>=6.0.3' "
+        "(see the project's pyproject.toml for the authoritative version pin).",
+        file=sys.stderr,
     )
     sys.exit(1)
 
 # Import utility modules
-from util.zip_bundle import create_report_bundle
-from util.github_org import determine_github_org
-
 # Import configuration utilities
 from lf_releng_project_reporting.config import (
-    save_resolved_config,
-    load_configuration,
     compute_config_digest,
+    load_configuration,
+    save_resolved_config,
 )
 
 # Import main orchestration
 from lf_releng_project_reporting.reporter import RepositoryReporter
+from util.github_org import determine_github_org
+from util.zip_bundle import create_report_bundle
 
 
 # =============================================================================
@@ -72,7 +76,7 @@ class APIStatistics:
 
     def __init__(self):
         """Initialize statistics tracker."""
-        self.stats: Dict[str, Dict[str, Any]] = {
+        self.stats: dict[str, dict[str, Any]] = {
             "github": {"success": 0, "errors": {}},
             "gerrit": {"success": 0, "errors": {}},
             "jenkins": {"success": 0, "errors": {}},
@@ -89,16 +93,16 @@ class APIStatistics:
     def record_error(self, api_type: str, status_code: int) -> None:
         """Record an API error by status code."""
         if api_type in self.stats:
-            errors: Dict[Union[int, str], int] = self.stats[api_type]["errors"]
+            errors: dict[int | str, int] = self.stats[api_type]["errors"]
             errors[status_code] = errors.get(status_code, 0) + 1
 
     def record_exception(self, api_type: str, error_type: str = "exception") -> None:
         """Record an API exception (non-HTTP error)."""
         if api_type in self.stats:
-            errors: Dict[Union[int, str], int] = self.stats[api_type]["errors"]
+            errors: dict[int | str, int] = self.stats[api_type]["errors"]
             errors[error_type] = errors.get(error_type, 0) + 1
 
-    def record_info_master(self, success: bool, error: Optional[str] = None) -> None:
+    def record_info_master(self, success: bool, error: str | None = None) -> None:
         """Record info-master clone status."""
         self.stats["info_master"]["success"] = success
         if error:
@@ -116,7 +120,7 @@ class APIStatistics:
         success = self.stats[api_type]["success"]
         if not isinstance(success, int):
             return 0
-        errors_dict: Dict[Union[int, str], int] = self.stats[api_type]["errors"]
+        errors_dict: dict[int | str, int] = self.stats[api_type]["errors"]
         errors = sum(errors_dict.values())
         return success + errors
 
@@ -124,7 +128,7 @@ class APIStatistics:
         """Get total number of errors for an API."""
         if api_type not in self.stats:
             return 0
-        errors_dict: Dict[Union[int, str], int] = self.stats[api_type]["errors"]
+        errors_dict: dict[int | str, int] = self.stats[api_type]["errors"]
         return sum(errors_dict.values())
 
     def has_errors(self) -> bool:
@@ -132,9 +136,7 @@ class APIStatistics:
         for api_type in ["github", "gerrit", "jenkins"]:
             if self.get_total_errors(api_type) > 0:
                 return True
-        if not self.stats["info_master"]["success"] and self.stats["info_master"]["error"]:
-            return True
-        return False
+        return bool(not self.stats["info_master"]["success"] and self.stats["info_master"]["error"])
 
     def format_console_output(self) -> str:
         """Format statistics for console output."""
@@ -147,7 +149,7 @@ class APIStatistics:
             total_errors = self.get_total_errors("github")
             if total_errors > 0:
                 lines.append(f"   ❌ Failed calls: {total_errors}")
-                errors_dict: Dict[Union[int, str], int] = self.stats["github"]["errors"]
+                errors_dict: dict[int | str, int] = self.stats["github"]["errors"]
                 for code, count in sorted(errors_dict.items(), key=lambda x: str(x[0])):
                     lines.append(f"      • Error {code}: {count}")
 
@@ -158,7 +160,7 @@ class APIStatistics:
             total_errors = self.get_total_errors("gerrit")
             if total_errors > 0:
                 lines.append(f"   ❌ Failed calls: {total_errors}")
-                gerrit_errors: Dict[Union[int, str], int] = self.stats["gerrit"]["errors"]
+                gerrit_errors: dict[int | str, int] = self.stats["gerrit"]["errors"]
                 for code, count in sorted(gerrit_errors.items(), key=lambda x: str(x[0])):
                     lines.append(f"      • Error {code}: {count}")
 
@@ -169,7 +171,7 @@ class APIStatistics:
             total_errors = self.get_total_errors("jenkins")
             if total_errors > 0:
                 lines.append(f"   ❌ Failed calls: {total_errors}")
-                jenkins_errors: Dict[Union[int, str], int] = self.stats["jenkins"]["errors"]
+                jenkins_errors: dict[int | str, int] = self.stats["jenkins"]["errors"]
                 for code, count in sorted(jenkins_errors.items(), key=lambda x: str(x[0])):
                     lines.append(f"      • Error {code}: {count}")
 
@@ -252,7 +254,9 @@ class APIStatistics:
                 # If no stats were recorded, write a message indicating this
                 if not stats_written:
                     f.write("ℹ️ No external API calls were made during this run.\n\n")
-                    f.write("*This may indicate that API statistics tracking is not properly configured, ")
+                    f.write(
+                        "*This may indicate that API statistics tracking is not properly configured, "
+                    )
                     f.write("or that no features requiring external API calls were enabled.*\n\n")
 
         except Exception as e:
@@ -268,9 +272,7 @@ api_stats = APIStatistics()
 # =============================================================================
 
 
-def setup_logging(
-    level: str = "INFO", include_timestamps: bool = True
-) -> logging.Logger:
+def setup_logging(level: str = "INFO", include_timestamps: bool = True) -> logging.Logger:
     """Configure logging with structured format."""
     log_format = "[%(levelname)s]"
     if include_timestamps:
@@ -337,6 +339,7 @@ def main(args=None) -> int:
         # If args not provided, parse from command line
         if args is None:
             from cli import parse_arguments
+
             args = parse_arguments()
 
         # Load configuration
@@ -344,6 +347,7 @@ def main(args=None) -> int:
             config = load_configuration(args.project, args.config_dir)
         except Exception as e:
             import traceback
+
             print(f"ERROR: Failed to load configuration: {e}", file=sys.stderr)
             traceback.print_exc()
             return 1
@@ -361,7 +365,10 @@ def main(args=None) -> int:
 
             # Log what we determined
             if github_org_source == "auto_derived":
-                print(f"ℹ️  Derived GitHub organization '{github_org}' from repository path", file=sys.stderr)
+                print(
+                    f"ℹ️  Derived GitHub organization '{github_org}' from repository path",
+                    file=sys.stderr,
+                )
             elif github_org_source == "environment_variable":
                 print(f"ℹ️  GitHub organization '{github_org}' from PROJECTS_JSON", file=sys.stderr)
 
@@ -370,13 +377,13 @@ def main(args=None) -> int:
         config["_schema_version"] = SCHEMA_VERSION
 
         # Store GitHub token environment variable name in config
-        github_token_env = getattr(args, 'github_token_env', 'GITHUB_TOKEN')
+        github_token_env = getattr(args, "github_token_env", "GITHUB_TOKEN")
         config["_github_token_env"] = github_token_env
 
         # Override log level if specified
-        if hasattr(args, 'log_level') and args.log_level:
+        if hasattr(args, "log_level") and args.log_level:
             config.setdefault("logging", {})["level"] = args.log_level
-        elif hasattr(args, 'verbose') and args.verbose:
+        elif hasattr(args, "verbose") and args.verbose:
             config.setdefault("logging", {})["level"] = "DEBUG"
 
         # Setup logging
@@ -395,14 +402,12 @@ def main(args=None) -> int:
         write_config_to_step_summary(config, args.project)
 
         # Validate-only mode
-        if hasattr(args, 'validate_only') and args.validate_only:
+        if hasattr(args, "validate_only") and args.validate_only:
             logger.info("Configuration validation successful")
             print(f"✅ Configuration valid for project '{args.project}'")
             print(f"   - Schema version: {config.get('schema_version', 'Unknown')}")
             print(f"   - Time windows: {list(config.get('time_windows', {}).keys())}")
-            print(
-                f"   - Features enabled: {len(config.get('features', {}).get('enabled', []))}"
-            )
+            print(f"   - Features enabled: {len(config.get('features', {}).get('enabled', []))}")
             return 0
 
         # Create output directory
@@ -424,8 +429,9 @@ def main(args=None) -> int:
 
         # Write JSON report
         import json
+
         logger.info(f"Writing JSON report to {json_path}")
-        with open(json_path, 'w', encoding='utf-8') as f:
+        with open(json_path, "w", encoding="utf-8") as f:
             json.dump(report_data, f, indent=2, ensure_ascii=False, default=str)
 
         # Generate Markdown report using modern template system
@@ -433,7 +439,7 @@ def main(args=None) -> int:
         reporter.renderer.render_markdown_report(report_data, md_path)
 
         # Generate HTML report using modern template system (unless disabled)
-        if not (hasattr(args, 'no_html') and args.no_html):
+        if not (hasattr(args, "no_html") and args.no_html):
             logger.info(f"Converting to HTML report at {html_path}")
             reporter.renderer.render_html_report(report_data, html_path)
 
@@ -441,14 +447,14 @@ def main(args=None) -> int:
         save_resolved_config(config, config_path)
 
         # Create ZIP bundle (unless disabled)
-        if not (hasattr(args, 'no_zip') and args.no_zip):
-            zip_path = create_report_bundle(project_output_dir, args.project, logger)
+        if not (hasattr(args, "no_zip") and args.no_zip):
+            create_report_bundle(project_output_dir, args.project, logger)
 
         # Print summary
         repo_count = len(report_data["repositories"])
         error_count = len(report_data["errors"])
 
-        print(f"\n✅ Report generation completed successfully!")
+        print("\n✅ Report generation completed successfully!")
         print(f"   - Analyzed: {repo_count} repositories")
         print(f"   - Errors: {error_count}")
         print(f"   - Output directory: {project_output_dir}")
@@ -471,8 +477,9 @@ def main(args=None) -> int:
         return 130
     except Exception as e:
         print(f"❌ Unexpected error: {e}", file=sys.stderr)
-        if hasattr(args, 'verbose') and args.verbose:
+        if args is not None and hasattr(args, "verbose") and args.verbose:
             import traceback
+
             traceback.print_exc()
         return 1
 

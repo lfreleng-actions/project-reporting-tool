@@ -35,6 +35,7 @@ from .structured_logging import (
     log_with_context,
 )
 
+
 __all__ = [
     # Error taxonomy
     "ClassifiedError",

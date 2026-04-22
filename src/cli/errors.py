@@ -11,7 +11,7 @@ Phase 9: CLI & UX Improvements
 Phase 13, Step 4: Enhanced Error Messages with Context
 """
 
-from typing import Optional, Dict, Any, List
+from typing import Any
 
 
 class CLIError(Exception):
@@ -34,10 +34,10 @@ class CLIError(Exception):
     def __init__(
         self,
         message: str,
-        suggestion: Optional[str] = None,
-        doc_link: Optional[str] = None,
-        context: Optional[Dict[str, Any]] = None,
-        recovery_hints: Optional[List[str]] = None
+        suggestion: str | None = None,
+        doc_link: str | None = None,
+        context: dict[str, Any] | None = None,
+        recovery_hints: list[str] | None = None,
     ):
         """
         Initialize CLI error.
@@ -80,9 +80,9 @@ class CLIError(Exception):
         if self.doc_link:
             parts.append(f"\n📖 Documentation: {self.doc_link}")
 
-        return '\n'.join(parts)
+        return "\n".join(parts)
 
-    def add_context(self, key: str, value: Any) -> 'CLIError':
+    def add_context(self, key: str, value: Any) -> "CLIError":
         """
         Add context information to error.
 
@@ -96,7 +96,7 @@ class CLIError(Exception):
         self.context[key] = value
         return self
 
-    def add_recovery_hint(self, hint: str) -> 'CLIError':
+    def add_recovery_hint(self, hint: str) -> "CLIError":
         """
         Add a recovery hint.
 
@@ -120,9 +120,9 @@ class ConfigurationError(CLIError):
     def __init__(
         self,
         message: str,
-        suggestion: Optional[str] = None,
-        context: Optional[Dict[str, Any]] = None,
-        recovery_hints: Optional[List[str]] = None
+        suggestion: str | None = None,
+        context: dict[str, Any] | None = None,
+        recovery_hints: list[str] | None = None,
     ):
         """Initialize configuration error."""
         default_suggestion = (
@@ -133,14 +133,14 @@ class ConfigurationError(CLIError):
             "Verify YAML syntax is correct (no tabs, proper indentation)",
             "Check for required fields in configuration",
             "Compare with config.example.yaml template",
-            "Validate with: python generate_reports.py --dry-run"
+            "Validate with: python generate_reports.py --dry-run",
         ]
         super().__init__(
             message,
             suggestion=suggestion or default_suggestion,
             doc_link="docs/configuration.md",
             context=context,
-            recovery_hints=recovery_hints or default_hints
+            recovery_hints=recovery_hints or default_hints,
         )
 
 
@@ -154,9 +154,9 @@ class InvalidArgumentError(CLIError):
     def __init__(
         self,
         message: str,
-        suggestion: Optional[str] = None,
-        context: Optional[Dict[str, Any]] = None,
-        recovery_hints: Optional[List[str]] = None
+        suggestion: str | None = None,
+        context: dict[str, Any] | None = None,
+        recovery_hints: list[str] | None = None,
     ):
         """Initialize invalid argument error."""
         default_suggestion = "Run with --help to see valid arguments and usage examples."
@@ -164,14 +164,14 @@ class InvalidArgumentError(CLIError):
             "Check the command-line arguments for typos",
             "Run with --help to see all available options",
             "See docs/CLI_REFERENCE.md for detailed usage",
-            "Use --list-features to see available features"
+            "Use --list-features to see available features",
         ]
         super().__init__(
             message,
             suggestion=suggestion or default_suggestion,
             doc_link="docs/CLI_REFERENCE.md",
             context=context,
-            recovery_hints=recovery_hints or default_hints
+            recovery_hints=recovery_hints or default_hints,
         )
 
 
@@ -185,11 +185,11 @@ class APIError(CLIError):
     def __init__(
         self,
         message: str,
-        api_name: Optional[str] = None,
-        suggestion: Optional[str] = None,
-        context: Optional[Dict[str, Any]] = None,
-        recovery_hints: Optional[List[str]] = None,
-        status_code: Optional[int] = None
+        api_name: str | None = None,
+        suggestion: str | None = None,
+        context: dict[str, Any] | None = None,
+        recovery_hints: list[str] | None = None,
+        status_code: int | None = None,
     ):
         """Initialize API error."""
         ctx = context or {}
@@ -212,28 +212,28 @@ class APIError(CLIError):
                     "Verify API token is set in environment or config",
                     "Check that the token hasn't expired",
                     "Regenerate token if needed",
-                    "Ensure token has required permissions"
+                    "Ensure token has required permissions",
                 ]
             elif status_code == 403:
                 default_hints = [
                     "Check API token permissions/scopes",
                     "Verify access to the resource",
                     "Check for rate limiting",
-                    "Ensure organization membership if applicable"
+                    "Ensure organization membership if applicable",
                 ]
             elif status_code == 404:
                 default_hints = [
                     "Verify the resource exists",
                     "Check the resource URL/path",
                     "Ensure you have access to the resource",
-                    "Verify repository/organization name spelling"
+                    "Verify repository/organization name spelling",
                 ]
             else:
                 default_hints = [
                     "Check network connectivity",
                     "Verify API credentials are correct",
                     "Check API endpoint is accessible",
-                    "Review API documentation for requirements"
+                    "Review API documentation for requirements",
                 ]
 
         super().__init__(
@@ -241,7 +241,7 @@ class APIError(CLIError):
             suggestion=suggestion or default_suggestion,
             doc_link="docs/troubleshooting.md#api-errors",
             context=ctx,
-            recovery_hints=recovery_hints or (default_hints if default_hints else None)
+            recovery_hints=recovery_hints or (default_hints if default_hints else None),
         )
 
 
@@ -253,10 +253,7 @@ class PermissionError(CLIError):
     """
 
     def __init__(
-        self,
-        message: str,
-        path: Optional[str] = None,
-        context: Optional[Dict[str, Any]] = None
+        self, message: str, path: str | None = None, context: dict[str, Any] | None = None
     ):
         """Initialize permission error."""
         ctx = context or {}
@@ -274,15 +271,10 @@ class PermissionError(CLIError):
             "Check file/directory permissions with: ls -la",
             "Ensure your user has necessary access rights",
             "Try using a different output directory",
-            "Fix permissions with: chmod u+rw <path> (if you own it)"
+            "Fix permissions with: chmod u+rw <path> (if you own it)",
         ]
 
-        super().__init__(
-            message,
-            suggestion=suggestion,
-            context=ctx,
-            recovery_hints=recovery_hints
-        )
+        super().__init__(message, suggestion=suggestion, context=ctx, recovery_hints=recovery_hints)
 
 
 class DiskSpaceError(CLIError):
@@ -293,10 +285,7 @@ class DiskSpaceError(CLIError):
     """
 
     def __init__(
-        self,
-        message: str,
-        path: Optional[str] = None,
-        context: Optional[Dict[str, Any]] = None
+        self, message: str, path: str | None = None, context: dict[str, Any] | None = None
     ):
         """Initialize disk space error."""
         ctx = context or {}
@@ -313,15 +302,10 @@ class DiskSpaceError(CLIError):
             "Free up space by removing unnecessary files",
             "Use a different output directory with more space",
             "Use --no-cache to reduce disk usage",
-            "Use --output-format json to skip HTML generation"
+            "Use --output-format json to skip HTML generation",
         ]
 
-        super().__init__(
-            message,
-            suggestion=suggestion,
-            context=ctx,
-            recovery_hints=recovery_hints
-        )
+        super().__init__(message, suggestion=suggestion, context=ctx, recovery_hints=recovery_hints)
 
 
 class ValidationError(CLIError):
@@ -334,9 +318,9 @@ class ValidationError(CLIError):
     def __init__(
         self,
         message: str,
-        field: Optional[str] = None,
-        context: Optional[Dict[str, Any]] = None,
-        recovery_hints: Optional[List[str]] = None
+        field: str | None = None,
+        context: dict[str, Any] | None = None,
+        recovery_hints: list[str] | None = None,
     ):
         """Initialize validation error."""
         ctx = context or {}
@@ -348,14 +332,10 @@ class ValidationError(CLIError):
             "Check the value format and type",
             "Compare with config.example.yaml for valid examples",
             "Validate configuration with: --dry-run",
-            "See docs/configuration.md for field requirements"
+            "See docs/configuration.md for field requirements",
         ]
 
-        super().__init__(
-            message,
-            context=ctx,
-            recovery_hints=recovery_hints or default_hints
-        )
+        super().__init__(message, context=ctx, recovery_hints=recovery_hints or default_hints)
 
 
 class NetworkError(CLIError):
@@ -368,9 +348,9 @@ class NetworkError(CLIError):
     def __init__(
         self,
         message: str,
-        suggestion: Optional[str] = None,
-        context: Optional[Dict[str, Any]] = None,
-        recovery_hints: Optional[List[str]] = None
+        suggestion: str | None = None,
+        context: dict[str, Any] | None = None,
+        recovery_hints: list[str] | None = None,
     ):
         """Initialize network error."""
         default_suggestion = (
@@ -384,7 +364,7 @@ class NetworkError(CLIError):
             "Test endpoint reachability (e.g., ping api.github.com)",
             "Verify firewall/proxy settings",
             "Check for DNS resolution issues",
-            "Try again after a few moments"
+            "Try again after a few moments",
         ]
 
         super().__init__(
@@ -392,11 +372,11 @@ class NetworkError(CLIError):
             suggestion=suggestion or default_suggestion,
             doc_link="docs/troubleshooting.md#network-issues",
             context=context,
-            recovery_hints=recovery_hints or default_hints
+            recovery_hints=recovery_hints or default_hints,
         )
 
 
-def format_validation_errors(errors: list[dict]) -> str:
+def format_validation_errors(errors: list[dict[str, Any]]) -> str:
     """
     Format multiple validation errors into readable message.
 
@@ -421,14 +401,14 @@ def format_validation_errors(errors: list[dict]) -> str:
 
     lines = [f"Configuration validation failed with {len(errors)} error(s):"]
     for error in errors:
-        path = error.get('path', 'unknown')
-        message = error.get('message', 'Unknown error')
+        path = error.get("path", "unknown")
+        message = error.get("message", "Unknown error")
         lines.append(f"  - {path}: {message}")
 
-    return '\n'.join(lines)
+    return "\n".join(lines)
 
 
-def suggest_common_fixes(error: Exception) -> Optional[str]:
+def suggest_common_fixes(error: Exception) -> str | None:
     """
     Suggest common fixes based on error type and message.
 

@@ -22,14 +22,15 @@ Usage:
 """
 
 from .context import RenderContext
-from .renderer import ModernReportRenderer, TemplateRenderer
 from .formatters import (
-    format_number,
     format_age,
+    format_date,
+    format_number,
     format_percentage,
     slugify,
-    format_date,
 )
+from .renderer import ModernReportRenderer, TemplateRenderer
+
 
 __all__ = [
     "RenderContext",

@@ -20,16 +20,14 @@ Features:
 Phase 13: CLI & UX Improvements - Step 6
 """
 
-import os
-import sys
-import time
-import psutil
 import threading
-from dataclasses import dataclass, field
-from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+import time
 from collections import defaultdict
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any
+
+import psutil
 
 
 # =============================================================================
@@ -45,7 +43,7 @@ class TimingMetric:
     duration: float
     start_time: float
     end_time: float
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     def __str__(self) -> str:
         """Format timing for display."""
@@ -103,8 +101,8 @@ class OperationMetrics:
     operation_name: str
     duration: float
     success: bool = True
-    error: Optional[str] = None
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    error: str | None = None
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 # =============================================================================
@@ -123,7 +121,7 @@ def format_duration(seconds: float) -> str:
         Formatted string (e.g., "2m 15s", "1h 23m 45s")
     """
     if seconds < 1:
-        return f"{seconds*1000:.0f}ms"
+        return f"{seconds * 1000:.0f}ms"
 
     if seconds < 60:
         return f"{seconds:.1f}s"
@@ -149,7 +147,7 @@ def format_bytes(bytes_count: float) -> str:
     Returns:
         Formatted string (e.g., "1.2 GB", "345 MB")
     """
-    for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
+    for unit in ["B", "KB", "MB", "GB", "TB"]:
         if bytes_count < 1024.0:
             return f"{bytes_count:.1f} {unit}"
         bytes_count /= 1024.0
@@ -197,30 +195,27 @@ class MetricsCollector:
     def __init__(self):
         """Initialize metrics collector."""
         self._start_time = time.time()
-        self._end_time: Optional[float] = None
-        self._timings: List[TimingMetric] = []
-        self._api_stats: Dict[str, APIStatistics] = defaultdict(
+        self._end_time: float | None = None
+        self._timings: list[TimingMetric] = []
+        self._api_stats: dict[str, APIStatistics] = defaultdict(
             lambda: APIStatistics(api_name="unknown")
         )
-        self._operation_metrics: List[OperationMetrics] = []
+        self._operation_metrics: list[OperationMetrics] = []
         self._lock = threading.Lock()
 
         # Resource tracking
         self._process = psutil.Process()
         self._initial_cpu_times = self._process.cpu_times()
         self._initial_io = self._get_io_counters()
-        self._memory_samples: List[float] = []
+        self._memory_samples: list[float] = []
         self._peak_memory = 0.0
 
         # Start resource monitoring
         self._monitoring = True
-        self._monitor_thread = threading.Thread(
-            target=self._monitor_resources,
-            daemon=True
-        )
+        self._monitor_thread = threading.Thread(target=self._monitor_resources, daemon=True)
         self._monitor_thread.start()
 
-    def _get_io_counters(self) -> Optional[Any]:
+    def _get_io_counters(self) -> Any | None:
         """Get I/O counters if available."""
         try:
             return self._process.io_counters()
@@ -253,12 +248,7 @@ class MetricsCollector:
         return _TimingContext(self, name, metadata)
 
     def record_timing(
-        self,
-        name: str,
-        duration: float,
-        start_time: float,
-        end_time: float,
-        **metadata
+        self, name: str, duration: float, start_time: float, end_time: float, **metadata
     ):
         """
         Record a timing measurement.
@@ -275,18 +265,14 @@ class MetricsCollector:
             duration=duration,
             start_time=start_time,
             end_time=end_time,
-            metadata=metadata
+            metadata=metadata,
         )
 
         with self._lock:
             self._timings.append(metric)
 
     def record_api_call(
-        self,
-        api_name: str,
-        duration: float,
-        cached: bool = False,
-        failed: bool = False
+        self, api_name: str, duration: float, cached: bool = False, failed: bool = False
     ):
         """
         Record an API call.
@@ -313,8 +299,8 @@ class MetricsCollector:
         operation_name: str,
         duration: float,
         success: bool = True,
-        error: Optional[str] = None,
-        **metadata
+        error: str | None = None,
+        **metadata,
     ):
         """
         Record operation metrics.
@@ -331,7 +317,7 @@ class MetricsCollector:
             duration=duration,
             success=success,
             error=error,
-            metadata=metadata
+            metadata=metadata,
         )
 
         with self._lock:
@@ -366,8 +352,9 @@ class MetricsCollector:
 
         # Memory
         with self._lock:
-            avg_memory = sum(self._memory_samples) / len(self._memory_samples) \
-                if self._memory_samples else 0
+            avg_memory = (
+                sum(self._memory_samples) / len(self._memory_samples) if self._memory_samples else 0
+            )
             peak_memory = self._peak_memory
 
         # Disk I/O
@@ -378,7 +365,9 @@ class MetricsCollector:
         if current_io and self._initial_io:
             try:
                 disk_read_mb = (current_io.read_bytes - self._initial_io.read_bytes) / (1024 * 1024)
-                disk_write_mb = (current_io.write_bytes - self._initial_io.write_bytes) / (1024 * 1024)
+                disk_write_mb = (current_io.write_bytes - self._initial_io.write_bytes) / (
+                    1024 * 1024
+                )
             except AttributeError:
                 pass
 
@@ -388,10 +377,10 @@ class MetricsCollector:
             cpu_time_seconds=total_cpu,
             cpu_utilization=cpu_util,
             disk_read_mb=disk_read_mb,
-            disk_write_mb=disk_write_mb
+            disk_write_mb=disk_write_mb,
         )
 
-    def get_timing_breakdown(self) -> Dict[str, float]:
+    def get_timing_breakdown(self) -> dict[str, float]:
         """
         Get timing breakdown by operation category.
 
@@ -403,7 +392,7 @@ class MetricsCollector:
         with self._lock:
             for timing in self._timings:
                 # Extract category from name (e.g., "git:clone" -> "git")
-                category = timing.name.split(':')[0] if ':' in timing.name else timing.name
+                category = timing.name.split(":")[0] if ":" in timing.name else timing.name
                 breakdown[category] += timing.duration
 
         return dict(breakdown)
@@ -439,11 +428,7 @@ class MetricsCollector:
             breakdown = self.get_timing_breakdown()
             if breakdown:
                 print("\nBreakdown:")
-                sorted_breakdown = sorted(
-                    breakdown.items(),
-                    key=lambda x: x[1],
-                    reverse=True
-                )
+                sorted_breakdown = sorted(breakdown.items(), key=lambda x: x[1], reverse=True)
                 for category, duration in sorted_breakdown:
                     print(f"  {category:20} {format_percentage(duration, total_time)}")
 
@@ -452,20 +437,26 @@ class MetricsCollector:
             print("\nAPI Statistics:")
             for api_name, stats in sorted(self._api_stats.items()):
                 print(f"  {api_name}:")
-                print(f"    Calls: {stats.total_calls} "
-                      f"({stats.calls_per_second:.1f} calls/sec, "
-                      f"{stats.cache_hit_rate:.0f}% cache hit)")
+                print(
+                    f"    Calls: {stats.total_calls} "
+                    f"({stats.calls_per_second:.1f} calls/sec, "
+                    f"{stats.cache_hit_rate:.0f}% cache hit)"
+                )
 
         # Resource usage
         resources = self.get_resource_usage()
         print("\nResource Usage:")
         print(f"  Peak memory: {resources.peak_memory_mb:.1f} MB")
-        print(f"  CPU time: {format_duration(resources.cpu_time_seconds)} "
-              f"({resources.cpu_utilization:.0f}% utilization)")
+        print(
+            f"  CPU time: {format_duration(resources.cpu_time_seconds)} "
+            f"({resources.cpu_utilization:.0f}% utilization)"
+        )
 
         if resources.disk_read_mb > 0 or resources.disk_write_mb > 0:
-            print(f"  Disk I/O: {resources.disk_read_mb:.1f} MB read, "
-                  f"{resources.disk_write_mb:.1f} MB written")
+            print(
+                f"  Disk I/O: {resources.disk_read_mb:.1f} MB read, "
+                f"{resources.disk_write_mb:.1f} MB written"
+            )
 
         print("\n" + "=" * 70 + "\n")
 
@@ -480,11 +471,7 @@ class MetricsCollector:
         # Operation breakdown
         if self._operation_metrics:
             print("Operation Breakdown:")
-            sorted_ops = sorted(
-                self._operation_metrics,
-                key=lambda x: x.duration,
-                reverse=True
-            )
+            sorted_ops = sorted(self._operation_metrics, key=lambda x: x.duration, reverse=True)
             for op in sorted_ops[:10]:  # Top 10
                 status = "✓" if op.success else "✗"
                 warning = " ⚠ SLOW" if op.duration > 5.0 else ""
@@ -496,11 +483,7 @@ class MetricsCollector:
         with self._lock:
             if self._timings:
                 print("\nSlowest Operations:")
-                sorted_timings = sorted(
-                    self._timings,
-                    key=lambda x: x.duration,
-                    reverse=True
-                )
+                sorted_timings = sorted(self._timings, key=lambda x: x.duration, reverse=True)
                 for i, timing in enumerate(sorted_timings[:10], 1):
                     print(f"  {i}. {timing.name}: {format_duration(timing.duration)}")
 
@@ -517,20 +500,20 @@ class MetricsCollector:
         # Resource usage details
         resources = self.get_resource_usage()
         print("\nResource Usage Details:")
-        print(f"  Memory:")
+        print("  Memory:")
         print(f"    Peak: {resources.peak_memory_mb:.1f} MB")
         print(f"    Average: {resources.avg_memory_mb:.1f} MB")
-        print(f"  CPU:")
+        print("  CPU:")
         print(f"    Time: {format_duration(resources.cpu_time_seconds)}")
         print(f"    Utilization: {resources.cpu_utilization:.1f}%")
         if resources.disk_read_mb > 0 or resources.disk_write_mb > 0:
-            print(f"  Disk I/O:")
+            print("  Disk I/O:")
             print(f"    Read: {resources.disk_read_mb:.1f} MB")
             print(f"    Write: {resources.disk_write_mb:.1f} MB")
 
         print("\n" + "=" * 70 + "\n")
 
-    def get_output_summary(self, output_files: Dict[str, Path]) -> str:
+    def get_output_summary(self, output_files: dict[str, Path]) -> str:
         """
         Get output files summary.
 
@@ -555,7 +538,7 @@ class MetricsCollector:
 class _TimingContext:
     """Context manager for timing operations."""
 
-    def __init__(self, collector: MetricsCollector, name: str, metadata: Dict[str, Any]):
+    def __init__(self, collector: MetricsCollector, name: str, metadata: dict[str, Any]):
         """Initialize timing context."""
         self.collector = collector
         self.name = name
@@ -573,11 +556,7 @@ class _TimingContext:
         duration = end_time - self.start_time
 
         self.collector.record_timing(
-            self.name,
-            duration,
-            self.start_time,
-            end_time,
-            **self.metadata
+            self.name, duration, self.start_time, end_time, **self.metadata
         )
 
         return False
@@ -588,7 +567,7 @@ class _TimingContext:
 # =============================================================================
 
 # Global metrics collector instance
-_global_collector: Optional[MetricsCollector] = None
+_global_collector: MetricsCollector | None = None
 
 
 def get_metrics_collector() -> MetricsCollector:
@@ -661,22 +640,22 @@ def print_debug_metrics():
 
 __all__ = [
     # Data structures
-    'TimingMetric',
-    'APIStatistics',
-    'ResourceUsage',
-    'OperationMetrics',
+    "TimingMetric",
+    "APIStatistics",
+    "ResourceUsage",
+    "OperationMetrics",
     # Main class
-    'MetricsCollector',
+    "MetricsCollector",
     # Global instance
-    'get_metrics_collector',
-    'reset_metrics_collector',
+    "get_metrics_collector",
+    "reset_metrics_collector",
     # Convenience functions
-    'time_operation',
-    'record_api_call',
-    'print_performance_summary',
-    'print_debug_metrics',
+    "time_operation",
+    "record_api_call",
+    "print_performance_summary",
+    "print_debug_metrics",
     # Formatting
-    'format_duration',
-    'format_bytes',
-    'format_percentage',
+    "format_duration",
+    "format_bytes",
+    "format_percentage",
 ]

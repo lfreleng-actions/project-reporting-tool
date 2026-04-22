@@ -9,7 +9,7 @@ including commit counts, LOC changes, and organizational affiliation.
 """
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, Set
+from typing import Any
 
 
 @dataclass
@@ -39,11 +39,11 @@ class AuthorMetrics:
     domain: str = "unknown"
 
     # Time-windowed metrics
-    commits: Dict[str, int] = field(default_factory=dict)
-    lines_added: Dict[str, int] = field(default_factory=dict)
-    lines_removed: Dict[str, int] = field(default_factory=dict)
-    lines_net: Dict[str, int] = field(default_factory=dict)
-    repositories_touched: Dict[str, int] = field(default_factory=dict)
+    commits: dict[str, int] = field(default_factory=dict)
+    lines_added: dict[str, int] = field(default_factory=dict)
+    lines_removed: dict[str, int] = field(default_factory=dict)
+    lines_net: dict[str, int] = field(default_factory=dict)
+    repositories_touched: dict[str, int] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         """Validate author metrics after initialization."""
@@ -54,26 +54,20 @@ class AuthorMetrics:
         # Name can be empty (some commits don't have names)
         # but normalize to email if empty
         if not self.name:
-            object.__setattr__(self, 'name', self.email)
+            object.__setattr__(self, "name", self.email)
 
         # Validate non-negative counts
         for window, count in self.commits.items():
             if count < 0:
-                raise ValueError(
-                    f"commits['{window}'] must be non-negative, got {count}"
-                )
+                raise ValueError(f"commits['{window}'] must be non-negative, got {count}")
 
         for window, count in self.lines_added.items():
             if count < 0:
-                raise ValueError(
-                    f"lines_added['{window}'] must be non-negative, got {count}"
-                )
+                raise ValueError(f"lines_added['{window}'] must be non-negative, got {count}")
 
         for window, count in self.lines_removed.items():
             if count < 0:
-                raise ValueError(
-                    f"lines_removed['{window}'] must be non-negative, got {count}"
-                )
+                raise ValueError(f"lines_removed['{window}'] must be non-negative, got {count}")
 
         for window, count in self.repositories_touched.items():
             if count < 0:
@@ -82,7 +76,7 @@ class AuthorMetrics:
                 )
 
         # Validate consistency: for each window, net = added - removed
-        for window in self.commits.keys():
+        for window in self.commits:
             added = self.lines_added.get(window, 0)
             removed = self.lines_removed.get(window, 0)
             net = self.lines_net.get(window, 0)
@@ -94,7 +88,7 @@ class AuthorMetrics:
                     f"lines_added ({added}) - lines_removed ({removed}) = {expected_net}"
                 )
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """
         Convert to dictionary for JSON serialization.
 
@@ -116,7 +110,7 @@ class AuthorMetrics:
         }
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "AuthorMetrics":
+    def from_dict(cls, data: dict[str, Any]) -> "AuthorMetrics":
         """
         Create AuthorMetrics from legacy dictionary format.
 

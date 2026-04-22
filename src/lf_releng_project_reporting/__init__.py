@@ -27,7 +27,21 @@ For more information:
     - License: Apache-2.0
 """
 
-from lf_releng_project_reporting._version import __version__
+# Resolve __version__ without depending on the hatch-vcs-generated
+# _version.py being present. In installed environments
+# importlib.metadata.version() returns the wheel's version. In source
+# checkouts where the package has not been installed (e.g. the
+# isolated pre-commit.ci basedpyright environment), fall back to
+# "0.0.0" so static analysers can always see a str-typed attribute.
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as _pkg_version
+
+
+try:
+    __version__: str = _pkg_version("lf-releng-project-reporting")
+except PackageNotFoundError:
+    __version__ = "0.0.0"
+
 
 __author__ = "The Linux Foundation"
 __license__ = "Apache-2.0"

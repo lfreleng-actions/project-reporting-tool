@@ -11,39 +11,40 @@ Phase 9: CLI & UX Improvements
 Phase 13: Enhanced Feature Discovery
 """
 
-from typing import Dict, List, Tuple, Optional, NamedTuple
+from typing import NamedTuple
 
 
 class FeatureInfo(NamedTuple):
     """Complete information about a feature check."""
+
     name: str
     description: str
     category: str
-    config_file: Optional[str] = None
-    config_example: Optional[str] = None
-    detection_method: Optional[str] = None
+    config_file: str | None = None
+    config_example: str | None = None
+    detection_method: str | None = None
 
 
 # Feature registry with name, description, category, and optional config info
-AVAILABLE_FEATURES: Dict[str, Tuple[str, str, Optional[str], Optional[str], Optional[str]]] = {
+AVAILABLE_FEATURES: dict[str, tuple[str, str, str | None, str | None, str | None]] = {
     # CI/CD Features
-    'dependabot': (
-        'Dependabot configuration detection',
-        'CI/CD',
-        '.github/dependabot.yml',
+    "dependabot": (
+        "Dependabot configuration detection",
+        "CI/CD",
+        ".github/dependabot.yml",
         '''version: 2
 updates:
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "weekly"''',
-        'Checks for .github/dependabot.yml or .github/dependabot.yaml'
+        "Checks for .github/dependabot.yml or .github/dependabot.yaml",
     ),
-    'github2gerrit': (
-        'GitHub to Gerrit workflow synchronization',
-        'CI/CD',
-        '.github/workflows/gerrit-sync.yml',
-        '''name: Gerrit Sync
+    "github2gerrit": (
+        "GitHub to Gerrit workflow synchronization",
+        "CI/CD",
+        ".github/workflows/gerrit-sync.yml",
+        """name: Gerrit Sync
 on: [push]
 jobs:
   sync:
@@ -51,14 +52,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Sync to Gerrit
-        run: git push gerrit''',
-        'Detects GitHub Actions workflows with Gerrit sync jobs'
+        run: git push gerrit""",
+        "Detects GitHub Actions workflows with Gerrit sync jobs",
     ),
-    'github-actions': (
-        'GitHub Actions workflows',
-        'CI/CD',
-        '.github/workflows/*.yml',
-        '''name: CI
+    "github-actions": (
+        "GitHub Actions workflows",
+        "CI/CD",
+        ".github/workflows/*.yml",
+        """name: CI
 on: [push, pull_request]
 jobs:
   test:
@@ -66,14 +67,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run tests
-        run: pytest''',
-        'Checks for any YAML files in .github/workflows/'
+        run: pytest""",
+        "Checks for any YAML files in .github/workflows/",
     ),
-    'jenkins': (
-        'Jenkins CI/CD jobs',
-        'CI/CD',
-        'Jenkinsfile',
-        '''pipeline {
+    "jenkins": (
+        "Jenkins CI/CD jobs",
+        "CI/CD",
+        "Jenkinsfile",
+        """pipeline {
     agent any
     stages {
         stage('Build') {
@@ -82,108 +83,105 @@ jobs:
             }
         }
     }
-}''',
-        'Looks for Jenkinsfile in repository root'
+}""",
+        "Looks for Jenkinsfile in repository root",
     ),
-
     # Code Quality Features
-    'pre-commit': (
-        'Pre-commit hooks configuration',
-        'Code Quality',
-        '.pre-commit-config.yaml',
-        '''repos:
+    "pre-commit": (
+        "Pre-commit hooks configuration",
+        "Code Quality",
+        ".pre-commit-config.yaml",
+        """repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.0.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
-      - id: check-yaml''',
-        'Checks for .pre-commit-config.yaml'
+      - id: check-yaml""",
+        "Checks for .pre-commit-config.yaml",
     ),
-    'linting': (
-        'Code linting configuration (pylint, flake8, etc.)',
-        'Code Quality',
-        '.pylintrc, .flake8, pyproject.toml',
-        '''[tool.pylint]
+    "linting": (
+        "Code linting configuration (pylint, flake8, etc.)",
+        "Code Quality",
+        ".pylintrc, .flake8, pyproject.toml",
+        """[tool.pylint]
 max-line-length = 100
 disable = ["C0111"]
 
 [tool.flake8]
 max-line-length = 100
-exclude = [".git", "__pycache__"]''',
-        'Detects .pylintrc, .flake8, setup.cfg, or pyproject.toml with linting config'
+exclude = [".git", "__pycache__"]""",
+        "Detects .pylintrc, .flake8, setup.cfg, or pyproject.toml with linting config",
     ),
-    'sonarqube': (
-        'SonarQube analysis configuration',
-        'Code Quality',
-        'sonar-project.properties',
-        '''sonar.projectKey=my-project
+    "sonarqube": (
+        "SonarQube analysis configuration",
+        "Code Quality",
+        "sonar-project.properties",
+        """sonar.projectKey=my-project
 sonar.projectName=My Project
 sonar.sources=src
 sonar.tests=tests
-sonar.python.coverage.reportPaths=coverage.xml''',
-        'Checks for sonar-project.properties or sonar scanner configuration'
+sonar.python.coverage.reportPaths=coverage.xml""",
+        "Checks for sonar-project.properties or sonar scanner configuration",
     ),
-
     # Documentation Features
-    'readthedocs': (
-        'ReadTheDocs integration',
-        'Documentation',
-        '.readthedocs.yml',
-        '''version: 2
+    "readthedocs": (
+        "ReadTheDocs integration",
+        "Documentation",
+        ".readthedocs.yml",
+        """version: 2
 build:
   os: ubuntu-22.04
   tools:
     python: "3.10"
 sphinx:
-  configuration: docs/conf.py''',
-        'Checks for .readthedocs.yml or .readthedocs.yaml'
+  configuration: docs/conf.py""",
+        "Checks for .readthedocs.yml or .readthedocs.yaml",
     ),
-    'sphinx': (
-        'Sphinx documentation',
-        'Documentation',
-        'docs/conf.py',
-        '''project = 'My Project'
+    "sphinx": (
+        "Sphinx documentation",
+        "Documentation",
+        "docs/conf.py",
+        """project = 'My Project'
 copyright = '2025, Author'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
 ]
-html_theme = 'sphinx_rtd_theme' ''',
-        'Looks for docs/conf.py or docs/source/conf.py'
+html_theme = 'sphinx_rtd_theme' """,
+        "Looks for docs/conf.py or docs/source/conf.py",
     ),
-    'mkdocs': (
-        'MkDocs documentation',
-        'Documentation',
-        'mkdocs.yml',
-        '''site_name: My Project
+    "mkdocs": (
+        "MkDocs documentation",
+        "Documentation",
+        "mkdocs.yml",
+        """site_name: My Project
 theme:
   name: material
 nav:
   - Home: index.md
-  - API: api.md''',
-        'Checks for mkdocs.yml or mkdocs.yaml'
+  - API: api.md""",
+        "Checks for mkdocs.yml or mkdocs.yaml",
     ),
-
     # Build & Package Features
-    'maven': (
-        'Maven build configuration',
-        'Build & Package',
-        'pom.xml',
-        '''<project>
+    "maven": (
+        "Maven build configuration",
+        "Build & Package",
+        "pom.xml",
+        """<project>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.example</groupId>
   <artifactId>my-app</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
-</project>''',
-        'Detects pom.xml in repository'
+</project>""",
+        "Detects pom.xml in repository",
     ),
-    'gradle': (
-        'Gradle build configuration',
-        'Build & Package',
-        'build.gradle or build.gradle.kts',
-        '''plugins {
+    "gradle": (
+        "Gradle build configuration",
+        "Build & Package",
+        "build.gradle or build.gradle.kts",
+        """plugins {
     id 'java'
     id 'application'
 }
@@ -193,14 +191,14 @@ version = '1.0.0'
 
 repositories {
     mavenCentral()
-}''',
-        'Checks for build.gradle, build.gradle.kts, or settings.gradle'
+}""",
+        "Checks for build.gradle, build.gradle.kts, or settings.gradle",
     ),
-    'npm': (
-        'NPM package configuration',
-        'Build & Package',
-        'package.json',
-        '''{
+    "npm": (
+        "NPM package configuration",
+        "Build & Package",
+        "package.json",
+        """{
   "name": "my-package",
   "version": "1.0.0",
   "scripts": {
@@ -208,67 +206,66 @@ repositories {
     "build": "webpack"
   },
   "dependencies": {}
-}''',
-        'Looks for package.json in repository root'
+}""",
+        "Looks for package.json in repository root",
     ),
-    'docker': (
-        'Docker containerization',
-        'Build & Package',
-        'Dockerfile',
-        '''FROM python:3.10-slim
+    "docker": (
+        "Docker containerization",
+        "Build & Package",
+        "Dockerfile",
+        """FROM python:3.10-slim
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
-CMD ["python", "app.py"]''',
-        'Checks for Dockerfile or docker-compose.yml'
+CMD ["python", "app.py"]""",
+        "Checks for Dockerfile or docker-compose.yml",
     ),
-    'sonatype': (
-        'Sonatype/Maven Central publishing',
-        'Build & Package',
-        'pom.xml with distribution management',
-        '''<distributionManagement>
+    "sonatype": (
+        "Sonatype/Maven Central publishing",
+        "Build & Package",
+        "pom.xml with distribution management",
+        """<distributionManagement>
   <repository>
     <id>ossrh</id>
     <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
   </repository>
-</distributionManagement>''',
-        'Analyzes pom.xml for Sonatype/Maven Central configuration'
+</distributionManagement>""",
+        "Analyzes pom.xml for Sonatype/Maven Central configuration",
     ),
-
     # Repository Features
-    'github-mirror': (
-        'GitHub mirror repository detection',
-        'Repository',
-        'Repository description or topics',
+    "github-mirror": (
+        "GitHub mirror repository detection",
+        "Repository",
+        "Repository description or topics",
         None,
-        'Checks repository description and topics for mirror indicators'
+        "Checks repository description and topics for mirror indicators",
     ),
-    'gitreview': (
-        'Gerrit git-review configuration',
-        'Repository',
-        '.gitreview',
-        '''[gerrit]
+    "gitreview": (
+        "Gerrit git-review configuration",
+        "Repository",
+        ".gitreview",
+        """[gerrit]
 host=gerrit.example.com
 port=29418
 project=my-project.git
-defaultbranch=main''',
-        'Looks for .gitreview file'
+defaultbranch=main""",
+        "Looks for .gitreview file",
     ),
-    'license': (
-        'License file detection',
-        'Repository',
-        'LICENSE, COPYING, or LICENSE.txt',
-        '''Apache License
+    "license": (
+        "License file detection",
+        "Repository",
+        "LICENSE, COPYING, or LICENSE.txt",
+        """Apache License
 Version 2.0, January 2004
-http://www.apache.org/licenses/''',
-        'Searches for LICENSE, COPYING, LICENSE.txt, LICENSE.md, or LICENSES/ directory'
+http://www.apache.org/licenses/""",
+        "Searches for LICENSE, COPYING, LICENSE.txt, LICENSE.md, or LICENSES/ directory",
     ),
-    'readme': (
-    'README file quality check',
-    'Repository',
-    'README.md or README.rst',
-    r'''# My Project
+    "readme": (
+        "README file quality check",
+        "Repository",
+        "README.md or README.rst",
+        r"""# My Project
 
 A brief description of the project.
 
@@ -278,53 +275,51 @@ pip install my-project
 ```
 
 ## Usage
-...''',
-    'Checks for README.md, README.rst, or README.txt and evaluates quality'
-),
-
+...""",
+        "Checks for README.md, README.rst, or README.txt and evaluates quality",
+    ),
     # Testing Features
-    'pytest': (
-        'PyTest testing framework',
-        'Testing',
-        'pytest.ini or pyproject.toml',
+    "pytest": (
+        "PyTest testing framework",
+        "Testing",
+        "pytest.ini or pyproject.toml",
         '''[tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_functions = ["test_*"]
 addopts = "-v --cov=src"''',
-        'Detects pytest.ini, pyproject.toml, or tests/ directory with test files'
+        "Detects pytest.ini, pyproject.toml, or tests/ directory with test files",
     ),
-    'junit': (
-        'JUnit testing framework',
-        'Testing',
-        'pom.xml with JUnit dependency',
-        '''<dependency>
+    "junit": (
+        "JUnit testing framework",
+        "Testing",
+        "pom.xml with JUnit dependency",
+        """<dependency>
   <groupId>org.junit.jupiter</groupId>
   <artifactId>junit-jupiter</artifactId>
   <version>5.9.0</version>
   <scope>test</scope>
-</dependency>''',
-        'Checks for JUnit dependencies in pom.xml or build.gradle'
+</dependency>""",
+        "Checks for JUnit dependencies in pom.xml or build.gradle",
     ),
-    'coverage': (
-        'Code coverage reporting',
-        'Testing',
-        '.coveragerc or pyproject.toml',
-        '''[tool.coverage.run]
+    "coverage": (
+        "Code coverage reporting",
+        "Testing",
+        ".coveragerc or pyproject.toml",
+        """[tool.coverage.run]
 source = ["src"]
 omit = ["*/tests/*"]
 
 [tool.coverage.report]
-exclude_lines = ["pragma: no cover"]''',
-        'Looks for .coveragerc, .coverage, or coverage configuration in pyproject.toml'
+exclude_lines = ["pragma: no cover"]""",
+        "Looks for .coveragerc, .coverage, or coverage configuration in pyproject.toml",
     ),
-
     # Security Features
-    'security-scanning': (
-        'Security vulnerability scanning',
-        'Security',
-        '.github/workflows/security.yml',
-        '''name: Security Scan
+    "security-scanning": (
+        "Security vulnerability scanning",
+        "Security",
+        ".github/workflows/security.yml",
+        """name: Security Scan
 on: [push, pull_request]
 jobs:
   security:
@@ -332,26 +327,32 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run Bandit
-        run: bandit -r src/''',
-        'Detects security scanning in CI/CD or config files like .bandit'
+        run: bandit -r src/""",
+        "Detects security scanning in CI/CD or config files like .bandit",
     ),
-    'secrets-detection': (
-        'Secrets and credentials detection',
-        'Security',
-        '.gitleaks.toml or .gitguardian.yml',
-        '''[allowlist]
+    "secrets-detection": (
+        "Secrets and credentials detection",
+        "Security",
+        ".gitleaks.toml or .gitguardian.yml",
+        """[allowlist]
 description = "Allowed patterns"
-regexes = ['''+"'''"+ r'''^test_'''+''']
+regexes = ["""
+        + "'''"
+        + r"""^test_"""
+        + """]
 
 [[rules]]
 description = "AWS Access Key"
-regex = '''+"'''"+r'''AKIA[0-9A-Z]{16}'''+'''""''',
-        'Checks for gitleaks, git-secrets, or GitGuardian configuration'
+regex = """
+        + "'''"
+        + r"""AKIA[0-9A-Z]{16}"""
+        + '''""''',
+        "Checks for gitleaks, git-secrets, or GitGuardian configuration",
     ),
 }
 
 
-def get_feature_info(feature_name: str) -> Optional[FeatureInfo]:
+def get_feature_info(feature_name: str) -> FeatureInfo | None:
     """
     Get complete information for a specific feature.
 
@@ -376,11 +377,11 @@ def get_feature_info(feature_name: str) -> Optional[FeatureInfo]:
         category=data[1],
         config_file=data[2] if len(data) > 2 else None,
         config_example=data[3] if len(data) > 3 else None,
-        detection_method=data[4] if len(data) > 4 else None
+        detection_method=data[4] if len(data) > 4 else None,
     )
 
 
-def get_features_by_category() -> Dict[str, List[Tuple[str, str]]]:
+def get_features_by_category() -> dict[str, list[tuple[str, str]]]:
     """
     Get features organized by category.
 
@@ -392,7 +393,7 @@ def get_features_by_category() -> Dict[str, List[Tuple[str, str]]]:
         >>> print(features['CI/CD'])
         [('dependabot', 'Dependabot configuration detection'), ...]
     """
-    categories: Dict[str, List[Tuple[str, str]]] = {}
+    categories: dict[str, list[tuple[str, str]]] = {}
 
     for feature_name, feature_data in AVAILABLE_FEATURES.items():
         description = feature_data[0]
@@ -450,9 +451,13 @@ def list_all_features(verbose: bool = False) -> str:
         lines.append("")  # Blank line between categories
 
     # Summary
-    lines.append(f"Total: {len(AVAILABLE_FEATURES)} features across {len(category_order)} categories")
+    lines.append(
+        f"Total: {len(AVAILABLE_FEATURES)} features across {len(category_order)} categories"
+    )
     lines.append("")
-    lines.append("💡 Use --show-feature <name> to see detailed information about a specific feature")
+    lines.append(
+        "💡 Use --show-feature <name> to see detailed information about a specific feature"
+    )
 
     return "\n".join(lines)
 
@@ -502,7 +507,7 @@ def show_feature_details(feature_name: str) -> str:
         lines.append("📋 Configuration Example:")
         lines.append("")
         # Indent example code
-        for line in info.config_example.split('\n'):
+        for line in info.config_example.split("\n"):
             lines.append(f"  {line}")
         lines.append("")
 
@@ -562,7 +567,7 @@ def get_feature_category(feature_name: str) -> str:
     return info.category if info else "Unknown"
 
 
-def get_features_in_category(category: str) -> List[str]:
+def get_features_in_category(category: str) -> list[str]:
     """
     Get all feature names in a specific category.
 
@@ -578,13 +583,12 @@ def get_features_in_category(category: str) -> List[str]:
         ['dependabot', 'github-actions', 'github2gerrit', 'jenkins']
     """
     features = [
-        name for name, feature_data in AVAILABLE_FEATURES.items()
-        if feature_data[1] == category
+        name for name, feature_data in AVAILABLE_FEATURES.items() if feature_data[1] == category
     ]
     return sorted(features)
 
 
-def get_all_categories() -> List[str]:
+def get_all_categories() -> list[str]:
     """
     Get list of all feature categories.
 
@@ -596,11 +600,11 @@ def get_all_categories() -> List[str]:
         >>> print(categories)
         ['Build & Package', 'CI/CD', 'Code Quality', 'Documentation', ...]
     """
-    categories = set(feature_data[1] for feature_data in AVAILABLE_FEATURES.values())
+    categories = {feature_data[1] for feature_data in AVAILABLE_FEATURES.values()}
     return sorted(categories)
 
 
-def search_features(query: str, category: Optional[str] = None) -> List[Tuple[str, str, str]]:
+def search_features(query: str, category: str | None = None) -> list[tuple[str, str, str]]:
     """
     Search for features matching a query string.
 
@@ -632,21 +636,25 @@ def search_features(query: str, category: Optional[str] = None) -> List[Tuple[st
 
         # Search in feature name, description, and config file
         config_file = feature_data[2] if len(feature_data) > 2 else ""
-        if (query_lower in feature_name.lower() or
-            query_lower in description.lower() or
-            (config_file and query_lower in config_file.lower())):
+        if (
+            query_lower in feature_name.lower()
+            or query_lower in description.lower()
+            or (config_file and query_lower in config_file.lower())
+        ):
             results.append((feature_name, description, feature_category))
 
     # Sort by relevance (exact match first, then alphabetically)
-    results.sort(key=lambda x: (
-        not x[0].lower().startswith(query_lower),  # Prefix matches first
-        x[0]  # Then alphabetically
-    ))
+    results.sort(
+        key=lambda x: (
+            not x[0].lower().startswith(query_lower),  # Prefix matches first
+            x[0],  # Then alphabetically
+        )
+    )
 
     return results
 
 
-def format_search_results(query: str, results: List[Tuple[str, str, str]]) -> str:
+def format_search_results(query: str, results: list[tuple[str, str, str]]) -> str:
     """
     Format search results for display.
 
@@ -661,17 +669,14 @@ def format_search_results(query: str, results: List[Tuple[str, str, str]]) -> st
         lines = [
             f"No features found matching '{query}'",
             "",
-            "💡 Tip: Use --list-features to see all available features"
+            "💡 Tip: Use --list-features to see all available features",
         ]
         return "\n".join(lines)
 
-    lines = [
-        f"Found {len(results)} feature(s) matching '{query}':",
-        ""
-    ]
+    lines = [f"Found {len(results)} feature(s) matching '{query}':", ""]
 
     # Group by category
-    by_category: Dict[str, List[Tuple[str, str]]] = {}
+    by_category: dict[str, list[tuple[str, str]]] = {}
     for name, desc, cat in results:
         if cat not in by_category:
             by_category[cat] = []
@@ -734,19 +739,19 @@ def get_category_count() -> int:
 
 
 __all__ = [
-    'AVAILABLE_FEATURES',
-    'FeatureInfo',
-    'get_feature_info',
-    'get_features_by_category',
-    'list_all_features',
-    'show_feature_details',
-    'get_feature_description',
-    'get_feature_category',
-    'get_features_in_category',
-    'get_all_categories',
-    'search_features',
-    'format_search_results',
-    'format_feature_list_compact',
-    'get_feature_count',
-    'get_category_count',
+    "AVAILABLE_FEATURES",
+    "FeatureInfo",
+    "get_feature_info",
+    "get_features_by_category",
+    "list_all_features",
+    "show_feature_details",
+    "get_feature_description",
+    "get_feature_category",
+    "get_features_in_category",
+    "get_all_categories",
+    "search_features",
+    "format_search_results",
+    "format_feature_list_compact",
+    "get_feature_count",
+    "get_category_count",
 ]

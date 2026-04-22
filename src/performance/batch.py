@@ -22,24 +22,25 @@ Example:
     >>> print(f"Success rate: {results.success_rate:.1%}")
 """
 
-import asyncio
-import logging
-import time
-import threading
-from collections import defaultdict, deque
-from dataclasses import dataclass, field
-from datetime import datetime, timedelta
-from enum import Enum
-from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
-from functools import wraps
 import hashlib
 import json
+import logging
+import threading
+import time
+from collections import defaultdict, deque
+from collections.abc import Callable
+from dataclasses import dataclass, field
+from enum import Enum
+from functools import wraps
+from typing import Any
+
 
 logger = logging.getLogger(__name__)
 
 
 class RequestPriority(Enum):
     """Request priority levels."""
+
     LOW = 1
     NORMAL = 2
     HIGH = 3
@@ -48,6 +49,7 @@ class RequestPriority(Enum):
 
 class RetryStrategy(Enum):
     """Retry strategies."""
+
     EXPONENTIAL = "exponential"
     LINEAR = "linear"
     FIXED = "fixed"
@@ -56,6 +58,7 @@ class RetryStrategy(Enum):
 @dataclass
 class RateLimitInfo:
     """Rate limit information."""
+
     limit: int = 5000
     remaining: int = 5000
     reset_time: float = 0.0
@@ -92,10 +95,11 @@ class RateLimitInfo:
 @dataclass
 class APIRequest:
     """API request metadata."""
+
     id: str
     endpoint: str
     method: str = "GET"
-    params: Dict[str, Any] = field(default_factory=dict)
+    params: dict[str, Any] = field(default_factory=dict)
     priority: RequestPriority = RequestPriority.NORMAL
     cost: int = 1
     created_at: float = field(default_factory=time.time)
@@ -119,14 +123,15 @@ class APIRequest:
 @dataclass
 class BatchResult:
     """Batch execution result."""
+
     total_requests: int = 0
     successful: int = 0
     failed: int = 0
     retried: int = 0
     deduplicated: int = 0
     execution_time: float = 0.0
-    results: List[Any] = field(default_factory=list)
-    errors: List[Exception] = field(default_factory=list)
+    results: list[Any] = field(default_factory=list)
+    errors: list[Exception] = field(default_factory=list)
 
     @property
     def success_rate(self) -> float:
@@ -140,7 +145,7 @@ class BatchResult:
         """Calculate failure rate."""
         return 1.0 - self.success_rate
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary."""
         return {
             "total_requests": self.total_requests,
@@ -170,7 +175,7 @@ class RequestQueue:
 
     def __init__(self):
         """Initialize request queue."""
-        self._queues: Dict[RequestPriority, deque] = {
+        self._queues: dict[RequestPriority, deque[APIRequest]] = {
             priority: deque() for priority in RequestPriority
         }
         self._lock = threading.Lock()
@@ -180,7 +185,7 @@ class RequestQueue:
         with self._lock:
             self._queues[request.priority].append(request)
 
-    def dequeue(self) -> Optional[APIRequest]:
+    def dequeue(self) -> APIRequest | None:
         """Get next request from queue (highest priority first)."""
         with self._lock:
             # Check priorities from highest to lowest
@@ -190,7 +195,7 @@ class RequestQueue:
                     return request
             return None
 
-    def peek(self) -> Optional[APIRequest]:
+    def peek(self) -> APIRequest | None:
         """Peek at next request without removing."""
         with self._lock:
             for priority in sorted(RequestPriority, key=lambda p: p.value, reverse=True):
@@ -232,14 +237,16 @@ class RateLimitOptimizer:
             buffer_percentage: Reserve buffer (0.1 = 10%)
             adaptive: Adapt to actual rate limits
         """
-        self.rate_limits: Dict[str, RateLimitInfo] = defaultdict(
+        self.rate_limits: dict[str, RateLimitInfo] = defaultdict(
             lambda: RateLimitInfo(limit=initial_limit, remaining=initial_limit)
         )
         self.buffer_percentage = buffer_percentage
         self.adaptive = adaptive
         self._lock = threading.Lock()
 
-        logger.info(f"Rate limit optimizer initialized: limit={initial_limit}, buffer={buffer_percentage:.1%}")
+        logger.info(
+            f"Rate limit optimizer initialized: limit={initial_limit}, buffer={buffer_percentage:.1%}"
+        )
 
     def can_make_request(
         self,
@@ -316,9 +323,9 @@ class RateLimitOptimizer:
     def update_from_response(
         self,
         endpoint: str = "default",
-        limit: Optional[int] = None,
-        remaining: Optional[int] = None,
-        reset_time: Optional[float] = None,
+        limit: int | None = None,
+        remaining: int | None = None,
+        reset_time: float | None = None,
     ) -> None:
         """
         Update rate limit from API response.
@@ -347,7 +354,7 @@ class RateLimitOptimizer:
         with self._lock:
             return self.rate_limits[endpoint]
 
-    def get_all_info(self) -> Dict[str, RateLimitInfo]:
+    def get_all_info(self) -> dict[str, RateLimitInfo]:
         """Get all rate limit info."""
         with self._lock:
             return dict(self.rate_limits)
@@ -374,7 +381,7 @@ class RequestBatcher:
         self.parallel_requests = parallel_requests
         self.deduplicate = deduplicate
 
-        self._request_cache: Dict[str, Any] = {}
+        self._request_cache: dict[str, Any] = {}
         self._cache_lock = threading.Lock()
 
         logger.info(
@@ -384,8 +391,8 @@ class RequestBatcher:
 
     def batch_requests(
         self,
-        requests: List[APIRequest],
-    ) -> List[List[APIRequest]]:
+        requests: list[APIRequest],
+    ) -> list[list[APIRequest]]:
         """
         Group requests into batches.
 
@@ -400,15 +407,15 @@ class RequestBatcher:
 
         batches = []
         for i in range(0, len(requests), self.batch_size):
-            batch = requests[i:i + self.batch_size]
+            batch = requests[i : i + self.batch_size]
             batches.append(batch)
 
         return batches
 
     def _deduplicate_requests(
         self,
-        requests: List[APIRequest],
-    ) -> List[APIRequest]:
+        requests: list[APIRequest],
+    ) -> list[APIRequest]:
         """Remove duplicate requests."""
         seen_keys = set()
         unique_requests = []
@@ -425,7 +432,7 @@ class RequestBatcher:
 
         return unique_requests
 
-    def get_cached_result(self, request: APIRequest) -> Optional[Any]:
+    def get_cached_result(self, request: APIRequest) -> Any | None:
         """Get cached result for request."""
         if not self.deduplicate:
             return None
@@ -502,7 +509,7 @@ class BatchProcessor:
             Backoff time in seconds
         """
         if self.retry_strategy == RetryStrategy.EXPONENTIAL:
-            backoff = self.initial_backoff * (2 ** retry_count)
+            backoff = self.initial_backoff * (2**retry_count)
         elif self.retry_strategy == RetryStrategy.LINEAR:
             backoff = self.initial_backoff * (retry_count + 1)
         else:  # FIXED
@@ -514,7 +521,7 @@ class BatchProcessor:
         self,
         request: APIRequest,
         executor: Callable[[APIRequest], Any],
-    ) -> Tuple[Optional[Any], Optional[Exception]]:
+    ) -> tuple[Any | None, Exception | None]:
         """
         Execute a single request with retry logic.
 
@@ -535,7 +542,7 @@ class BatchProcessor:
         while request.can_retry():
             try:
                 # Check rate limit
-                wait_time = self.rate_limiter.wait_if_needed(request.endpoint, request.cost)
+                self.rate_limiter.wait_if_needed(request.endpoint, request.cost)
 
                 # Execute request
                 result = executor(request)
@@ -566,7 +573,7 @@ class BatchProcessor:
 
     def process_batch(
         self,
-        requests: List[APIRequest],
+        requests: list[APIRequest],
         executor: Callable[[APIRequest], Any],
     ) -> BatchResult:
         """
@@ -595,10 +602,7 @@ class BatchProcessor:
             from concurrent.futures import ThreadPoolExecutor, as_completed
 
             with ThreadPoolExecutor(max_workers=self.parallel_requests) as pool:
-                futures = {
-                    pool.submit(self.execute_request, req, executor): req
-                    for req in batch
-                }
+                futures = {pool.submit(self.execute_request, req, executor): req for req in batch}
 
                 for future in as_completed(futures):
                     request = futures[future]
@@ -636,9 +640,9 @@ class BatchProcessor:
     def update_rate_limit(
         self,
         endpoint: str = "default",
-        limit: Optional[int] = None,
-        remaining: Optional[int] = None,
-        reset_time: Optional[float] = None,
+        limit: int | None = None,
+        remaining: int | None = None,
+        reset_time: float | None = None,
     ) -> None:
         """Update rate limit information from API response."""
         self.rate_limiter.update_from_response(endpoint, limit, remaining, reset_time)
@@ -664,7 +668,8 @@ def batch_api_calls(
     Returns:
         Decorated function
     """
-    def decorator(func: Callable) -> Callable:
+
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         processor = BatchProcessor(
             batch_size=batch_size,
             parallel_requests=parallel_requests,
@@ -672,7 +677,7 @@ def batch_api_calls(
         )
 
         @wraps(func)
-        def wrapper(requests: List[APIRequest], *args, **kwargs):
+        def wrapper(requests: list[APIRequest], *args, **kwargs):
             def executor(request: APIRequest):
                 return func(request, *args, **kwargs)
 

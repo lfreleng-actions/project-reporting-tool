@@ -119,14 +119,11 @@ def _is_valid_github_org_name(org_name: str) -> bool:
         return False
 
     # Check for valid characters (alphanumeric and hyphen)
-    if not all(c.isalnum() or c == '-' for c in org_name):
+    if not all(c.isalnum() or c == "-" for c in org_name):
         return False
 
     # Check that it doesn't start or end with hyphen
-    if org_name.startswith('-') or org_name.endswith('-'):
-        return False
-
-    return True
+    return not (org_name.startswith("-") or org_name.endswith("-"))
 
 
 def _derive_org_from_path(repos_path: Path) -> str:
@@ -155,10 +152,10 @@ def _derive_org_from_path(repos_path: Path) -> str:
         part_lower = part.lower()
 
         # Look for gerrit.* or git.* patterns
-        if 'gerrit.' in part_lower or 'git.' in part_lower:
+        if "gerrit." in part_lower or "git." in part_lower:
             # Split hostname on dots and extract middle part
             # gerrit.onap.org -> ['gerrit', 'onap', 'org'] -> 'onap'
-            parts = part.split('.')
+            parts = part.split(".")
 
             # Need at least 3 parts: prefix.org.tld
             if len(parts) >= 3:
@@ -194,6 +191,6 @@ def format_source_for_display(source: str) -> str:
     source_map = {
         "environment_variable": "from JSON",
         "auto_derived": "auto/derived",
-        "": "not configured"
+        "": "not configured",
     }
     return source_map.get(source, source)

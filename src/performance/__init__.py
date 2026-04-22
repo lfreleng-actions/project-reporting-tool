@@ -71,94 +71,89 @@ Example:
     >>> print(report.format())
 """
 
-from .profiler import (
-    PerformanceProfiler,
-    OperationTimer,
-    MemoryTracker,
-    ProfileReport,
-    OperationCategory,
-    OperationMetric,
-    AggregatedMetrics,
-    profile_operation,
-)
-
-from .parallel import (
-    ParallelRepositoryProcessor,
-    WorkerPool,
-    ResultAggregator,
-    WorkerConfig,
-    ProcessingResult,
-    AggregatedResults,
-    WorkerType,
-    ProcessingStatus,
-    parallel_map,
-)
-
-from .git_optimizer import (
-    GitOptimizer,
-    ReferenceRepository,
-    ShallowCloneStrategy,
-    GitConfig,
-    GitOperationResult,
-    CloneStrategy,
-    GitOperationType,
-    optimize_git_config_global,
-    estimate_clone_time,
-)
-
-from .cache import (
-    CacheManager,
-    RepositoryCache,
-    GitOperationCache,
-    APIResponseCache,
-    AnalysisResultCache,
-    CacheEntry,
-    CacheStats,
-    CacheType,
-    CacheKey,
-    create_cache_manager,
-)
-
-from .memory import (
-    MemoryOptimizer,
-    LazyLoader,
-    StreamProcessor,
-    MemoryMonitor,
-    MemoryStats,
-    MemorySnapshot,
-    LazyProxy,
-    MemoryContext,
-    MemoryUnit,
-    create_memory_optimizer,
-)
-
 from .batch import (
+    APIRequest,
     BatchProcessor,
+    BatchResult,
+    RateLimitInfo,
     RateLimitOptimizer,
     RequestBatcher,
-    RequestQueue,
-    RateLimitInfo,
-    APIRequest,
-    BatchResult,
     RequestPriority,
+    RequestQueue,
     RetryStrategy,
     batch_api_calls,
     create_batch_processor,
 )
-
+from .cache import (
+    AnalysisResultCache,
+    APIResponseCache,
+    CacheEntry,
+    CacheKey,
+    CacheManager,
+    CacheStats,
+    CacheType,
+    GitOperationCache,
+    RepositoryCache,
+    create_cache_manager,
+)
+from .git_optimizer import (
+    CloneStrategy,
+    GitConfig,
+    GitOperationResult,
+    GitOperationType,
+    GitOptimizer,
+    ReferenceRepository,
+    ShallowCloneStrategy,
+    estimate_clone_time,
+    optimize_git_config_global,
+)
+from .memory import (
+    LazyLoader,
+    LazyProxy,
+    MemoryContext,
+    MemoryMonitor,
+    MemoryOptimizer,
+    MemorySnapshot,
+    MemoryStats,
+    MemoryUnit,
+    StreamProcessor,
+    create_memory_optimizer,
+)
+from .parallel import (
+    AggregatedResults,
+    ParallelRepositoryProcessor,
+    ProcessingResult,
+    ProcessingStatus,
+    ResultAggregator,
+    WorkerConfig,
+    WorkerPool,
+    WorkerType,
+    parallel_map,
+)
+from .profiler import (
+    AggregatedMetrics,
+    MemoryTracker,
+    OperationCategory,
+    OperationMetric,
+    OperationTimer,
+    PerformanceProfiler,
+    ProfileReport,
+    profile_operation,
+)
 from .reporter import (
-    PerformanceReporter,
-    MetricsCollector,
-    MetricsVisualizer,
-    PerformanceReport,
-    Metric,
-    MetricTrend,
     Alert,
     AlertRule,
-    MetricType,
     AlertSeverity,
+    Metric,
+    MetricsCollector,
+    MetricsVisualizer,
+    MetricTrend,
+    MetricType,
+    PerformanceReport,
+    PerformanceReporter,
     create_performance_reporter,
 )
+
 
 __all__ = [
     # Profiling classes
@@ -166,24 +161,20 @@ __all__ = [
     "OperationTimer",
     "MemoryTracker",
     "ProfileReport",
-
     # Profiling data classes
     "OperationCategory",
     "OperationMetric",
     "AggregatedMetrics",
-
     # Parallel processing classes
     "ParallelRepositoryProcessor",
     "WorkerPool",
     "ResultAggregator",
-
     # Parallel processing data classes
     "WorkerConfig",
     "ProcessingResult",
     "AggregatedResults",
     "WorkerType",
     "ProcessingStatus",
-
     # Git optimization classes
     "GitOptimizer",
     "ReferenceRepository",
@@ -192,51 +183,43 @@ __all__ = [
     "GitOperationResult",
     "CloneStrategy",
     "GitOperationType",
-
     # Caching classes
     "CacheManager",
     "RepositoryCache",
     "GitOperationCache",
     "APIResponseCache",
     "AnalysisResultCache",
-
     # Caching data classes
     "CacheEntry",
     "CacheStats",
     "CacheType",
     "CacheKey",
-
     # Memory optimization classes
     "MemoryOptimizer",
     "LazyLoader",
     "StreamProcessor",
     "MemoryMonitor",
-
     # Memory optimization data classes
     "MemoryStats",
     "MemorySnapshot",
     "LazyProxy",
     "MemoryContext",
     "MemoryUnit",
-
     # Batch processing classes
     "BatchProcessor",
     "RateLimitOptimizer",
     "RequestBatcher",
     "RequestQueue",
-
     # Batch processing data classes
     "RateLimitInfo",
     "APIRequest",
     "BatchResult",
     "RequestPriority",
     "RetryStrategy",
-
     # Reporting classes
     "PerformanceReporter",
     "MetricsCollector",
     "MetricsVisualizer",
-
     # Reporting data classes
     "PerformanceReport",
     "Metric",
@@ -245,7 +228,6 @@ __all__ = [
     "AlertRule",
     "MetricType",
     "AlertSeverity",
-
     # Utility functions
     "profile_operation",
     "parallel_map",

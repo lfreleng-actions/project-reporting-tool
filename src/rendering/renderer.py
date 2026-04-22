@@ -13,15 +13,17 @@ Phase: 8 - Renderer Modernization
 import logging
 import shutil
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
+
 
 try:
     import jinja2
 except ImportError:
     raise ImportError(
         "Jinja2 is required for template rendering. "
-        "Install it with: pip install Jinja2>=3.1.0"
-    )
+        "Install it with: pip install 'Jinja2>=3.1.6' "
+        "(see the project's pyproject.toml for the authoritative version pin)."
+    ) from None
 
 from .context import RenderContext
 from .formatters import get_template_filters
@@ -56,7 +58,7 @@ class TemplateRenderer:
         # Create Jinja2 environment
         self.env = jinja2.Environment(
             loader=jinja2.FileSystemLoader(str(template_dir)),
-            autoescape=jinja2.select_autoescape(['html', 'xml']),
+            autoescape=jinja2.select_autoescape(["html", "xml"]),
             trim_blocks=True,
             lstrip_blocks=True,
             undefined=jinja2.StrictUndefined,  # Fail on undefined variables
@@ -71,7 +73,7 @@ class TemplateRenderer:
         for name, func in filters.items():
             self.env.filters[name] = func
 
-    def render(self, template_name: str, context: Dict[str, Any]) -> str:
+    def render(self, template_name: str, context: dict[str, Any]) -> str:
         """
         Render a template with context.
 
@@ -97,15 +99,12 @@ class TemplateRenderer:
             ) from e
         except jinja2.TemplateSyntaxError as e:
             raise ValueError(
-                f"Template syntax error in {template_name} "
-                f"at line {e.lineno}: {e.message}"
+                f"Template syntax error in {template_name} at line {e.lineno}: {e.message}"
             ) from e
         except jinja2.UndefinedError as e:
-            raise ValueError(
-                f"Undefined variable in template {template_name}: {e.message}"
-            ) from e
+            raise ValueError(f"Undefined variable in template {template_name}: {e.message}") from e
 
-    def render_string(self, template_string: str, context: Dict[str, Any]) -> str:
+    def render_string(self, template_string: str, context: dict[str, Any]) -> str:
         """
         Render a template from string (for testing or simple templates).
 
@@ -143,7 +142,7 @@ class ModernReportRenderer:
         >>> html = renderer.render_html(data)
     """
 
-    def __init__(self, config: Dict[str, Any], logger: logging.Logger):
+    def __init__(self, config: dict[str, Any], logger: logging.Logger):
         """
         Initialize modern report renderer.
 
@@ -170,7 +169,7 @@ class ModernReportRenderer:
 
         self.logger.info(f"Initialized ModernReportRenderer with theme: {theme}")
 
-    def render_markdown(self, data: Dict[str, Any]) -> str:
+    def render_markdown(self, data: dict[str, Any]) -> str:
         """
         Render Markdown report from data.
 
@@ -194,7 +193,7 @@ class ModernReportRenderer:
             self.logger.error(f"Failed to render Markdown: {e}")
             raise
 
-    def render_html(self, data: Dict[str, Any]) -> str:
+    def render_html(self, data: dict[str, Any]) -> str:
         """
         Render HTML report from data.
 
@@ -218,7 +217,7 @@ class ModernReportRenderer:
             self.logger.error(f"Failed to render HTML: {e}")
             raise
 
-    def render_markdown_report(self, data: Dict[str, Any], output_path: Path) -> None:
+    def render_markdown_report(self, data: dict[str, Any], output_path: Path) -> None:
         """
         Render Markdown report and write to file.
 
@@ -231,12 +230,12 @@ class ModernReportRenderer:
         markdown = self.render_markdown(data)
 
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             f.write(markdown)
 
         self.logger.info(f"Markdown report written to {output_path}")
 
-    def render_html_report(self, data: Dict[str, Any], output_path: Path) -> None:
+    def render_html_report(self, data: dict[str, Any], output_path: Path) -> None:
         """
         Render HTML report and write to file.
 
@@ -249,7 +248,7 @@ class ModernReportRenderer:
         html = self.render_html(data)
 
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             f.write(html)
 
         self.logger.info(f"HTML report written to {output_path}")
@@ -257,7 +256,7 @@ class ModernReportRenderer:
         # Copy CSS file to output directory for standalone HTML
         self._copy_theme_css(output_path.parent)
 
-    def render_json_report(self, data: Dict[str, Any], output_path: Path) -> None:
+    def render_json_report(self, data: dict[str, Any], output_path: Path) -> None:
         """
         Render JSON report and write to file.
 
@@ -270,7 +269,7 @@ class ModernReportRenderer:
         import json
 
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2, default=str, sort_keys=True)
 
         self.logger.info(f"JSON report written to {output_path}")

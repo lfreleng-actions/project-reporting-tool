@@ -14,14 +14,14 @@ Phase: 8 - Renderer Modernization
 
 import datetime
 import re
-from typing import Optional, Union, List, Any
+from typing import Any
 
 
 # Unknown age sentinel (from util.formatting)
-UNKNOWN_AGE = float('inf')
+UNKNOWN_AGE = float("inf")
 
 
-def format_number(value: Union[int, float, None]) -> str:
+def format_number(value: int | float | None) -> str:
     """
     Format a number with K/M/B suffixes for readability.
 
@@ -57,7 +57,7 @@ def format_number(value: Union[int, float, None]) -> str:
         return str(int(value))
 
 
-def format_number_raw(value: Union[int, float, None]) -> str:
+def format_number_raw(value: int | float | None) -> str:
     """
     Format a number without abbreviation (raw number with comma separators).
 
@@ -84,7 +84,7 @@ def format_number_raw(value: Union[int, float, None]) -> str:
     return f"{int(value):,}"
 
 
-def format_age(days: Union[int, float, None]) -> str:
+def format_age(days: int | float | None) -> str:
     """
     Format age in days as human-readable string.
 
@@ -126,7 +126,7 @@ def format_age(days: Union[int, float, None]) -> str:
         return f"{years}y"
 
 
-def format_loc(value: Union[int, float, None]) -> str:
+def format_loc(value: int | float | None) -> str:
     """
     Format Lines of Code with '+' prefix for positive numbers.
 
@@ -156,7 +156,9 @@ def format_loc(value: Union[int, float, None]) -> str:
         return str(num_value)
 
 
-def format_percentage(value: Union[int, float, None], total: Union[int, float, None] = None, decimals: int = 1) -> str:
+def format_percentage(
+    value: int | float | None, total: int | float | None = None, decimals: int = 1
+) -> str:
     """
     Format a number as a percentage.
 
@@ -219,22 +221,23 @@ def slugify(text: str) -> str:
     text = text.lower()
 
     # Replace spaces and underscores with hyphens
-    text = re.sub(r'[\s_]+', '-', text)
+    text = re.sub(r"[\s_]+", "-", text)
 
     # Remove non-alphanumeric characters (except hyphens)
-    text = re.sub(r'[^a-z0-9-]', '', text)
+    text = re.sub(r"[^a-z0-9-]", "", text)
 
     # Remove duplicate hyphens
-    text = re.sub(r'-+', '-', text)
+    text = re.sub(r"-+", "-", text)
 
     # Strip leading/trailing hyphens
-    text = text.strip('-')
+    text = text.strip("-")
 
     return text
 
 
-def format_date(date: Optional[Union[str, datetime.datetime, datetime.date]],
-                format_str: str = "%Y-%m-%d") -> str:
+def format_date(
+    date: str | datetime.datetime | datetime.date | None, format_str: str = "%Y-%m-%d"
+) -> str:
     """
     Format a date object or ISO string as a formatted date string.
 
@@ -257,8 +260,8 @@ def format_date(date: Optional[Union[str, datetime.datetime, datetime.date]],
     if isinstance(date, str):
         # Try to parse ISO format
         try:
-            if 'T' in date:
-                parsed_date = datetime.datetime.fromisoformat(date.replace('Z', '+00:00'))
+            if "T" in date:
+                parsed_date = datetime.datetime.fromisoformat(date.replace("Z", "+00:00"))
                 return parsed_date.strftime(format_str)
             else:
                 parsed_date = datetime.datetime.strptime(date, "%Y-%m-%d")
@@ -272,8 +275,9 @@ def format_date(date: Optional[Union[str, datetime.datetime, datetime.date]],
     return str(date)  # type: ignore[unreachable]
 
 
-def format_timestamp(timestamp: Optional[Union[str, datetime.datetime]],
-                     format_str: str = "%Y-%m-%d %H:%M:%S") -> str:
+def format_timestamp(
+    timestamp: str | datetime.datetime | None, format_str: str = "%Y-%m-%d %H:%M:%S"
+) -> str:
     """
     Format a timestamp with date and time.
 
@@ -310,10 +314,10 @@ def truncate(text: str, length: int = 50, suffix: str = "...") -> str:
     if not text or len(text) <= length:
         return text
 
-    return text[:length - len(suffix)] + suffix
+    return text[: length - len(suffix)] + suffix
 
 
-def format_list(items: List[Any], separator: str = ", ", final_separator: str = " and ") -> str:
+def format_list(items: list[Any], separator: str = ", ", final_separator: str = " and ") -> str:
     """
     Format a list as a grammatically correct string.
 
@@ -336,7 +340,7 @@ def format_list(items: List[Any], separator: str = ", ", final_separator: str = 
     if not items:
         return ""
 
-    str_items: List[str] = [str(item) for item in items]
+    str_items: list[str] = [str(item) for item in items]
 
     if len(str_items) == 1:
         return str_items[0]
@@ -346,7 +350,7 @@ def format_list(items: List[Any], separator: str = ", ", final_separator: str = 
         return f"{separator.join(str_items[:-1])}{final_separator}{str_items[-1]}"
 
 
-def format_bytes(bytes_value: Union[int, float, None]) -> str:
+def format_bytes(bytes_value: int | float | None) -> str:
     """
     Format bytes as human-readable size.
 
@@ -369,7 +373,7 @@ def format_bytes(bytes_value: Union[int, float, None]) -> str:
 
     bytes_value = float(bytes_value)
 
-    for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
+    for unit in ["B", "KB", "MB", "GB", "TB"]:
         if abs(bytes_value) < 1024.0:
             return f"{bytes_value:.1f} {unit}"
         bytes_value /= 1024.0
@@ -377,7 +381,7 @@ def format_bytes(bytes_value: Union[int, float, None]) -> str:
     return f"{bytes_value:.1f} PB"
 
 
-def pluralize(count: Union[int, float, None], singular: str = "", plural: str = "s") -> str:
+def pluralize(count: int | float | None, singular: str = "", plural: str = "s") -> str:
     """
     Return singular or plural form based on count.
 
@@ -430,25 +434,25 @@ def format_feature_name(name: str) -> str:
 
     # Special cases for known feature names
     special_cases = {
-        'dependabot': 'Dependabot',
-        'pre_commit': 'Pre-commit',
-        'readthedocs': 'ReadTheDocs',
-        'gitreview': '.gitreview',
-        'g2g': 'G2G',
-        'github2gerrit_workflow': 'GitHub2Gerrit',
-        'sonatype_config': 'Sonatype Config',
-        'project_types': 'Type',
-        'workflows': 'Workflows',
+        "dependabot": "Dependabot",
+        "pre_commit": "Pre-commit",
+        "readthedocs": "ReadTheDocs",
+        "gitreview": ".gitreview",
+        "g2g": "G2G",
+        "github2gerrit_workflow": "GitHub2Gerrit",
+        "sonatype_config": "Sonatype Config",
+        "project_types": "Type",
+        "workflows": "Workflows",
     }
 
     if name.lower() in special_cases:
         return special_cases[name.lower()]
 
     # Default: Convert snake_case to Title Case
-    return ' '.join(word.capitalize() for word in name.split('_'))
+    return " ".join(word.capitalize() for word in name.split("_"))
 
 
-def status_emoji(status: Optional[str]) -> str:
+def status_emoji(status: str | None) -> str:
     """
     Map repository activity status to emoji.
 
@@ -471,19 +475,19 @@ def status_emoji(status: Optional[str]) -> str:
         '❓'
     """
     if not status:
-        return '❓'
+        return "❓"
 
     status_map = {
-        'current': '✅',
-        'active': '☑️',
-        'inactive': '🛑',
+        "current": "✅",
+        "active": "☑️",
+        "inactive": "🛑",
     }
 
-    return status_map.get(status.lower(), '❓')
+    return status_map.get(status.lower(), "❓")
 
 
 # Jinja2 filter registration helper
-def get_template_filters() -> dict:
+def get_template_filters() -> dict[str, Any]:
     """
     Get dictionary of all formatters for Jinja2 filter registration.
 
@@ -491,18 +495,18 @@ def get_template_filters() -> dict:
         Dictionary mapping filter names to functions
     """
     return {
-        'format_number': format_number,
-        'format_number_raw': format_number_raw,
-        'format_loc': format_loc,
-        'format_age': format_age,
-        'format_percentage': format_percentage,
-        'slugify': slugify,
-        'format_date': format_date,
-        'format_timestamp': format_timestamp,
-        'truncate': truncate,
-        'format_list': format_list,
-        'format_bytes': format_bytes,
-        'pluralize': pluralize,
-        'format_feature_name': format_feature_name,
-        'status_emoji': status_emoji,
+        "format_number": format_number,
+        "format_number_raw": format_number_raw,
+        "format_loc": format_loc,
+        "format_age": format_age,
+        "format_percentage": format_percentage,
+        "slugify": slugify,
+        "format_date": format_date,
+        "format_timestamp": format_timestamp,
+        "truncate": truncate,
+        "format_list": format_list,
+        "format_bytes": format_bytes,
+        "pluralize": pluralize,
+        "format_feature_name": format_feature_name,
+        "status_emoji": status_emoji,
     }

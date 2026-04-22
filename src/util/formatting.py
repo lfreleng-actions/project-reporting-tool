@@ -11,7 +11,7 @@ Extracted from generate_reports.py as part of Phase 1 refactoring.
 """
 
 from datetime import datetime, timedelta
-from typing import Optional, Union
+from typing import Any
 
 
 # Sentinel value for unknown age
@@ -19,7 +19,7 @@ from typing import Optional, Union
 UNKNOWN_AGE = 999999
 
 
-def format_number(value: Union[int, float], signed: bool = False) -> str:
+def format_number(value: int | float, signed: bool = False) -> str:
     """
     Format numbers with K/M/B abbreviation.
 
@@ -71,7 +71,7 @@ def format_number(value: Union[int, float], signed: bool = False) -> str:
     return formatted
 
 
-def format_age(days: Optional[int]) -> str:
+def format_age(days: int | None) -> str:
     """
     Format age in days to actual date.
 
@@ -139,7 +139,7 @@ def slugify(text: str) -> str:
 
 # Backwards compatibility aliases
 # These can be removed in a future phase once all call sites are updated
-def _format_number_legacy(value: Union[int, float], config: dict) -> str:
+def _format_number_legacy(value: int | float, _config: dict[str, Any]) -> str:
     """
     Legacy format_number with config parameter.
 

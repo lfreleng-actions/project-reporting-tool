@@ -9,7 +9,7 @@ including detected workflow files and build configurations.
 """
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 
 @dataclass
@@ -39,13 +39,13 @@ class WorkflowStatus:
     has_gitlab_ci: bool = False
 
     # Detected files
-    workflow_files: List[str] = field(default_factory=list)
+    workflow_files: list[str] = field(default_factory=list)
 
     # Primary CI system
-    primary_ci_system: Optional[str] = None
+    primary_ci_system: str | None = None
 
     # Additional metadata
-    additional_metadata: Dict[str, Any] = field(default_factory=dict)
+    additional_metadata: dict[str, Any] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         """Validate workflow status after initialization."""
@@ -68,17 +68,17 @@ class WorkflowStatus:
         # Auto-detect primary CI if not set but systems detected
         if self.primary_ci_system is None:
             if self.has_github_actions:
-                object.__setattr__(self, 'primary_ci_system', 'github_actions')
+                object.__setattr__(self, "primary_ci_system", "github_actions")
             elif self.has_jenkins:
-                object.__setattr__(self, 'primary_ci_system', 'jenkins')
+                object.__setattr__(self, "primary_ci_system", "jenkins")
             elif self.has_circleci:
-                object.__setattr__(self, 'primary_ci_system', 'circleci')
+                object.__setattr__(self, "primary_ci_system", "circleci")
             elif self.has_travis:
-                object.__setattr__(self, 'primary_ci_system', 'travis')
+                object.__setattr__(self, "primary_ci_system", "travis")
             elif self.has_gitlab_ci:
-                object.__setattr__(self, 'primary_ci_system', 'gitlab_ci')
+                object.__setattr__(self, "primary_ci_system", "gitlab_ci")
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """
         Convert to dictionary for JSON serialization.
 
@@ -87,7 +87,7 @@ class WorkflowStatus:
         Returns:
             Dictionary representation of workflow status.
         """
-        result: Dict[str, Any] = {
+        result: dict[str, Any] = {
             "has_github_actions": self.has_github_actions,
             "has_jenkins": self.has_jenkins,
             "has_circleci": self.has_circleci,
@@ -107,7 +107,7 @@ class WorkflowStatus:
         return result
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "WorkflowStatus":
+    def from_dict(cls, data: dict[str, Any]) -> "WorkflowStatus":
         """
         Create WorkflowStatus from legacy dictionary format.
 
@@ -144,20 +144,22 @@ class WorkflowStatus:
     @property
     def ci_system_count(self) -> int:
         """Get count of detected CI/CD systems."""
-        return sum([
-            self.has_github_actions,
-            self.has_jenkins,
-            self.has_circleci,
-            self.has_travis,
-            self.has_gitlab_ci,
-        ])
+        return sum(
+            [
+                self.has_github_actions,
+                self.has_jenkins,
+                self.has_circleci,
+                self.has_travis,
+                self.has_gitlab_ci,
+            ]
+        )
 
     @property
     def has_multiple_ci_systems(self) -> bool:
         """Check if multiple CI/CD systems are configured."""
         return self.ci_system_count > 1
 
-    def get_detected_systems(self) -> List[str]:
+    def get_detected_systems(self) -> list[str]:
         """
         Get list of all detected CI/CD systems.
 

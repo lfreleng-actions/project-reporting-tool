@@ -18,10 +18,11 @@ Features:
 """
 
 import os
-import sys
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
+
 import yaml
+
 
 # =============================================================================
 # CONFIGURATION TEMPLATES
@@ -151,7 +152,7 @@ FULL_TEMPLATE = {
 # =============================================================================
 
 
-def prompt(question: str, default: Optional[str] = None) -> str:
+def prompt(question: str, default: str | None = None) -> str:
     """
     Prompt user for input with optional default.
 
@@ -162,10 +163,7 @@ def prompt(question: str, default: Optional[str] = None) -> str:
     Returns:
         User's answer or default
     """
-    if default:
-        prompt_text = f"{question} [{default}]: "
-    else:
-        prompt_text = f"{question}: "
+    prompt_text = f"{question} [{default}]: " if default else f"{question}: "
 
     answer = input(prompt_text).strip()
     return answer if answer else (default or "")
@@ -191,9 +189,7 @@ def confirm(question: str, default: bool = True) -> bool:
     return answer in ("y", "yes", "true", "1")
 
 
-def select_option(
-    question: str, options: List[Tuple[str, str]], default: int = 0
-) -> str:
+def select_option(question: str, options: list[tuple[str, str]], default: int = 0) -> str:
     """
     Present multiple choice selection.
 
@@ -206,7 +202,7 @@ def select_option(
         Selected value
     """
     print(f"\n{question}")
-    for i, (value, description) in enumerate(options, 1):
+    for i, (_value, description) in enumerate(options, 1):
         marker = "→" if i - 1 == default else " "
         print(f"  {marker} {i}. {description}")
 
@@ -263,10 +259,10 @@ class ConfigurationWizard:
 
     def __init__(self):
         """Initialize wizard."""
-        self.config: Dict[str, Any] = {}
+        self.config: dict[str, Any] = {}
         self.template_type: str = "standard"
 
-    def run(self, output_path: Optional[str] = None) -> str:
+    def run(self, output_path: str | None = None) -> str:
         """
         Run the interactive wizard.
 
@@ -504,13 +500,14 @@ class ConfigurationWizard:
                     features["documentation"][key]["enabled"] = False
 
         # Build/Package (full only)
-        if self.template_type == "full":
-            if confirm("Detect build/package systems (Maven, npm, pip)?", True):
-                if "build_package" not in features:
-                    features["build_package"] = {}
-                features["build_package"]["maven"] = {"enabled": True}
-                features["build_package"]["npm"] = {"enabled": True}
-                features["build_package"]["pip"] = {"enabled": True}
+        if self.template_type == "full" and confirm(
+            "Detect build/package systems (Maven, npm, pip)?", True
+        ):
+            if "build_package" not in features:
+                features["build_package"] = {}
+            features["build_package"]["maven"] = {"enabled": True}
+            features["build_package"]["npm"] = {"enabled": True}
+            features["build_package"]["pip"] = {"enabled": True}
 
         self.config["features"] = features
         print_success("Feature detection configured")
@@ -553,7 +550,7 @@ class ConfigurationWizard:
         self.config["performance"] = performance
         print_success("Performance settings configured")
 
-    def _save_configuration(self, output_path: Optional[str] = None) -> str:
+    def _save_configuration(self, output_path: str | None = None) -> str:
         """
         Save configuration to file.
 
@@ -568,9 +565,7 @@ class ConfigurationWizard:
         # Determine output path
         if not output_path:
             default_path = f"config/{self.config['project']}.yaml"
-            output_path = prompt(
-                "Configuration file path", default_path
-            )
+            output_path = prompt("Configuration file path", default_path)
 
         # Create parent directory if needed
         config_path = Path(output_path)
@@ -605,7 +600,7 @@ class ConfigurationWizard:
         print("3. Generate your first report:")
         print(f"   python generate_reports.py --project {self.config['project']} \\")
         print(f"     --config {config_path} \\")
-        print(f"     --repos-path /path/to/repositories\n")
+        print("     --repos-path /path/to/repositories\n")
 
         print("For more help:")
         print("  - Quick start guide: docs/QUICK_START.md")
@@ -622,7 +617,7 @@ class ConfigurationWizard:
 # =============================================================================
 
 
-def run_wizard(output_path: Optional[str] = None) -> str:
+def run_wizard(output_path: str | None = None) -> str:
     """
     Run the interactive configuration wizard.
 
@@ -639,7 +634,7 @@ def run_wizard(output_path: Optional[str] = None) -> str:
 def create_config_from_template(
     project: str,
     template: str = "standard",
-    output_path: Optional[str] = None,
+    output_path: str | None = None,
 ) -> str:
     """
     Create configuration file from template without interactive prompts.

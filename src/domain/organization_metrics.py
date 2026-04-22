@@ -9,7 +9,7 @@ including contributor counts, commit totals, and LOC changes across repositories
 """
 
 from dataclasses import dataclass, field
-from typing import Any, Dict
+from typing import Any
 
 
 @dataclass
@@ -37,11 +37,11 @@ class OrganizationMetrics:
     contributor_count: int = 0
 
     # Time-windowed metrics
-    commits: Dict[str, int] = field(default_factory=dict)
-    lines_added: Dict[str, int] = field(default_factory=dict)
-    lines_removed: Dict[str, int] = field(default_factory=dict)
-    lines_net: Dict[str, int] = field(default_factory=dict)
-    repositories_count: Dict[str, int] = field(default_factory=dict)
+    commits: dict[str, int] = field(default_factory=dict)
+    lines_added: dict[str, int] = field(default_factory=dict)
+    lines_removed: dict[str, int] = field(default_factory=dict)
+    lines_net: dict[str, int] = field(default_factory=dict)
+    repositories_count: dict[str, int] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         """Validate organization metrics after initialization."""
@@ -57,21 +57,15 @@ class OrganizationMetrics:
 
         for window, count in self.commits.items():
             if count < 0:
-                raise ValueError(
-                    f"commits['{window}'] must be non-negative, got {count}"
-                )
+                raise ValueError(f"commits['{window}'] must be non-negative, got {count}")
 
         for window, count in self.lines_added.items():
             if count < 0:
-                raise ValueError(
-                    f"lines_added['{window}'] must be non-negative, got {count}"
-                )
+                raise ValueError(f"lines_added['{window}'] must be non-negative, got {count}")
 
         for window, count in self.lines_removed.items():
             if count < 0:
-                raise ValueError(
-                    f"lines_removed['{window}'] must be non-negative, got {count}"
-                )
+                raise ValueError(f"lines_removed['{window}'] must be non-negative, got {count}")
 
         for window, count in self.repositories_count.items():
             if count < 0:
@@ -80,7 +74,7 @@ class OrganizationMetrics:
                 )
 
         # Validate consistency: for each window, net = added - removed
-        for window in self.commits.keys():
+        for window in self.commits:
             added = self.lines_added.get(window, 0)
             removed = self.lines_removed.get(window, 0)
             net = self.lines_net.get(window, 0)
@@ -92,7 +86,7 @@ class OrganizationMetrics:
                     f"lines_added ({added}) - lines_removed ({removed}) = {expected_net}"
                 )
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """
         Convert to dictionary for JSON serialization.
 
@@ -112,7 +106,7 @@ class OrganizationMetrics:
         }
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "OrganizationMetrics":
+    def from_dict(cls, data: dict[str, Any]) -> "OrganizationMetrics":
         """
         Create OrganizationMetrics from legacy dictionary format.
 

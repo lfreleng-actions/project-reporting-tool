@@ -10,12 +10,13 @@ providing project metadata and committer information for reporting.
 
 import logging
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from domain.info_yaml import LifecycleSummary, ProjectInfo
 from lf_releng_project_reporting.collectors.base import BaseCollector
 from lf_releng_project_reporting.collectors.info_yaml.enricher import InfoYamlEnricher
 from lf_releng_project_reporting.collectors.info_yaml.parser import INFOYamlParser
+
 
 logger = logging.getLogger(__name__)
 
@@ -41,7 +42,7 @@ class INFOYamlCollector(BaseCollector):
         cache_ttl: Cache time-to-live in seconds (default: 3600)
     """
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: dict[str, Any]):
         """
         Initialize the INFO.yaml collector.
 
@@ -82,18 +83,18 @@ class INFOYamlCollector(BaseCollector):
         self.cache_ttl = self.info_config.get("cache_ttl", 3600)
 
         # Internal state
-        self.info_master_path: Optional[Path] = None
-        self.parser: Optional[INFOYamlParser] = None
-        self.enricher: Optional[InfoYamlEnricher] = None
-        self.projects: List[ProjectInfo] = []
-        self._cache: Dict[str, Any] = {}
+        self.info_master_path: Path | None = None
+        self.parser: INFOYamlParser | None = None
+        self.enricher: InfoYamlEnricher | None = None
+        self.projects: list[ProjectInfo] = []
+        self._cache: dict[str, Any] = {}
 
         self.logger.info("INFOYamlCollector initialized")
         self.logger.debug(f"Activity windows: {self.activity_windows}")
         self.logger.debug(f"URL validation: {self.validate_urls}")
         self.logger.debug(f"Disable archived: {self.disable_archived}")
 
-    def collect(self, source: Path, **kwargs) -> Dict[str, Any]:
+    def collect(self, source: Path, **kwargs) -> dict[str, Any]:
         """
         Collect INFO.yaml data from the info-master repository.
 
@@ -162,7 +163,9 @@ class INFOYamlCollector(BaseCollector):
         # Enrich with Git data if provided
         git_metrics = kwargs.get("git_metrics", [])
         if git_metrics and self.enricher:
-            self.logger.info(f"Enriching projects with Git data from {len(git_metrics)} repositories")
+            self.logger.info(
+                f"Enriching projects with Git data from {len(git_metrics)} repositories"
+            )
             filtered_projects = self.enricher.enrich_projects(filtered_projects, git_metrics)
 
             # Get enrichment statistics
@@ -176,7 +179,7 @@ class INFOYamlCollector(BaseCollector):
         lifecycle_summary = self._generate_lifecycle_summary(filtered_projects)
 
         # Get unique servers
-        servers = sorted(set(p.gerrit_server for p in filtered_projects))
+        servers = sorted({p.gerrit_server for p in filtered_projects})
 
         # Build result
         result = {
@@ -189,9 +192,7 @@ class INFOYamlCollector(BaseCollector):
 
         return result
 
-    def collect_for_server(
-        self, source: Path, gerrit_server: str, **kwargs
-    ) -> Dict[str, Any]:
+    def collect_for_server(self, source: Path, gerrit_server: str, **kwargs) -> dict[str, Any]:
         """
         Collect INFO.yaml data for a specific Gerrit server.
 
@@ -204,7 +205,7 @@ class INFOYamlCollector(BaseCollector):
         """
         return self.collect(source, gerrit_server=gerrit_server, **kwargs)
 
-    def get_project_by_path(self, project_path: str) -> Optional[ProjectInfo]:
+    def get_project_by_path(self, project_path: str) -> ProjectInfo | None:
         """
         Get a specific project by its path.
 
@@ -219,7 +220,7 @@ class INFOYamlCollector(BaseCollector):
                 return project
         return None
 
-    def get_projects_by_server(self, gerrit_server: str) -> List[ProjectInfo]:
+    def get_projects_by_server(self, gerrit_server: str) -> list[ProjectInfo]:
         """
         Get all projects for a specific Gerrit server.
 
@@ -232,8 +233,8 @@ class INFOYamlCollector(BaseCollector):
         return [p for p in self.projects if p.gerrit_server == gerrit_server]
 
     def get_lifecycle_summary(
-        self, projects: Optional[List[ProjectInfo]] = None
-    ) -> List[LifecycleSummary]:
+        self, projects: list[ProjectInfo] | None = None
+    ) -> list[LifecycleSummary]:
         """
         Generate lifecycle state summary statistics.
 
@@ -278,16 +279,14 @@ class INFOYamlCollector(BaseCollector):
 
         # Fall back to source
         self.info_master_path = source
-        self.logger.warning(
-            f"Could not determine info-master path, using source: {source}"
-        )
+        self.logger.warning(f"Could not determine info-master path, using source: {source}")
 
     def _apply_filters(
         self,
-        projects: List[ProjectInfo],
-        gerrit_server: Optional[str] = None,
+        projects: list[ProjectInfo],
+        gerrit_server: str | None = None,
         include_archived: bool = False,
-    ) -> List[ProjectInfo]:
+    ) -> list[ProjectInfo]:
         """
         Apply filters to project list.
 
@@ -304,9 +303,7 @@ class INFOYamlCollector(BaseCollector):
         # Filter by Gerrit server
         if gerrit_server:
             filtered = [p for p in filtered if p.gerrit_server == gerrit_server]
-            self.logger.debug(
-                f"Filtered by server '{gerrit_server}': {len(filtered)} projects"
-            )
+            self.logger.debug(f"Filtered by server '{gerrit_server}': {len(filtered)} projects")
 
         # Filter out archived projects
         if not include_archived:
@@ -318,9 +315,7 @@ class INFOYamlCollector(BaseCollector):
 
         return filtered
 
-    def _generate_lifecycle_summary(
-        self, projects: List[ProjectInfo]
-    ) -> List[LifecycleSummary]:
+    def _generate_lifecycle_summary(self, projects: list[ProjectInfo]) -> list[LifecycleSummary]:
         """
         Generate lifecycle state summary statistics.
 
@@ -334,7 +329,7 @@ class INFOYamlCollector(BaseCollector):
             return []
 
         # Count projects by lifecycle state
-        state_counts: Dict[str, int] = {}
+        state_counts: dict[str, int] = {}
         for project in projects:
             state = project.lifecycle_state
             state_counts[state] = state_counts.get(state, 0) + 1
@@ -357,7 +352,7 @@ class INFOYamlCollector(BaseCollector):
 
         return summaries
 
-    def _empty_result(self) -> Dict[str, Any]:
+    def _empty_result(self) -> dict[str, Any]:
         """
         Return empty result structure.
 
@@ -381,7 +376,7 @@ class INFOYamlCollector(BaseCollector):
         """
         return bool(self.info_config.get("enabled", True))
 
-    def get_enrichment_statistics(self) -> Optional[Dict[str, Any]]:
+    def get_enrichment_statistics(self) -> dict[str, Any] | None:
         """
         Get enrichment statistics for the last collection.
 
@@ -400,7 +395,7 @@ class INFOYamlCollector(BaseCollector):
             self.enricher.clear_url_cache()
             self.logger.debug("URL validation cache cleared")
 
-    def get_url_cache_stats(self) -> Optional[Dict[str, int]]:
+    def get_url_cache_stats(self) -> dict[str, int] | None:
         """
         Get URL validation cache statistics.
 

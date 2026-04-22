@@ -13,10 +13,10 @@ Provides rich contextual information for errors including:
 Phase 13, Step 4: Enhanced Error Messages
 """
 
-from pathlib import Path
-from typing import Optional, List, Dict, Any, Tuple
+import contextlib
 import os
-import sys
+from pathlib import Path
+from typing import Any
 
 
 class ErrorContext:
@@ -37,11 +37,11 @@ class ErrorContext:
         self,
         error_type: str,
         message: str,
-        context: Optional[Dict[str, Any]] = None,
-        recovery_hints: Optional[List[str]] = None,
-        examples: Optional[List[str]] = None,
-        related_errors: Optional[List[str]] = None,
-        doc_links: Optional[List[str]] = None
+        context: dict[str, Any] | None = None,
+        recovery_hints: list[str] | None = None,
+        examples: list[str] | None = None,
+        related_errors: list[str] | None = None,
+        doc_links: list[str] | None = None,
     ):
         """Initialize error context."""
         self.error_type = error_type
@@ -111,27 +111,21 @@ def detect_missing_config() -> ErrorContext:
     return ErrorContext(
         error_type="Configuration Error",
         message="Configuration file not found",
-        context={
-            "expected_location": "config/template.yaml",
-            "current_directory": os.getcwd()
-        },
+        context={"expected_location": "config/template.yaml", "current_directory": os.getcwd()},
         recovery_hints=[
             "Copy config.example.yaml to config.yaml",
             "Edit config.yaml with your project settings",
-            "Or specify a custom config with --config-dir /path/to/config"
+            "Or specify a custom config with --config-dir /path/to/config",
         ],
         examples=[
             "cp config.example.yaml config.yaml",
-            "python generate_reports.py --config-dir /custom/path"
+            "python generate_reports.py --config-dir /custom/path",
         ],
-        doc_links=[
-            "docs/configuration.md",
-            "docs/quick-start.md#configuration"
-        ]
+        doc_links=["docs/configuration.md", "docs/quick-start.md#configuration"],
     )
 
 
-def detect_invalid_yaml(file_path: Path, line: Optional[int] = None) -> ErrorContext:
+def detect_invalid_yaml(file_path: Path, line: int | None = None) -> ErrorContext:
     """
     Create context for invalid YAML syntax.
 
@@ -141,7 +135,7 @@ def detect_invalid_yaml(file_path: Path, line: Optional[int] = None) -> ErrorCon
     """
     context: dict[str, Any] = {
         "file": str(file_path),
-        "common_causes": "indentation, tabs, special characters"
+        "common_causes": "indentation, tabs, special characters",
     }
 
     if line:
@@ -155,22 +149,19 @@ def detect_invalid_yaml(file_path: Path, line: Optional[int] = None) -> ErrorCon
             "Check indentation - use spaces, not tabs",
             "Ensure colons have spaces after them (key: value)",
             "Quote strings with special characters",
-            "Validate YAML online at yamllint.com"
+            "Validate YAML online at yamllint.com",
         ],
         examples=[
             "✓ Correct:   project: my-project",
             "✗ Wrong:     project:my-project (missing space)",
             "✓ Correct:   name: 'project: name'",
-            "✗ Wrong:     name: project: name (unquoted colon)"
+            "✗ Wrong:     name: project: name (unquoted colon)",
         ],
         related_errors=[
             "ConfigurationError: missing required field",
-            "ParserError: invalid character"
+            "ParserError: invalid character",
         ],
-        doc_links=[
-            "docs/configuration.md#yaml-syntax",
-            "https://yaml.org/spec/1.2/spec.html"
-        ]
+        doc_links=["docs/configuration.md#yaml-syntax", "https://yaml.org/spec/1.2/spec.html"],
     )
 
 
@@ -182,13 +173,13 @@ def detect_missing_repos_path(path: Path) -> ErrorContext:
         context={
             "provided_path": str(path),
             "absolute_path": str(path.absolute()),
-            "current_directory": os.getcwd()
+            "current_directory": os.getcwd(),
         },
         recovery_hints=[
             "Verify the path is correct",
             "Clone repositories to the specified location",
             "Or provide the correct path with --repos-path",
-            "Check for typos in the path"
+            "Check for typos in the path",
         ],
         examples=[
             "# Clone repositories first:",
@@ -196,15 +187,13 @@ def detect_missing_repos_path(path: Path) -> ErrorContext:
             "cd ~/repos && git clone https://github.com/org/repo.git",
             "",
             "# Then run with correct path:",
-            "python generate_reports.py --project myproject --repos-path ~/repos"
+            "python generate_reports.py --project myproject --repos-path ~/repos",
         ],
-        doc_links=[
-            "docs/quick-start.md#cloning-repositories"
-        ]
+        doc_links=["docs/quick-start.md#cloning-repositories"],
     )
 
 
-def detect_github_auth_error(status_code: Optional[int] = None) -> ErrorContext:
+def detect_github_auth_error(status_code: int | None = None) -> ErrorContext:
     """
     Create context for GitHub authentication errors.
 
@@ -221,7 +210,7 @@ def detect_github_auth_error(status_code: Optional[int] = None) -> ErrorContext:
             "Verify GITHUB_TOKEN environment variable is set",
             "Check that the token hasn't expired",
             "Generate a new personal access token at github.com/settings/tokens",
-            "Ensure token has required scopes: repo, read:org"
+            "Ensure token has required scopes: repo, read:org",
         ]
     elif status_code == 403:
         message = "GitHub API access forbidden - insufficient permissions"
@@ -229,7 +218,7 @@ def detect_github_auth_error(status_code: Optional[int] = None) -> ErrorContext:
             "Check that your token has the required scopes",
             "For organization repos, ensure token has read:org scope",
             "For private repos, ensure token has repo scope",
-            "Verify you have access to the repository/organization"
+            "Verify you have access to the repository/organization",
         ]
     else:
         message = "GitHub API authentication error"
@@ -237,7 +226,7 @@ def detect_github_auth_error(status_code: Optional[int] = None) -> ErrorContext:
             "Set GITHUB_TOKEN environment variable",
             "Generate a personal access token at github.com/settings/tokens",
             "Required scopes: repo, read:org",
-            "Add to environment: export GITHUB_TOKEN=ghp_..."
+            "Add to environment: export GITHUB_TOKEN=ghp_...",
         ]
 
     return ErrorContext(
@@ -255,20 +244,17 @@ def detect_github_auth_error(status_code: Optional[int] = None) -> ErrorContext:
             "# Or in config.yaml:",
             "api:",
             "  github:",
-            "    token: ${GITHUB_TOKEN}  # Reads from environment"
+            "    token: ${GITHUB_TOKEN}  # Reads from environment",
         ],
         related_errors=[
             "403 Forbidden - insufficient permissions",
-            "404 Not Found - repository not accessible"
+            "404 Not Found - repository not accessible",
         ],
-        doc_links=[
-            "docs/github-token-setup.md",
-            "GITHUB_TOKEN_REQUIREMENTS.md"
-        ]
+        doc_links=["docs/github-token-setup.md", "GITHUB_TOKEN_REQUIREMENTS.md"],
     )
 
 
-def detect_rate_limit_error(api_name: str, reset_time: Optional[int] = None) -> ErrorContext:
+def detect_rate_limit_error(api_name: str, reset_time: int | None = None) -> ErrorContext:
     """
     Create context for API rate limit errors.
 
@@ -279,6 +265,7 @@ def detect_rate_limit_error(api_name: str, reset_time: Optional[int] = None) -> 
     context = {"api": api_name}
     if reset_time:
         from datetime import datetime
+
         reset_dt = datetime.fromtimestamp(reset_time)
         context["rate_limit_reset"] = reset_dt.strftime("%Y-%m-%d %H:%M:%S")
 
@@ -287,10 +274,11 @@ def detect_rate_limit_error(api_name: str, reset_time: Optional[int] = None) -> 
         message=f"{api_name} API rate limit exceeded",
         context=context,
         recovery_hints=[
-            f"Wait for {api_name} rate limit to reset" + (f" (at {context.get('rate_limit_reset')})" if reset_time else ""),
+            f"Wait for {api_name} rate limit to reset"
+            + (f" (at {context.get('rate_limit_reset')})" if reset_time else ""),
             "Use a different API token if available",
             "Reduce the number of API calls with caching",
-            "Use --workers 1 to slow down parallel requests"
+            "Use --workers 1 to slow down parallel requests",
         ],
         examples=[
             "# Wait and retry:",
@@ -300,20 +288,14 @@ def detect_rate_limit_error(api_name: str, reset_time: Optional[int] = None) -> 
             "python generate_reports.py --cache --project myproject ...",
             "",
             "# For GitHub, authenticated requests get higher limits:",
-            "export GITHUB_TOKEN=ghp_your_token"
+            "export GITHUB_TOKEN=ghp_your_token",
         ],
-        related_errors=[
-            "429 Too Many Requests",
-            "403 Rate limit exceeded"
-        ],
-        doc_links=[
-            f"docs/api-limits.md#{api_name.lower()}",
-            "docs/troubleshooting.md#rate-limits"
-        ]
+        related_errors=["429 Too Many Requests", "403 Rate limit exceeded"],
+        doc_links=[f"docs/api-limits.md#{api_name.lower()}", "docs/troubleshooting.md#rate-limits"],
     )
 
 
-def detect_network_error(url: Optional[str] = None, error_type: Optional[str] = None) -> ErrorContext:
+def detect_network_error(url: str | None = None, error_type: str | None = None) -> ErrorContext:
     """
     Create context for network connectivity errors.
 
@@ -331,39 +313,47 @@ def detect_network_error(url: Optional[str] = None, error_type: Optional[str] = 
     examples = []
 
     if error_type == "timeout":
-        hints.extend([
-            "Increase timeout with --timeout 300",
-            "Check if the server is responding",
-            "Verify firewall is not blocking connections"
-        ])
+        hints.extend(
+            [
+                "Increase timeout with --timeout 300",
+                "Check if the server is responding",
+                "Verify firewall is not blocking connections",
+            ]
+        )
         examples.append("python generate_reports.py --timeout 300 ...")
     elif error_type == "dns":
-        hints.extend([
-            "Verify the hostname is correct",
-            "Check DNS resolution: ping api.github.com",
-            "Try using a different DNS server"
-        ])
-        examples.extend([
-            "# Test DNS resolution:",
-            "ping api.github.com",
-            "nslookup api.github.com"
-        ])
+        hints.extend(
+            [
+                "Verify the hostname is correct",
+                "Check DNS resolution: ping api.github.com",
+                "Try using a different DNS server",
+            ]
+        )
+        examples.extend(
+            ["# Test DNS resolution:", "ping api.github.com", "nslookup api.github.com"]
+        )
     elif error_type == "ssl":
-        hints.extend([
-            "Verify SSL certificates are installed",
-            "Update CA certificates",
-            "If using corporate proxy, check SSL inspection settings"
-        ])
-        examples.extend([
-            "# Update certificates (Ubuntu/Debian):",
-            "sudo apt-get update && sudo apt-get install --reinstall ca-certificates"
-        ])
+        hints.extend(
+            [
+                "Verify SSL certificates are installed",
+                "Update CA certificates",
+                "If using corporate proxy, check SSL inspection settings",
+            ]
+        )
+        examples.extend(
+            [
+                "# Update certificates (Ubuntu/Debian):",
+                "sudo apt-get update && sudo apt-get install --reinstall ca-certificates",
+            ]
+        )
     else:
-        hints.extend([
-            "Verify you can reach the server",
-            "Check proxy settings if behind a corporate firewall",
-            "Test connectivity: curl -I https://api.github.com"
-        ])
+        hints.extend(
+            [
+                "Verify you can reach the server",
+                "Check proxy settings if behind a corporate firewall",
+                "Test connectivity: curl -I https://api.github.com",
+            ]
+        )
         examples.append("curl -I https://api.github.com")
 
     # Build message with error type
@@ -382,10 +372,7 @@ def detect_network_error(url: Optional[str] = None, error_type: Optional[str] = 
         context=context,
         recovery_hints=hints,
         examples=examples,
-        doc_links=[
-            "docs/troubleshooting.md#network-issues",
-            "docs/proxy-configuration.md"
-        ]
+        doc_links=["docs/troubleshooting.md#network-issues", "docs/proxy-configuration.md"],
     )
 
 
@@ -398,19 +385,18 @@ def detect_permission_error(path: Path, operation: str = "access") -> ErrorConte
         operation: Operation that failed (read, write, execute)
     """
     stat_info = None
-    try:
+    with contextlib.suppress(Exception):
         stat_info = path.stat()
-    except:
-        pass
 
     context = {
         "path": str(path),
         "operation": operation,
-        "current_user": os.getenv("USER", "unknown")
+        "current_user": os.getenv("USER", "unknown"),
     }
 
     if stat_info:
         import stat as stat_module
+
         mode = stat_module.filemode(stat_info.st_mode)
         context["permissions"] = mode
 
@@ -422,21 +408,19 @@ def detect_permission_error(path: Path, operation: str = "access") -> ErrorConte
             f"Check file permissions for {path}",
             "Ensure your user has the necessary permissions",
             "Try running with appropriate privileges if needed",
-            "Or choose a different output directory you can write to"
+            "Or choose a different output directory you can write to",
         ],
         examples=[
-            f"# Check permissions:",
+            "# Check permissions:",
             f"ls -la {path}",
             "",
             "# Fix permissions (if you own the file):",
             f"chmod u+rw {path}",
             "",
             "# Or use a different output directory:",
-            "python generate_reports.py --output-dir ~/my-reports ..."
+            "python generate_reports.py --output-dir ~/my-reports ...",
         ],
-        doc_links=[
-            "docs/troubleshooting.md#permission-errors"
-        ]
+        doc_links=["docs/troubleshooting.md#permission-errors"],
     )
 
 
@@ -444,13 +428,11 @@ def detect_disk_space_error(path: Path) -> ErrorContext:
     """Create context for disk space errors."""
     try:
         import shutil
+
         total, used, free = shutil.disk_usage(path)
         free_gb = free / (1024**3)
-        context = {
-            "path": str(path),
-            "free_space": f"{free_gb:.2f} GB"
-        }
-    except:
+        context = {"path": str(path), "free_space": f"{free_gb:.2f} GB"}
+    except Exception:
         context = {"path": str(path)}
 
     return ErrorContext(
@@ -461,7 +443,7 @@ def detect_disk_space_error(path: Path) -> ErrorContext:
             "Free up disk space",
             "Use a different output directory with more space",
             "Use --no-cache to reduce disk usage",
-            "Use --output-format json to skip HTML generation"
+            "Use --output-format json to skip HTML generation",
         ],
         examples=[
             "# Check disk space:",
@@ -471,19 +453,14 @@ def detect_disk_space_error(path: Path) -> ErrorContext:
             "python generate_reports.py --output-dir /mnt/data/reports ...",
             "",
             "# Reduce disk usage:",
-            "python generate_reports.py --no-cache --output-format json ..."
+            "python generate_reports.py --no-cache --output-format json ...",
         ],
-        doc_links=[
-            "docs/troubleshooting.md#disk-space"
-        ]
+        doc_links=["docs/troubleshooting.md#disk-space"],
     )
 
 
 def detect_validation_error(
-    field: str,
-    value: Any,
-    expected: str,
-    config_path: Optional[Path] = None
+    field: str, value: Any, expected: str, config_path: Path | None = None
 ) -> ErrorContext:
     """
     Create context for validation errors.
@@ -494,11 +471,7 @@ def detect_validation_error(
         expected: Expected value format
         config_path: Path to config file
     """
-    context = {
-        "field": field,
-        "provided_value": str(value),
-        "expected_format": expected
-    }
+    context = {"field": field, "provided_value": str(value), "expected_format": expected}
 
     if config_path:
         context["config_file"] = str(config_path)
@@ -511,19 +484,16 @@ def detect_validation_error(
             f"Update the '{field}' field in your configuration",
             f"Expected format: {expected}",
             "Check config.example.yaml for valid examples",
-            "Validate your config with: --dry-run"
+            "Validate your config with: --dry-run",
         ],
         examples=[
-            f"# In config.yaml:",
+            "# In config.yaml:",
             f"{field}: <valid_value>  # {expected}",
             "",
             "# Validate before running:",
-            "python generate_reports.py --dry-run ..."
+            "python generate_reports.py --dry-run ...",
         ],
-        doc_links=[
-            "docs/configuration.md#validation",
-            "docs/configuration.md#schema"
-        ]
+        doc_links=["docs/configuration.md#validation", "docs/configuration.md#schema"],
     )
 
 
@@ -601,9 +571,9 @@ def auto_detect_error_context(error: Exception, **kwargs) -> ErrorContext:
         recovery_hints=[
             "Check the error message for details",
             "Run with --verbose for more information",
-            "Consult documentation for troubleshooting"
+            "Consult documentation for troubleshooting",
         ],
-        doc_links=["docs/troubleshooting.md"]
+        doc_links=["docs/troubleshooting.md"],
     )
 
 
