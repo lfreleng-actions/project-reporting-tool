@@ -1,6 +1,6 @@
 # 📊 Gerrit Project Analysis Report: ONAP
 
-**Generated:** 2026-04-22 07:32:21 UTC
+**Generated:** 2026-04-23 07:33:09 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -30,7 +30,7 @@
 | Active Gerrit Projects | 3 | 1.7% |
 | Inactive Gerrit Projects | 41 | 22.9% |
 | No Apparent Commits | 0 | 0.0% |
-| Total Commits | 107.3K | - |
+| Total Commits | 107.4K | - |
 | Total Lines of Code | 1.1M | - |
 
 ---
@@ -42,13 +42,13 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | est.tech | 109 | 1340 | +168849 | 275410 | +46 | 88 |
-| 2 | telekom.de | 11 | 715 | +183847 | 288386 | +110 | 79 |
+| 1 | est.tech | 109 | 1323 | +168933 | 276497 | +46 | 88 |
+| 2 | telekom.de | 11 | 714 | +177427 | 281688 | +102 | 79 |
 | 3 | linuxfoundation.org | 20 | 517 | +42938 | 48159 | +72 | 178 |
 | 4 | att.com | 374 | 178 | +14022 | 25759 | +12 | 101 |
-| 5 | t-systems.com | 29 | 93 | +112477 | 123030 | +1095 | 32 |
-| 6 | t-mobile.pl | 7 | 74 | +3001 | 3101 | +39 | 67 |
-| 7 | github.com | 2 | 73 | +135 | 270 | 0 | 11 |
+| 5 | github.com | 2 | 108 | +211 | 422 | 0 | 16 |
+| 6 | t-systems.com | 29 | 93 | +112477 | 123030 | +1095 | 32 |
+| 7 | t-mobile.pl | 7 | 91 | +3001 | 3101 | +31 | 70 |
 | 8 | techmahindra.com | 46 | 73 | +7571 | 10404 | +64 | 38 |
 | 9 | chinamobile.com | 24 | 20 | +135 | 180 | +4 | 31 |
 | 10 | highstreet-technologies.com | 10 | 10 | +12063 | 41187 | -1706 | 11 |
@@ -84,19 +84,19 @@ The data presented in the table below covers the past 365 days.
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | Fiete Ostkamp | 612 | +132899 | 229678 | +59 | 58 | telekom.de |
 | 2 | Kevin Sandi | 297 | +27027 | 29234 | +83 | 124 | linuxfoundation.org |
-| 3 | waynedunican | 291 | +43874 | 47247 | +139 | 15 | est.tech |
+| 3 | waynedunican | 271 | +43637 | 46806 | +149 | 15 | est.tech |
 | 4 | Matthew Watkins | 196 | +15815 | 18799 | +65 | 48 | linuxfoundation.org |
 | 5 | Toine Siebelink | 179 | +10882 | 19471 | +12 | 5 | est.tech |
 | 6 | Dan Timoney | 167 | +13456 | 24867 | +12 | 19 | att.com |
-| 7 | Lee Anjella Macabuhay | 121 | +3788 | 7929 | -2 | 3 | est.tech |
-| 8 | FrancescoFioraEst | 103 | +18705 | 35657 | +17 | 10 | est.tech |
-| 9 | mpriyank | 85 | +3631 | 4631 | +30 | 4 | est.tech |
-| 10 | seanbeirne | 75 | +8985 | 11118 | +91 | 2 | est.tech |
-| 11 | Daniel Hanrahan | 73 | +46257 | 84752 | +106 | 14 | est.tech |
-| 12 | dependabot[bot] | 73 | +135 | 270 | 0 | 10 | github.com |
-| 13 | rameshiyer27 | 70 | +4238 | 17706 | -131 | 20 | est.tech |
-| 14 | egernug | 69 | +3790 | 7045 | +7 | 15 | est.tech |
-| 15 | Lukasz Rajewski | 65 | 0 | 0 | 0 | 31 | t-mobile.pl |
+| 7 | Lee Anjella Macabuhay | 122 | +3788 | 7929 | -2 | 3 | est.tech |
+| 8 | dependabot[bot] | 108 | +211 | 422 | 0 | 15 | github.com |
+| 9 | FrancescoFioraEst | 104 | +18755 | 35707 | +17 | 10 | est.tech |
+| 10 | mpriyank | 85 | +3631 | 4631 | +30 | 4 | est.tech |
+| 11 | Lukasz Rajewski | 82 | 0 | 0 | 0 | 34 | t-mobile.pl |
+| 12 | seanbeirne | 77 | +9072 | 12418 | +74 | 2 | est.tech |
+| 13 | Daniel Hanrahan | 73 | +46257 | 84752 | +106 | 14 | est.tech |
+| 14 | egernug | 70 | +3982 | 7239 | +10 | 15 | est.tech |
+| 15 | rameshiyer27 | 69 | +4238 | 17706 | -133 | 20 | est.tech |
 | 16 | akenihan | 64 | +2284 | 3377 | +18 | 13 | est.tech |
 | 17 | adheli.tavares | 59 | +7839 | 15037 | +10 | 15 | est.tech |
 | 18 | Thomas Kulik | 55 | +1167 | 2496 | -2 | 41 | telekom.de |
@@ -104,199 +104,199 @@ The data presented in the table below covers the past 365 days.
 | 20 | Sourabh Sourabh | 33 | +4886 | 7811 | +59 | 3 | est.tech |
 | 21 | halil.cakal | 31 | +1691 | 2896 | +15 | 3 | est.tech |
 | 22 | Arpit Singh6 | 30 | +1784 | 2713 | +28 | 1 | techmahindra.com |
-| 23 | Andreas Geissler | 28 | +45435 | 47929 | +1533 | 21 | telekom.de |
+| 23 | Andreas Geissler | 27 | +39015 | 41231 | +1362 | 21 | telekom.de |
 | 24 | JohnKeeney | 18 | +1775 | 2198 | +75 | 6 | est.tech |
 | 25 | kaixiliu | 18 | +135 | 180 | +5 | 7 | chinamobile.com |
 | 26 | shikha0203 | 18 | +2077 | 3170 | +54 | 2 | est.tech |
 | 27 | Ben Zelleröhr | 15 | +3003 | 6752 | -49 | 8 | telekom.de |
 | 28 | Byung-Woo Jun | 15 | 0 | 0 | 0 | 18 | est.tech |
 | 29 | aditi.shukla@t-systems.com | 15 | +3279 | 5858 | +46 | 7 | t-systems.com |
-| 30 | saul.gill | 15 | +1901 | 2103 | +113 | 17 | est.tech |
+| 30 | Anil Belur | 14 | +38 | 61 | +1 | 3 | linuxfoundation.org |
 
 ---
 ## 📊 Gerrit Projects
 
 | Gerrit Project | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [doc](https://gerrit.onap.org/r/admin/repos/doc,general) | 27845 | +3595 | 4 | 1 | 2026-04-20 | ✅ |
-| [oom](https://gerrit.onap.org/r/admin/repos/oom,general) | 7691 | +45229 | 19 | 13 | 2026-04-08 | ✅ |
-| [so](https://gerrit.onap.org/r/admin/repos/so,general) | 7053 | +16236 | 5 | 5 | 2026-04-16 | ✅ |
-| [ci-management](https://gerrit.onap.org/r/admin/repos/ci-management,general) | 6373 | +1633 | 16 | 12 | 2026-04-09 | ✅ |
-| [sdc](https://gerrit.onap.org/r/admin/repos/sdc,general) | 3990 | +5188 | 7 | 12 | 2026-04-09 | ✅ |
-| [cps](https://gerrit.onap.org/r/admin/repos/cps,general) | 3381 | +37607 | 17 | 0 | 2026-04-21 | ✅ |
-| [integration](https://gerrit.onap.org/r/admin/repos/integration,general) | 3027 | +244 | 3 | 21 | 2026-03-31 | ✅ |
-| [ccsdk/cds](https://gerrit.onap.org/r/admin/repos/ccsdk/cds,general) | 3017 | +31472 | 11 | 0 | 2026-04-21 | ✅ |
-| [policy/clamp](https://gerrit.onap.org/r/admin/repos/policy/clamp,general) | 2832 | +110011 | 8 | 1 | 2026-04-20 | ✅ |
-| [ccsdk/sli](https://gerrit.onap.org/r/admin/repos/ccsdk/sli,general) | 1811 | +3658 | 5 | 7 | 2026-04-14 | ✅ |
-| [sdnc/oam](https://gerrit.onap.org/r/admin/repos/sdnc/oam,general) | 1336 | +868 | 8 | 0 | 2026-04-21 | ✅ |
-| [demo](https://gerrit.onap.org/r/admin/repos/demo,general) | 1316 | +15 | 1 | 252 | 2025-08-12 | ✅ |
-| [integration/csit](https://gerrit.onap.org/r/admin/repos/integration/csit,general) | 1206 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [multicloud/k8s](https://gerrit.onap.org/r/admin/repos/multicloud/k8s,general) | 1150 | +3614 | 6 | 21 | 2026-03-31 | ✅ |
-| [policy/parent](https://gerrit.onap.org/r/admin/repos/policy/parent,general) | 1144 | +2625 | 11 | 7 | 2026-04-14 | ✅ |
-| [policy/models](https://gerrit.onap.org/r/admin/repos/policy/models,general) | 1124 | +815 | 5 | 67 | 2026-02-13 | ✅ |
-| [policy/drools-applications](https://gerrit.onap.org/r/admin/repos/policy/drools-applications,general) | 1119 | +821 | 5 | 67 | 2026-02-13 | ✅ |
-| [usecase-ui](https://gerrit.onap.org/r/admin/repos/usecase-ui,general) | 1073 | +333 | 4 | 21 | 2026-03-31 | ✅ |
-| [oom/offline-installer](https://gerrit.onap.org/r/admin/repos/oom/offline-installer,general) | 1073 | 0 | 0 | 1275 | 2022-10-24 | 🛑 |
-| [policy/apex-pdp](https://gerrit.onap.org/r/admin/repos/policy/apex-pdp,general) | 1071 | +950 | 5 | 67 | 2026-02-13 | ✅ |
-| [policy/drools-pdp](https://gerrit.onap.org/r/admin/repos/policy/drools-pdp,general) | 1051 | +790 | 5 | 67 | 2026-02-13 | ✅ |
-| [aai/aai-common](https://gerrit.onap.org/r/admin/repos/aai/aai-common,general) | 906 | +2350 | 8 | 6 | 2026-04-15 | ✅ |
-| [multicloud/openstack](https://gerrit.onap.org/r/admin/repos/multicloud/openstack,general) | 862 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [testsuite](https://gerrit.onap.org/r/admin/repos/testsuite,general) | 836 | +46 | 2 | 54 | 2026-02-26 | ✅ |
-| [ccsdk/apps](https://gerrit.onap.org/r/admin/repos/ccsdk/apps,general) | 825 | +1056 | 4 | 7 | 2026-04-14 | ✅ |
-| [policy/docker](https://gerrit.onap.org/r/admin/repos/policy/docker,general) | 821 | +6603 | 12 | 1 | 2026-04-20 | ✅ |
-| [policy/common](https://gerrit.onap.org/r/admin/repos/policy/common,general) | 769 | +517 | 5 | 67 | 2026-02-13 | ✅ |
-| [ccsdk/features](https://gerrit.onap.org/r/admin/repos/ccsdk/features,general) | 731 | +14682 | 5 | 7 | 2026-04-14 | ✅ |
-| [policy/pap](https://gerrit.onap.org/r/admin/repos/policy/pap,general) | 657 | +605 | 5 | 67 | 2026-02-13 | ✅ |
-| [ccsdk/distribution](https://gerrit.onap.org/r/admin/repos/ccsdk/distribution,general) | 629 | +9695 | 6 | 7 | 2026-04-14 | ✅ |
-| [usecase-ui/server](https://gerrit.onap.org/r/admin/repos/usecase-ui/server,general) | 627 | +17 | 1 | 293 | 2025-07-03 | ✅ |
-| [vnfrqts/requirements](https://gerrit.onap.org/r/admin/repos/vnfrqts/requirements,general) | 618 | +228 | 1 | 42 | 2026-03-10 | ✅ |
-| [dcaegen2/services](https://gerrit.onap.org/r/admin/repos/dcaegen2/services,general) | 594 | +2640 | 2 | 14 | 2026-04-08 | ✅ |
-| [policy/xacml-pdp](https://gerrit.onap.org/r/admin/repos/policy/xacml-pdp,general) | 564 | +5058 | 6 | 67 | 2026-02-13 | ✅ |
-| [dmaap/datarouter](https://gerrit.onap.org/r/admin/repos/dmaap/datarouter,general) | 536 | +56 | 1 | 48 | 2026-03-04 | ✅ |
-| [sdc/sdc-workflow-designer](https://gerrit.onap.org/r/admin/repos/sdc/sdc-workflow-designer,general) | 528 | +622 | 3 | 21 | 2026-03-31 | ✅ |
-| [dcaegen2](https://gerrit.onap.org/r/admin/repos/dcaegen2,general) | 504 | +264 | 2 | 69 | 2026-02-11 | ✅ |
-| [policy/api](https://gerrit.onap.org/r/admin/repos/policy/api,general) | 500 | +536 | 6 | 67 | 2026-02-13 | ✅ |
-| [multicloud/framework](https://gerrit.onap.org/r/admin/repos/multicloud/framework,general) | 500 | +285 | 4 | 21 | 2026-03-31 | ✅ |
-| [oom/platform/cert-service](https://gerrit.onap.org/r/admin/repos/oom/platform/cert-service,general) | 495 | 0 | 0 | 1023 | 2023-07-03 | ☑️ |
-| [policy/distribution](https://gerrit.onap.org/r/admin/repos/policy/distribution,general) | 473 | +612 | 5 | 67 | 2026-02-13 | ✅ |
-| [aai/resources](https://gerrit.onap.org/r/admin/repos/aai/resources,general) | 462 | +1618 | 6 | 69 | 2026-02-11 | ✅ |
-| [ccsdk/oran](https://gerrit.onap.org/r/admin/repos/ccsdk/oran,general) | 445 | +2205 | 9 | 7 | 2026-04-14 | ✅ |
-| [multicloud/openstack/vmware](https://gerrit.onap.org/r/admin/repos/multicloud/openstack/vmware,general) | 443 | 0 | 0 | 1682 | 2021-09-13 | 🛑 |
-| [dcaegen2/collectors/hv-ves](https://gerrit.onap.org/r/admin/repos/dcaegen2/collectors/hv-ves,general) | 441 | +3109 | 2 | 12 | 2026-04-09 | ✅ |
-| [aai/oom](https://gerrit.onap.org/r/admin/repos/aai/oom,general) | 441 | 0 | 0 | 1961 | 2020-12-07 | 🛑 |
-| [aai/traversal](https://gerrit.onap.org/r/admin/repos/aai/traversal,general) | 429 | +439 | 6 | 69 | 2026-02-11 | ✅ |
-| [aai/schema-service](https://gerrit.onap.org/r/admin/repos/aai/schema-service,general) | 411 | +113107 | 11 | 47 | 2026-03-05 | ✅ |
-| [ccsdk/parent](https://gerrit.onap.org/r/admin/repos/ccsdk/parent,general) | 405 | +8465 | 8 | 1 | 2026-04-20 | ✅ |
-| [cps/ncmp-dmi-plugin](https://gerrit.onap.org/r/admin/repos/cps/ncmp-dmi-plugin,general) | 396 | +7189 | 9 | 0 | 2026-04-21 | ✅ |
-| [dcaegen2/services/prh](https://gerrit.onap.org/r/admin/repos/dcaegen2/services/prh,general) | 372 | +3278 | 4 | 23 | 2026-03-30 | ✅ |
-| [dcaegen2/deployments](https://gerrit.onap.org/r/admin/repos/dcaegen2/deployments,general) | 345 | +15 | 1 | 252 | 2025-08-12 | ✅ |
-| [testsuite/pythonsdk-tests](https://gerrit.onap.org/r/admin/repos/testsuite/pythonsdk-tests,general) | 328 | +8063 | 6 | 1 | 2026-04-20 | ✅ |
-| [dcaegen2/collectors/ves](https://gerrit.onap.org/r/admin/repos/dcaegen2/collectors/ves,general) | 313 | +129 | 2 | 15 | 2026-04-06 | ✅ |
-| [aai/sparky-be](https://gerrit.onap.org/r/admin/repos/aai/sparky-be,general) | 310 | +798 | 3 | 21 | 2026-03-31 | ✅ |
-| [sdnc/northbound](https://gerrit.onap.org/r/admin/repos/sdnc/northbound,general) | 310 | +1873 | 3 | 20 | 2026-04-01 | ✅ |
-| [aai/babel](https://gerrit.onap.org/r/admin/repos/aai/babel,general) | 308 | +871 | 8 | 71 | 2026-02-09 | ✅ |
-| [so/libs](https://gerrit.onap.org/r/admin/repos/so/libs,general) | 308 | +320 | 2 | 67 | 2026-02-13 | ✅ |
-| [testsuite/oom](https://gerrit.onap.org/r/admin/repos/testsuite/oom,general) | 303 | 0 | 0 | 1097 | 2023-04-20 | 🛑 |
-| [logging-analytics](https://gerrit.onap.org/r/admin/repos/logging-analytics,general) | 299 | +44 | 2 | 21 | 2026-03-31 | ✅ |
-| [dcaegen2/services/sdk](https://gerrit.onap.org/r/admin/repos/dcaegen2/services/sdk,general) | 299 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [sdc/sdc-tosca](https://gerrit.onap.org/r/admin/repos/sdc/sdc-tosca,general) | 282 | +286 | 2 | 21 | 2026-03-31 | ✅ |
-| [modeling/modelspec](https://gerrit.onap.org/r/admin/repos/modeling/modelspec,general) | 267 | +53 | 2 | 21 | 2026-03-31 | ✅ |
-| [aai/graphadmin](https://gerrit.onap.org/r/admin/repos/aai/graphadmin,general) | 239 | +3687 | 5 | 69 | 2026-02-11 | ✅ |
-| [aai/model-loader](https://gerrit.onap.org/r/admin/repos/aai/model-loader,general) | 223 | +413 | 7 | 69 | 2026-02-11 | ✅ |
-| [dcaegen2/collectors/datafile](https://gerrit.onap.org/r/admin/repos/dcaegen2/collectors/datafile,general) | 211 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [dmaap/buscontroller](https://gerrit.onap.org/r/admin/repos/dmaap/buscontroller,general) | 202 | +88 | 1 | 21 | 2026-03-31 | ✅ |
-| [integration/simulators/pnf-simulator](https://gerrit.onap.org/r/admin/repos/integration/simulators/pnf-simulator,general) | 192 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [so/docker-config](https://gerrit.onap.org/r/admin/repos/so/docker-config,general) | 185 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [integration/xtesting](https://gerrit.onap.org/r/admin/repos/integration/xtesting,general) | 163 | +754 | 4 | 20 | 2026-04-02 | ✅ |
-| [sdc/sdc-distribution-client](https://gerrit.onap.org/r/admin/repos/sdc/sdc-distribution-client,general) | 162 | +514 | 4 | 48 | 2026-03-04 | ✅ |
-| [usecase-ui/intent-analysis](https://gerrit.onap.org/r/admin/repos/usecase-ui/intent-analysis,general) | 162 | +254 | 2 | 67 | 2026-02-13 | ✅ |
-| [dcaegen2/services/pm-mapper](https://gerrit.onap.org/r/admin/repos/dcaegen2/services/pm-mapper,general) | 162 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [integration/python-onapsdk](https://gerrit.onap.org/r/admin/repos/integration/python-onapsdk,general) | 160 | +1250 | 3 | 33 | 2026-03-20 | ✅ |
-| [so/adapters/so-cnf-adapter](https://gerrit.onap.org/r/admin/repos/so/adapters/so-cnf-adapter,general) | 159 | +5423 | 5 | 1 | 2026-04-20 | ✅ |
-| [aai/test-config](https://gerrit.onap.org/r/admin/repos/aai/test-config,general) | 157 | +15 | 1 | 252 | 2025-08-12 | ✅ |
-| [oparent](https://gerrit.onap.org/r/admin/repos/oparent,general) | 155 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [vnfsdk/model](https://gerrit.onap.org/r/admin/repos/vnfsdk/model,general) | 146 | +92 | 1 | 48 | 2026-03-04 | ✅ |
-| [sdnc/apps](https://gerrit.onap.org/r/admin/repos/sdnc/apps,general) | 143 | +301 | 3 | 26 | 2026-03-26 | ✅ |
-| [dcaegen2/services/mapper](https://gerrit.onap.org/r/admin/repos/dcaegen2/services/mapper,general) | 139 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [testsuite/python-testing-utils](https://gerrit.onap.org/r/admin/repos/testsuite/python-testing-utils,general) | 131 | +194 | 2 | 63 | 2026-02-17 | ✅ |
-| [aai/sparky-fe](https://gerrit.onap.org/r/admin/repos/aai/sparky-fe,general) | 123 | +40955 | 2 | 69 | 2026-02-11 | ✅ |
-| [dcaegen2/analytics/tca-gen2](https://gerrit.onap.org/r/admin/repos/dcaegen2/analytics/tca-gen2,general) | 115 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [dcaegen2/utils](https://gerrit.onap.org/r/admin/repos/dcaegen2/utils,general) | 110 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [portal-ng/ui](https://gerrit.onap.org/r/admin/repos/portal-ng/ui,general) | 109 | +1529 | 5 | 6 | 2026-04-15 | ✅ |
-| [sdc/sdc-be-common](https://gerrit.onap.org/r/admin/repos/sdc/sdc-be-common,general) | 108 | +339 | 3 | 9 | 2026-04-13 | ✅ |
-| [sdc/sdc-docker-base](https://gerrit.onap.org/r/admin/repos/sdc/sdc-docker-base,general) | 103 | +334 | 2 | 252 | 2025-08-12 | ✅ |
-| [policy/opa-pdp](https://gerrit.onap.org/r/admin/repos/policy/opa-pdp,general) | 93 | +5956 | 9 | 27 | 2026-03-25 | ✅ |
-| [dcaegen2/collectors/restconf](https://gerrit.onap.org/r/admin/repos/dcaegen2/collectors/restconf,general) | 93 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [dcaegen2/services/heartbeat](https://gerrit.onap.org/r/admin/repos/dcaegen2/services/heartbeat,general) | 92 | +236 | 1 | 67 | 2026-02-13 | ✅ |
-| [dmaap/kafka11aaf](https://gerrit.onap.org/r/admin/repos/dmaap/kafka11aaf,general) | 92 | 0 | 0 | 1119 | 2023-03-29 | 🛑 |
-| [dcaegen2/collectors/snmptrap](https://gerrit.onap.org/r/admin/repos/dcaegen2/collectors/snmptrap,general) | 91 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [dcaegen2/services/son-handler](https://gerrit.onap.org/r/admin/repos/dcaegen2/services/son-handler,general) | 91 | 0 | 0 | 1119 | 2023-03-30 | 🛑 |
-| [msb/service-mesh](https://gerrit.onap.org/r/admin/repos/msb/service-mesh,general) | 88 | 0 | 0 | 1944 | 2020-12-25 | 🛑 |
-| [aai/graphgraph](https://gerrit.onap.org/r/admin/repos/aai/graphgraph,general) | 80 | +15 | 1 | 255 | 2025-08-09 | ✅ |
-| [vnfsdk/pkgtools](https://gerrit.onap.org/r/admin/repos/vnfsdk/pkgtools,general) | 77 | 0 | 0 | 1282 | 2022-10-17 | 🛑 |
-| [portal-ng/bff](https://gerrit.onap.org/r/admin/repos/portal-ng/bff,general) | 76 | +168 | 4 | 83 | 2026-01-28 | ✅ |
-| [aai/rest-client](https://gerrit.onap.org/r/admin/repos/aai/rest-client,general) | 75 | +235 | 1 | 69 | 2026-02-11 | ✅ |
-| [integration/seccom](https://gerrit.onap.org/r/admin/repos/integration/seccom,general) | 73 | 0 | 0 | 1028 | 2023-06-28 | ☑️ |
-| [vfc/nfvo/db](https://gerrit.onap.org/r/admin/repos/vfc/nfvo/db,general) | 71 | +15 | 1 | 252 | 2025-08-12 | ✅ |
-| [aai/logging-service](https://gerrit.onap.org/r/admin/repos/aai/logging-service,general) | 65 | +15 | 1 | 253 | 2025-08-11 | ✅ |
-| [so/so-config](https://gerrit.onap.org/r/admin/repos/so/so-config,general) | 64 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [portal-ng/history](https://gerrit.onap.org/r/admin/repos/portal-ng/history,general) | 56 | +2642 | 6 | 6 | 2026-04-15 | ✅ |
-| [oom/registrator](https://gerrit.onap.org/r/admin/repos/oom/registrator,general) | 55 | +263 | 1 | 159 | 2025-11-13 | ✅ |
-| [so/adapters/so-etsi-sol003-adapter](https://gerrit.onap.org/r/admin/repos/so/adapters/so-etsi-sol003-adapter,general) | 54 | +552 | 4 | 21 | 2026-03-31 | ✅ |
-| [sdc/sdc-helm-validator](https://gerrit.onap.org/r/admin/repos/sdc/sdc-helm-validator,general) | 54 | +377 | 4 | 13 | 2026-04-08 | ✅ |
-| [vnfrqts/guidelines](https://gerrit.onap.org/r/admin/repos/vnfrqts/guidelines,general) | 53 | +117 | 1 | 47 | 2026-03-05 | ✅ |
-| [oom/readiness](https://gerrit.onap.org/r/admin/repos/oom/readiness,general) | 52 | +1679 | 2 | 67 | 2026-02-13 | ✅ |
-| [integration/usecases/A1-policy-enforcement](https://gerrit.onap.org/r/admin/repos/integration/usecases/A1-policy-enforcement,general) | 52 | +252 | 2 | 67 | 2026-02-13 | ✅ |
-| [usecase-ui/nlp](https://gerrit.onap.org/r/admin/repos/usecase-ui/nlp,general) | 52 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [integration/simulators/A1-policy-enforcement-simulator](https://gerrit.onap.org/r/admin/repos/integration/simulators/A1-policy-enforcement-simulator,general) | 51 | +252 | 2 | 67 | 2026-02-13 | ✅ |
-| [osa](https://gerrit.onap.org/r/admin/repos/osa,general) | 51 | +48 | 1 | 21 | 2026-03-31 | ✅ |
-| [so/adapters/so-nssmf-adapter](https://gerrit.onap.org/r/admin/repos/so/adapters/so-nssmf-adapter,general) | 49 | +1440 | 4 | 8 | 2026-04-13 | ✅ |
-| [so/so-admin-cockpit](https://gerrit.onap.org/r/admin/repos/so/so-admin-cockpit,general) | 49 | +330 | 2 | 67 | 2026-02-13 | ✅ |
-| [so/so-etsi-nfvo](https://gerrit.onap.org/r/admin/repos/so/so-etsi-nfvo,general) | 48 | +943 | 3 | 8 | 2026-04-13 | ✅ |
-| [integration/simulators/ran-simulator](https://gerrit.onap.org/r/admin/repos/integration/simulators/ran-simulator,general) | 47 | 0 | 0 | 1103 | 2023-04-14 | 🛑 |
-| [integration/data-provider](https://gerrit.onap.org/r/admin/repos/integration/data-provider,general) | 44 | +261 | 2 | 67 | 2026-02-13 | ✅ |
-| [portal-ng/preferences](https://gerrit.onap.org/r/admin/repos/portal-ng/preferences,general) | 41 | +1015 | 3 | 67 | 2026-02-13 | ✅ |
-| [.github](https://gerrit.onap.org/r/admin/repos/.github,general) | 39 | +39 | 2 | 20 | 2026-04-01 | ✅ |
-| [integration/usecases/A1-policy-enforcement-r-apps](https://gerrit.onap.org/r/admin/repos/integration/usecases/A1-policy-enforcement-r-apps,general) | 38 | +252 | 2 | 67 | 2026-02-13 | ✅ |
-| [so/chef-repo](https://gerrit.onap.org/r/admin/repos/so/chef-repo,general) | 38 | +15 | 1 | 251 | 2025-08-13 | ✅ |
-| [integration/docker/onap-python](https://gerrit.onap.org/r/admin/repos/integration/docker/onap-python,general) | 37 | 0 | 0 | 1104 | 2023-04-13 | 🛑 |
-| [so/adapters/so-oof-adapter](https://gerrit.onap.org/r/admin/repos/so/adapters/so-oof-adapter,general) | 36 | +710 | 4 | 8 | 2026-04-13 | ✅ |
-| [integration/docker/onap-java11](https://gerrit.onap.org/r/admin/repos/integration/docker/onap-java11,general) | 36 | 0 | 0 | 1104 | 2023-04-13 | 🛑 |
-| [dcaegen2/platform/ves-openapi-manager](https://gerrit.onap.org/r/admin/repos/dcaegen2/platform/ves-openapi-manager,general) | 35 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [vnfrqts/testcases](https://gerrit.onap.org/r/admin/repos/vnfrqts/testcases,general) | 35 | 0 | 0 | 1468 | 2022-04-14 | 🛑 |
-| [usecase-ui/llm-adaptation](https://gerrit.onap.org/r/admin/repos/usecase-ui/llm-adaptation,general) | 34 | +254 | 2 | 67 | 2026-02-13 | ✅ |
-| [so/adapters/so-etsi-sol005-adapter](https://gerrit.onap.org/r/admin/repos/so/adapters/so-etsi-sol005-adapter,general) | 31 | +309 | 3 | 67 | 2026-02-13 | ✅ |
-| [integration/simulators/nf-simulator/netconf-server](https://gerrit.onap.org/r/admin/repos/integration/simulators/nf-simulator/netconf-server,general) | 30 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [integration/simulators/nf-simulator](https://gerrit.onap.org/r/admin/repos/integration/simulators/nf-simulator,general) | 29 | 0 | 0 | 1098 | 2023-04-19 | 🛑 |
-| [integration/ietf-actn-tools](https://gerrit.onap.org/r/admin/repos/integration/ietf-actn-tools,general) | 28 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [vnfrqts/usecases](https://gerrit.onap.org/r/admin/repos/vnfrqts/usecases,general) | 28 | 0 | 0 | 1468 | 2022-04-14 | 🛑 |
-| [sdc/sdc-pubsub](https://gerrit.onap.org/r/admin/repos/sdc/sdc-pubsub,general) | 27 | 0 | 0 | 1155 | 2023-02-21 | 🛑 |
-| [integration/simulators/nf-simulator/ves-client](https://gerrit.onap.org/r/admin/repos/integration/simulators/nf-simulator/ves-client,general) | 26 | +357 | 2 | 141 | 2025-12-01 | ✅ |
-| [testsuite/cds](https://gerrit.onap.org/r/admin/repos/testsuite/cds,general) | 24 | +220 | 1 | 67 | 2026-02-13 | ✅ |
-| [sdc/onap-ui-angular](https://gerrit.onap.org/r/admin/repos/sdc/onap-ui-angular,general) | 23 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [sandbox-2](https://gerrit.onap.org/r/admin/repos/sandbox-2,general) | 23 | 0 | 0 | 2797 | 2018-08-24 | 🛑 |
-| [sdc/onap-ui-common](https://gerrit.onap.org/r/admin/repos/sdc/onap-ui-common,general) | 22 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [integration/simulators/nf-simulator/pm-https-server](https://gerrit.onap.org/r/admin/repos/integration/simulators/nf-simulator/pm-https-server,general) | 22 | 0 | 0 | 1275 | 2022-10-24 | 🛑 |
-| [testsuite/cds-mock-odl](https://gerrit.onap.org/r/admin/repos/testsuite/cds-mock-odl,general) | 21 | +252 | 1 | 67 | 2026-02-13 | ✅ |
-| [integration/simulators/core-nssmf-simulator](https://gerrit.onap.org/r/admin/repos/integration/simulators/core-nssmf-simulator,general) | 21 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [integration/simulators/5G-core-nf-simulator](https://gerrit.onap.org/r/admin/repos/integration/simulators/5G-core-nf-simulator,general) | 20 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [integration/simulators/nf-simulator/avcn-manager](https://gerrit.onap.org/r/admin/repos/integration/simulators/nf-simulator/avcn-manager,general) | 19 | 0 | 0 | 1275 | 2022-10-24 | 🛑 |
-| [testsuite/robot-utils](https://gerrit.onap.org/r/admin/repos/testsuite/robot-utils,general) | 18 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [aai](https://gerrit.onap.org/r/admin/repos/aai,general) | 18 | 0 | 0 | 2037 | 2020-09-22 | 🛑 |
-| [integration/simulators/ran-nssmf-simulator](https://gerrit.onap.org/r/admin/repos/integration/simulators/ran-nssmf-simulator,general) | 17 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [vnfsdk/lctest](https://gerrit.onap.org/r/admin/repos/vnfsdk/lctest,general) | 17 | 0 | 0 | 2421 | 2019-09-05 | 🛑 |
-| [policy](https://gerrit.onap.org/r/admin/repos/policy,general) | 16 | 0 | 0 | 2037 | 2020-09-22 | 🛑 |
-| [sdnc](https://gerrit.onap.org/r/admin/repos/sdnc,general) | 16 | 0 | 0 | 2037 | 2020-09-22 | 🛑 |
-| [doc/doc-best-practice](https://gerrit.onap.org/r/admin/repos/doc/doc-best-practice,general) | 12 | +330 | 3 | 21 | 2026-03-31 | ✅ |
-| [integration/pipelines/build-integration](https://gerrit.onap.org/r/admin/repos/integration/pipelines/build-integration,general) | 11 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [multicloud/openstack/windriver](https://gerrit.onap.org/r/admin/repos/multicloud/openstack/windriver,general) | 11 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [oparent/cia](https://gerrit.onap.org/r/admin/repos/oparent/cia,general) | 11 | +82 | 1 | 43 | 2026-03-09 | ✅ |
-| [integration/onap-component-simulators](https://gerrit.onap.org/r/admin/repos/integration/onap-component-simulators,general) | 10 | +15 | 1 | 252 | 2025-08-12 | ✅ |
-| [oom/consul](https://gerrit.onap.org/r/admin/repos/oom/consul,general) | 10 | 0 | 0 | 1440 | 2022-05-12 | 🛑 |
-| [oom/utils](https://gerrit.onap.org/r/admin/repos/oom/utils,general) | 10 | 0 | 0 | 1440 | 2022-05-12 | 🛑 |
-| [multicloud](https://gerrit.onap.org/r/admin/repos/multicloud,general) | 8 | 0 | 0 | 1687 | 2021-09-08 | 🛑 |
-| [portal-ng/e2e](https://gerrit.onap.org/r/admin/repos/portal-ng/e2e,general) | 7 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [vnfrqts/epics](https://gerrit.onap.org/r/admin/repos/vnfrqts/epics,general) | 7 | 0 | 0 | 2064 | 2020-08-26 | 🛑 |
-| [oom/platform/keycloak](https://gerrit.onap.org/r/admin/repos/oom/platform/keycloak,general) | 6 | +235 | 1 | 67 | 2026-02-13 | ✅ |
-| [portal-ng](https://gerrit.onap.org/r/admin/repos/portal-ng,general) | 6 | +48 | 1 | 214 | 2025-09-19 | ✅ |
-| [relman](https://gerrit.onap.org/r/admin/repos/relman,general) | 6 | +15 | 1 | 252 | 2025-08-12 | ✅ |
-| [integration/pipelines/oom-automatic-installation](https://gerrit.onap.org/r/admin/repos/integration/pipelines/oom-automatic-installation,general) | 6 | 0 | 0 | 1082 | 2023-05-05 | ☑️ |
-| [integration/pipelines/chained-ci](https://gerrit.onap.org/r/admin/repos/integration/pipelines/chained-ci,general) | 5 | 0 | 0 | 1104 | 2023-04-13 | 🛑 |
-| [integration/pipelines/xtesting-onap](https://gerrit.onap.org/r/admin/repos/integration/pipelines/xtesting-onap,general) | 4 | 0 | 0 | 1104 | 2023-04-13 | 🛑 |
-| [integration/simulators/ran-app](https://gerrit.onap.org/r/admin/repos/integration/simulators/ran-app,general) | 4 | 0 | 0 | 1240 | 2022-11-29 | 🛑 |
-| [testsuite/cds-mock-server](https://gerrit.onap.org/r/admin/repos/testsuite/cds-mock-server,general) | 4 | 0 | 0 | 1098 | 2023-04-19 | 🛑 |
-| [oom/platform/cert-manager](https://gerrit.onap.org/r/admin/repos/oom/platform/cert-manager,general) | 2 | 0 | 0 | 2100 | 2020-07-21 | 🛑 |
-| [testsuite/cds-mock-ssh](https://gerrit.onap.org/r/admin/repos/testsuite/cds-mock-ssh,general) | 2 | 0 | 0 | 1904 | 2021-02-02 | 🛑 |
-| [integration/gating](https://gerrit.onap.org/r/admin/repos/integration/gating,general) | 1 | 0 | 1 | 42 | 2026-03-10 | ✅ |
-| [ccsdk](https://gerrit.onap.org/r/admin/repos/ccsdk,general) | 1 | 0 | 0 | 3220 | 2017-06-27 | 🛑 |
-| [dmaap](https://gerrit.onap.org/r/admin/repos/dmaap,general) | 1 | 0 | 0 | 3221 | 2017-06-27 | 🛑 |
-| [holmes](https://gerrit.onap.org/r/admin/repos/holmes,general) | 1 | 0 | 0 | 3219 | 2017-06-28 | 🛑 |
-| [msb](https://gerrit.onap.org/r/admin/repos/msb,general) | 1 | 0 | 0 | 3220 | 2017-06-27 | 🛑 |
-| [sandbox-3](https://gerrit.onap.org/r/admin/repos/sandbox-3,general) | 1 | 0 | 0 | 2134 | 2020-06-18 | 🛑 |
-| [university](https://gerrit.onap.org/r/admin/repos/university,general) | 1 | 0 | 0 | 3191 | 2017-07-26 | 🛑 |
-| [vfc](https://gerrit.onap.org/r/admin/repos/vfc,general) | 1 | 0 | 0 | 3219 | 2017-06-28 | 🛑 |
-| [vnfrqts](https://gerrit.onap.org/r/admin/repos/vnfrqts,general) | 1 | 0 | 0 | 3218 | 2017-06-29 | 🛑 |
-| [vnfsdk](https://gerrit.onap.org/r/admin/repos/vnfsdk,general) | 1 | 0 | 0 | 3230 | 2017-06-18 | 🛑 |
+| [doc](https://gerrit.onap.org/r/admin/repos/doc,general) | 27845 | +3595 | 4 | 2 | 2026-04-20 | ✅ |
+| [oom](https://gerrit.onap.org/r/admin/repos/oom,general) | 7691 | +45229 | 19 | 14 | 2026-04-08 | ✅ |
+| [so](https://gerrit.onap.org/r/admin/repos/so,general) | 7060 | +16244 | 6 | 0 | 2026-04-22 | ✅ |
+| [ci-management](https://gerrit.onap.org/r/admin/repos/ci-management,general) | 6373 | +1633 | 16 | 13 | 2026-04-09 | ✅ |
+| [sdc](https://gerrit.onap.org/r/admin/repos/sdc,general) | 3990 | +5188 | 7 | 13 | 2026-04-09 | ✅ |
+| [cps](https://gerrit.onap.org/r/admin/repos/cps,general) | 3383 | +37799 | 17 | 0 | 2026-04-22 | ✅ |
+| [integration](https://gerrit.onap.org/r/admin/repos/integration,general) | 3027 | +244 | 3 | 22 | 2026-03-31 | ✅ |
+| [ccsdk/cds](https://gerrit.onap.org/r/admin/repos/ccsdk/cds,general) | 3018 | +31479 | 11 | 0 | 2026-04-22 | ✅ |
+| [policy/clamp](https://gerrit.onap.org/r/admin/repos/policy/clamp,general) | 2833 | +110041 | 8 | 2 | 2026-04-20 | ✅ |
+| [ccsdk/sli](https://gerrit.onap.org/r/admin/repos/ccsdk/sli,general) | 1811 | +3658 | 5 | 8 | 2026-04-14 | ✅ |
+| [sdnc/oam](https://gerrit.onap.org/r/admin/repos/sdnc/oam,general) | 1336 | +868 | 8 | 1 | 2026-04-21 | ✅ |
+| [demo](https://gerrit.onap.org/r/admin/repos/demo,general) | 1316 | +15 | 1 | 253 | 2025-08-12 | ✅ |
+| [integration/csit](https://gerrit.onap.org/r/admin/repos/integration/csit,general) | 1206 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [multicloud/k8s](https://gerrit.onap.org/r/admin/repos/multicloud/k8s,general) | 1150 | +3614 | 6 | 22 | 2026-03-31 | ✅ |
+| [policy/parent](https://gerrit.onap.org/r/admin/repos/policy/parent,general) | 1144 | +2611 | 11 | 8 | 2026-04-14 | ✅ |
+| [policy/models](https://gerrit.onap.org/r/admin/repos/policy/models,general) | 1124 | +705 | 5 | 68 | 2026-02-13 | ✅ |
+| [policy/drools-applications](https://gerrit.onap.org/r/admin/repos/policy/drools-applications,general) | 1119 | +821 | 5 | 68 | 2026-02-13 | ✅ |
+| [usecase-ui](https://gerrit.onap.org/r/admin/repos/usecase-ui,general) | 1073 | +333 | 4 | 22 | 2026-03-31 | ✅ |
+| [oom/offline-installer](https://gerrit.onap.org/r/admin/repos/oom/offline-installer,general) | 1073 | 0 | 0 | 1276 | 2022-10-24 | 🛑 |
+| [policy/apex-pdp](https://gerrit.onap.org/r/admin/repos/policy/apex-pdp,general) | 1071 | +944 | 5 | 68 | 2026-02-13 | ✅ |
+| [policy/drools-pdp](https://gerrit.onap.org/r/admin/repos/policy/drools-pdp,general) | 1051 | +784 | 5 | 68 | 2026-02-13 | ✅ |
+| [aai/aai-common](https://gerrit.onap.org/r/admin/repos/aai/aai-common,general) | 906 | +2350 | 8 | 7 | 2026-04-15 | ✅ |
+| [multicloud/openstack](https://gerrit.onap.org/r/admin/repos/multicloud/openstack,general) | 862 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [testsuite](https://gerrit.onap.org/r/admin/repos/testsuite,general) | 836 | +46 | 2 | 55 | 2026-02-26 | ✅ |
+| [ccsdk/apps](https://gerrit.onap.org/r/admin/repos/ccsdk/apps,general) | 825 | +1056 | 4 | 8 | 2026-04-14 | ✅ |
+| [policy/docker](https://gerrit.onap.org/r/admin/repos/policy/docker,general) | 821 | +6571 | 12 | 2 | 2026-04-20 | ✅ |
+| [policy/common](https://gerrit.onap.org/r/admin/repos/policy/common,general) | 769 | +492 | 5 | 68 | 2026-02-13 | ✅ |
+| [ccsdk/features](https://gerrit.onap.org/r/admin/repos/ccsdk/features,general) | 731 | +14682 | 5 | 8 | 2026-04-14 | ✅ |
+| [policy/pap](https://gerrit.onap.org/r/admin/repos/policy/pap,general) | 657 | +599 | 5 | 68 | 2026-02-13 | ✅ |
+| [ccsdk/distribution](https://gerrit.onap.org/r/admin/repos/ccsdk/distribution,general) | 629 | +9695 | 6 | 8 | 2026-04-14 | ✅ |
+| [usecase-ui/server](https://gerrit.onap.org/r/admin/repos/usecase-ui/server,general) | 627 | +17 | 1 | 294 | 2025-07-03 | ✅ |
+| [vnfrqts/requirements](https://gerrit.onap.org/r/admin/repos/vnfrqts/requirements,general) | 618 | +228 | 1 | 43 | 2026-03-10 | ✅ |
+| [dcaegen2/services](https://gerrit.onap.org/r/admin/repos/dcaegen2/services,general) | 594 | +2640 | 2 | 15 | 2026-04-08 | ✅ |
+| [policy/xacml-pdp](https://gerrit.onap.org/r/admin/repos/policy/xacml-pdp,general) | 564 | +5052 | 6 | 68 | 2026-02-13 | ✅ |
+| [dmaap/datarouter](https://gerrit.onap.org/r/admin/repos/dmaap/datarouter,general) | 536 | +56 | 1 | 49 | 2026-03-04 | ✅ |
+| [sdc/sdc-workflow-designer](https://gerrit.onap.org/r/admin/repos/sdc/sdc-workflow-designer,general) | 532 | +630 | 4 | 23 | 2026-03-30 | ✅ |
+| [dcaegen2](https://gerrit.onap.org/r/admin/repos/dcaegen2,general) | 504 | +264 | 2 | 70 | 2026-02-11 | ✅ |
+| [policy/api](https://gerrit.onap.org/r/admin/repos/policy/api,general) | 500 | +530 | 6 | 68 | 2026-02-13 | ✅ |
+| [multicloud/framework](https://gerrit.onap.org/r/admin/repos/multicloud/framework,general) | 500 | +285 | 4 | 22 | 2026-03-31 | ✅ |
+| [oom/platform/cert-service](https://gerrit.onap.org/r/admin/repos/oom/platform/cert-service,general) | 495 | 0 | 0 | 1024 | 2023-07-03 | ☑️ |
+| [policy/distribution](https://gerrit.onap.org/r/admin/repos/policy/distribution,general) | 473 | +606 | 5 | 68 | 2026-02-13 | ✅ |
+| [aai/resources](https://gerrit.onap.org/r/admin/repos/aai/resources,general) | 462 | +1618 | 6 | 70 | 2026-02-11 | ✅ |
+| [ccsdk/oran](https://gerrit.onap.org/r/admin/repos/ccsdk/oran,general) | 445 | +2197 | 9 | 8 | 2026-04-14 | ✅ |
+| [multicloud/openstack/vmware](https://gerrit.onap.org/r/admin/repos/multicloud/openstack/vmware,general) | 443 | 0 | 0 | 1683 | 2021-09-13 | 🛑 |
+| [dcaegen2/collectors/hv-ves](https://gerrit.onap.org/r/admin/repos/dcaegen2/collectors/hv-ves,general) | 441 | +3109 | 2 | 13 | 2026-04-09 | ✅ |
+| [aai/oom](https://gerrit.onap.org/r/admin/repos/aai/oom,general) | 441 | 0 | 0 | 1962 | 2020-12-07 | 🛑 |
+| [aai/traversal](https://gerrit.onap.org/r/admin/repos/aai/traversal,general) | 429 | +439 | 6 | 70 | 2026-02-11 | ✅ |
+| [aai/schema-service](https://gerrit.onap.org/r/admin/repos/aai/schema-service,general) | 411 | +113107 | 11 | 48 | 2026-03-05 | ✅ |
+| [ccsdk/parent](https://gerrit.onap.org/r/admin/repos/ccsdk/parent,general) | 405 | +8465 | 8 | 2 | 2026-04-20 | ✅ |
+| [cps/ncmp-dmi-plugin](https://gerrit.onap.org/r/admin/repos/cps/ncmp-dmi-plugin,general) | 398 | +7276 | 9 | 0 | 2026-04-22 | ✅ |
+| [dcaegen2/services/prh](https://gerrit.onap.org/r/admin/repos/dcaegen2/services/prh,general) | 372 | +3278 | 4 | 24 | 2026-03-30 | ✅ |
+| [dcaegen2/deployments](https://gerrit.onap.org/r/admin/repos/dcaegen2/deployments,general) | 345 | +15 | 1 | 253 | 2025-08-12 | ✅ |
+| [testsuite/pythonsdk-tests](https://gerrit.onap.org/r/admin/repos/testsuite/pythonsdk-tests,general) | 328 | +1643 | 6 | 2 | 2026-04-20 | ✅ |
+| [dcaegen2/collectors/ves](https://gerrit.onap.org/r/admin/repos/dcaegen2/collectors/ves,general) | 313 | +129 | 2 | 16 | 2026-04-06 | ✅ |
+| [aai/sparky-be](https://gerrit.onap.org/r/admin/repos/aai/sparky-be,general) | 310 | +798 | 3 | 22 | 2026-03-31 | ✅ |
+| [sdnc/northbound](https://gerrit.onap.org/r/admin/repos/sdnc/northbound,general) | 310 | +1873 | 3 | 21 | 2026-04-01 | ✅ |
+| [aai/babel](https://gerrit.onap.org/r/admin/repos/aai/babel,general) | 308 | +871 | 8 | 72 | 2026-02-09 | ✅ |
+| [so/libs](https://gerrit.onap.org/r/admin/repos/so/libs,general) | 308 | +320 | 2 | 68 | 2026-02-13 | ✅ |
+| [testsuite/oom](https://gerrit.onap.org/r/admin/repos/testsuite/oom,general) | 303 | 0 | 0 | 1098 | 2023-04-20 | 🛑 |
+| [logging-analytics](https://gerrit.onap.org/r/admin/repos/logging-analytics,general) | 299 | +44 | 2 | 22 | 2026-03-31 | ✅ |
+| [dcaegen2/services/sdk](https://gerrit.onap.org/r/admin/repos/dcaegen2/services/sdk,general) | 299 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [sdc/sdc-tosca](https://gerrit.onap.org/r/admin/repos/sdc/sdc-tosca,general) | 286 | +294 | 3 | 23 | 2026-03-30 | ✅ |
+| [modeling/modelspec](https://gerrit.onap.org/r/admin/repos/modeling/modelspec,general) | 267 | +53 | 2 | 22 | 2026-03-31 | ✅ |
+| [aai/graphadmin](https://gerrit.onap.org/r/admin/repos/aai/graphadmin,general) | 239 | +3687 | 5 | 70 | 2026-02-11 | ✅ |
+| [aai/model-loader](https://gerrit.onap.org/r/admin/repos/aai/model-loader,general) | 228 | +420 | 8 | 0 | 2026-04-22 | ✅ |
+| [dcaegen2/collectors/datafile](https://gerrit.onap.org/r/admin/repos/dcaegen2/collectors/datafile,general) | 211 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [dmaap/buscontroller](https://gerrit.onap.org/r/admin/repos/dmaap/buscontroller,general) | 202 | +88 | 1 | 22 | 2026-03-31 | ✅ |
+| [integration/simulators/pnf-simulator](https://gerrit.onap.org/r/admin/repos/integration/simulators/pnf-simulator,general) | 192 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [so/docker-config](https://gerrit.onap.org/r/admin/repos/so/docker-config,general) | 185 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [integration/xtesting](https://gerrit.onap.org/r/admin/repos/integration/xtesting,general) | 163 | +754 | 4 | 21 | 2026-04-02 | ✅ |
+| [sdc/sdc-distribution-client](https://gerrit.onap.org/r/admin/repos/sdc/sdc-distribution-client,general) | 162 | +514 | 4 | 49 | 2026-03-04 | ✅ |
+| [usecase-ui/intent-analysis](https://gerrit.onap.org/r/admin/repos/usecase-ui/intent-analysis,general) | 162 | +254 | 2 | 68 | 2026-02-13 | ✅ |
+| [dcaegen2/services/pm-mapper](https://gerrit.onap.org/r/admin/repos/dcaegen2/services/pm-mapper,general) | 162 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [integration/python-onapsdk](https://gerrit.onap.org/r/admin/repos/integration/python-onapsdk,general) | 160 | +1250 | 3 | 34 | 2026-03-20 | ✅ |
+| [so/adapters/so-cnf-adapter](https://gerrit.onap.org/r/admin/repos/so/adapters/so-cnf-adapter,general) | 159 | +5423 | 5 | 2 | 2026-04-20 | ✅ |
+| [oparent](https://gerrit.onap.org/r/admin/repos/oparent,general) | 159 | +243 | 2 | 31 | 2026-03-23 | ✅ |
+| [aai/test-config](https://gerrit.onap.org/r/admin/repos/aai/test-config,general) | 157 | +15 | 1 | 253 | 2025-08-12 | ✅ |
+| [vnfsdk/model](https://gerrit.onap.org/r/admin/repos/vnfsdk/model,general) | 146 | +92 | 1 | 49 | 2026-03-04 | ✅ |
+| [sdnc/apps](https://gerrit.onap.org/r/admin/repos/sdnc/apps,general) | 143 | +301 | 3 | 27 | 2026-03-26 | ✅ |
+| [dcaegen2/services/mapper](https://gerrit.onap.org/r/admin/repos/dcaegen2/services/mapper,general) | 139 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [testsuite/python-testing-utils](https://gerrit.onap.org/r/admin/repos/testsuite/python-testing-utils,general) | 131 | +194 | 2 | 64 | 2026-02-17 | ✅ |
+| [aai/sparky-fe](https://gerrit.onap.org/r/admin/repos/aai/sparky-fe,general) | 123 | +40955 | 2 | 70 | 2026-02-11 | ✅ |
+| [portal-ng/ui](https://gerrit.onap.org/r/admin/repos/portal-ng/ui,general) | 120 | +1539 | 6 | 0 | 2026-04-22 | ✅ |
+| [dcaegen2/analytics/tca-gen2](https://gerrit.onap.org/r/admin/repos/dcaegen2/analytics/tca-gen2,general) | 115 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [sdc/sdc-be-common](https://gerrit.onap.org/r/admin/repos/sdc/sdc-be-common,general) | 113 | +346 | 4 | 0 | 2026-04-22 | ✅ |
+| [dcaegen2/utils](https://gerrit.onap.org/r/admin/repos/dcaegen2/utils,general) | 110 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [sdc/sdc-docker-base](https://gerrit.onap.org/r/admin/repos/sdc/sdc-docker-base,general) | 103 | +334 | 2 | 253 | 2025-08-12 | ✅ |
+| [policy/opa-pdp](https://gerrit.onap.org/r/admin/repos/policy/opa-pdp,general) | 93 | +5956 | 9 | 28 | 2026-03-25 | ✅ |
+| [dcaegen2/collectors/restconf](https://gerrit.onap.org/r/admin/repos/dcaegen2/collectors/restconf,general) | 93 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [dcaegen2/services/heartbeat](https://gerrit.onap.org/r/admin/repos/dcaegen2/services/heartbeat,general) | 92 | +236 | 1 | 68 | 2026-02-13 | ✅ |
+| [dmaap/kafka11aaf](https://gerrit.onap.org/r/admin/repos/dmaap/kafka11aaf,general) | 92 | 0 | 0 | 1120 | 2023-03-29 | 🛑 |
+| [dcaegen2/collectors/snmptrap](https://gerrit.onap.org/r/admin/repos/dcaegen2/collectors/snmptrap,general) | 91 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [dcaegen2/services/son-handler](https://gerrit.onap.org/r/admin/repos/dcaegen2/services/son-handler,general) | 91 | 0 | 0 | 1120 | 2023-03-30 | 🛑 |
+| [msb/service-mesh](https://gerrit.onap.org/r/admin/repos/msb/service-mesh,general) | 88 | 0 | 0 | 1945 | 2020-12-25 | 🛑 |
+| [aai/graphgraph](https://gerrit.onap.org/r/admin/repos/aai/graphgraph,general) | 80 | +15 | 1 | 256 | 2025-08-09 | ✅ |
+| [vnfsdk/pkgtools](https://gerrit.onap.org/r/admin/repos/vnfsdk/pkgtools,general) | 77 | 0 | 0 | 1283 | 2022-10-17 | 🛑 |
+| [portal-ng/bff](https://gerrit.onap.org/r/admin/repos/portal-ng/bff,general) | 76 | +168 | 4 | 84 | 2026-01-28 | ✅ |
+| [aai/rest-client](https://gerrit.onap.org/r/admin/repos/aai/rest-client,general) | 75 | +235 | 1 | 70 | 2026-02-11 | ✅ |
+| [integration/seccom](https://gerrit.onap.org/r/admin/repos/integration/seccom,general) | 73 | 0 | 0 | 1029 | 2023-06-28 | ☑️ |
+| [vfc/nfvo/db](https://gerrit.onap.org/r/admin/repos/vfc/nfvo/db,general) | 71 | +15 | 1 | 253 | 2025-08-12 | ✅ |
+| [portal-ng/history](https://gerrit.onap.org/r/admin/repos/portal-ng/history,general) | 67 | +2655 | 7 | 0 | 2026-04-22 | ✅ |
+| [aai/logging-service](https://gerrit.onap.org/r/admin/repos/aai/logging-service,general) | 65 | +15 | 1 | 254 | 2025-08-11 | ✅ |
+| [so/so-config](https://gerrit.onap.org/r/admin/repos/so/so-config,general) | 64 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [oom/registrator](https://gerrit.onap.org/r/admin/repos/oom/registrator,general) | 55 | +263 | 1 | 160 | 2025-11-13 | ✅ |
+| [so/adapters/so-etsi-sol003-adapter](https://gerrit.onap.org/r/admin/repos/so/adapters/so-etsi-sol003-adapter,general) | 54 | +552 | 4 | 22 | 2026-03-31 | ✅ |
+| [sdc/sdc-helm-validator](https://gerrit.onap.org/r/admin/repos/sdc/sdc-helm-validator,general) | 54 | +377 | 4 | 14 | 2026-04-08 | ✅ |
+| [vnfrqts/guidelines](https://gerrit.onap.org/r/admin/repos/vnfrqts/guidelines,general) | 53 | +117 | 1 | 48 | 2026-03-05 | ✅ |
+| [oom/readiness](https://gerrit.onap.org/r/admin/repos/oom/readiness,general) | 52 | +1679 | 2 | 68 | 2026-02-13 | ✅ |
+| [integration/usecases/A1-policy-enforcement](https://gerrit.onap.org/r/admin/repos/integration/usecases/A1-policy-enforcement,general) | 52 | +252 | 2 | 68 | 2026-02-13 | ✅ |
+| [usecase-ui/nlp](https://gerrit.onap.org/r/admin/repos/usecase-ui/nlp,general) | 52 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [integration/simulators/A1-policy-enforcement-simulator](https://gerrit.onap.org/r/admin/repos/integration/simulators/A1-policy-enforcement-simulator,general) | 51 | +252 | 2 | 68 | 2026-02-13 | ✅ |
+| [osa](https://gerrit.onap.org/r/admin/repos/osa,general) | 51 | +48 | 1 | 22 | 2026-03-31 | ✅ |
+| [so/adapters/so-nssmf-adapter](https://gerrit.onap.org/r/admin/repos/so/adapters/so-nssmf-adapter,general) | 49 | +1440 | 4 | 9 | 2026-04-13 | ✅ |
+| [so/so-admin-cockpit](https://gerrit.onap.org/r/admin/repos/so/so-admin-cockpit,general) | 49 | +330 | 2 | 68 | 2026-02-13 | ✅ |
+| [so/so-etsi-nfvo](https://gerrit.onap.org/r/admin/repos/so/so-etsi-nfvo,general) | 48 | +943 | 3 | 9 | 2026-04-13 | ✅ |
+| [integration/simulators/ran-simulator](https://gerrit.onap.org/r/admin/repos/integration/simulators/ran-simulator,general) | 47 | 0 | 0 | 1104 | 2023-04-14 | 🛑 |
+| [integration/data-provider](https://gerrit.onap.org/r/admin/repos/integration/data-provider,general) | 44 | +261 | 2 | 68 | 2026-02-13 | ✅ |
+| [portal-ng/preferences](https://gerrit.onap.org/r/admin/repos/portal-ng/preferences,general) | 41 | +1015 | 3 | 68 | 2026-02-13 | ✅ |
+| [.github](https://gerrit.onap.org/r/admin/repos/.github,general) | 39 | +39 | 2 | 21 | 2026-04-01 | ✅ |
+| [integration/usecases/A1-policy-enforcement-r-apps](https://gerrit.onap.org/r/admin/repos/integration/usecases/A1-policy-enforcement-r-apps,general) | 38 | +252 | 2 | 68 | 2026-02-13 | ✅ |
+| [so/chef-repo](https://gerrit.onap.org/r/admin/repos/so/chef-repo,general) | 38 | +15 | 1 | 252 | 2025-08-13 | ✅ |
+| [integration/docker/onap-python](https://gerrit.onap.org/r/admin/repos/integration/docker/onap-python,general) | 37 | 0 | 0 | 1105 | 2023-04-13 | 🛑 |
+| [so/adapters/so-oof-adapter](https://gerrit.onap.org/r/admin/repos/so/adapters/so-oof-adapter,general) | 36 | +710 | 4 | 9 | 2026-04-13 | ✅ |
+| [integration/docker/onap-java11](https://gerrit.onap.org/r/admin/repos/integration/docker/onap-java11,general) | 36 | 0 | 0 | 1105 | 2023-04-13 | 🛑 |
+| [dcaegen2/platform/ves-openapi-manager](https://gerrit.onap.org/r/admin/repos/dcaegen2/platform/ves-openapi-manager,general) | 35 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [vnfrqts/testcases](https://gerrit.onap.org/r/admin/repos/vnfrqts/testcases,general) | 35 | 0 | 0 | 1469 | 2022-04-14 | 🛑 |
+| [usecase-ui/llm-adaptation](https://gerrit.onap.org/r/admin/repos/usecase-ui/llm-adaptation,general) | 34 | +254 | 2 | 68 | 2026-02-13 | ✅ |
+| [so/adapters/so-etsi-sol005-adapter](https://gerrit.onap.org/r/admin/repos/so/adapters/so-etsi-sol005-adapter,general) | 31 | +309 | 3 | 68 | 2026-02-13 | ✅ |
+| [integration/simulators/nf-simulator/netconf-server](https://gerrit.onap.org/r/admin/repos/integration/simulators/nf-simulator/netconf-server,general) | 30 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [integration/simulators/nf-simulator](https://gerrit.onap.org/r/admin/repos/integration/simulators/nf-simulator,general) | 29 | 0 | 0 | 1099 | 2023-04-19 | 🛑 |
+| [integration/ietf-actn-tools](https://gerrit.onap.org/r/admin/repos/integration/ietf-actn-tools,general) | 28 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [vnfrqts/usecases](https://gerrit.onap.org/r/admin/repos/vnfrqts/usecases,general) | 28 | 0 | 0 | 1469 | 2022-04-14 | 🛑 |
+| [sdc/sdc-pubsub](https://gerrit.onap.org/r/admin/repos/sdc/sdc-pubsub,general) | 27 | 0 | 0 | 1156 | 2023-02-21 | 🛑 |
+| [integration/simulators/nf-simulator/ves-client](https://gerrit.onap.org/r/admin/repos/integration/simulators/nf-simulator/ves-client,general) | 26 | +357 | 2 | 142 | 2025-12-01 | ✅ |
+| [testsuite/cds](https://gerrit.onap.org/r/admin/repos/testsuite/cds,general) | 24 | +220 | 1 | 68 | 2026-02-13 | ✅ |
+| [sdc/onap-ui-angular](https://gerrit.onap.org/r/admin/repos/sdc/onap-ui-angular,general) | 23 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [sandbox-2](https://gerrit.onap.org/r/admin/repos/sandbox-2,general) | 23 | 0 | 0 | 2798 | 2018-08-24 | 🛑 |
+| [sdc/onap-ui-common](https://gerrit.onap.org/r/admin/repos/sdc/onap-ui-common,general) | 22 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [integration/simulators/nf-simulator/pm-https-server](https://gerrit.onap.org/r/admin/repos/integration/simulators/nf-simulator/pm-https-server,general) | 22 | 0 | 0 | 1276 | 2022-10-24 | 🛑 |
+| [testsuite/cds-mock-odl](https://gerrit.onap.org/r/admin/repos/testsuite/cds-mock-odl,general) | 21 | +252 | 1 | 68 | 2026-02-13 | ✅ |
+| [integration/simulators/core-nssmf-simulator](https://gerrit.onap.org/r/admin/repos/integration/simulators/core-nssmf-simulator,general) | 21 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [integration/simulators/5G-core-nf-simulator](https://gerrit.onap.org/r/admin/repos/integration/simulators/5G-core-nf-simulator,general) | 20 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [integration/simulators/nf-simulator/avcn-manager](https://gerrit.onap.org/r/admin/repos/integration/simulators/nf-simulator/avcn-manager,general) | 19 | 0 | 0 | 1276 | 2022-10-24 | 🛑 |
+| [testsuite/robot-utils](https://gerrit.onap.org/r/admin/repos/testsuite/robot-utils,general) | 18 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [aai](https://gerrit.onap.org/r/admin/repos/aai,general) | 18 | 0 | 0 | 2038 | 2020-09-22 | 🛑 |
+| [integration/simulators/ran-nssmf-simulator](https://gerrit.onap.org/r/admin/repos/integration/simulators/ran-nssmf-simulator,general) | 17 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [vnfsdk/lctest](https://gerrit.onap.org/r/admin/repos/vnfsdk/lctest,general) | 17 | 0 | 0 | 2422 | 2019-09-05 | 🛑 |
+| [policy](https://gerrit.onap.org/r/admin/repos/policy,general) | 16 | 0 | 0 | 2038 | 2020-09-22 | 🛑 |
+| [sdnc](https://gerrit.onap.org/r/admin/repos/sdnc,general) | 16 | 0 | 0 | 2038 | 2020-09-22 | 🛑 |
+| [doc/doc-best-practice](https://gerrit.onap.org/r/admin/repos/doc/doc-best-practice,general) | 12 | +330 | 3 | 22 | 2026-03-31 | ✅ |
+| [integration/pipelines/build-integration](https://gerrit.onap.org/r/admin/repos/integration/pipelines/build-integration,general) | 11 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [multicloud/openstack/windriver](https://gerrit.onap.org/r/admin/repos/multicloud/openstack/windriver,general) | 11 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [oparent/cia](https://gerrit.onap.org/r/admin/repos/oparent/cia,general) | 11 | +82 | 1 | 44 | 2026-03-09 | ✅ |
+| [integration/onap-component-simulators](https://gerrit.onap.org/r/admin/repos/integration/onap-component-simulators,general) | 10 | +15 | 1 | 253 | 2025-08-12 | ✅ |
+| [oom/consul](https://gerrit.onap.org/r/admin/repos/oom/consul,general) | 10 | 0 | 0 | 1441 | 2022-05-12 | 🛑 |
+| [oom/utils](https://gerrit.onap.org/r/admin/repos/oom/utils,general) | 10 | 0 | 0 | 1441 | 2022-05-12 | 🛑 |
+| [multicloud](https://gerrit.onap.org/r/admin/repos/multicloud,general) | 8 | 0 | 0 | 1688 | 2021-09-08 | 🛑 |
+| [portal-ng/e2e](https://gerrit.onap.org/r/admin/repos/portal-ng/e2e,general) | 7 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [vnfrqts/epics](https://gerrit.onap.org/r/admin/repos/vnfrqts/epics,general) | 7 | 0 | 0 | 2065 | 2020-08-26 | 🛑 |
+| [oom/platform/keycloak](https://gerrit.onap.org/r/admin/repos/oom/platform/keycloak,general) | 6 | +235 | 1 | 68 | 2026-02-13 | ✅ |
+| [portal-ng](https://gerrit.onap.org/r/admin/repos/portal-ng,general) | 6 | +48 | 1 | 215 | 2025-09-19 | ✅ |
+| [relman](https://gerrit.onap.org/r/admin/repos/relman,general) | 6 | +15 | 1 | 253 | 2025-08-12 | ✅ |
+| [integration/pipelines/oom-automatic-installation](https://gerrit.onap.org/r/admin/repos/integration/pipelines/oom-automatic-installation,general) | 6 | 0 | 0 | 1083 | 2023-05-05 | ☑️ |
+| [integration/pipelines/chained-ci](https://gerrit.onap.org/r/admin/repos/integration/pipelines/chained-ci,general) | 5 | 0 | 0 | 1105 | 2023-04-13 | 🛑 |
+| [integration/pipelines/xtesting-onap](https://gerrit.onap.org/r/admin/repos/integration/pipelines/xtesting-onap,general) | 4 | 0 | 0 | 1105 | 2023-04-13 | 🛑 |
+| [integration/simulators/ran-app](https://gerrit.onap.org/r/admin/repos/integration/simulators/ran-app,general) | 4 | 0 | 0 | 1241 | 2022-11-29 | 🛑 |
+| [testsuite/cds-mock-server](https://gerrit.onap.org/r/admin/repos/testsuite/cds-mock-server,general) | 4 | 0 | 0 | 1099 | 2023-04-19 | 🛑 |
+| [oom/platform/cert-manager](https://gerrit.onap.org/r/admin/repos/oom/platform/cert-manager,general) | 2 | 0 | 0 | 2101 | 2020-07-21 | 🛑 |
+| [testsuite/cds-mock-ssh](https://gerrit.onap.org/r/admin/repos/testsuite/cds-mock-ssh,general) | 2 | 0 | 0 | 1905 | 2021-02-02 | 🛑 |
+| [integration/gating](https://gerrit.onap.org/r/admin/repos/integration/gating,general) | 1 | 0 | 1 | 43 | 2026-03-10 | ✅ |
+| [ccsdk](https://gerrit.onap.org/r/admin/repos/ccsdk,general) | 1 | 0 | 0 | 3221 | 2017-06-27 | 🛑 |
+| [dmaap](https://gerrit.onap.org/r/admin/repos/dmaap,general) | 1 | 0 | 0 | 3222 | 2017-06-27 | 🛑 |
+| [holmes](https://gerrit.onap.org/r/admin/repos/holmes,general) | 1 | 0 | 0 | 3220 | 2017-06-28 | 🛑 |
+| [msb](https://gerrit.onap.org/r/admin/repos/msb,general) | 1 | 0 | 0 | 3221 | 2017-06-27 | 🛑 |
+| [sandbox-3](https://gerrit.onap.org/r/admin/repos/sandbox-3,general) | 1 | 0 | 0 | 2135 | 2020-06-18 | 🛑 |
+| [university](https://gerrit.onap.org/r/admin/repos/university,general) | 1 | 0 | 0 | 3192 | 2017-07-26 | 🛑 |
+| [vfc](https://gerrit.onap.org/r/admin/repos/vfc,general) | 1 | 0 | 0 | 3220 | 2017-06-28 | 🛑 |
+| [vnfrqts](https://gerrit.onap.org/r/admin/repos/vnfrqts,general) | 1 | 0 | 0 | 3219 | 2017-06-29 | 🛑 |
+| [vnfsdk](https://gerrit.onap.org/r/admin/repos/vnfsdk,general) | 1 | 0 | 0 | 3231 | 2017-06-18 | 🛑 |
 
 **Total:** 179 repositories
 
@@ -305,156 +305,156 @@ The data presented in the table below covers the past 365 days.
 
 | Gerrit Project | Primary Type | Other Types | Dependabot | Pre-commit | ReadTheDocs | .gitreview | G2G | Status |
 |----------------|--------------|-------------|------------|------------|-------------|------------|-----|--------|
-| integration/simulators/nf-simulator/pm-https-server | Dockerfile | Java/Maven, PHP | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
-| integration/simulators/nf-simulator/netconf-server | Python | Java/Maven, Dockerfile, Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| integration/simulators/nf-simulator/avcn-manager | Java/Maven | Dockerfile | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | dcaegen2/collectors/restconf | Java/Maven | Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| integration/simulators/nf-simulator/pm-https-server | Dockerfile | Java/Maven, PHP | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
+| integration/simulators/nf-simulator/avcn-manager | Java/Maven | Dockerfile | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | dcaegen2/collectors/datafile | Java/Maven |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | dcaegen2/collectors/snmptrap | Python | Java/Maven, Dockerfile, Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| integration/simulators/nf-simulator/netconf-server | Python | Java/Maven, Dockerfile, Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | integration/simulators/nf-simulator/ves-client | Java/Maven | JavaScript, Python, Dockerfile | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| dcaegen2/analytics/tca-gen2 | Java/Maven |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| dcaegen2/collectors/ves | Java/Maven | Dockerfile, Shell, HTML | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | dcaegen2/services/heartbeat | Python | Java/Maven, Dockerfile, Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | dcaegen2/platform/ves-openapi-manager | Java/Maven | Dockerfile | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| dcaegen2/collectors/ves | Java/Maven | Dockerfile, Shell, HTML | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
+| dcaegen2/collectors/hv-ves | Kotlin | Java/Maven, Shell, HCL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | integration/docker/onap-java11 | Dockerfile |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
+| integration/pipelines/build-integration | Python | Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | dcaegen2/services/mapper | Java/Maven | Shell, HTML | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | integration/docker/onap-python | Dockerfile |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
-| integration/pipelines/build-integration | Python | Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | dcaegen2/services/son-handler | Java/Maven | PLpgSQL | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
-| dcaegen2/services/prh | Java/Maven |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| dcaegen2/services/pm-mapper | Java/Maven | JavaScript, Python, Shell, Robot Framework | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | integration/simulators/5G-core-nf-simulator | N/A |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | integration/pipelines/chained-ci | JavaScript | Python, Shell, HTML, CSS | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
-| dcaegen2/analytics/tca-gen2 | Java/Maven |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | integration/pipelines/oom-automatic-installation | Shell |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | integration/pipelines/xtesting-onap | Shell | Python, HTML | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
-| integration/simulators/ran-nssmf-simulator | N/A |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| dcaegen2/services/prh | Java/Maven |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | integration/simulators/ran-app | Java |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
+| integration/simulators/ran-nssmf-simulator | N/A |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | integration/simulators/core-nssmf-simulator | Java/Maven | Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| dcaegen2/services/pm-mapper | Java/Maven | JavaScript, Python, Shell, Robot Framework | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | integration/simulators/A1-policy-enforcement-simulator | Java/Maven |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| integration/usecases/A1-policy-enforcement | Shell | Python, Kotlin, Smarty | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| dcaegen2/collectors/hv-ves | Kotlin | Java/Maven, Shell, HCL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | multicloud/openstack/windriver | N/A |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| integration/usecases/A1-policy-enforcement-r-apps | Java/Maven | Shell, PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| integration/usecases/A1-policy-enforcement | Shell | Python, Kotlin, Smarty | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | oom/platform/cert-manager | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| integration/simulators/ran-simulator | Java | JavaScript, Shell, D, HTML, PLpgSQL | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
-| oom/platform/keycloak | N/A |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | integration/simulators/pnf-simulator | Java/Maven | JavaScript, Python, Shell, PHP | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| integration/simulators/ran-simulator | Java | JavaScript, Shell, D, HTML, PLpgSQL | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
+| integration/usecases/A1-policy-enforcement-r-apps | Java/Maven | Shell, PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| oom/platform/keycloak | N/A |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | multicloud/openstack/vmware | Python | Shell, Java/Maven | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | integration/simulators/nf-simulator | Java/Maven | JavaScript, Python, Shell, PHP, Smarty | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
-| so/adapters/so-etsi-sol005-adapter | Java/Maven | Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| so/adapters/so-oof-adapter | Java/Maven | Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| so/adapters/so-nssmf-adapter | Java/Maven | Shell, PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| dcaegen2/services/sdk | Java/Maven |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | vfc/nfvo/db | Shell | Java/Maven | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | oom/platform/cert-service | Java/Maven | Python, Dockerfile, Shell, Go, CSS | ❌ | ❌ | ✅ | ✅ | ❌ | ☑️ |
-| dcaegen2/services/sdk | Java/Maven |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| so/adapters/so-etsi-sol003-adapter | Java/Maven | Python, Shell, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| so/adapters/so-etsi-sol005-adapter | Java/Maven | Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| so/adapters/so-nssmf-adapter | Java/Maven | Shell, PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| so/adapters/so-oof-adapter | Java/Maven | Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | so/adapters/so-cnf-adapter | Java/Maven | Shell, PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| so/adapters/so-etsi-sol003-adapter | Java/Maven | Python, Shell, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | aai/babel | Java/Maven | Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| aai/logging-service | Java/Maven |  | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | aai/oom | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| aai/logging-service | Java/Maven |  | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | aai/graphgraph | Java/Maven | JavaScript, Shell, HTML, CSS | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | aai/rest-client | Java/Maven |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| aai/model-loader | Java/Maven | Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | aai/resources | Java/Maven | JavaScript, Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | aai/graphadmin | Java/Maven | Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| aai/model-loader | Java/Maven | Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | aai/test-config | Robot Framework | Shell, Scala | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
-| aai/traversal | Java/Maven | Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | aai/sparky-fe | SCSS | Java/Maven, JavaScript, Node, Shell, HTML, CSS | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| aai/traversal | Java/Maven | Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | aai/schema-service | Java/Maven | Python, Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | aai/sparky-be | Java/Maven | Python, Shell, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ccsdk/apps | Java/Maven | JavaScript, Python, Shell, Groovy, HTML, CSS, PLpgSQL | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ccsdk/parent | Shell | Java/Maven, Python | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | aai/aai-common | Java/Maven | Python, HTML, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ccsdk/distribution | JavaScript | Python, Shell, Groovy, Robot Framework, HTML, CSS, Java/Maven | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ccsdk/apps | Java/Maven | JavaScript, Python, Shell, Groovy, HTML, CSS, PLpgSQL | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | dcaegen2/deployments | Shell | Java/Maven, JavaScript, Python | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
-| ccsdk/oran | Java/Maven | Python, Shell, Groovy, Robot Framework, HTML, CSS, PLpgSQL | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| dcaegen2/utils | Java/Maven | Python, Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| ccsdk/distribution | JavaScript | Python, Shell, Groovy, Robot Framework, HTML, CSS, Java/Maven | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ccsdk/cds | Kotlin | JavaScript, TypeScript, Python, Shell, Groovy, SCSS, HTML, CSS, PLpgSQL, Java/Maven | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ccsdk/parent | Shell | Java/Maven, Python | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | dmaap/buscontroller | Java/Maven | Python, Shell, Robot Framework, CSS, PLpgSQL | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
-| cps/ncmp-dmi-plugin | Java/Maven | Python, Shell, Groovy, Robot Framework, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| dcaegen2/utils | Java/Maven | Python, Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | dmaap/datarouter | Java/Maven | Python, Shell, Robot Framework, HTML, CSS, PLpgSQL | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
 | doc/doc-best-practice | Python | CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | dmaap/kafka11aaf | Java/Maven | Shell | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | integration/gating | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| cps/ncmp-dmi-plugin | Java/Maven | Python, Shell, Groovy, Robot Framework, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ccsdk/oran | Java/Maven | Python, Shell, Groovy, Robot Framework, HTML, CSS, PLpgSQL | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | integration/data-provider | Python | Dockerfile, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| integration/onap-component-simulators | Python | Shell, Go | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | integration/seccom | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | ☑️ |
 | integration/ietf-actn-tools | Java | JavaScript | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | integration/python-onapsdk | Python | Dockerfile, Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| modeling/modelspec | D | Python, CSS | ✅ | ❌ | ✅ | ✅ | ❌ | ✅ |
+| integration/onap-component-simulators | Python | Shell, Go | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | msb/service-mesh | Go | JavaScript, Shell, Smarty | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
+| modeling/modelspec | D | Python, CSS | ✅ | ❌ | ✅ | ✅ | ❌ | ✅ |
 | integration/xtesting | Shell | Python | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| multicloud/framework | Java/Maven | Python, Shell, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | oom/consul | Dockerfile | Shell | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| multicloud/openstack | Python | Shell, Java/Maven | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| ccsdk/features | Java/Maven | JavaScript, TypeScript, Python, Shell, HTML, CSS, PLpgSQL | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | oom/readiness | Go | Python, Dockerfile | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| oom/offline-installer | Python | Shell, Groovy, CSS | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
+| multicloud/framework | Java/Maven | Python, Shell, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | oom/utils | Shell |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | oparent/cia | Python | CSS | ❌ | ❌ | ✅ | ❌ | ❌ | ✅ |
-| multicloud/k8s | Go | JavaScript, Python, Shell, Smarty, HTML, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| integration/csit | Shell | Python, Java, Robot Framework, D, HTML, HCL, PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| multicloud/openstack | Python | Shell, Java/Maven | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| oom/offline-installer | Python | Shell, Groovy, CSS | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
 | oom/registrator | Go | Java/Maven, Python, Shell | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
-| ccsdk/cds | Kotlin | JavaScript, TypeScript, Python, Shell, Groovy, SCSS, HTML, CSS, PLpgSQL, Java/Maven | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ccsdk/features | Java/Maven | JavaScript, TypeScript, Python, Shell, HTML, CSS, PLpgSQL | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| integration/csit | Shell | Python, Java, Robot Framework, D, HTML, HCL, PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| multicloud/k8s | Go | JavaScript, Python, Shell, Smarty, HTML, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| policy/api | Java/Maven | Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | dcaegen2/services | Java/Maven | JavaScript, TypeScript, Python, Shell, Smarty, Robot Framework, HTML, CSS, PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | ccsdk/sli | Java/Maven | Python, Shell, HTML, PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| policy/api | Java/Maven | Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | policy/common | Java/Maven | HTML | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| policy/distribution | Java/Maven | Shell | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | policy/docker | PLpgSQL | Python, Shell, Groovy, Smarty, Robot Framework, Java/Maven | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| policy/distribution | Java/Maven | Shell | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | policy/drools-applications | Java/Maven | Python, Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| policy/opa-pdp | Go | Dockerfile, Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| policy/pap | Java/Maven | Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| policy/parent | Shell | Java/Maven, Python, CSS | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| portal-ng/e2e | Java/Gradle | Groovy | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| policy/clamp | Java/Maven | Python, Shell, Smarty, Robot Framework, HTML, PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | policy/drools-pdp | Java/Maven | Shell, D | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| portal-ng/bff | Java/Gradle | Dockerfile, Shell, Groovy, HTML | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| policy/opa-pdp | Go | Dockerfile, Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| portal-ng/e2e | Java/Gradle | Groovy | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| policy/parent | Shell | Java/Maven, Python, CSS | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| policy/pap | Java/Maven | Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | portal-ng/history | Java/Gradle | Dockerfile, Shell, Groovy | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| portal-ng/bff | Java/Gradle | Dockerfile, Shell, Groovy, HTML | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | portal-ng/preferences | Java/Gradle | Dockerfile, Shell, Groovy | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | sdc/onap-ui-angular | TypeScript | Java/Maven, JavaScript, Node, SCSS, HTML, CSS | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | sdc/onap-ui-common | HTML | Java/Maven, JavaScript, Node, SCSS | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | portal-ng/ui | TypeScript | JavaScript, Node, Python, Dockerfile, Shell, HTML, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | sdc/sdc-docker-base | Python | Java/Maven, Shell, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| policy/clamp | Java/Maven | Python, Shell, Smarty, Robot Framework, HTML, PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | sdc/sdc-pubsub | TypeScript | Java/Maven, JavaScript, Node | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| sdc/sdc-helm-validator | Java/Maven | Dockerfile, Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| policy/apex-pdp | Java/Maven | JavaScript, Shell, HTML, PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | sdc/sdc-distribution-client | Java/Maven | Python, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | sdc/sdc-be-common | Java/Maven |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| sdc/sdc-helm-validator | Java/Maven | Dockerfile, Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | policy/xacml-pdp | Java/Maven | Shell, PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | policy/models | Java/Maven | Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| sdc/sdc-tosca | Java/Maven | Python, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | so/chef-repo | Ruby |  | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | so/docker-config | Shell | Dockerfile, D, PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| so/so-config | Ruby |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| sdnc/northbound | Java/Maven | Python, Shell | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| so/so-admin-cockpit | TypeScript | JavaScript, Shell, SCSS, HTML, CSS, Java/Maven | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| sdc/sdc-tosca | Java/Maven | Python, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | sdc/sdc-workflow-designer | JavaScript | TypeScript, Python, Shell, SCSS, HTML, CSS, Java/Maven | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| policy/apex-pdp | Java/Maven | JavaScript, Shell, HTML, PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| sdnc/apps | Java/Maven | JavaScript, Shell, Groovy, HTML, CSS, PLpgSQL | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| so/so-config | Ruby |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| testsuite/cds-mock-odl | Smarty |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| so/so-admin-cockpit | TypeScript | JavaScript, Shell, SCSS, HTML, CSS, Java/Maven | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| testsuite/cds-mock-server | Smarty |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
+| sdnc/northbound | Java/Maven | Python, Shell | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | testsuite/cds-mock-ssh | Shell | Smarty | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | testsuite/oom | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
-| testsuite/cds-mock-server | Smarty |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
-| testsuite/cds-mock-odl | Smarty |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | testsuite/python-testing-utils | Python |  | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
+| so/libs | Java/Maven | Python, Shell, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| sdnc/apps | Java/Maven | JavaScript, Shell, Groovy, HTML, CSS, PLpgSQL | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | testsuite/robot-utils | N/A |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | testsuite/pythonsdk-tests | Python |  | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
+| testsuite/cds | Shell | Python, Kotlin | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | so/so-etsi-nfvo | Java/Maven | Shell, PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | vnfrqts/epics | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
-| so/libs | Java/Maven | Python, Shell, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| testsuite/cds | Shell | Python, Kotlin | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| usecase-ui/nlp | Python | Java/Maven, Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| usecase-ui/llm-adaptation | Java/Maven | PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | vnfrqts/guidelines | Python | CSS | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
 | vnfrqts/testcases | Python | HTML, CSS | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
-| vnfrqts/usecases | Python | HTML, CSS | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
 | vnfrqts/requirements | Python | HTML, CSS | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
-| usecase-ui/intent-analysis | Java/Maven | PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| vnfrqts/usecases | Python | HTML, CSS | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
 | vnfsdk/model | Python | CSS | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
+| usecase-ui/nlp | Python | Java/Maven, Shell | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| usecase-ui/llm-adaptation | Java/Maven | PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | vnfsdk/lctest | Java/Maven | Shell | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | vnfsdk/pkgtools | Python | Java/Maven | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | .github | N/A |  | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ |
+| usecase-ui/intent-analysis | Java/Maven | PLpgSQL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | sdnc/oam | EJS | JavaScript, Python, Shell, Groovy, Robot Framework, HTML, CSS, PLpgSQL, Java/Maven | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ci-management | jjb |  | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
 | usecase-ui/server | Java/Maven | Shell | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| ci-management | jjb |  | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
 | holmes | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | doc | Shell | Python, HTML, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | dmaap | Java | Python, Shell, Robot Framework, HTML, CSS, PLpgSQL | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
@@ -462,8 +462,8 @@ The data presented in the table below covers the past 365 days.
 | msb | Go | JavaScript, Shell, Smarty | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | demo | Shell | Python, Go, C++, C, PHP, Kotlin, Groovy, Smarty, Java/Maven | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | cps | Java/Maven | JavaScript, Python, Shell, Groovy, Smarty, Robot Framework, CSS, PLpgSQL | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| osa | Python | CSS | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
 | oparent | Python | Java/Maven, CSS | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| osa | Python | CSS | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
 | portal-ng | Java | JavaScript, TypeScript, Python, Shell, Groovy, HTML, CSS | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | relman | N/A |  | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | sandbox-2 | Java/Maven |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
@@ -559,8 +559,8 @@ The data presented in the table below covers the past 365 days.
 | integration/simulators/pnf-simulator | call-github2gerrit.yaml<br>dependabot-updates | 2 | integration-pnf-simulator-master-merge-java<br>integration-pnf-simulator-master-verify-java<br>integration-pnf-simulator-maven-docker-stage-master<br>integration-pnf-simulator-maven-stage-master<br>integration-pnf-simulator-release-merge-master<br>integration-pnf-simulator-release-verify-master<br>integration-pnf-simulator-sonar | 7 |
 | integration/simulators/ran-nssmf-simulator | call-github2gerrit.yaml<br>dependabot-updates | 2 | integration-simulators-ran-nssmf-simulator-master-json-lint<br>integration-simulators-ran-nssmf-simulator-master-md-lint<br>integration-simulators-ran-nssmf-simulator-master-python-lint<br>integration-simulators-ran-nssmf-simulator-master-yaml-lint<br>integration-simulators-ran-nssmf-simulator-master-yml-lint | 5 |
 | integration/simulators/ran-simulator |  | 0 | integration-simulators-ran-simulator-master-json-lint<br>integration-simulators-ran-simulator-master-merge-java<br>integration-simulators-ran-simulator-master-verify-java<br>integration-simulators-ran-simulator-master-yaml-lint<br>integration-simulators-ran-simulator-master-yml-lint<br>integration-simulators-ran-simulator-maven-stage-master<br>integration-simulators-ran-simulator-release-merge-master<br>integration-simulators-ran-simulator-release-verify-master | 8 |
-| integration/usecases/A1-policy-enforcement | call-github2gerrit.yaml<br>dependabot-updates | 2 | integration-usecases-A1-policy-enforcement-master-json-lint<br>integration-usecases-A1-policy-enforcement-master-md-lint<br>integration-usecases-A1-policy-enforcement-master-python-lint<br>integration-usecases-A1-policy-enforcement-master-yaml-lint<br>integration-usecases-A1-policy-enforcement-master-yml-lint<br>integration-usecases-A1-policy-enforcement-r-apps-master-json-lint<br>integration-usecases-A1-policy-enforcement-r-apps-master-md-lint<br>integration-usecases-A1-policy-enforcement-r-apps-master-python-lint<br>integration-usecases-A1-policy-enforcement-r-apps-master-yaml-lint<br>integration-usecases-A1-policy-enforcement-r-apps-master-yml-lint | 10 |
-| integration/usecases/A1-policy-enforcement-r-apps | call-github2gerrit.yaml<br>dependabot-updates | 2 |  | 0 |
+| integration/usecases/A1-policy-enforcement | call-github2gerrit.yaml<br>dependabot-updates | 2 | integration-usecases-A1-policy-enforcement-master-json-lint<br>integration-usecases-A1-policy-enforcement-master-md-lint<br>integration-usecases-A1-policy-enforcement-master-python-lint<br>integration-usecases-A1-policy-enforcement-master-yaml-lint<br>integration-usecases-A1-policy-enforcement-master-yml-lint | 5 |
+| integration/usecases/A1-policy-enforcement-r-apps | call-github2gerrit.yaml<br>dependabot-updates | 2 | integration-usecases-A1-policy-enforcement-r-apps-master-json-lint<br>integration-usecases-A1-policy-enforcement-r-apps-master-md-lint<br>integration-usecases-A1-policy-enforcement-r-apps-master-python-lint<br>integration-usecases-A1-policy-enforcement-r-apps-master-yaml-lint<br>integration-usecases-A1-policy-enforcement-r-apps-master-yml-lint | 5 |
 | integration/xtesting | call-github2gerrit.yaml<br>dependabot-updates | 2 | integration-xtesting-healthcheck-docker-merge-master<br>integration-xtesting-healthcheck-docker-verify-master<br>integration-xtesting-infra-healthcheck-docker-merge-master<br>integration-xtesting-infra-healthcheck-docker-verify-master<br>integration-xtesting-master-json-lint<br>integration-xtesting-master-md-lint<br>integration-xtesting-master-yaml-lint<br>integration-xtesting-master-yml-lint<br>integration-xtesting-release-merge-master<br>integration-xtesting-release-verify-master<br>integration-xtesting-security-docker-merge-master<br>integration-xtesting-security-docker-verify-master<br>integration-xtesting-smoke-usecases-pythonsdk-docker-merge-master<br>integration-xtesting-smoke-usecases-pythonsdk-docker-verify-master<br>integration-xtesting-smoke-usecases-robot-docker-merge-master<br>integration-xtesting-smoke-usecases-robot-docker-verify-master<br>integration-xtesting-smoke-usecases-robot-py3-docker-merge-master<br>integration-xtesting-smoke-usecases-robot-py3-docker-verify-master<br>integration-xtesting-testkube-executor-docker-merge-master<br>integration-xtesting-testkube-executor-docker-verify-master | 20 |
 | msb |  | 0 | msb-apigateway-master-merge-java<br>msb-apigateway-master-verify-java<br>msb-apigateway-maven-clm-master<br>msb-apigateway-maven-docker-stage-master<br>msb-apigateway-maven-stage-master<br>msb-apigateway-release-merge-master<br>msb-apigateway-release-verify-master<br>msb-apigateway-sonar<br>msb-discovery-master-merge-java<br>msb-discovery-master-verify-java<br>msb-discovery-maven-clm-master<br>msb-discovery-maven-docker-stage-master<br>msb-discovery-maven-stage-master<br>msb-discovery-release-merge-master<br>msb-discovery-release-verify-master<br>msb-discovery-sonar<br>msb-java-sdk-master-merge-java<br>msb-java-sdk-master-verify-java<br>msb-java-sdk-maven-clm-master<br>msb-java-sdk-maven-stage-master<br>msb-java-sdk-sonar<br>msb-swagger-sdk-master-merge-java<br>msb-swagger-sdk-master-verify-java<br>msb-swagger-sdk-maven-clm-master<br>msb-swagger-sdk-maven-stage-master<br>msb-swagger-sdk-sonar | 26 |
 | multicloud |  | 0 | multicloud-fcaps-master-csit-functionality1<br>multicloud-fcaps-master-verify-csit-functionality1<br>multicloud-info-yaml-verify<br>multicloud-master-csit-functionality1<br>multicloud-master-verify-csit-functionality1<br>multicloud-starlingx-master-csit-functionality1<br>multicloud-starlingx-master-verify-csit-functionality1<br>multicloud-vmware-master-csit-functionality1<br>multicloud-vmware-master-verify-csit-functionality1 | 9 |
@@ -620,8 +620,8 @@ The data presented in the table below covers the past 365 days.
 | so/so-config | call-github2gerrit.yaml<br>dependabot-updates | 2 |  | 0 |
 | so/so-etsi-nfvo | call-github2gerrit.yaml<br>dependabot-updates | 2 | so-so-etsi-nfvo-master-merge-java<br>so-so-etsi-nfvo-master-verify-java<br>so-so-etsi-nfvo-maven-clm-master<br>so-so-etsi-nfvo-maven-docker-stage-master<br>so-so-etsi-nfvo-maven-stage-master<br>so-so-etsi-nfvo-release-merge-master<br>so-so-etsi-nfvo-release-verify-master<br>so-so-etsi-nfvo-sonar | 8 |
 | testsuite |  | 0 | testsuite-master-3scm-docker-shell-daily<br>testsuite-master-json-lint<br>testsuite-master-robot-lint<br>testsuite-master-yaml-lint<br>testsuite-master-yml-lint<br>testsuite-release-merge-master<br>testsuite-release-verify-master | 7 |
-| testsuite/cds | call-github2gerrit.yaml | 1 | testsuite-cds-master-json-lint<br>testsuite-cds-master-md-lint<br>testsuite-cds-master-python-lint<br>testsuite-cds-master-yaml-lint<br>testsuite-cds-master-yml-lint<br>testsuite-cds-mock-odl-docker-merge-master<br>testsuite-cds-mock-odl-docker-verify-master<br>testsuite-cds-mock-odl-master-json-lint<br>testsuite-cds-mock-odl-master-md-lint<br>testsuite-cds-mock-odl-master-python-lint<br>testsuite-cds-mock-odl-master-yaml-lint<br>testsuite-cds-mock-odl-master-yml-lint<br>testsuite-cds-mock-server-master-json-lint<br>testsuite-cds-mock-server-master-md-lint<br>testsuite-cds-mock-server-master-python-lint<br>testsuite-cds-mock-server-master-yaml-lint<br>testsuite-cds-mock-server-master-yml-lint<br>testsuite-cds-mock-ssh-master-json-lint<br>testsuite-cds-mock-ssh-master-md-lint<br>testsuite-cds-mock-ssh-master-python-lint<br>testsuite-cds-mock-ssh-master-yaml-lint<br>testsuite-cds-mock-ssh-master-yml-lint | 22 |
-| testsuite/cds-mock-odl | call-github2gerrit.yaml<br>dependabot-updates | 2 |  | 0 |
+| testsuite/cds | call-github2gerrit.yaml | 1 | testsuite-cds-master-json-lint<br>testsuite-cds-master-md-lint<br>testsuite-cds-master-python-lint<br>testsuite-cds-master-yaml-lint<br>testsuite-cds-master-yml-lint<br>testsuite-cds-mock-server-master-json-lint<br>testsuite-cds-mock-server-master-md-lint<br>testsuite-cds-mock-server-master-python-lint<br>testsuite-cds-mock-server-master-yaml-lint<br>testsuite-cds-mock-server-master-yml-lint<br>testsuite-cds-mock-ssh-master-json-lint<br>testsuite-cds-mock-ssh-master-md-lint<br>testsuite-cds-mock-ssh-master-python-lint<br>testsuite-cds-mock-ssh-master-yaml-lint<br>testsuite-cds-mock-ssh-master-yml-lint | 15 |
+| testsuite/cds-mock-odl | call-github2gerrit.yaml<br>dependabot-updates | 2 | testsuite-cds-mock-odl-docker-merge-master<br>testsuite-cds-mock-odl-docker-verify-master<br>testsuite-cds-mock-odl-master-json-lint<br>testsuite-cds-mock-odl-master-md-lint<br>testsuite-cds-mock-odl-master-python-lint<br>testsuite-cds-mock-odl-master-yaml-lint<br>testsuite-cds-mock-odl-master-yml-lint | 7 |
 | testsuite/python-testing-utils |  | 0 | testsuite-python-testing-utils-master-robotframework-onap-verify-python<br>testsuite-python-testing-utils-robotframework-onap-python-release-master<br>testsuite-python-testing-utils-robotframework-onap-python-staging-master | 3 |
 | testsuite/pythonsdk-tests | call-github2gerrit.yaml | 1 | testsuite-pythonsdk-tests-master-json-lint<br>testsuite-pythonsdk-tests-master-python-lint<br>testsuite-pythonsdk-tests-master-rst-lint<br>testsuite-pythonsdk-tests-master-yaml-lint<br>testsuite-pythonsdk-tests-master-yml-lint | 5 |
 | testsuite/robot-utils | call-github2gerrit.yaml<br>dependabot-updates | 2 |  | 0 |
@@ -785,8 +785,8 @@ This report shows project information from INFO.yaml files, including lifecycle 
 | <a href="https://jira.onap.org/projects/INT" target="_blank">integration/docker/onap-java11</a> | 2020-01-08 | Incubation | <span style="color: gray;" title="Unknown activity status">Marek Szwalkiewicz</span> | <span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Catherine Lefevre</span><br><span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Krzysztof Kuzmicki</span><br><span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Andreas Geissler</span><br><span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Michal Jagiello</span><br><span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Lukasz Rajewski</span><br><span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Fiachra Corcoran</span> |
 | <a href="https://jira.onap.org/projects/INT" target="_blank">integration/docker/onap-python</a> | 2020-01-08 | Incubation | <span style="color: gray;" title="Unknown activity status">Marek Szwalkiewicz</span> | <span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Daniel Rose</span><br><span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Catherine Lefevre</span><br><span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Marco Platania</span><br><span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Krzysztof Kuzmicki</span><br><span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Andreas Geissler</span><br><span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Michal Jagiello</span><br><span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Lukasz Rajewski</span><br><span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Fiachra Corcoran</span> |
 | <a href="https://jira.onap.org/projects/INT" target="_blank">integration/gating</a> | 2025-12-11 | Incubation | <span style="color: gray;" title="Unknown activity status">Marek Szwalkiewicz</span> | <span style="color: green;" title="✅ Current - commits within last 365 days">Fiete Ostkamp</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Michal Jagiello</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Lukasz Rajewski</span> |
-| <a href="https://jira.onap.org/projects/INT" target="_blank">integration/onap-component-simulators</a> | 2022-10-05 | Incubation | <span style="color: gray;" title="Unknown activity status">Marek Szwalkiewicz</span> | <span style="color: green;" title="✅ Current - commits within last 365 days">Catherine Lefevre</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Krzysztof Kuzmicki</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Andreas Geissler</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Michal Jaggielo</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Lukasz Rajewski</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Fiachra Corcoran</span> |
 | <a href="https://jira.onap.org/projects/INT" target="_blank">integration/onap-component-simulators</a> | 2022-10-05 | Incubation | <span style="color: gray;" title="Unknown activity status">Michal Jagiello</span> | <span style="color: green;" title="✅ Current - commits within last 365 days">Catherine Lefevre</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Morgan Richomme</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Bartek Grzybowski</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Krzysztof Kuzmicki</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Andreas Geissler</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Michal Jaggielo</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Lukasz Rajewski</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Illia Halych</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Alexander Mazuruk</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Maciej Lisowski</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Marcin Sebastian Krasowski</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Fiachra Corcoran</span> |
+| <a href="https://jira.onap.org/projects/INT" target="_blank">integration/onap-component-simulators</a> | 2022-10-05 | Incubation | <span style="color: gray;" title="Unknown activity status">Marek Szwalkiewicz</span> | <span style="color: green;" title="✅ Current - commits within last 365 days">Catherine Lefevre</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Krzysztof Kuzmicki</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Andreas Geissler</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Michal Jaggielo</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Lukasz Rajewski</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Fiachra Corcoran</span> |
 | <a href="https://jira.onap.org/projects/INT" target="_blank">integration/pipelines/build-integration</a> | 2023-02-01 | Incubation | <span style="color: gray;" title="Unknown activity status">Marek Szwalkiewicz</span> | <span style="color: green;" title="✅ Current - commits within last 365 days">Catherine Lefevre</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Krzysztof Kuzmicki</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Andreas Geissler</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Michal Jagiello</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Lukasz Rajewski</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Fiachra Corcoran</span> |
 | <a href="https://jira.onap.org/projects/INT" target="_blank">integration/pipelines/chained-ci</a> | 2022-07-04 | Incubation | <span style="color: gray;" title="Unknown activity status">Marek Szwalkiewicz</span> | <span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Catherine Lefevre</span><br><span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Krzysztof Kuzmicki</span><br><span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Andreas Geissler</span><br><span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Michal Jaggielo</span><br><span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Lukasz Rajewski</span><br><span style="color: red;" title="🛑 Inactive - no commits in 1095+ days">Fiachra Corcoran</span> |
 | <a href="https://jira.onap.org/projects/INT" target="_blank">integration/pipelines/oom-automatic-installation</a> | 2022-10-06 | Incubation | <span style="color: gray;" title="Unknown activity status">Marek Szwalkiewicz</span> | <span style="color: orange;" title="☑️ Active - commits between 365-1095 days">Catherine Lefevre</span><br><span style="color: orange;" title="☑️ Active - commits between 365-1095 days">Morgan Richomme</span><br><span style="color: orange;" title="☑️ Active - commits between 365-1095 days">Bartek Grzybowski</span><br><span style="color: orange;" title="☑️ Active - commits between 365-1095 days">Krzysztof Kuzmicki</span><br><span style="color: orange;" title="☑️ Active - commits between 365-1095 days">Andreas Geissler</span><br><span style="color: orange;" title="☑️ Active - commits between 365-1095 days">Michal Jaggielo</span><br><span style="color: orange;" title="☑️ Active - commits between 365-1095 days">Lukasz Rajewski</span><br><span style="color: orange;" title="☑️ Active - commits between 365-1095 days">Illia Halych</span><br><span style="color: orange;" title="☑️ Active - commits between 365-1095 days">Alexander Mazuruk</span><br><span style="color: orange;" title="☑️ Active - commits between 365-1095 days">Maciej Lisowski</span><br><span style="color: orange;" title="☑️ Active - commits between 365-1095 days">Marcin Sebastian Krasowski</span><br><span style="color: orange;" title="☑️ Active - commits between 365-1095 days">Fiachra Corcoran</span> |
