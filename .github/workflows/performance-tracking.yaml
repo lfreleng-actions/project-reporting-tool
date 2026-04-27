@@ -21,12 +21,14 @@ concurrency:
 
 permissions:
   contents: read
-  issues: write
-  pull-requests: write
 
 jobs:
   benchmark-suite:
     name: Full Benchmark Suite
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -255,6 +257,8 @@ jobs:
 
   memory-profiling:
     name: Memory Profiling
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -326,6 +330,8 @@ jobs:
       - benchmark-suite
       - memory-profiling
     if: always()
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
