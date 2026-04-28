@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: AGL
 
-**Generated:** 2026-04-27 07:47:10 UTC
+**Generated:** 2026-04-28 07:47:05 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -118,219 +118,219 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [AGL/meta-agl](https://github.com/gerrit.automotivelinux.org/AGL/meta-agl) | 2687 | +10768 | 4 | 6 | 2026-04-20 | ✅ |
-| [apps/agl-service-can-low-level](https://github.com/gerrit.automotivelinux.org/apps/agl-service-can-low-level) | 1892 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [AGL/meta-agl-demo](https://github.com/gerrit.automotivelinux.org/AGL/meta-agl-demo) | 1320 | +5477 | 5 | 26 | 2026-03-31 | ✅ |
-| [src/app-framework-binder](https://github.com/gerrit.automotivelinux.org/src/app-framework-binder) | 1306 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [ci-management](https://github.com/gerrit.automotivelinux.org/ci-management) | 909 | +663 | 1 | 53 | 2026-03-04 | ✅ |
-| [AGL/meta-agl-devel](https://github.com/gerrit.automotivelinux.org/AGL/meta-agl-devel) | 898 | +1822 | 6 | 60 | 2026-02-25 | ✅ |
-| [src/app-framework-main](https://github.com/gerrit.automotivelinux.org/src/app-framework-main) | 522 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [AGL/AGL-repo](https://github.com/gerrit.automotivelinux.org/AGL/AGL-repo) | 454 | +564 | 4 | 5 | 2026-04-21 | ✅ |
-| [src/cmake-apps-module](https://github.com/gerrit.automotivelinux.org/src/cmake-apps-module) | 403 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [AGL/lava-docker](https://github.com/gerrit.automotivelinux.org/AGL/lava-docker) | 370 | 0 | 0 | 1889 | 2021-02-23 | 🛑 |
-| [src/agl-compositor](https://github.com/gerrit.automotivelinux.org/src/agl-compositor) | 362 | +19 | 1 | 338 | 2025-05-23 | ✅ |
-| [apps/app-templates](https://github.com/gerrit.automotivelinux.org/apps/app-templates) | 346 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/xds/xds-server](https://github.com/gerrit.automotivelinux.org/src/xds/xds-server) | 305 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [docs-sources](https://github.com/gerrit.automotivelinux.org/docs-sources) | 297 | 0 | 0 | 2139 | 2020-06-17 | 🛑 |
-| [AGL/releng-scripts](https://github.com/gerrit.automotivelinux.org/AGL/releng-scripts) | 279 | +85 | 1 | 173 | 2025-11-04 | ✅ |
-| [docs-webtemplate](https://github.com/gerrit.automotivelinux.org/docs-webtemplate) | 266 | 0 | 0 | 2242 | 2020-03-06 | 🛑 |
-| [src/libappcontroller](https://github.com/gerrit.automotivelinux.org/src/libappcontroller) | 231 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/app-controller-submodule](https://github.com/gerrit.automotivelinux.org/apps/app-controller-submodule) | 211 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-signal-composer](https://github.com/gerrit.automotivelinux.org/apps/agl-service-signal-composer) | 200 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/app-afb-test](https://github.com/gerrit.automotivelinux.org/apps/app-afb-test) | 198 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [AGL/documentation](https://github.com/gerrit.automotivelinux.org/AGL/documentation) | 192 | +5893 | 8 | 40 | 2026-03-18 | ✅ |
-| [AGL/meta-agl-extra](https://github.com/gerrit.automotivelinux.org/AGL/meta-agl-extra) | 175 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-unicens](https://github.com/gerrit.automotivelinux.org/apps/agl-service-unicens) | 169 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-windowmanager](https://github.com/gerrit.automotivelinux.org/apps/agl-service-windowmanager) | 148 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/qa-testdefinitions](https://github.com/gerrit.automotivelinux.org/src/qa-testdefinitions) | 147 | 0 | 0 | 494 | 2024-12-18 | ☑️ |
-| [src/libqtappfw](https://github.com/gerrit.automotivelinux.org/src/libqtappfw) | 146 | +165 | 1 | 188 | 2025-10-20 | ✅ |
-| [apps/settings](https://github.com/gerrit.automotivelinux.org/apps/settings) | 133 | 0 | 0 | 520 | 2024-11-22 | ☑️ |
-| [apps/homescreen](https://github.com/gerrit.automotivelinux.org/apps/homescreen) | 123 | +12 | 1 | 117 | 2025-12-30 | ✅ |
-| [apps/agl-service-bluetooth](https://github.com/gerrit.automotivelinux.org/apps/agl-service-bluetooth) | 113 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/pyagl](https://github.com/gerrit.automotivelinux.org/src/pyagl) | 109 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/mediaplayer](https://github.com/gerrit.automotivelinux.org/apps/mediaplayer) | 97 | 0 | 0 | 523 | 2024-11-19 | ☑️ |
-| [src/libafb-helpers](https://github.com/gerrit.automotivelinux.org/src/libafb-helpers) | 94 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/cynagora](https://github.com/gerrit.automotivelinux.org/src/cynagora) | 91 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/xds/xds-docs](https://github.com/gerrit.automotivelinux.org/src/xds/xds-docs) | 91 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-harvester](https://github.com/gerrit.automotivelinux.org/apps/agl-service-harvester) | 88 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-mediaplayer](https://github.com/gerrit.automotivelinux.org/apps/agl-service-mediaplayer) | 81 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/agl-test-framework](https://github.com/gerrit.automotivelinux.org/src/agl-test-framework) | 80 | 0 | 0 | 775 | 2024-03-13 | ☑️ |
-| [src/app-framework-demo](https://github.com/gerrit.automotivelinux.org/src/app-framework-demo) | 79 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-data-persistence](https://github.com/gerrit.automotivelinux.org/apps/agl-service-data-persistence) | 77 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/app-afb-helpers-submodule](https://github.com/gerrit.automotivelinux.org/apps/app-afb-helpers-submodule) | 72 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-radio](https://github.com/gerrit.automotivelinux.org/apps/agl-service-radio) | 70 | 0 | 0 | 367 | 2025-04-24 | ☑️ |
-| [apps/html5-homescreen](https://github.com/gerrit.automotivelinux.org/apps/html5-homescreen) | 70 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/phone](https://github.com/gerrit.automotivelinux.org/apps/phone) | 70 | 0 | 0 | 523 | 2024-11-19 | ☑️ |
-| [src/xds/xds-cli](https://github.com/gerrit.automotivelinux.org/src/xds/xds-cli) | 68 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/hvac](https://github.com/gerrit.automotivelinux.org/apps/hvac) | 59 | 0 | 0 | 523 | 2024-11-19 | ☑️ |
-| [apps/flutter-ics-homescreen](https://github.com/gerrit.automotivelinux.org/apps/flutter-ics-homescreen) | 58 | +1065 | 3 | 57 | 2026-02-28 | ✅ |
-| [apps/agl-service-homescreen](https://github.com/gerrit.automotivelinux.org/apps/agl-service-homescreen) | 57 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/xds/xds-gdb](https://github.com/gerrit.automotivelinux.org/src/xds/xds-gdb) | 57 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [AGL](https://github.com/gerrit.automotivelinux.org/AGL) | 56 | +3 | 1 | 61 | 2026-02-24 | ✅ |
-| [apps/html5-launcher](https://github.com/gerrit.automotivelinux.org/apps/html5-launcher) | 56 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/html5-settings](https://github.com/gerrit.automotivelinux.org/apps/html5-settings) | 56 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/ondemandnavi](https://github.com/gerrit.automotivelinux.org/apps/ondemandnavi) | 54 | +118 | 1 | 110 | 2026-01-07 | ✅ |
-| [zzz_acl/src_acl](https://github.com/gerrit.automotivelinux.org/zzz_acl/src_acl) | 53 | 0 | 0 | 911 | 2023-10-28 | ☑️ |
-| [apps/html5-mixer](https://github.com/gerrit.automotivelinux.org/apps/html5-mixer) | 52 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/mixer](https://github.com/gerrit.automotivelinux.org/apps/mixer) | 51 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-can-high-level-viwi](https://github.com/gerrit.automotivelinux.org/apps/agl-service-can-high-level-viwi) | 50 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-identity-agent](https://github.com/gerrit.automotivelinux.org/apps/agl-service-identity-agent) | 50 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-nfc](https://github.com/gerrit.automotivelinux.org/apps/agl-service-nfc) | 50 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-gps](https://github.com/gerrit.automotivelinux.org/apps/agl-service-gps) | 46 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/pipewire-ic-ipc](https://github.com/gerrit.automotivelinux.org/src/pipewire-ic-ipc) | 46 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/agl-demo-control-panel](https://github.com/gerrit.automotivelinux.org/src/agl-demo-control-panel) | 45 | +55 | 1 | 79 | 2026-02-06 | ✅ |
-| [staging/basesystem](https://github.com/gerrit.automotivelinux.org/staging/basesystem) | 45 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-iiodevices](https://github.com/gerrit.automotivelinux.org/apps/agl-service-iiodevices) | 44 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-mediascanner](https://github.com/gerrit.automotivelinux.org/apps/agl-service-mediascanner) | 43 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/html5-hvac](https://github.com/gerrit.automotivelinux.org/apps/html5-hvac) | 43 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-bluetooth-pbap](https://github.com/gerrit.automotivelinux.org/apps/agl-service-bluetooth-pbap) | 42 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/launcher](https://github.com/gerrit.automotivelinux.org/apps/launcher) | 42 | 0 | 0 | 523 | 2024-11-19 | ☑️ |
-| [apps/flutter-homescreen](https://github.com/gerrit.automotivelinux.org/apps/flutter-homescreen) | 40 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-hvac](https://github.com/gerrit.automotivelinux.org/apps/agl-service-hvac) | 39 | +208 | 1 | 188 | 2025-10-20 | ✅ |
-| [apps/agl-service-soundmanager](https://github.com/gerrit.automotivelinux.org/apps/agl-service-soundmanager) | 39 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/tbtnavi](https://github.com/gerrit.automotivelinux.org/apps/tbtnavi) | 39 | 0 | 0 | 471 | 2025-01-10 | ☑️ |
-| [src/xds/xds-common](https://github.com/gerrit.automotivelinux.org/src/xds/xds-common) | 39 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/dashboard](https://github.com/gerrit.automotivelinux.org/apps/dashboard) | 38 | 0 | 0 | 523 | 2024-11-19 | ☑️ |
-| [apps/agl-service-audiomixer](https://github.com/gerrit.automotivelinux.org/apps/agl-service-audiomixer) | 37 | +150 | 1 | 188 | 2025-10-20 | ✅ |
-| [apps/taskmanager](https://github.com/gerrit.automotivelinux.org/apps/taskmanager) | 37 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-bluetooth-map](https://github.com/gerrit.automotivelinux.org/apps/agl-service-bluetooth-map) | 36 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-network](https://github.com/gerrit.automotivelinux.org/apps/agl-service-network) | 36 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/radio](https://github.com/gerrit.automotivelinux.org/apps/radio) | 36 | 0 | 0 | 523 | 2024-11-19 | ☑️ |
-| [apps/agl-service-telephony](https://github.com/gerrit.automotivelinux.org/apps/agl-service-telephony) | 35 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/drm-lease-manager](https://github.com/gerrit.automotivelinux.org/src/drm-lease-manager) | 33 | +2 | 1 | 27 | 2026-03-30 | ✅ |
-| [AGL/meta-agl-refhw](https://github.com/gerrit.automotivelinux.org/AGL/meta-agl-refhw) | 33 | 0 | 0 | 607 | 2024-08-27 | ☑️ |
-| [src/libhomescreen](https://github.com/gerrit.automotivelinux.org/src/libhomescreen) | 33 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [AGL/meta-agl-cluster-demo](https://github.com/gerrit.automotivelinux.org/AGL/meta-agl-cluster-demo) | 27 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-platform-info](https://github.com/gerrit.automotivelinux.org/apps/agl-service-platform-info) | 25 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-xds-monitoring](https://github.com/gerrit.automotivelinux.org/apps/agl-service-xds-monitoring) | 25 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/weston-ivi-plugins](https://github.com/gerrit.automotivelinux.org/src/weston-ivi-plugins) | 25 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-cluster-demo-receiver](https://github.com/gerrit.automotivelinux.org/apps/agl-cluster-demo-receiver) | 24 | 0 | 0 | 501 | 2024-12-11 | ☑️ |
-| [apps/agl-service-voice-high](https://github.com/gerrit.automotivelinux.org/apps/agl-service-voice-high) | 23 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/low-level-can-generator](https://github.com/gerrit.automotivelinux.org/src/low-level-can-generator) | 23 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/camera-gstreamer](https://github.com/gerrit.automotivelinux.org/apps/camera-gstreamer) | 22 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/chromium](https://github.com/gerrit.automotivelinux.org/apps/chromium) | 22 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/poi-yelp](https://github.com/gerrit.automotivelinux.org/apps/poi-yelp) | 22 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/qtaglextras](https://github.com/gerrit.automotivelinux.org/src/qtaglextras) | 22 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-cluster-demo-dashboard](https://github.com/gerrit.automotivelinux.org/apps/agl-cluster-demo-dashboard) | 21 | +870 | 1 | 353 | 2025-05-08 | ✅ |
-| [apps/agl-service-geoclue](https://github.com/gerrit.automotivelinux.org/apps/agl-service-geoclue) | 21 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/agl-shell-activator](https://github.com/gerrit.automotivelinux.org/src/agl-shell-activator) | 21 | 0 | 0 | 822 | 2024-01-26 | ☑️ |
-| [src/librefop](https://github.com/gerrit.automotivelinux.org/src/librefop) | 21 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/messaging](https://github.com/gerrit.automotivelinux.org/apps/messaging) | 20 | 0 | 0 | 523 | 2024-11-19 | ☑️ |
-| [apps/agl-service-taskmanager](https://github.com/gerrit.automotivelinux.org/apps/agl-service-taskmanager) | 19 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-weather](https://github.com/gerrit.automotivelinux.org/apps/agl-service-weather) | 19 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/html5-mediaplayer](https://github.com/gerrit.automotivelinux.org/apps/html5-mediaplayer) | 19 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/flutter-instrument-cluster](https://github.com/gerrit.automotivelinux.org/apps/flutter-instrument-cluster) | 18 | +141 | 1 | 79 | 2026-02-06 | ✅ |
-| [apps](https://github.com/gerrit.automotivelinux.org/apps) | 18 | 0 | 0 | 911 | 2023-10-28 | ☑️ |
-| [apps/html5-dashboard](https://github.com/gerrit.automotivelinux.org/apps/html5-dashboard) | 18 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [staging/new-apps](https://github.com/gerrit.automotivelinux.org/staging/new-apps) | 18 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-helloworld](https://github.com/gerrit.automotivelinux.org/apps/agl-service-helloworld) | 17 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-voice-high-capabilities](https://github.com/gerrit.automotivelinux.org/apps/agl-service-voice-high-capabilities) | 17 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/windowmanager](https://github.com/gerrit.automotivelinux.org/src/windowmanager) | 17 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/cluster-refgui](https://github.com/gerrit.automotivelinux.org/src/cluster-refgui) | 16 | +77 | 1 | 337 | 2025-05-24 | ✅ |
-| [apps/agl-service-navigation](https://github.com/gerrit.automotivelinux.org/apps/agl-service-navigation) | 16 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/navigation](https://github.com/gerrit.automotivelinux.org/apps/navigation) | 16 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/libsoundmanager](https://github.com/gerrit.automotivelinux.org/src/libsoundmanager) | 16 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-geofence](https://github.com/gerrit.automotivelinux.org/apps/agl-service-geofence) | 15 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-steering-wheel](https://github.com/gerrit.automotivelinux.org/apps/agl-service-steering-wheel) | 15 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/libqthomescreen](https://github.com/gerrit.automotivelinux.org/src/libqthomescreen) | 15 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/virtio/adapter_app](https://github.com/gerrit.automotivelinux.org/src/virtio/adapter_app) | 15 | 0 | 0 | 901 | 2023-11-07 | ☑️ |
-| [staging/libsoundmanager](https://github.com/gerrit.automotivelinux.org/staging/libsoundmanager) | 15 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [staging/rba](https://github.com/gerrit.automotivelinux.org/staging/rba) | 15 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [staging/xdg-launcher](https://github.com/gerrit.automotivelinux.org/staging/xdg-launcher) | 15 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/flutter-dashboard](https://github.com/gerrit.automotivelinux.org/apps/flutter-dashboard) | 14 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/virtio/virtio-loopback-adapter](https://github.com/gerrit.automotivelinux.org/src/virtio/virtio-loopback-adapter) | 14 | 0 | 0 | 466 | 2025-01-15 | ☑️ |
-| [src/xds](https://github.com/gerrit.automotivelinux.org/src/xds) | 14 | 0 | 0 | 2047 | 2020-09-17 | 🛑 |
-| [staging/incar-wireless-monitor](https://github.com/gerrit.automotivelinux.org/staging/incar-wireless-monitor) | 14 | 0 | 0 | 797 | 2024-02-19 | ☑️ |
-| [staging/vehicle2cloud-communication](https://github.com/gerrit.automotivelinux.org/staging/vehicle2cloud-communication) | 14 | 0 | 0 | 947 | 2023-09-22 | ☑️ |
-| [src/applaunchd](https://github.com/gerrit.automotivelinux.org/src/applaunchd) | 13 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/most](https://github.com/gerrit.automotivelinux.org/src/most) | 13 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/qa-test-misc](https://github.com/gerrit.automotivelinux.org/src/qa-test-misc) | 13 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/mominavi](https://github.com/gerrit.automotivelinux.org/apps/mominavi) | 12 | +209 | 1 | 106 | 2026-01-11 | ✅ |
-| [apps/agl-service-unicens-controller](https://github.com/gerrit.automotivelinux.org/apps/agl-service-unicens-controller) | 12 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/alexa-viewer](https://github.com/gerrit.automotivelinux.org/apps/alexa-viewer) | 12 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/videoplayer](https://github.com/gerrit.automotivelinux.org/apps/videoplayer) | 12 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/virtio/virtio-loopback-driver](https://github.com/gerrit.automotivelinux.org/src/virtio/virtio-loopback-driver) | 12 | 0 | 0 | 466 | 2025-01-15 | ☑️ |
-| [src/window-management-client-grpc](https://github.com/gerrit.automotivelinux.org/src/window-management-client-grpc) | 11 | +38 | 1 | 37 | 2026-03-20 | ✅ |
-| [apps/flutter-hvac](https://github.com/gerrit.automotivelinux.org/apps/flutter-hvac) | 11 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/libqtsoundmanager](https://github.com/gerrit.automotivelinux.org/src/libqtsoundmanager) | 11 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [staging/qlibhomescreen](https://github.com/gerrit.automotivelinux.org/staging/qlibhomescreen) | 11 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [AGL/meta-agl-telematics-demo](https://github.com/gerrit.automotivelinux.org/AGL/meta-agl-telematics-demo) | 10 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/qtquickcontrols2-agl-style](https://github.com/gerrit.automotivelinux.org/src/qtquickcontrols2-agl-style) | 10 | 0 | 0 | 523 | 2024-11-19 | ☑️ |
-| [apps/agl-service-voiceagent](https://github.com/gerrit.automotivelinux.org/apps/agl-service-voiceagent) | 9 | 0 | 0 | 573 | 2024-10-01 | ☑️ |
-| [src/waltham-transmitter-plugin](https://github.com/gerrit.automotivelinux.org/src/waltham-transmitter-plugin) | 9 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/als-meter-demo](https://github.com/gerrit.automotivelinux.org/apps/als-meter-demo) | 8 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/flutter-speechrecognition-demo](https://github.com/gerrit.automotivelinux.org/apps/flutter-speechrecognition-demo) | 8 | 0 | 0 | 564 | 2024-10-09 | ☑️ |
-| [apps/html5-background](https://github.com/gerrit.automotivelinux.org/apps/html5-background) | 8 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/momiplayer](https://github.com/gerrit.automotivelinux.org/apps/momiplayer) | 8 | 0 | 0 | 561 | 2024-10-12 | ☑️ |
-| [apps/settings-log-utils](https://github.com/gerrit.automotivelinux.org/apps/settings-log-utils) | 8 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/waltham-receiver](https://github.com/gerrit.automotivelinux.org/apps/waltham-receiver) | 8 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src](https://github.com/gerrit.automotivelinux.org/src) | 8 | 0 | 0 | 2019 | 2020-10-15 | 🛑 |
-| [src/agl-yocto-kernel-meta](https://github.com/gerrit.automotivelinux.org/src/agl-yocto-kernel-meta) | 8 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [staging](https://github.com/gerrit.automotivelinux.org/staging) | 8 | 0 | 0 | 2042 | 2020-09-22 | 🛑 |
-| [staging/qlibsoundmanager](https://github.com/gerrit.automotivelinux.org/staging/qlibsoundmanager) | 8 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [staging/rba-tool](https://github.com/gerrit.automotivelinux.org/staging/rba-tool) | 8 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-qt-cluster-demo-receiver](https://github.com/gerrit.automotivelinux.org/apps/agl-qt-cluster-demo-receiver) | 7 | +5 | 1 | 352 | 2025-05-09 | ✅ |
-| [apps/agl-cluster-demo-gauges](https://github.com/gerrit.automotivelinux.org/apps/agl-cluster-demo-gauges) | 7 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/controls](https://github.com/gerrit.automotivelinux.org/apps/controls) | 7 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/onscreenapp](https://github.com/gerrit.automotivelinux.org/apps/onscreenapp) | 7 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/inputeventmanager](https://github.com/gerrit.automotivelinux.org/src/inputeventmanager) | 7 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [staging/soundmanager](https://github.com/gerrit.automotivelinux.org/staging/soundmanager) | 7 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/momiscreen](https://github.com/gerrit.automotivelinux.org/apps/momiscreen) | 6 | 0 | 0 | 561 | 2024-10-12 | ☑️ |
-| [src/connman-glib](https://github.com/gerrit.automotivelinux.org/src/connman-glib) | 6 | 0 | 0 | 565 | 2024-10-08 | ☑️ |
-| [src/log-utils](https://github.com/gerrit.automotivelinux.org/src/log-utils) | 6 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/native-shell-client](https://github.com/gerrit.automotivelinux.org/src/native-shell-client) | 6 | 0 | 0 | 752 | 2024-04-04 | ☑️ |
-| [src/nss-localuser](https://github.com/gerrit.automotivelinux.org/src/nss-localuser) | 6 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/qtquickcontrols2-agl](https://github.com/gerrit.automotivelinux.org/src/qtquickcontrols2-agl) | 6 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/uhmi-agl-wm](https://github.com/gerrit.automotivelinux.org/src/uhmi-agl-wm) | 6 | 0 | 0 | 411 | 2025-03-11 | ☑️ |
-| [apps/agl-service-cloudproxy](https://github.com/gerrit.automotivelinux.org/apps/agl-service-cloudproxy) | 5 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/agl-service-poi](https://github.com/gerrit.automotivelinux.org/apps/agl-service-poi) | 5 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/flutter-mediaplayer](https://github.com/gerrit.automotivelinux.org/apps/flutter-mediaplayer) | 5 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/bluez-glib](https://github.com/gerrit.automotivelinux.org/src/bluez-glib) | 5 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/vod-server](https://github.com/gerrit.automotivelinux.org/src/vod-server) | 5 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/agl-dbc](https://github.com/gerrit.automotivelinux.org/src/agl-dbc) | 4 | +465 | 1 | 353 | 2025-05-09 | ✅ |
-| [apps/momiweather](https://github.com/gerrit.automotivelinux.org/apps/momiweather) | 4 | +5 | 1 | 11 | 2026-04-15 | ✅ |
-| [apps/agl-telematics-demo-recorder](https://github.com/gerrit.automotivelinux.org/apps/agl-telematics-demo-recorder) | 4 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/aroundview](https://github.com/gerrit.automotivelinux.org/apps/aroundview) | 4 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/demo3-warehouse](https://github.com/gerrit.automotivelinux.org/apps/demo3-warehouse) | 4 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/flutter-navigation](https://github.com/gerrit.automotivelinux.org/apps/flutter-navigation) | 4 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/homescreen-demo-ci](https://github.com/gerrit.automotivelinux.org/apps/homescreen-demo-ci) | 4 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/cynagoauth](https://github.com/gerrit.automotivelinux.org/src/cynagoauth) | 4 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/libaglnavigation](https://github.com/gerrit.automotivelinux.org/src/libaglnavigation) | 4 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/libcloudproxy](https://github.com/gerrit.automotivelinux.org/src/libcloudproxy) | 4 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/snips-inference-agl](https://github.com/gerrit.automotivelinux.org/src/snips-inference-agl) | 4 | 0 | 0 | 567 | 2024-10-07 | ☑️ |
-| [src/snips-model-agl](https://github.com/gerrit.automotivelinux.org/src/snips-model-agl) | 4 | 0 | 0 | 616 | 2024-08-18 | ☑️ |
-| [z_sandbox](https://github.com/gerrit.automotivelinux.org/z_sandbox) | 4 | 0 | 0 | 3876 | 2015-09-15 | 🛑 |
-| [AGL/workspace-config-agl](https://github.com/gerrit.automotivelinux.org/AGL/workspace-config-agl) | 3 | +413 | 1 | 39 | 2026-03-18 | ✅ |
-| [apps/flutter-ros-demo](https://github.com/gerrit.automotivelinux.org/apps/flutter-ros-demo) | 3 | +4672 | 2 | 168 | 2025-11-09 | ✅ |
-| [src/velort](https://github.com/gerrit.automotivelinux.org/src/velort) | 3 | +4944308 | 2 | 42 | 2026-03-16 | ✅ |
-| [apps/demo3-camera](https://github.com/gerrit.automotivelinux.org/apps/demo3-camera) | 3 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/demo3-dashboard](https://github.com/gerrit.automotivelinux.org/apps/demo3-dashboard) | 3 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/demo3-homescreen](https://github.com/gerrit.automotivelinux.org/apps/demo3-homescreen) | 3 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/demo3-settings](https://github.com/gerrit.automotivelinux.org/apps/demo3-settings) | 3 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/demo3-tachometer](https://github.com/gerrit.automotivelinux.org/apps/demo3-tachometer) | 3 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/restriction-screen](https://github.com/gerrit.automotivelinux.org/apps/restriction-screen) | 3 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/agl-vss-proxy](https://github.com/gerrit.automotivelinux.org/src/agl-vss-proxy) | 3 | 0 | 0 | 417 | 2025-03-05 | ☑️ |
-| [src/demo3-warehouse-server](https://github.com/gerrit.automotivelinux.org/src/demo3-warehouse-server) | 3 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/rasa-model-agl](https://github.com/gerrit.automotivelinux.org/src/rasa-model-agl) | 3 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/virtio/qemu](https://github.com/gerrit.automotivelinux.org/src/virtio/qemu) | 3 | 0 | 0 | 929 | 2023-10-10 | ☑️ |
-| [staging/toyota](https://github.com/gerrit.automotivelinux.org/staging/toyota) | 3 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/veloflux](https://github.com/gerrit.automotivelinux.org/src/veloflux) | 2 | +74216 | 2 | 83 | 2026-02-03 | ✅ |
-| [apps/demo3-hvac](https://github.com/gerrit.automotivelinux.org/apps/demo3-hvac) | 2 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [apps/demo3-launcher](https://github.com/gerrit.automotivelinux.org/apps/demo3-launcher) | 2 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [src/demo3-qtquickcontrols](https://github.com/gerrit.automotivelinux.org/src/demo3-qtquickcontrols) | 2 | 0 | 0 | 803 | 2024-02-13 | ☑️ |
-| [staging/release-upload](https://github.com/gerrit.automotivelinux.org/staging/release-upload) | 2 | 0 | 0 | 2266 | 2020-02-11 | 🛑 |
-| [zzz_acl/staging_acl](https://github.com/gerrit.automotivelinux.org/zzz_acl/staging_acl) | 2 | 0 | 0 | 3688 | 2016-03-21 | 🛑 |
-| [apps/agl-service-inputmethod](https://github.com/gerrit.automotivelinux.org/apps/agl-service-inputmethod) | 1 | 0 | 0 | 1984 | 2020-11-19 | 🛑 |
-| [apps/voiceagent-demo](https://github.com/gerrit.automotivelinux.org/apps/voiceagent-demo) | 1 | 0 | 0 | 1341 | 2022-08-24 | 🛑 |
-| [apps/webapp-samples](https://github.com/gerrit.automotivelinux.org/apps/webapp-samples) | 1 | 0 | 0 | 1397 | 2022-06-29 | 🛑 |
-| [src/agl-js-api](https://github.com/gerrit.automotivelinux.org/src/agl-js-api) | 1 | 0 | 0 | 1992 | 2020-11-11 | 🛑 |
-| [src/homescreen-demo-ci](https://github.com/gerrit.automotivelinux.org/src/homescreen-demo-ci) | 1 | 0 | 0 | 2043 | 2020-09-21 | 🛑 |
-| [src/hvac-demo-microcontroller](https://github.com/gerrit.automotivelinux.org/src/hvac-demo-microcontroller) | 1 | 0 | 0 | 752 | 2024-04-04 | ☑️ |
-| [src/libagl-compositor](https://github.com/gerrit.automotivelinux.org/src/libagl-compositor) | 1 | 0 | 0 | 2113 | 2020-07-13 | 🛑 |
-| [src/steering-wheel-microcontroller](https://github.com/gerrit.automotivelinux.org/src/steering-wheel-microcontroller) | 1 | 0 | 0 | 1333 | 2022-09-01 | 🛑 |
-| [src/virtio/virtio_driver](https://github.com/gerrit.automotivelinux.org/src/virtio/virtio_driver) | 1 | 0 | 0 | 949 | 2023-09-20 | ☑️ |
-| [staging/agl-inputmethod-qt-plugin](https://github.com/gerrit.automotivelinux.org/staging/agl-inputmethod-qt-plugin) | 1 | 0 | 0 | 1984 | 2020-11-19 | 🛑 |
-| [staging/persistent-storage-api](https://github.com/gerrit.automotivelinux.org/staging/persistent-storage-api) | 1 | 0 | 0 | 734 | 2024-04-22 | ☑️ |
+| [AGL/meta-agl](https://github.com/gerrit.automotivelinux.org/AGL/meta-agl) | 2687 | +10768 | 4 | 7 | 2026-04-20 | ✅ |
+| [apps/agl-service-can-low-level](https://github.com/gerrit.automotivelinux.org/apps/agl-service-can-low-level) | 1892 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [AGL/meta-agl-demo](https://github.com/gerrit.automotivelinux.org/AGL/meta-agl-demo) | 1320 | +5477 | 5 | 27 | 2026-03-31 | ✅ |
+| [src/app-framework-binder](https://github.com/gerrit.automotivelinux.org/src/app-framework-binder) | 1306 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [ci-management](https://github.com/gerrit.automotivelinux.org/ci-management) | 909 | +663 | 1 | 54 | 2026-03-04 | ✅ |
+| [AGL/meta-agl-devel](https://github.com/gerrit.automotivelinux.org/AGL/meta-agl-devel) | 898 | +1822 | 6 | 61 | 2026-02-25 | ✅ |
+| [src/app-framework-main](https://github.com/gerrit.automotivelinux.org/src/app-framework-main) | 522 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [AGL/AGL-repo](https://github.com/gerrit.automotivelinux.org/AGL/AGL-repo) | 454 | +564 | 4 | 6 | 2026-04-21 | ✅ |
+| [src/cmake-apps-module](https://github.com/gerrit.automotivelinux.org/src/cmake-apps-module) | 403 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [AGL/lava-docker](https://github.com/gerrit.automotivelinux.org/AGL/lava-docker) | 370 | 0 | 0 | 1890 | 2021-02-23 | 🛑 |
+| [src/agl-compositor](https://github.com/gerrit.automotivelinux.org/src/agl-compositor) | 362 | +19 | 1 | 339 | 2025-05-23 | ✅ |
+| [apps/app-templates](https://github.com/gerrit.automotivelinux.org/apps/app-templates) | 346 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/xds/xds-server](https://github.com/gerrit.automotivelinux.org/src/xds/xds-server) | 305 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [docs-sources](https://github.com/gerrit.automotivelinux.org/docs-sources) | 297 | 0 | 0 | 2140 | 2020-06-17 | 🛑 |
+| [AGL/releng-scripts](https://github.com/gerrit.automotivelinux.org/AGL/releng-scripts) | 279 | +85 | 1 | 174 | 2025-11-04 | ✅ |
+| [docs-webtemplate](https://github.com/gerrit.automotivelinux.org/docs-webtemplate) | 266 | 0 | 0 | 2243 | 2020-03-06 | 🛑 |
+| [src/libappcontroller](https://github.com/gerrit.automotivelinux.org/src/libappcontroller) | 231 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/app-controller-submodule](https://github.com/gerrit.automotivelinux.org/apps/app-controller-submodule) | 211 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-signal-composer](https://github.com/gerrit.automotivelinux.org/apps/agl-service-signal-composer) | 200 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/app-afb-test](https://github.com/gerrit.automotivelinux.org/apps/app-afb-test) | 198 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [AGL/documentation](https://github.com/gerrit.automotivelinux.org/AGL/documentation) | 192 | +5893 | 8 | 41 | 2026-03-18 | ✅ |
+| [AGL/meta-agl-extra](https://github.com/gerrit.automotivelinux.org/AGL/meta-agl-extra) | 175 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-unicens](https://github.com/gerrit.automotivelinux.org/apps/agl-service-unicens) | 169 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-windowmanager](https://github.com/gerrit.automotivelinux.org/apps/agl-service-windowmanager) | 148 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/qa-testdefinitions](https://github.com/gerrit.automotivelinux.org/src/qa-testdefinitions) | 147 | 0 | 0 | 495 | 2024-12-18 | ☑️ |
+| [src/libqtappfw](https://github.com/gerrit.automotivelinux.org/src/libqtappfw) | 146 | +165 | 1 | 189 | 2025-10-20 | ✅ |
+| [apps/settings](https://github.com/gerrit.automotivelinux.org/apps/settings) | 133 | 0 | 0 | 521 | 2024-11-22 | ☑️ |
+| [apps/homescreen](https://github.com/gerrit.automotivelinux.org/apps/homescreen) | 123 | +12 | 1 | 118 | 2025-12-30 | ✅ |
+| [apps/agl-service-bluetooth](https://github.com/gerrit.automotivelinux.org/apps/agl-service-bluetooth) | 113 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/pyagl](https://github.com/gerrit.automotivelinux.org/src/pyagl) | 109 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/mediaplayer](https://github.com/gerrit.automotivelinux.org/apps/mediaplayer) | 97 | 0 | 0 | 524 | 2024-11-19 | ☑️ |
+| [src/libafb-helpers](https://github.com/gerrit.automotivelinux.org/src/libafb-helpers) | 94 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/cynagora](https://github.com/gerrit.automotivelinux.org/src/cynagora) | 91 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/xds/xds-docs](https://github.com/gerrit.automotivelinux.org/src/xds/xds-docs) | 91 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-harvester](https://github.com/gerrit.automotivelinux.org/apps/agl-service-harvester) | 88 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-mediaplayer](https://github.com/gerrit.automotivelinux.org/apps/agl-service-mediaplayer) | 81 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/agl-test-framework](https://github.com/gerrit.automotivelinux.org/src/agl-test-framework) | 80 | 0 | 0 | 776 | 2024-03-13 | ☑️ |
+| [src/app-framework-demo](https://github.com/gerrit.automotivelinux.org/src/app-framework-demo) | 79 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-data-persistence](https://github.com/gerrit.automotivelinux.org/apps/agl-service-data-persistence) | 77 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/app-afb-helpers-submodule](https://github.com/gerrit.automotivelinux.org/apps/app-afb-helpers-submodule) | 72 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-radio](https://github.com/gerrit.automotivelinux.org/apps/agl-service-radio) | 70 | 0 | 0 | 368 | 2025-04-24 | ☑️ |
+| [apps/html5-homescreen](https://github.com/gerrit.automotivelinux.org/apps/html5-homescreen) | 70 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/phone](https://github.com/gerrit.automotivelinux.org/apps/phone) | 70 | 0 | 0 | 524 | 2024-11-19 | ☑️ |
+| [src/xds/xds-cli](https://github.com/gerrit.automotivelinux.org/src/xds/xds-cli) | 68 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/hvac](https://github.com/gerrit.automotivelinux.org/apps/hvac) | 59 | 0 | 0 | 524 | 2024-11-19 | ☑️ |
+| [apps/flutter-ics-homescreen](https://github.com/gerrit.automotivelinux.org/apps/flutter-ics-homescreen) | 58 | +1065 | 3 | 58 | 2026-02-28 | ✅ |
+| [apps/agl-service-homescreen](https://github.com/gerrit.automotivelinux.org/apps/agl-service-homescreen) | 57 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/xds/xds-gdb](https://github.com/gerrit.automotivelinux.org/src/xds/xds-gdb) | 57 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [AGL](https://github.com/gerrit.automotivelinux.org/AGL) | 56 | +3 | 1 | 62 | 2026-02-24 | ✅ |
+| [apps/html5-launcher](https://github.com/gerrit.automotivelinux.org/apps/html5-launcher) | 56 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/html5-settings](https://github.com/gerrit.automotivelinux.org/apps/html5-settings) | 56 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/ondemandnavi](https://github.com/gerrit.automotivelinux.org/apps/ondemandnavi) | 54 | +118 | 1 | 111 | 2026-01-07 | ✅ |
+| [zzz_acl/src_acl](https://github.com/gerrit.automotivelinux.org/zzz_acl/src_acl) | 53 | 0 | 0 | 912 | 2023-10-28 | ☑️ |
+| [apps/html5-mixer](https://github.com/gerrit.automotivelinux.org/apps/html5-mixer) | 52 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/mixer](https://github.com/gerrit.automotivelinux.org/apps/mixer) | 51 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-can-high-level-viwi](https://github.com/gerrit.automotivelinux.org/apps/agl-service-can-high-level-viwi) | 50 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-identity-agent](https://github.com/gerrit.automotivelinux.org/apps/agl-service-identity-agent) | 50 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-nfc](https://github.com/gerrit.automotivelinux.org/apps/agl-service-nfc) | 50 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-gps](https://github.com/gerrit.automotivelinux.org/apps/agl-service-gps) | 46 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/pipewire-ic-ipc](https://github.com/gerrit.automotivelinux.org/src/pipewire-ic-ipc) | 46 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/agl-demo-control-panel](https://github.com/gerrit.automotivelinux.org/src/agl-demo-control-panel) | 45 | +55 | 1 | 80 | 2026-02-06 | ✅ |
+| [staging/basesystem](https://github.com/gerrit.automotivelinux.org/staging/basesystem) | 45 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-iiodevices](https://github.com/gerrit.automotivelinux.org/apps/agl-service-iiodevices) | 44 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-mediascanner](https://github.com/gerrit.automotivelinux.org/apps/agl-service-mediascanner) | 43 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/html5-hvac](https://github.com/gerrit.automotivelinux.org/apps/html5-hvac) | 43 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-bluetooth-pbap](https://github.com/gerrit.automotivelinux.org/apps/agl-service-bluetooth-pbap) | 42 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/launcher](https://github.com/gerrit.automotivelinux.org/apps/launcher) | 42 | 0 | 0 | 524 | 2024-11-19 | ☑️ |
+| [apps/flutter-homescreen](https://github.com/gerrit.automotivelinux.org/apps/flutter-homescreen) | 40 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-hvac](https://github.com/gerrit.automotivelinux.org/apps/agl-service-hvac) | 39 | +208 | 1 | 189 | 2025-10-20 | ✅ |
+| [apps/agl-service-soundmanager](https://github.com/gerrit.automotivelinux.org/apps/agl-service-soundmanager) | 39 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/tbtnavi](https://github.com/gerrit.automotivelinux.org/apps/tbtnavi) | 39 | 0 | 0 | 472 | 2025-01-10 | ☑️ |
+| [src/xds/xds-common](https://github.com/gerrit.automotivelinux.org/src/xds/xds-common) | 39 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/dashboard](https://github.com/gerrit.automotivelinux.org/apps/dashboard) | 38 | 0 | 0 | 524 | 2024-11-19 | ☑️ |
+| [apps/agl-service-audiomixer](https://github.com/gerrit.automotivelinux.org/apps/agl-service-audiomixer) | 37 | +150 | 1 | 189 | 2025-10-20 | ✅ |
+| [apps/taskmanager](https://github.com/gerrit.automotivelinux.org/apps/taskmanager) | 37 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-bluetooth-map](https://github.com/gerrit.automotivelinux.org/apps/agl-service-bluetooth-map) | 36 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-network](https://github.com/gerrit.automotivelinux.org/apps/agl-service-network) | 36 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/radio](https://github.com/gerrit.automotivelinux.org/apps/radio) | 36 | 0 | 0 | 524 | 2024-11-19 | ☑️ |
+| [apps/agl-service-telephony](https://github.com/gerrit.automotivelinux.org/apps/agl-service-telephony) | 35 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/drm-lease-manager](https://github.com/gerrit.automotivelinux.org/src/drm-lease-manager) | 33 | +2 | 1 | 28 | 2026-03-30 | ✅ |
+| [AGL/meta-agl-refhw](https://github.com/gerrit.automotivelinux.org/AGL/meta-agl-refhw) | 33 | 0 | 0 | 608 | 2024-08-27 | ☑️ |
+| [src/libhomescreen](https://github.com/gerrit.automotivelinux.org/src/libhomescreen) | 33 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [AGL/meta-agl-cluster-demo](https://github.com/gerrit.automotivelinux.org/AGL/meta-agl-cluster-demo) | 27 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-platform-info](https://github.com/gerrit.automotivelinux.org/apps/agl-service-platform-info) | 25 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-xds-monitoring](https://github.com/gerrit.automotivelinux.org/apps/agl-service-xds-monitoring) | 25 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/weston-ivi-plugins](https://github.com/gerrit.automotivelinux.org/src/weston-ivi-plugins) | 25 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-cluster-demo-receiver](https://github.com/gerrit.automotivelinux.org/apps/agl-cluster-demo-receiver) | 24 | 0 | 0 | 502 | 2024-12-11 | ☑️ |
+| [apps/agl-service-voice-high](https://github.com/gerrit.automotivelinux.org/apps/agl-service-voice-high) | 23 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/low-level-can-generator](https://github.com/gerrit.automotivelinux.org/src/low-level-can-generator) | 23 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/camera-gstreamer](https://github.com/gerrit.automotivelinux.org/apps/camera-gstreamer) | 22 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/chromium](https://github.com/gerrit.automotivelinux.org/apps/chromium) | 22 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/poi-yelp](https://github.com/gerrit.automotivelinux.org/apps/poi-yelp) | 22 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/qtaglextras](https://github.com/gerrit.automotivelinux.org/src/qtaglextras) | 22 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-cluster-demo-dashboard](https://github.com/gerrit.automotivelinux.org/apps/agl-cluster-demo-dashboard) | 21 | +870 | 1 | 354 | 2025-05-08 | ✅ |
+| [apps/agl-service-geoclue](https://github.com/gerrit.automotivelinux.org/apps/agl-service-geoclue) | 21 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/agl-shell-activator](https://github.com/gerrit.automotivelinux.org/src/agl-shell-activator) | 21 | 0 | 0 | 823 | 2024-01-26 | ☑️ |
+| [src/librefop](https://github.com/gerrit.automotivelinux.org/src/librefop) | 21 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/messaging](https://github.com/gerrit.automotivelinux.org/apps/messaging) | 20 | 0 | 0 | 524 | 2024-11-19 | ☑️ |
+| [apps/agl-service-taskmanager](https://github.com/gerrit.automotivelinux.org/apps/agl-service-taskmanager) | 19 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-weather](https://github.com/gerrit.automotivelinux.org/apps/agl-service-weather) | 19 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/html5-mediaplayer](https://github.com/gerrit.automotivelinux.org/apps/html5-mediaplayer) | 19 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/flutter-instrument-cluster](https://github.com/gerrit.automotivelinux.org/apps/flutter-instrument-cluster) | 18 | +141 | 1 | 80 | 2026-02-06 | ✅ |
+| [apps](https://github.com/gerrit.automotivelinux.org/apps) | 18 | 0 | 0 | 912 | 2023-10-28 | ☑️ |
+| [apps/html5-dashboard](https://github.com/gerrit.automotivelinux.org/apps/html5-dashboard) | 18 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [staging/new-apps](https://github.com/gerrit.automotivelinux.org/staging/new-apps) | 18 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-helloworld](https://github.com/gerrit.automotivelinux.org/apps/agl-service-helloworld) | 17 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-voice-high-capabilities](https://github.com/gerrit.automotivelinux.org/apps/agl-service-voice-high-capabilities) | 17 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/windowmanager](https://github.com/gerrit.automotivelinux.org/src/windowmanager) | 17 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/cluster-refgui](https://github.com/gerrit.automotivelinux.org/src/cluster-refgui) | 16 | +77 | 1 | 338 | 2025-05-24 | ✅ |
+| [apps/agl-service-navigation](https://github.com/gerrit.automotivelinux.org/apps/agl-service-navigation) | 16 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/navigation](https://github.com/gerrit.automotivelinux.org/apps/navigation) | 16 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/libsoundmanager](https://github.com/gerrit.automotivelinux.org/src/libsoundmanager) | 16 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-geofence](https://github.com/gerrit.automotivelinux.org/apps/agl-service-geofence) | 15 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-steering-wheel](https://github.com/gerrit.automotivelinux.org/apps/agl-service-steering-wheel) | 15 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/libqthomescreen](https://github.com/gerrit.automotivelinux.org/src/libqthomescreen) | 15 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/virtio/adapter_app](https://github.com/gerrit.automotivelinux.org/src/virtio/adapter_app) | 15 | 0 | 0 | 902 | 2023-11-07 | ☑️ |
+| [staging/libsoundmanager](https://github.com/gerrit.automotivelinux.org/staging/libsoundmanager) | 15 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [staging/rba](https://github.com/gerrit.automotivelinux.org/staging/rba) | 15 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [staging/xdg-launcher](https://github.com/gerrit.automotivelinux.org/staging/xdg-launcher) | 15 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/flutter-dashboard](https://github.com/gerrit.automotivelinux.org/apps/flutter-dashboard) | 14 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/virtio/virtio-loopback-adapter](https://github.com/gerrit.automotivelinux.org/src/virtio/virtio-loopback-adapter) | 14 | 0 | 0 | 467 | 2025-01-15 | ☑️ |
+| [src/xds](https://github.com/gerrit.automotivelinux.org/src/xds) | 14 | 0 | 0 | 2048 | 2020-09-17 | 🛑 |
+| [staging/incar-wireless-monitor](https://github.com/gerrit.automotivelinux.org/staging/incar-wireless-monitor) | 14 | 0 | 0 | 798 | 2024-02-19 | ☑️ |
+| [staging/vehicle2cloud-communication](https://github.com/gerrit.automotivelinux.org/staging/vehicle2cloud-communication) | 14 | 0 | 0 | 948 | 2023-09-22 | ☑️ |
+| [src/applaunchd](https://github.com/gerrit.automotivelinux.org/src/applaunchd) | 13 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/most](https://github.com/gerrit.automotivelinux.org/src/most) | 13 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/qa-test-misc](https://github.com/gerrit.automotivelinux.org/src/qa-test-misc) | 13 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/mominavi](https://github.com/gerrit.automotivelinux.org/apps/mominavi) | 12 | +209 | 1 | 107 | 2026-01-11 | ✅ |
+| [apps/agl-service-unicens-controller](https://github.com/gerrit.automotivelinux.org/apps/agl-service-unicens-controller) | 12 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/alexa-viewer](https://github.com/gerrit.automotivelinux.org/apps/alexa-viewer) | 12 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/videoplayer](https://github.com/gerrit.automotivelinux.org/apps/videoplayer) | 12 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/virtio/virtio-loopback-driver](https://github.com/gerrit.automotivelinux.org/src/virtio/virtio-loopback-driver) | 12 | 0 | 0 | 467 | 2025-01-15 | ☑️ |
+| [src/window-management-client-grpc](https://github.com/gerrit.automotivelinux.org/src/window-management-client-grpc) | 11 | +38 | 1 | 38 | 2026-03-20 | ✅ |
+| [apps/flutter-hvac](https://github.com/gerrit.automotivelinux.org/apps/flutter-hvac) | 11 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/libqtsoundmanager](https://github.com/gerrit.automotivelinux.org/src/libqtsoundmanager) | 11 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [staging/qlibhomescreen](https://github.com/gerrit.automotivelinux.org/staging/qlibhomescreen) | 11 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [AGL/meta-agl-telematics-demo](https://github.com/gerrit.automotivelinux.org/AGL/meta-agl-telematics-demo) | 10 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/qtquickcontrols2-agl-style](https://github.com/gerrit.automotivelinux.org/src/qtquickcontrols2-agl-style) | 10 | 0 | 0 | 524 | 2024-11-19 | ☑️ |
+| [apps/agl-service-voiceagent](https://github.com/gerrit.automotivelinux.org/apps/agl-service-voiceagent) | 9 | 0 | 0 | 574 | 2024-10-01 | ☑️ |
+| [src/waltham-transmitter-plugin](https://github.com/gerrit.automotivelinux.org/src/waltham-transmitter-plugin) | 9 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/als-meter-demo](https://github.com/gerrit.automotivelinux.org/apps/als-meter-demo) | 8 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/flutter-speechrecognition-demo](https://github.com/gerrit.automotivelinux.org/apps/flutter-speechrecognition-demo) | 8 | 0 | 0 | 565 | 2024-10-09 | ☑️ |
+| [apps/html5-background](https://github.com/gerrit.automotivelinux.org/apps/html5-background) | 8 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/momiplayer](https://github.com/gerrit.automotivelinux.org/apps/momiplayer) | 8 | 0 | 0 | 562 | 2024-10-12 | ☑️ |
+| [apps/settings-log-utils](https://github.com/gerrit.automotivelinux.org/apps/settings-log-utils) | 8 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/waltham-receiver](https://github.com/gerrit.automotivelinux.org/apps/waltham-receiver) | 8 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src](https://github.com/gerrit.automotivelinux.org/src) | 8 | 0 | 0 | 2020 | 2020-10-15 | 🛑 |
+| [src/agl-yocto-kernel-meta](https://github.com/gerrit.automotivelinux.org/src/agl-yocto-kernel-meta) | 8 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [staging](https://github.com/gerrit.automotivelinux.org/staging) | 8 | 0 | 0 | 2043 | 2020-09-22 | 🛑 |
+| [staging/qlibsoundmanager](https://github.com/gerrit.automotivelinux.org/staging/qlibsoundmanager) | 8 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [staging/rba-tool](https://github.com/gerrit.automotivelinux.org/staging/rba-tool) | 8 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-qt-cluster-demo-receiver](https://github.com/gerrit.automotivelinux.org/apps/agl-qt-cluster-demo-receiver) | 7 | +5 | 1 | 353 | 2025-05-09 | ✅ |
+| [apps/agl-cluster-demo-gauges](https://github.com/gerrit.automotivelinux.org/apps/agl-cluster-demo-gauges) | 7 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/controls](https://github.com/gerrit.automotivelinux.org/apps/controls) | 7 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/onscreenapp](https://github.com/gerrit.automotivelinux.org/apps/onscreenapp) | 7 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/inputeventmanager](https://github.com/gerrit.automotivelinux.org/src/inputeventmanager) | 7 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [staging/soundmanager](https://github.com/gerrit.automotivelinux.org/staging/soundmanager) | 7 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/momiscreen](https://github.com/gerrit.automotivelinux.org/apps/momiscreen) | 6 | 0 | 0 | 562 | 2024-10-12 | ☑️ |
+| [src/connman-glib](https://github.com/gerrit.automotivelinux.org/src/connman-glib) | 6 | 0 | 0 | 566 | 2024-10-08 | ☑️ |
+| [src/log-utils](https://github.com/gerrit.automotivelinux.org/src/log-utils) | 6 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/native-shell-client](https://github.com/gerrit.automotivelinux.org/src/native-shell-client) | 6 | 0 | 0 | 753 | 2024-04-04 | ☑️ |
+| [src/nss-localuser](https://github.com/gerrit.automotivelinux.org/src/nss-localuser) | 6 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/qtquickcontrols2-agl](https://github.com/gerrit.automotivelinux.org/src/qtquickcontrols2-agl) | 6 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/uhmi-agl-wm](https://github.com/gerrit.automotivelinux.org/src/uhmi-agl-wm) | 6 | 0 | 0 | 412 | 2025-03-11 | ☑️ |
+| [apps/agl-service-cloudproxy](https://github.com/gerrit.automotivelinux.org/apps/agl-service-cloudproxy) | 5 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/agl-service-poi](https://github.com/gerrit.automotivelinux.org/apps/agl-service-poi) | 5 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/flutter-mediaplayer](https://github.com/gerrit.automotivelinux.org/apps/flutter-mediaplayer) | 5 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/bluez-glib](https://github.com/gerrit.automotivelinux.org/src/bluez-glib) | 5 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/vod-server](https://github.com/gerrit.automotivelinux.org/src/vod-server) | 5 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/agl-dbc](https://github.com/gerrit.automotivelinux.org/src/agl-dbc) | 4 | +465 | 1 | 354 | 2025-05-09 | ✅ |
+| [apps/momiweather](https://github.com/gerrit.automotivelinux.org/apps/momiweather) | 4 | +5 | 1 | 12 | 2026-04-15 | ✅ |
+| [apps/agl-telematics-demo-recorder](https://github.com/gerrit.automotivelinux.org/apps/agl-telematics-demo-recorder) | 4 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/aroundview](https://github.com/gerrit.automotivelinux.org/apps/aroundview) | 4 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/demo3-warehouse](https://github.com/gerrit.automotivelinux.org/apps/demo3-warehouse) | 4 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/flutter-navigation](https://github.com/gerrit.automotivelinux.org/apps/flutter-navigation) | 4 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/homescreen-demo-ci](https://github.com/gerrit.automotivelinux.org/apps/homescreen-demo-ci) | 4 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/cynagoauth](https://github.com/gerrit.automotivelinux.org/src/cynagoauth) | 4 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/libaglnavigation](https://github.com/gerrit.automotivelinux.org/src/libaglnavigation) | 4 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/libcloudproxy](https://github.com/gerrit.automotivelinux.org/src/libcloudproxy) | 4 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/snips-inference-agl](https://github.com/gerrit.automotivelinux.org/src/snips-inference-agl) | 4 | 0 | 0 | 568 | 2024-10-07 | ☑️ |
+| [src/snips-model-agl](https://github.com/gerrit.automotivelinux.org/src/snips-model-agl) | 4 | 0 | 0 | 617 | 2024-08-18 | ☑️ |
+| [z_sandbox](https://github.com/gerrit.automotivelinux.org/z_sandbox) | 4 | 0 | 0 | 3877 | 2015-09-15 | 🛑 |
+| [AGL/workspace-config-agl](https://github.com/gerrit.automotivelinux.org/AGL/workspace-config-agl) | 3 | +413 | 1 | 40 | 2026-03-18 | ✅ |
+| [apps/flutter-ros-demo](https://github.com/gerrit.automotivelinux.org/apps/flutter-ros-demo) | 3 | +4672 | 2 | 169 | 2025-11-09 | ✅ |
+| [src/velort](https://github.com/gerrit.automotivelinux.org/src/velort) | 3 | +4944308 | 2 | 43 | 2026-03-16 | ✅ |
+| [apps/demo3-camera](https://github.com/gerrit.automotivelinux.org/apps/demo3-camera) | 3 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/demo3-dashboard](https://github.com/gerrit.automotivelinux.org/apps/demo3-dashboard) | 3 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/demo3-homescreen](https://github.com/gerrit.automotivelinux.org/apps/demo3-homescreen) | 3 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/demo3-settings](https://github.com/gerrit.automotivelinux.org/apps/demo3-settings) | 3 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/demo3-tachometer](https://github.com/gerrit.automotivelinux.org/apps/demo3-tachometer) | 3 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/restriction-screen](https://github.com/gerrit.automotivelinux.org/apps/restriction-screen) | 3 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/agl-vss-proxy](https://github.com/gerrit.automotivelinux.org/src/agl-vss-proxy) | 3 | 0 | 0 | 418 | 2025-03-05 | ☑️ |
+| [src/demo3-warehouse-server](https://github.com/gerrit.automotivelinux.org/src/demo3-warehouse-server) | 3 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/rasa-model-agl](https://github.com/gerrit.automotivelinux.org/src/rasa-model-agl) | 3 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/virtio/qemu](https://github.com/gerrit.automotivelinux.org/src/virtio/qemu) | 3 | 0 | 0 | 930 | 2023-10-10 | ☑️ |
+| [staging/toyota](https://github.com/gerrit.automotivelinux.org/staging/toyota) | 3 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/veloflux](https://github.com/gerrit.automotivelinux.org/src/veloflux) | 2 | +74216 | 2 | 84 | 2026-02-03 | ✅ |
+| [apps/demo3-hvac](https://github.com/gerrit.automotivelinux.org/apps/demo3-hvac) | 2 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [apps/demo3-launcher](https://github.com/gerrit.automotivelinux.org/apps/demo3-launcher) | 2 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [src/demo3-qtquickcontrols](https://github.com/gerrit.automotivelinux.org/src/demo3-qtquickcontrols) | 2 | 0 | 0 | 804 | 2024-02-13 | ☑️ |
+| [staging/release-upload](https://github.com/gerrit.automotivelinux.org/staging/release-upload) | 2 | 0 | 0 | 2267 | 2020-02-11 | 🛑 |
+| [zzz_acl/staging_acl](https://github.com/gerrit.automotivelinux.org/zzz_acl/staging_acl) | 2 | 0 | 0 | 3689 | 2016-03-21 | 🛑 |
+| [apps/agl-service-inputmethod](https://github.com/gerrit.automotivelinux.org/apps/agl-service-inputmethod) | 1 | 0 | 0 | 1985 | 2020-11-19 | 🛑 |
+| [apps/voiceagent-demo](https://github.com/gerrit.automotivelinux.org/apps/voiceagent-demo) | 1 | 0 | 0 | 1342 | 2022-08-24 | 🛑 |
+| [apps/webapp-samples](https://github.com/gerrit.automotivelinux.org/apps/webapp-samples) | 1 | 0 | 0 | 1398 | 2022-06-29 | 🛑 |
+| [src/agl-js-api](https://github.com/gerrit.automotivelinux.org/src/agl-js-api) | 1 | 0 | 0 | 1993 | 2020-11-11 | 🛑 |
+| [src/homescreen-demo-ci](https://github.com/gerrit.automotivelinux.org/src/homescreen-demo-ci) | 1 | 0 | 0 | 2044 | 2020-09-21 | 🛑 |
+| [src/hvac-demo-microcontroller](https://github.com/gerrit.automotivelinux.org/src/hvac-demo-microcontroller) | 1 | 0 | 0 | 753 | 2024-04-04 | ☑️ |
+| [src/libagl-compositor](https://github.com/gerrit.automotivelinux.org/src/libagl-compositor) | 1 | 0 | 0 | 2114 | 2020-07-13 | 🛑 |
+| [src/steering-wheel-microcontroller](https://github.com/gerrit.automotivelinux.org/src/steering-wheel-microcontroller) | 1 | 0 | 0 | 1334 | 2022-09-01 | 🛑 |
+| [src/virtio/virtio_driver](https://github.com/gerrit.automotivelinux.org/src/virtio/virtio_driver) | 1 | 0 | 0 | 950 | 2023-09-20 | ☑️ |
+| [staging/agl-inputmethod-qt-plugin](https://github.com/gerrit.automotivelinux.org/staging/agl-inputmethod-qt-plugin) | 1 | 0 | 0 | 1985 | 2020-11-19 | 🛑 |
+| [staging/persistent-storage-api](https://github.com/gerrit.automotivelinux.org/staging/persistent-storage-api) | 1 | 0 | 0 | 735 | 2024-04-22 | ☑️ |
 
 **Total:** 213 repositories
 
@@ -340,12 +340,12 @@ The data presented in the table below covers the past 365 days.
 | Gerrit Project | Primary Type | Other Types | Dependabot | Pre-commit | ReadTheDocs | .gitreview | G2G | Status |
 |----------------|--------------|-------------|------------|------------|-------------|------------|-----|--------|
 | src/virtio/virtio_driver | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | ☑️ |
-| src/virtio/virtio-loopback-driver | C |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/virtio/adapter_app | C |  | ❌ | ❌ | ❌ | ❌ | ❌ | ☑️ |
+| src/virtio/virtio-loopback-driver | C |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/xds/xds-common | Go |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/virtio/virtio-loopback-adapter | C |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| src/xds/xds-docs | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/xds/xds-cli | Go | Shell, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| src/xds/xds-docs | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | AGL/AGL-repo | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | src/xds/xds-gdb | Go | Shell, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/xds/xds-server | Go | Shell, C, D, HTML | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
@@ -353,66 +353,66 @@ The data presented in the table below covers the past 365 days.
 | AGL/meta-agl-cluster-demo | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | AGL/meta-agl-extra | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | AGL/meta-agl-refhw | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| AGL/meta-agl-telematics-demo | Python | Shell | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | AGL/workspace-config-agl | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | AGL/releng-scripts | Python | Shell | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
-| AGL/meta-agl-telematics-demo | Python | Shell | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/agl-cluster-demo-dashboard | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
-| AGL/documentation | HTML | JavaScript, TypeScript, Python, CSS | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
 | apps/agl-cluster-demo-gauges | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| apps/agl-cluster-demo-dashboard | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | apps/agl-cluster-demo-receiver | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| AGL/documentation | HTML | JavaScript, TypeScript, Python, CSS | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
 | apps/agl-qt-cluster-demo-receiver | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | apps/agl-service-audiomixer | C | C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
-| apps/agl-service-bluetooth-map | C | C++, D, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-bluetooth | C | C++, D, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| apps/agl-service-bluetooth-map | C | C++, D, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-bluetooth-pbap | C | Shell, C++, D, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-can-high-level-viwi | C++ | D, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-cloudproxy | C | C++, D, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| apps/agl-service-geoclue | C++ | C, D, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-data-persistence | JavaScript | C++, C, D, HTML, CSS, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-geofence | C++ | C, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/agl-service-geoclue | C++ | C, D, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-gps | Shell | C++, C, D, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| AGL/meta-agl-demo | Shell | Python, C | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | apps/agl-service-harvester | C | C++, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-helloworld | Lua | JavaScript, C++, C, D, HTML, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| AGL/meta-agl-demo | Shell | Python, C | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | apps/agl-service-hvac | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | apps/agl-service-identity-agent | C | JavaScript, C++, D, HTML, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/agl-service-iiodevices | C | Shell, C++, D, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-inputmethod | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
-| apps/agl-service-navigation | C | C++, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| apps/agl-service-iiodevices | C | Shell, C++, D, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-mediaplayer | C | C++, D, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| apps/agl-service-navigation | C | C++, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-mediascanner | C | Shell, C++, D, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-network | C | C++, D, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-nfc | C | C++, D, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-homescreen | HTML | JavaScript, C++, C, D, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-platform-info | C | JavaScript, Shell, C++, D, HTML, CSS, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/agl-service-radio | C | C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-poi | C++ | C, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| apps/agl-service-radio | C | C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | AGL/meta-agl-devel | Rust | Shell, C | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | apps/agl-service-can-low-level | C | Python, Shell, Java, C++, D, CSS, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-steering-wheel | C | C++, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-taskmanager | C++ | C, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/agl-service-soundmanager | HTML | JavaScript, Shell, C++, C, D, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-telephony | C | Shell, C++, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| apps/agl-service-soundmanager | HTML | JavaScript, Shell, C++, C, D, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-signal-composer | C++ | C, D, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/agl-service-unicens-controller | C | JavaScript, C++, D, HTML, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-unicens | C | JavaScript, C++, D, HTML, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| AGL/meta-agl | Shell | Python, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
+| apps/agl-service-unicens-controller | C | JavaScript, C++, D, HTML, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-voiceagent | Python |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| AGL/meta-agl | Shell | Python, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | apps/agl-service-weather | C++ | C, D, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-voice-high | C | JavaScript, Shell, C++, D, HTML, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-telematics-demo-recorder | C++ | C, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/agl-service-voice-high-capabilities | C | JavaScript, Shell, C++, D, HTML, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-xds-monitoring | C | JavaScript, C++, D, HTML, CSS, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| apps/agl-service-voice-high-capabilities | C | JavaScript, Shell, C++, D, HTML, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/alexa-viewer | C++ | C, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/app-afb-helpers-submodule | C | C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/agl-service-windowmanager | C | C++, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| apps/app-afb-helpers-submodule | C | C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/als-meter-demo | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/app-controller-submodule | C | C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/camera-gstreamer | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/aroundview | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| apps/app-afb-test | Lua | Shell, C++, C, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/app-templates | D |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/chromium | Shell | C++, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/app-afb-test | Lua | Shell, C++, C, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/controls | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/dashboard | TypeScript | C++, C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/demo3-camera | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
@@ -420,14 +420,14 @@ The data presented in the table below covers the past 365 days.
 | apps/demo3-hvac | C++ | JavaScript, TypeScript, Shell, C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/demo3-launcher | C++ | JavaScript, C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/demo3-homescreen | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/demo3-settings | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/demo3-tachometer | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| apps/demo3-settings | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/demo3-warehouse | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/flutter-dashboard | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/flutter-hvac | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/flutter-mediaplayer | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/flutter-instrument-cluster | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | apps/flutter-navigation | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| apps/flutter-instrument-cluster | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | apps/flutter-ros-demo | Python | C++, C | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | apps/flutter-speechrecognition-demo | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/flutter-homescreen | Groovy | C, Swift, Kotlin, HTML | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
@@ -443,10 +443,10 @@ The data presented in the table below covers the past 365 days.
 | apps/html5-settings | JavaScript | Node, SCSS, HTML | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/hvac | TypeScript | C++, C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/launcher | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/messaging | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/mediaplayer | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/mominavi | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
+| apps/messaging | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/mixer | C++ | D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| apps/mominavi | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | apps/momiplayer | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/momiscreen | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/momiweather | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
@@ -457,31 +457,31 @@ The data presented in the table below covers the past 365 days.
 | apps/poi-yelp | C | C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/radio | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/restriction-screen | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| apps/settings | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/voiceagent-demo | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | apps/taskmanager | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/settings | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/tbtnavi | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| apps/videoplayer | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/flutter-ics-homescreen | Swift | Java, C++, C, Kotlin, Groovy, HTML | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
+| apps/videoplayer | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/settings-log-utils | C | C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| apps/tbtnavi | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | apps/webapp-samples | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | src/agl-js-api | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | src/agl-dbc | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | apps/waltham-receiver | C | C++, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/agl-shell-activator | C | C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/agl-compositor | C | C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
-| src/agl-vss-proxy | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/agl-yocto-kernel-meta | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| src/agl-vss-proxy | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/agl-demo-control-panel | Python | Shell | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
-| src/applaunchd | C | C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/bluez-glib | C |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| src/applaunchd | C | C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/app-framework-main | C | Shell, C++ | ❌ | ❌ | ✅ | ✅ | ❌ | ☑️ |
 | src/agl-test-framework | Python | HTML | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/connman-glib | C |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/cynagoauth | C | Shell, C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/cmake-apps-module | D | C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| src/demo3-qtquickcontrols | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/app-framework-binder | C | JavaScript, Shell, C++, D, HTML, CSS | ❌ | ❌ | ✅ | ✅ | ❌ | ☑️ |
+| src/demo3-qtquickcontrols | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/cynagora | C | Shell, C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/homescreen-demo-ci | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | src/hvac-demo-microcontroller | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | ☑️ |
@@ -495,10 +495,10 @@ The data presented in the table below covers the past 365 days.
 | src/libhomescreen | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/libqthomescreen | C | C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/libcloudproxy | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| src/libqtsoundmanager | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/libqtappfw | C | C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
-| src/libsoundmanager | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| src/libqtsoundmanager | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/log-utils | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| src/libsoundmanager | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/librefop | C++ | Shell, C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/low-level-can-generator | C++ | .NET, D | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/most | C |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
@@ -507,23 +507,23 @@ The data presented in the table below covers the past 365 days.
 | src/pipewire-ic-ipc | C |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/pyagl | Python |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/qa-test-misc | Shell | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| src/qtquickcontrols2-agl | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/qa-testdefinitions | Shell |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| src/qtquickcontrols2-agl | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/qtaglextras | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| src/demo3-warehouse-server | Java/Maven | JavaScript, CSS, PLpgSQL | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/qtquickcontrols2-agl-style | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/rasa-model-agl | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| src/demo3-warehouse-server | Java/Maven | JavaScript, CSS, PLpgSQL | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/steering-wheel-microcontroller | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | src/snips-inference-agl | Python |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/uhmi-agl-wm | C | C++ | ❌ | ❌ | ❌ | ❌ | ❌ | ☑️ |
-| src/snips-model-agl | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/vod-server | C | Shell, C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| src/snips-model-agl | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/waltham-transmitter-plugin | C |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/weston-ivi-plugins | C | C++ | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/window-management-client-grpc | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
+| src/app-framework-demo | JavaScript | SCSS, HTML, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/windowmanager | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | staging/agl-inputmethod-qt-plugin | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
-| src/app-framework-demo | JavaScript | SCSS, HTML, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/veloflux | Rust |  | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | staging/libsoundmanager | C++ |  | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | staging/incar-wireless-monitor | C | Shell, HTML | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
@@ -536,17 +536,17 @@ The data presented in the table below covers the past 365 days.
 | staging/soundmanager | HTML | JavaScript, Shell, C++, C, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | src/xds | Go | Shell, C, D, HTML | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | zzz_acl/AGL_acl | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
-| staging/xdg-launcher | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | zzz_acl/noreplication | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
+| staging/xdg-launcher | C++ | C | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | zzz_acl/src_acl | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | ☑️ |
 | zzz_acl/staging_acl | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | staging/new-apps | C++ | JavaScript, TypeScript, Shell, C, HTML, CSS | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | ci-management | jjb |  | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | docs-sources | CSS | Shell, HTML | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | staging/vehicle2cloud-communication | C++ | C, Groovy, HTML, Java/Gradle | ❌ | ❌ | ❌ | ❌ | ❌ | ☑️ |
-| staging/basesystem | C | Shell, C++, PLpgSQL | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
-| docs-webtemplate | SCSS | JavaScript, Shell, Ruby, HTML, CSS | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | staging/rba-tool | Java | Python, C, Groovy | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
+| docs-webtemplate | SCSS | JavaScript, Shell, Ruby, HTML, CSS | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
+| staging/basesystem | C | Shell, C++, PLpgSQL | ❌ | ❌ | ❌ | ✅ | ❌ | ☑️ |
 | z_sandbox | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | zzz_acl | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | AGL | Shell | JavaScript, TypeScript, Python, Rust, C, D, HTML, CSS, Lua | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
