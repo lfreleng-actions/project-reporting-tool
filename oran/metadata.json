@@ -4,11 +4,11 @@
   "gerrit_server": "gerrit.o-ran-sc.org",
   "jenkins_server": "jenkins.o-ran-sc.org",
   "github_org": "",
-  "generated_at":     "2026-05-05T07:35:44Z",
-  "workflow_run_id": "25363770697",
-  "workflow_run_number": "246",
+  "generated_at":     "2026-05-07T07:53:11Z",
+  "workflow_run_id": "25483255374",
+  "workflow_run_number": "248",
   "workflow_run_attempt": "1",
-  "git_sha": "6fe56f05e5a5be4d31b4f6c7c4022bd8328e0c25",
+  "git_sha": "ca5dd15abc5b2346bb4fd0b201aea3af3297a176",
   "git_ref": "refs/heads/main",
   "environment": "production"
 }
