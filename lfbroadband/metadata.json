@@ -4,11 +4,11 @@
   "gerrit_server": "gerrit.lfbroadband.org",
   "jenkins_server": "jenkins.lfbroadband.org",
   "github_org": "",
-  "generated_at":     "2026-05-08T07:30:23Z",
-  "workflow_run_id": "25543113676",
-  "workflow_run_number": "249",
+  "generated_at":     "2026-05-09T07:31:49Z",
+  "workflow_run_id": "25595404717",
+  "workflow_run_number": "250",
   "workflow_run_attempt": "1",
-  "git_sha": "ca5dd15abc5b2346bb4fd0b201aea3af3297a176",
+  "git_sha": "774d2a8bd3ff13c6da6f0ea44c40e084af1c4049",
   "git_ref": "refs/heads/main",
   "environment": "production"
 }
