@@ -934,8 +934,26 @@ jobs:
       - name: "Generate date folder name"
         id: date
         shell: bash
+        env:
+          # Single source of truth for the run's date. The timestamp
+          # captured by validate-secrets at the start of the original
+          # workflow run is preserved across `Re-run failed jobs`,
+          # whereas `date -u` on the runner would yield the wall-clock
+          # date of the re-run. Anchoring the artifact folder to the
+          # original run date keeps re-runs idempotent: they refresh
+          # the original day's folder in project-reporting-artifacts
+          # rather than overwriting a later day's contents.
+          RUN_TIMESTAMP: ${{ needs.validate-secrets.outputs.run_timestamp }}
         run: |
-          DATE_FOLDER=$(date -u +%Y-%m-%d)
+          # run_timestamp is YYYY-MM-DDTHH:MM:SSZ; strip the time part.
+          DATE_FOLDER="${RUN_TIMESTAMP%%T*}"
+          if [ -z "$DATE_FOLDER" ] || \
+             ! printf '%s' "$DATE_FOLDER" | \
+             grep -Eq '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'; then
+            echo "::warning::run_timestamp missing or malformed" \
+              "('$RUN_TIMESTAMP'); falling back to current UTC date"
+            DATE_FOLDER=$(date -u +%Y-%m-%d)
+          fi
           echo "folder=${DATE_FOLDER}" >> "$GITHUB_OUTPUT"
           echo "Date folder: ${DATE_FOLDER}"
 
