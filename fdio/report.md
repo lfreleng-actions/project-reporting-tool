@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-05-24 07:55:16 UTC
+**Generated:** 2026-05-25 08:29:15 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -30,7 +30,7 @@
 | Inactive Repositories | 3 | 50.0% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 22.5K | - |
-| Total Lines of Code | 249.5K | - |
+| Total Lines of Code | 248.5K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -41,9 +41,9 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 155 | 1126 | +160931 | 288294 | +29 | 4 |
+| 1 | cisco.com | 155 | 1128 | +161078 | 288498 | +29 | 4 |
 | 2 | gmail.com | 115 | 283 | +22427 | 33807 | +39 | 4 |
-| 3 | icloud.com | 2 | 179 | +51042 | 127263 | -140 | 3 |
+| 3 | icloud.com | 2 | 181 | +51044 | 127267 | -139 | 3 |
 | 4 | netgate.com | 16 | 56 | +4547 | 5470 | +64 | 1 |
 | 5 | hawari.fr | 1 | 20 | +16355 | 17562 | +757 | 1 |
 | 6 | github.com | 2 | 14 | +17 | 34 | 0 | 2 |
@@ -84,9 +84,9 @@ The data presented in the table below covers the past 365 days.
 | 1 | Florin Coras | 250 | +18508 | 24443 | +50 | 2 | cisco.com |
 | 2 | Matus Fabian | 247 | +33322 | 46208 | +82 | 2 | cisco.com |
 | 3 | Dave Wallace | 220 | +15206 | 21432 | +40 | 4 | gmail.com |
-| 4 | Peter Mikus | 177 | +51023 | 127238 | -142 | 3 | icloud.com |
+| 4 | Peter Mikus | 179 | +51025 | 127242 | -140 | 3 | icloud.com |
 | 5 | Damjan Marion | 144 | +40348 | 112032 | -217 | 1 | cisco.com |
-| 6 | Tibor Frank | 105 | +8744 | 16009 | +14 | 2 | cisco.com |
+| 6 | Tibor Frank | 107 | +8891 | 16213 | +14 | 2 | cisco.com |
 | 7 | Adrian Villin | 101 | +13938 | 22088 | +57 | 1 | cisco.com |
 | 8 | Vratko Polak | 73 | +22040 | 38484 | +76 | 3 | cisco.com |
 | 9 | Benoît Ganne | 56 | +2817 | 4315 | +23 | 1 | cisco.com |
@@ -117,12 +117,12 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 15860 | +192988 | 90 | 24 | 2026-04-30 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6485 | +79682 | 6 | 2 | 2026-05-21 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2556 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 34 | +5088 | 2 | 9 | 2026-05-14 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2031 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3553 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 15860 | +192988 | 90 | 25 | 2026-04-30 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6489 | +79831 | 6 | 0 | 2026-05-25 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2557 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 34 | +5088 | 2 | 10 | 2026-05-14 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2032 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3554 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
