@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-06-01 08:49:51 UTC
+**Generated:** 2026-06-02 08:31:13 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -30,7 +30,7 @@
 | Inactive Repositories | 3 | 50.0% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 22.5K | - |
-| Total Lines of Code | 245.7K | - |
+| Total Lines of Code | 246.9K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -41,10 +41,10 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 156 | 1126 | +160544 | 287208 | +30 | 4 |
+| 1 | cisco.com | 156 | 1135 | +162075 | 289953 | +30 | 4 |
 | 2 | gmail.com | 115 | 283 | +22427 | 33807 | +39 | 4 |
-| 3 | icloud.com | 2 | 184 | +51021 | 127191 | -136 | 3 |
-| 4 | netgate.com | 16 | 57 | +4604 | 5582 | +63 | 1 |
+| 3 | icloud.com | 2 | 183 | +50995 | 127079 | -137 | 3 |
+| 4 | netgate.com | 16 | 58 | +4627 | 5613 | +62 | 1 |
 | 5 | hawari.fr | 1 | 20 | +16355 | 17562 | +757 | 1 |
 | 6 | github.com | 2 | 15 | +18 | 36 | 0 | 2 |
 | 7 | ipng.nl | 1 | 11 | +3993 | 4357 | +329 | 1 |
@@ -81,17 +81,17 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Matus Fabian | 251 | +32608 | 45375 | +79 | 2 | cisco.com |
-| 2 | Florin Coras | 246 | +18212 | 23918 | +50 | 2 | cisco.com |
+| 1 | Matus Fabian | 250 | +32606 | 45371 | +79 | 2 | cisco.com |
+| 2 | Florin Coras | 244 | +18116 | 23744 | +51 | 2 | cisco.com |
 | 3 | Dave Wallace | 220 | +15206 | 21432 | +40 | 4 | gmail.com |
-| 4 | Peter Mikus | 182 | +51002 | 127166 | -138 | 3 | icloud.com |
-| 5 | Damjan Marion | 148 | +40499 | 112354 | -211 | 1 | cisco.com |
+| 4 | Peter Mikus | 181 | +50976 | 127054 | -138 | 3 | icloud.com |
+| 5 | Damjan Marion | 159 | +42113 | 115260 | -195 | 1 | cisco.com |
 | 6 | Tibor Frank | 104 | +8817 | 16085 | +14 | 2 | cisco.com |
 | 7 | Adrian Villin | 97 | +13351 | 20950 | +59 | 1 | cisco.com |
-| 8 | Vratko Polak | 73 | +22037 | 38482 | +76 | 3 | cisco.com |
+| 8 | Vratko Polak | 74 | +22052 | 38499 | +75 | 3 | cisco.com |
 | 9 | Benoît Ganne | 55 | +2816 | 4313 | +23 | 1 | cisco.com |
 | 10 | Jerome Tollet | 29 | +6356 | 7039 | +195 | 1 | cisco.com |
-| 11 | Klement Sekera | 28 | +1836 | 2298 | +49 | 1 | netgate.com |
+| 11 | Klement Sekera | 29 | +1859 | 2329 | +47 | 1 | netgate.com |
 | 12 | Semir Sionek | 27 | +1663 | 2058 | +46 | 1 | cisco.com |
 | 13 | Mohsin KAZMI | 23 | +3571 | 3957 | +138 | 2 | cisco.com |
 | 14 | Hadi Rayan Al-Sandid | 22 | +2937 | 3166 | +123 | 1 | cisco.com |
@@ -117,12 +117,12 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 15877 | +192569 | 88 | 0 | 2026-05-31 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6496 | +79730 | 6 | 7 | 2026-05-25 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2564 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 34 | +5088 | 2 | 17 | 2026-05-14 | ✅ |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 15889 | +194108 | 88 | 0 | 2026-06-01 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6499 | +79719 | 6 | 0 | 2026-06-01 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2565 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 34 | +5088 | 2 | 18 | 2026-05-14 | ✅ |
 | [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2040 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3561 | 2016-08-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3562 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
