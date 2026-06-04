@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-06-03 08:42:22 UTC
+**Generated:** 2026-06-04 08:27:07 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -41,11 +41,11 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 156 | 1131 | +161638 | 289355 | +29 | 4 |
-| 2 | gmail.com | 115 | 284 | +22584 | 34092 | +39 | 4 |
-| 3 | icloud.com | 2 | 183 | +50995 | 127079 | -137 | 3 |
+| 1 | cisco.com | 156 | 1137 | +162075 | 290489 | +29 | 4 |
+| 2 | gmail.com | 115 | 295 | +22965 | 34706 | +38 | 4 |
+| 3 | icloud.com | 2 | 184 | +51001 | 127089 | -136 | 3 |
 | 4 | netgate.com | 16 | 67 | +5052 | 6171 | +58 | 1 |
-| 5 | hawari.fr | 1 | 20 | +16355 | 17562 | +757 | 1 |
+| 5 | hawari.fr | 1 | 19 | +16354 | 17561 | +797 | 1 |
 | 6 | github.com | 2 | 15 | +18 | 36 | 0 | 2 |
 | 7 | ipng.nl | 1 | 11 | +3993 | 4357 | +329 | 1 |
 | 8 | marvell.com | 16 | 10 | +232 | 265 | +19 | 2 |
@@ -81,24 +81,24 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Matus Fabian | 250 | +32606 | 45371 | +79 | 2 | cisco.com |
-| 2 | Florin Coras | 243 | +17804 | 23331 | +50 | 2 | cisco.com |
-| 3 | Dave Wallace | 220 | +15206 | 21432 | +40 | 4 | gmail.com |
-| 4 | Peter Mikus | 181 | +50976 | 127054 | -138 | 3 | icloud.com |
+| 1 | Matus Fabian | 255 | +33116 | 46569 | +77 | 2 | cisco.com |
+| 2 | Florin Coras | 245 | +17814 | 23350 | +50 | 2 | cisco.com |
+| 3 | Dave Wallace | 225 | +15286 | 21678 | +39 | 4 | gmail.com |
+| 4 | Peter Mikus | 182 | +50982 | 127064 | -137 | 3 | icloud.com |
 | 5 | Damjan Marion | 159 | +42113 | 115260 | -195 | 1 | cisco.com |
 | 6 | Tibor Frank | 104 | +8817 | 16085 | +14 | 2 | cisco.com |
-| 7 | Adrian Villin | 95 | +13282 | 20829 | +60 | 1 | cisco.com |
-| 8 | Vratko Polak | 74 | +22052 | 38499 | +75 | 3 | cisco.com |
+| 7 | Adrian Villin | 94 | +13273 | 20818 | +60 | 1 | cisco.com |
+| 8 | Vratko Polak | 75 | +22073 | 38534 | +74 | 3 | cisco.com |
 | 9 | Benoît Ganne | 55 | +2816 | 4313 | +23 | 1 | cisco.com |
 | 10 | Klement Sekera | 36 | +2238 | 2826 | +45 | 1 | netgate.com |
 | 11 | Jerome Tollet | 29 | +6356 | 7039 | +195 | 1 | cisco.com |
-| 12 | Semir Sionek | 26 | +1607 | 1994 | +46 | 1 | cisco.com |
+| 12 | Semir Sionek | 25 | +1512 | 1887 | +45 | 1 | cisco.com |
 | 13 | Mohsin KAZMI | 23 | +3571 | 3957 | +138 | 2 | cisco.com |
 | 14 | Hadi Rayan Al-Sandid | 22 | +2937 | 3166 | +123 | 1 | cisco.com |
-| 15 | Mohammed Hawari | 20 | +16355 | 17562 | +757 | 1 | hawari.fr |
+| 15 | Mohammed Hawari | 19 | +16354 | 17561 | +797 | 1 | hawari.fr |
 | 16 | Steven | 17 | +1106 | 1921 | +17 | 3 | cisco.com |
-| 17 | dependabot[bot] | 15 | +18 | 36 | 0 | 1 | github.com |
-| 18 | Maxime Peim | 14 | +1972 | 3918 | +1 | 1 | gmail.com |
+| 17 | Maxime Peim | 15 | +2018 | 3992 | +2 | 1 | gmail.com |
+| 18 | dependabot[bot] | 15 | +18 | 36 | 0 | 1 | github.com |
 | 19 | Matthew Smith | 11 | +291 | 460 | +11 | 1 | netgate.com |
 | 20 | Pim van Pelt | 11 | +3993 | 4357 | +329 | 1 | ipng.nl |
 | 21 | Andrew Yourtchenko | 9 | +2051 | 2061 | +226 | 1 | gmail.com |
@@ -107,22 +107,22 @@ The data presented in the table below covers the past 365 days.
 | 24 | Dave Barach | 9 | +533 | 588 | +53 | 1 | barachs.net |
 | 25 | Yoann Desmouceaux | 9 | +133 | 190 | +8 | 1 | cisco.com |
 | 26 | Ivan Shvedunov | 8 | +1596 | 1737 | +181 | 1 | netgate.com |
-| 27 | Vladimir Zhigulin | 7 | +124 | 175 | +10 | 1 | travelping.com |
-| 28 | otroan | 7 | +14487 | 14634 | +2048 | 1 | employees.org |
-| 29 | Monendra Singh Kushwaha | 6 | +123 | 141 | +17 | 1 | marvell.com |
-| 30 | Vanessa Rene Valderrama | 6 | +172 | 204 | +23 | 5 | linuxfoundation.org |
+| 27 | Rob Shearman | 8 | +279 | 322 | +29 | 1 | gmail.com |
+| 28 | Vladimir Zhigulin | 7 | +124 | 175 | +10 | 1 | travelping.com |
+| 29 | otroan | 7 | +14487 | 14634 | +2048 | 1 | employees.org |
+| 30 | Monendra Singh Kushwaha | 6 | +123 | 141 | +17 | 1 | marvell.com |
 
 ---
 ## 📊 Repositories
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 15899 | +194253 | 88 | 0 | 2026-06-02 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6499 | +79717 | 5 | 1 | 2026-06-01 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2566 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 34 | +5088 | 2 | 19 | 2026-05-14 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2041 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3563 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 15917 | +195049 | 88 | 12 | 2026-05-22 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6500 | +79738 | 5 | 9 | 2026-05-26 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2567 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 35 | +5094 | 2 | 20 | 2026-05-14 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2042 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3564 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
@@ -131,8 +131,8 @@ The data presented in the table below covers the past 365 days.
 
 | Gerrit Project | Primary Type | Other Types | Dependabot | Pre-commit | ReadTheDocs | .gitreview | G2G | Status |
 |----------------|--------------|-------------|------------|------------|-------------|------------|-----|--------|
-| test_injector | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | main_test | Shell |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| test_injector | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | vppsb | C | JavaScript, Shell, HTML, CSS, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | .github | Shell | Python, HCL | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ |
 | csit | Robot Framework | Python, Shell, SCSS, HTML, HCL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
