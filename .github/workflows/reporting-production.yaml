@@ -52,7 +52,7 @@ jobs:
 
       - name: "Checkout repository"
         # yamllint disable-line rule:line-length
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
 
       - name: "Generate run metadata"
         id: metadata
@@ -335,7 +335,7 @@ jobs:
 
       - name: "Checkout repository"
         # yamllint disable-line rule:line-length
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
 
       - name: "Clone Gerrit repositories"
         if: steps.config.outputs.gerrit != ''
@@ -692,7 +692,7 @@ jobs:
 
       - name: "Checkout main branch for scripts"
         # yamllint disable-line rule:line-length
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
         with:
           ref: main
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -707,7 +707,7 @@ jobs:
 
       - name: "Checkout gh-pages branch"
         # yamllint disable-line rule:line-length
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
         with:
           ref: gh-pages
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -904,7 +904,7 @@ jobs:
 
       - name: "Checkout repository for scripts"
         # yamllint disable-line rule:line-length
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
 
       - name: "Download all artifacts"
         # yamllint disable-line rule:line-length
