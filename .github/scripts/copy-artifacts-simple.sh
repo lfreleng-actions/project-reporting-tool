@@ -96,14 +96,37 @@ trap cleanup EXIT
 git config --global user.name "GitHub Actions"
 git config --global user.email "actions@github.com"
 
-# Clone the repository
-log_info "Cloning ${REMOTE_REPO}..."
-if ! git clone "https://x-access-token:${GITHUB_TOKEN}@github.com/${REMOTE_REPO}.git" "$CLONE_DIR"; then
+# Clone the repository.
+#
+# project-reporting-artifacts is an append-only archive that grows by
+# hundreds of megabytes per day. A full clone checks out the entire
+# working tree, which has become large enough to exhaust the runner's
+# local disk and fail this job. Because the transfer only ever adds a
+# single new dated folder (and never reads existing folders), avoid
+# materialising the whole tree:
+#
+#   --filter=blob:none  Blobless partial clone: fetch commits and trees
+#                       but defer file contents until a checkout needs
+#                       them. GitHub honours this, so only the blobs for
+#                       the sparse paths below are downloaded.
+#   --depth=1           Shallow clone: only the tip commit is required to
+#                       stack a new commit on top.
+#   --sparse            Initialise with only top-level files present.
+log_info "Cloning ${REMOTE_REPO} (blobless, shallow, sparse)..."
+if ! git clone --filter=blob:none --depth=1 --sparse \
+    "https://x-access-token:${GITHUB_TOKEN}@github.com/${REMOTE_REPO}.git" \
+    "$CLONE_DIR"; then
     log_error "Failed to clone repository"
     exit 1
 fi
 
 cd "$CLONE_DIR"
+
+# Restrict the working tree to the target date folder only. On a fresh
+# daily run this folder does not exist yet, so nothing from history is
+# materialised; on a same-day re-run only that single day is checked out.
+log_info "Configuring sparse-checkout for ${TARGET_PATH}..."
+git sparse-checkout set "$TARGET_PATH"
 
 # Step 2: Delete existing date folder if it exists
 if [ -d "$TARGET_PATH" ]; then
