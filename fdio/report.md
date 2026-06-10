@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-06-09 08:11:38 UTC
+**Generated:** 2026-06-10 08:20:57 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -30,7 +30,7 @@
 | Inactive Repositories | 3 | 50.0% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 22.6K | - |
-| Total Lines of Code | 295.4K | - |
+| Total Lines of Code | 297.0K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -41,8 +41,8 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 156 | 1141 | +169382 | 297946 | +35 | 4 |
-| 2 | gmail.com | 115 | 305 | +23425 | 35213 | +38 | 4 |
+| 1 | cisco.com | 156 | 1144 | +169767 | 298569 | +35 | 4 |
+| 2 | gmail.com | 115 | 306 | +23432 | 35227 | +38 | 4 |
 | 3 | icloud.com | 2 | 184 | +51001 | 127089 | -136 | 3 |
 | 4 | netgate.com | 16 | 67 | +5052 | 6171 | +58 | 1 |
 | 5 | hawari.fr | 1 | 19 | +16354 | 17561 | +797 | 1 |
@@ -54,11 +54,11 @@ The data presented in the table below covers the past 365 days.
 | 11 | employees.org | 1 | 6 | +14481 | 14610 | +2392 | 1 |
 | 12 | linuxfoundation.org | 5 | 6 | +172 | 204 | +23 | 6 |
 | 13 | intel.com | 55 | 4 | +18 | 33 | 0 | 3 |
-| 14 | qq.com | 5 | 4 | +29 | 37 | +5 | 1 |
-| 15 | googlemail.com | 1 | 3 | +84 | 85 | +27 | 1 |
-| 16 | graphiant.com | 5 | 3 | +20 | 30 | +3 | 1 |
-| 17 | hotmail.se | 1 | 3 | +1083 | 1431 | +245 | 1 |
-| 18 | labn.net | 4 | 3 | +407 | 554 | +86 | 1 |
+| 14 | labn.net | 4 | 4 | +412 | 561 | +65 | 1 |
+| 15 | qq.com | 5 | 4 | +29 | 37 | +5 | 1 |
+| 16 | googlemail.com | 1 | 3 | +84 | 85 | +27 | 1 |
+| 17 | graphiant.com | 5 | 3 | +20 | 30 | +3 | 1 |
+| 18 | hotmail.se | 1 | 3 | +1083 | 1431 | +245 | 1 |
 | 19 | chinatelecom.cn | 4 | 2 | +18 | 32 | +2 | 1 |
 | 20 | ipng.ch | 1 | 2 | +545 | 610 | +240 | 1 |
 | 21 | mts.ru | 2 | 2 | +36 | 46 | +13 | 1 |
@@ -81,8 +81,8 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Matus Fabian | 258 | +33442 | 46934 | +77 | 2 | cisco.com |
-| 2 | Florin Coras | 247 | +24964 | 30662 | +78 | 2 | cisco.com |
+| 1 | Matus Fabian | 260 | +33741 | 47384 | +77 | 2 | cisco.com |
+| 2 | Florin Coras | 248 | +25050 | 30835 | +77 | 2 | cisco.com |
 | 3 | Dave Wallace | 231 | +15305 | 21706 | +38 | 4 | gmail.com |
 | 4 | Peter Mikus | 182 | +50982 | 127064 | -137 | 3 | icloud.com |
 | 5 | Damjan Marion | 159 | +42113 | 115260 | -195 | 1 | cisco.com |
@@ -99,7 +99,7 @@ The data presented in the table below covers the past 365 days.
 | 16 | Steven | 17 | +1106 | 1921 | +17 | 3 | cisco.com |
 | 17 | Maxime Peim | 15 | +2018 | 3992 | +2 | 1 | gmail.com |
 | 18 | dependabot[bot] | 15 | +18 | 36 | 0 | 1 | github.com |
-| 19 | Rob Shearman | 12 | +720 | 801 | +53 | 1 | gmail.com |
+| 19 | Rob Shearman | 13 | +727 | 815 | +49 | 1 | gmail.com |
 | 20 | Matthew Smith | 11 | +291 | 460 | +11 | 1 | netgate.com |
 | 21 | Pim van Pelt | 11 | +3993 | 4357 | +329 | 1 | ipng.nl |
 | 22 | Andrew Yourtchenko | 9 | +2051 | 2061 | +226 | 1 | gmail.com |
@@ -117,12 +117,12 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 15945 | +203184 | 87 | 2 | 2026-06-06 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6502 | +79309 | 5 | 0 | 2026-06-08 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2572 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 35 | +5094 | 2 | 25 | 2026-05-14 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2047 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3569 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 15951 | +203581 | 87 | 11 | 2026-05-29 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6502 | +79309 | 5 | 1 | 2026-06-08 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2573 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 35 | +5094 | 2 | 26 | 2026-05-14 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2048 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3570 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
