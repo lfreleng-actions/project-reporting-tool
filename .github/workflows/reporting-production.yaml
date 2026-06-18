@@ -53,6 +53,8 @@ jobs:
       - name: "Checkout repository"
         # yamllint disable-line rule:line-length
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
+        with:
+          persist-credentials: false
 
       - name: "Generate run metadata"
         id: metadata
@@ -250,7 +252,7 @@ jobs:
         run: |
           # Build matrix from ACTIVE_PROJECTS variable
           # This job does NOT access any secrets
-          active_projects='${{ vars.ACTIVE_PROJECTS }}'
+          active_projects="${VARS_ACTIVE_PROJECTS}"
 
           if [ -z "$active_projects" ]; then
             echo "::error::ACTIVE_PROJECTS variable is not set"
@@ -269,6 +271,8 @@ jobs:
             echo ""
             echo "$active_projects" | jq -r '.[] | "- \(.)"'
           } >> "$GITHUB_STEP_SUMMARY"
+        env:
+          VARS_ACTIVE_PROJECTS: ${{ vars.ACTIVE_PROJECTS }}
 
   analyze:
     name: "${{ matrix.slug }}"
@@ -336,6 +340,8 @@ jobs:
       - name: "Checkout repository"
         # yamllint disable-line rule:line-length
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
+        with:
+          persist-credentials: false
 
       - name: "Clone Gerrit repositories"
         if: steps.config.outputs.gerrit != ''
@@ -381,19 +387,19 @@ jobs:
         # yamllint disable rule:line-length
         run: |
           # Determine which clone step ran and check its outcome
-          if [ -n "${{ steps.config.outputs.gerrit }}" ]; then
+          if [ -n "${STEPS_CONFIG_OUTPUTS_GERRIT}" ]; then
             # Gerrit project
-            if [ "${{ steps.clone-gerrit.outcome }}" != "success" ]; then
-              echo "::error::Failed to clone Gerrit repositories for ${{ steps.config.outputs.project }}"
+            if [ "${STEPS_CLONE_GERRIT_OUTCOME}" != "success" ]; then
+              echo "::error::Failed to clone Gerrit repositories for ${STEPS_CONFIG_OUTPUTS_PROJECT}"
               echo "::error::Gerrit server may be unavailable or decommissioned"
               exit 1
             else
               echo "✅ Successfully cloned Gerrit repositories"
             fi
-          elif [ -n "${{ steps.config.outputs.github }}" ]; then
+          elif [ -n "${STEPS_CONFIG_OUTPUTS_GITHUB}" ]; then
             # GitHub-only project
-            if [ "${{ steps.clone-github.outcome }}" != "success" ]; then
-              echo "::error::Failed to clone GitHub repositories for ${{ steps.config.outputs.project }}"
+            if [ "${STEPS_CLONE_GITHUB_OUTCOME}" != "success" ]; then
+              echo "::error::Failed to clone GitHub repositories for ${STEPS_CONFIG_OUTPUTS_PROJECT}"
               echo "::error::GitHub organization may be unavailable or inaccessible"
               exit 1
             else
@@ -403,6 +409,12 @@ jobs:
             echo "::error::Project has neither gerrit nor github configured"
             exit 1
           fi
+        env:
+          STEPS_CONFIG_OUTPUTS_GERRIT: ${{ steps.config.outputs.gerrit }}
+          STEPS_CLONE_GERRIT_OUTCOME: ${{ steps.clone-gerrit.outcome }}
+          STEPS_CONFIG_OUTPUTS_PROJECT: ${{ steps.config.outputs.project }}
+          STEPS_CONFIG_OUTPUTS_GITHUB: ${{ steps.config.outputs.github }}
+          STEPS_CLONE_GITHUB_OUTCOME: ${{ steps.clone-github.outcome }}
         # yamllint enable rule:line-length
 
       - name: "Clone info-master repository"
@@ -440,9 +452,12 @@ jobs:
           CLASSIC_READ_ONLY_PAT_TOKEN: ${{ secrets.CLASSIC_READ_ONLY_PAT_TOKEN }}
           GITHUB_ORG: ${{ steps.config.outputs.github }}
           SSH_AVAILABLE: ${{ env.SSH_AVAILABLE }}
+          STEPS_CONFIG_OUTPUTS_PROJECT: ${{ steps.config.outputs.project }}
+          STEPS_CONFIG_OUTPUTS_GERRIT: ${{ steps.config.outputs.gerrit }}
+          STEPS_CONFIG_OUTPUTS_GITHUB: ${{ steps.config.outputs.github }}
         # yamllint disable rule:line-length
         run: |
-          project="${{ steps.config.outputs.project }}"
+          project="${STEPS_CONFIG_OUTPUTS_PROJECT}"
           echo "📊 Generating reports for $project"
 
           # Jenkins credentials already set in GITHUB_ENV by config step
@@ -508,10 +523,10 @@ jobs:
           fi
 
           # Determine repos path based on project type
-          if [ -n "${{ steps.config.outputs.gerrit }}" ]; then
-            repos_path="./${{ steps.config.outputs.gerrit }}"
-          elif [ -n "${{ steps.config.outputs.github }}" ]; then
-            repos_path="./github.com/${{ steps.config.outputs.github }}"
+          if [ -n "${STEPS_CONFIG_OUTPUTS_GERRIT}" ]; then
+            repos_path="./${STEPS_CONFIG_OUTPUTS_GERRIT}"
+          elif [ -n "${STEPS_CONFIG_OUTPUTS_GITHUB}" ]; then
+            repos_path="./github.com/${STEPS_CONFIG_OUTPUTS_GITHUB}"
           else
             echo "::error::Cannot determine repos path - no gerrit or github configured"
             exit 1
@@ -539,7 +554,7 @@ jobs:
       - name: "Create report metadata"
         shell: bash
         run: |
-          project="${{ steps.config.outputs.project }}"
+          project="${STEPS_CONFIG_OUTPUTS_PROJECT}"
           report_dir="./reports/$project"
 
           if [ ! -d "$report_dir" ]; then
@@ -551,45 +566,56 @@ jobs:
           cat > "$report_dir/metadata.json" <<EOF
           {
             "project": "$project",
-            "slug": "${{ matrix.slug }}",
-            "gerrit_server": "${{ steps.config.outputs.gerrit }}",
-            "jenkins_server": "${{ steps.config.outputs.jenkins }}",
-            "github_org": "${{ steps.config.outputs.github }}",
+            "slug": "${MATRIX_SLUG}",
+            "gerrit_server": "${STEPS_CONFIG_OUTPUTS_GERRIT}",
+            "jenkins_server": "${STEPS_CONFIG_OUTPUTS_JENKINS}",
+            "github_org": "${STEPS_CONFIG_OUTPUTS_GITHUB}",
             "generated_at": \
-              "${{ needs.validate-secrets.outputs.run_timestamp }}",
+              "${NEEDS_VALIDATE_SECRETS_OUTPUTS_RUN_TIMESTAMP}",
             "workflow_run_id": "${{ github.run_id }}",
             "workflow_run_number": "${{ github.run_number }}",
             "workflow_run_attempt": "${{ github.run_attempt }}",
             "git_sha": "${{ github.sha }}",
-            "git_ref": "${{ github.ref }}",
+            "git_ref": "${GITHUB_REF}",
             "environment": "production"
           }
           EOF
 
           echo "✅ Metadata created"
+        env:
+          STEPS_CONFIG_OUTPUTS_PROJECT: ${{ steps.config.outputs.project }}
+          MATRIX_SLUG: ${{ matrix.slug }}
+          STEPS_CONFIG_OUTPUTS_GERRIT: ${{ steps.config.outputs.gerrit }}
+          STEPS_CONFIG_OUTPUTS_JENKINS: ${{ steps.config.outputs.jenkins }}
+          STEPS_CONFIG_OUTPUTS_GITHUB: ${{ steps.config.outputs.github }}
+          # yamllint disable-line rule:line-length
+          NEEDS_VALIDATE_SECRETS_OUTPUTS_RUN_TIMESTAMP: ${{ needs.validate-secrets.outputs.run_timestamp }}
 
       - name: "Copy raw data files to temp directory"
         shell: bash
         run: |
           # Create temp directory for raw data files
-          mkdir -p ./temp-raw-data-${{ matrix.slug }}
+          mkdir -p "./temp-raw-data-${MATRIX_SLUG}"
 
           # Copy JSON files to temp directory (flattening the structure)
-          project="${{ steps.config.outputs.project }}"
+          project="${STEPS_CONFIG_OUTPUTS_PROJECT}"
           if [ -f "./reports/$project/report_raw.json" ]; then
             cp "./reports/$project/report_raw.json" \
-              ./temp-raw-data-${{ matrix.slug }}/
+              "./temp-raw-data-${MATRIX_SLUG}/"
           fi
           if [ -f "./reports/$project/config_resolved.json" ]; then
             cp "./reports/$project/config_resolved.json" \
-              ./temp-raw-data-${{ matrix.slug }}/
+              "./temp-raw-data-${MATRIX_SLUG}/"
           fi
           if [ -f "./reports/$project/metadata.json" ]; then
             cp "./reports/$project/metadata.json" \
-              ./temp-raw-data-${{ matrix.slug }}/
+              "./temp-raw-data-${MATRIX_SLUG}/"
           fi
 
           echo "Raw data files prepared for upload"
+        env:
+          MATRIX_SLUG: ${{ matrix.slug }}
+          STEPS_CONFIG_OUTPUTS_PROJECT: ${{ steps.config.outputs.project }}
 
       # Artifact uploads tolerate transient GitHub Actions service
       # failures (e.g. the CreateArtifact endpoint occasionally returns
@@ -643,18 +669,21 @@ jobs:
           # Log file location based on gerrit-clone-action v0.1.14 behavior:
           # - Gerrit: ./gerrit.example.org/gerrit.example.org.log
           # - GitHub: ./github.com/orgname/github.com.orgname.log
-          if [ -n "${{ steps.config.outputs.gerrit }}" ]; then
+          if [ -n "${STEPS_CONFIG_OUTPUTS_GERRIT}" ]; then
             # Gerrit: ./gerrit.example.org/gerrit.example.org.log
-            gerrit_host="${{ steps.config.outputs.gerrit }}"
+            gerrit_host="${STEPS_CONFIG_OUTPUTS_GERRIT}"
             log_path="./${gerrit_host}/${gerrit_host}.log"
           else
             # GitHub: ./github.com/orgname/github.com.orgname.log
-            github_org="${{ steps.config.outputs.github }}"
+            github_org="${STEPS_CONFIG_OUTPUTS_GITHUB}"
             sanitized_host="github.com.${github_org}"
             log_path="./github.com/${github_org}/${sanitized_host}.log"
           fi
           echo "path=$log_path" >> "$GITHUB_OUTPUT"
           echo "Log file path: $log_path"
+        env:
+          STEPS_CONFIG_OUTPUTS_GERRIT: ${{ steps.config.outputs.gerrit }}
+          STEPS_CONFIG_OUTPUTS_GITHUB: ${{ steps.config.outputs.github }}
 
       - name: "Upload clone log"
         if: always()
@@ -696,6 +725,7 @@ jobs:
         with:
           ref: main
           token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: false
 
       - name: "Copy script from main branch"
         shell: bash
@@ -705,9 +735,12 @@ jobs:
           chmod +x /tmp/main-scripts/generate-index.sh
           echo "✅ Copied generate-index.sh from main branch"
 
+      # This checkout intentionally persists credentials so the later
+      # "git push origin gh-pages" step can authenticate. The token is
+      # the repository-scoped GITHUB_TOKEN, so artipacked is suppressed.
       - name: "Checkout gh-pages branch"
         # yamllint disable-line rule:line-length
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3 # zizmor: ignore[artipacked]
         with:
           ref: gh-pages
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -837,8 +870,8 @@ jobs:
           cat > /tmp/commit-msg.txt <<EOF
           chore: update production reports (run ${{ github.run_id }})
 
-          Generated: ${{ needs.validate-secrets.outputs.run_timestamp }}
-          Reports: ${{ env.REPORT_COUNT }} project(s)
+          Generated: ${NEEDS_VALIDATE_SECRETS_OUTPUTS_RUN_TIMESTAMP}
+          Reports: ${REPORT_COUNT} project(s)
           Run: ${{ github.run_id }}
           EOF
 
@@ -850,7 +883,7 @@ jobs:
           {
             echo "## 📤 Reports Published"
             echo ""
-            echo "**Reports published:** ${{ env.REPORT_COUNT }}"
+            echo "**Reports published:** ${REPORT_COUNT}"
             echo "**Branch:** gh-pages"
             echo "**Path:** (root)"
             echo ""
@@ -858,10 +891,14 @@ jobs:
             echo ""
             echo "Reports will be available at:"
             owner="${{ github.repository_owner }}"
-            repo="${{ github.event.repository.name }}"
+            repo="${GITHUB_EVENT_REPOSITORY_NAME}"
             echo "https://${owner}.github.io/${repo}/"
             echo ""
           } >> "$GITHUB_STEP_SUMMARY"
+        env:
+          # yamllint disable-line rule:line-length
+          NEEDS_VALIDATE_SECRETS_OUTPUTS_RUN_TIMESTAMP: ${{ needs.validate-secrets.outputs.run_timestamp }}
+          GITHUB_EVENT_REPOSITORY_NAME: ${{ github.event.repository.name }}
 
       - name: "Report publish status"
         if: steps.check-reports.outputs.count == '0'
@@ -905,6 +942,8 @@ jobs:
       - name: "Checkout repository for scripts"
         # yamllint disable-line rule:line-length
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
+        with:
+          persist-credentials: false
 
       - name: "Download all artifacts"
         # yamllint disable-line rule:line-length
@@ -980,10 +1019,11 @@ jobs:
         shell: bash
         env:
           GERRIT_REPORTS_PAT_TOKEN: ${{ secrets.GERRIT_REPORTS_PAT_TOKEN }}
+          STEPS_DATE_OUTPUTS_FOLDER: ${{ steps.date.outputs.folder }}
         run: |
           chmod +x .github/scripts/copy-artifacts-simple.sh
           .github/scripts/copy-artifacts-simple.sh \
-            "${{ steps.date.outputs.folder }}" \
+            "${STEPS_DATE_OUTPUTS_FOLDER}" \
             "${{ github.run_id }}" \
             "./downloaded-artifacts" \
             "$GERRIT_REPORTS_PAT_TOKEN"
@@ -993,7 +1033,7 @@ jobs:
         shell: bash
         # yamllint disable rule:line-length
         run: |
-          artifact_count="${{ steps.check-artifacts.outputs.count }}"
+          artifact_count="${STEPS_CHECK_ARTIFACTS_OUTPUTS_COUNT}"
 
           # Determine actual status based on artifact count
           if [ "$artifact_count" -eq 0 ] 2>/dev/null || [ -z "$artifact_count" ]; then
@@ -1007,7 +1047,7 @@ jobs:
           {
             echo "## 📦 Artifacts Transferred"
             echo ""
-            echo "**Date Folder:** ${{ steps.date.outputs.folder }}"
+            echo "**Date Folder:** ${STEPS_DATE_OUTPUTS_FOLDER}"
             echo "**Workflow Run:** ${{ github.run_id }}"
             echo "**Target Repository:** lfreleng-actions/project-reporting-artifacts"
             echo "**Status:** ${status_emoji} ${status}"
@@ -1018,7 +1058,7 @@ jobs:
             if [ "$artifact_count" -gt 0 ] 2>/dev/null; then
               echo "### 🔗 View in Repository"
               echo ""
-              echo "https://github.com/lfreleng-actions/project-reporting-artifacts/tree/main/data/artifacts/${{ steps.date.outputs.folder }}"
+              echo "https://github.com/lfreleng-actions/project-reporting-artifacts/tree/main/data/artifacts/${STEPS_DATE_OUTPUTS_FOLDER}"
               echo ""
             else
               echo "### ⚠️ No Artifacts Transferred"
@@ -1033,6 +1073,9 @@ jobs:
               echo ""
             fi
           } >> "$GITHUB_STEP_SUMMARY"
+        env:
+          STEPS_CHECK_ARTIFACTS_OUTPUTS_COUNT: ${{ steps.check-artifacts.outputs.count }}
+          STEPS_DATE_OUTPUTS_FOLDER: ${{ steps.date.outputs.folder }}
         # yamllint enable rule:line-length
 
       - name: "Fail job if no artifacts were transferred"
@@ -1069,6 +1112,7 @@ jobs:
         shell: bash
         env:
           PROJECTS_JSON_B64: ${{ secrets.PROJECTS_JSON }}
+          GITHUB_EVENT_REPOSITORY_NAME: ${{ github.event.repository.name }}
         run: |
           # Helper function to convert result to emoji
           result_emoji() {
@@ -1189,7 +1233,7 @@ jobs:
               echo "### 📑 Project Reports"
               echo ""
               owner="${{ github.repository_owner }}"
-              repo="${{ github.event.repository.name }}"
+              repo="${GITHUB_EVENT_REPOSITORY_NAME}"
               base_url="https://${owner}.github.io/${repo}"
 
               # Parse and display each project with link

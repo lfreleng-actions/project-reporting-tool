@@ -44,6 +44,7 @@ jobs:
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
         with:
           fetch-depth: 0  # Full history for comparison
+          persist-credentials: false
 
       - name: Install uv
         # yamllint disable-line rule:line-length
@@ -60,10 +61,13 @@ jobs:
 
       - name: Download baseline benchmarks
         continue-on-error: true
+        env:
+          # yamllint disable-line rule:line-length
+          BASELINE_INPUT: ${{ github.event.inputs.comparison_baseline || 'main' }}
         run: |
           mkdir -p .benchmarks
           # Try to fetch previous benchmark results from artifacts
-          BASELINE="${{ github.event.inputs.comparison_baseline || 'main' }}"
+          BASELINE="${BASELINE_INPUT}"
           echo "Baseline: ${BASELINE}"
 
       - name: Run comprehensive benchmarks
@@ -93,7 +97,7 @@ jobs:
 
           **Date:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")
           **Commit:** ${{ github.sha }}
-          **Branch:** ${{ github.ref_name }}
+          **Branch:** ${GITHUB_REF_NAME}
           **Run:** ${{ github.run_number }}
 
           ## Benchmark Results
@@ -272,6 +276,8 @@ jobs:
       - name: Checkout code
         # yamllint disable-line rule:line-length
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
+        with:
+          persist-credentials: false
 
       - name: Install uv
         # yamllint disable-line rule:line-length
@@ -345,6 +351,8 @@ jobs:
       - name: Checkout code
         # yamllint disable-line rule:line-length
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
+        with:
+          persist-credentials: false
 
       - name: Download benchmark results
         # yamllint disable-line rule:line-length
