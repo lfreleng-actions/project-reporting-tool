@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-06-19 08:45:43 UTC
+**Generated:** 2026-06-20 08:08:14 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -30,7 +30,7 @@
 | Inactive Repositories | 3 | 50.0% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 22.6K | - |
-| Total Lines of Code | 287.4K | - |
+| Total Lines of Code | 287.5K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -41,10 +41,10 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 156 | 1131 | +174246 | 308518 | +35 | 4 |
+| 1 | cisco.com | 156 | 1133 | +174365 | 308663 | +35 | 4 |
 | 2 | gmail.com | 115 | 308 | +23351 | 35714 | +35 | 4 |
-| 3 | icloud.com | 2 | 189 | +51337 | 127569 | -131 | 3 |
-| 4 | netgate.com | 16 | 73 | +5468 | 6673 | +58 | 1 |
+| 3 | icloud.com | 2 | 188 | +51267 | 127433 | -132 | 3 |
+| 4 | netgate.com | 16 | 74 | +5469 | 6675 | +57 | 1 |
 | 5 | hawari.fr | 1 | 19 | +16354 | 17561 | +797 | 1 |
 | 6 | github.com | 2 | 15 | +18 | 36 | 0 | 2 |
 | 7 | ipng.nl | 1 | 12 | +4009 | 4378 | +303 | 1 |
@@ -59,32 +59,32 @@ The data presented in the table below covers the past 365 days.
 | 16 | googlemail.com | 1 | 3 | +84 | 85 | +27 | 1 |
 | 17 | graphiant.com | 5 | 3 | +20 | 30 | +3 | 1 |
 | 18 | hotmail.se | 1 | 3 | +1083 | 1431 | +245 | 1 |
-| 19 | chinatelecom.cn | 4 | 2 | +18 | 32 | +2 | 1 |
-| 20 | ipng.ch | 1 | 2 | +545 | 610 | +240 | 1 |
-| 21 | mts.ru | 2 | 2 | +36 | 46 | +13 | 1 |
-| 22 | pantheon.tech | 31 | 2 | +474 | 584 | +182 | 2 |
-| 23 | sina.com | 1 | 2 | +7 | 18 | -2 | 1 |
-| 24 | yandex-team.ru | 4 | 2 | +30 | 35 | +12 | 1 |
-| 25 | 163.com | 8 | 1 | +8 | 16 | 0 | 1 |
-| 26 | andrews-macbook-pro.local | 1 | 1 | +1 | 2 | 0 | 1 |
-| 27 | arm.com | 17 | 1 | +43 | 45 | +41 | 2 |
-| 28 | mcconnachie.ca | 1 | 1 | +1 | 2 | 0 | 1 |
-| 29 | siewert.io | 1 | 1 | +12 | 23 | +1 | 1 |
-| 30 | skbuff.ru | 1 | 1 | 0 | 1 | -1 | 1 |
+| 19 | meter.com | 4 | 3 | +51 | 89 | +4 | 2 |
+| 20 | chinatelecom.cn | 4 | 2 | +18 | 32 | +2 | 1 |
+| 21 | ipng.ch | 1 | 2 | +545 | 610 | +240 | 1 |
+| 22 | mts.ru | 2 | 2 | +36 | 46 | +13 | 1 |
+| 23 | pantheon.tech | 31 | 2 | +474 | 584 | +182 | 2 |
+| 24 | sina.com | 1 | 2 | +7 | 18 | -2 | 1 |
+| 25 | yandex-team.ru | 4 | 2 | +30 | 35 | +12 | 1 |
+| 26 | 163.com | 8 | 1 | +8 | 16 | 0 | 1 |
+| 27 | andrews-macbook-pro.local | 1 | 1 | +1 | 2 | 0 | 1 |
+| 28 | arm.com | 17 | 1 | +43 | 45 | +41 | 2 |
+| 29 | mcconnachie.ca | 1 | 1 | +1 | 2 | 0 | 1 |
+| 30 | siewert.io | 1 | 1 | +12 | 23 | +1 | 1 |
 
 ---
 ## 👥 Top Contributors
 
 The data presented in the table below covers the past 365 days.
 
-**Contributors Found:** 649
+**Contributors Found:** 651
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Matus Fabian | 255 | +32584 | 46051 | +74 | 2 | cisco.com |
-| 2 | Florin Coras | 242 | +31430 | 44259 | +76 | 2 | cisco.com |
+| 1 | Matus Fabian | 256 | +32700 | 46192 | +75 | 2 | cisco.com |
+| 2 | Florin Coras | 243 | +31433 | 44263 | +76 | 2 | cisco.com |
 | 3 | Dave Wallace | 230 | +15130 | 21657 | +37 | 4 | gmail.com |
-| 4 | Peter Mikus | 187 | +51318 | 127544 | -133 | 3 | icloud.com |
+| 4 | Peter Mikus | 186 | +51248 | 127408 | -133 | 3 | icloud.com |
 | 5 | Damjan Marion | 159 | +42105 | 115253 | -195 | 1 | cisco.com |
 | 6 | Tibor Frank | 104 | +8555 | 15211 | +18 | 2 | cisco.com |
 | 7 | Adrian Villin | 89 | +12846 | 20190 | +61 | 1 | cisco.com |
@@ -110,19 +110,19 @@ The data presented in the table below covers the past 365 days.
 | 27 | Ivan Shvedunov | 8 | +1596 | 1737 | +181 | 1 | netgate.com |
 | 28 | Andrew Yourtchenko | 7 | +1260 | 1265 | +179 | 1 | gmail.com |
 | 29 | Vladimir Zhigulin | 7 | +124 | 175 | +10 | 1 | travelping.com |
-| 30 | Monendra Singh Kushwaha | 6 | +123 | 141 | +17 | 1 | marvell.com |
+| 30 | Alexander Skorichenko | 6 | +773 | 898 | +108 | 1 | netgate.com |
 
 ---
 ## 📊 Repositories
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 15986 | +208275 | 86 | 50 | 2026-04-29 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6509 | +79811 | 5 | 1 | 2026-06-17 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2582 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 35 | +5094 | 2 | 35 | 2026-05-14 | ✅ |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 15993 | +208446 | 89 | 0 | 2026-06-19 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6509 | +79741 | 5 | 2 | 2026-06-17 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2583 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 35 | +5094 | 2 | 36 | 2026-05-14 | ✅ |
 | [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2058 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3579 | 2016-08-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3580 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
@@ -141,12 +141,12 @@ The data presented in the table below covers the past 365 days.
 ---
 ## 🏁 Deployed CI/CD Jobs
 
-**Total GitHub workflows:** 35
+**Total GitHub workflows:** 34
 
 | Gerrit Project | GitHub Workflows | Workflow Count |
 |----------------|-------------------|----------------|
 | .github | gerrit-required-verify-non-voting.yaml<br>gerrit-verify.yaml<br>gha-dispatcher.yaml<br>update-graph | 4 |
-| csit | csit-cdash-version.yml<br>csit-dpdk-perf-mrr-weekly.yml<br>csit-perf-report.yml<br>csit-trex-perf-ndrpdr-weekly.yml<br>csit-vpp-perf-mrr-weekly.yml<br>csit-vpp-perf-ndrpdr-weekly.yml<br>csit-vpp-perf-soak-weekly.yml<br>dependabot-updates<br>gerrit-comment-handler.yaml<br>gerrit-verify.yaml<br>github2gerrit.yaml<br>update-graph<br>vpp-csit-bisect.yml | 13 |
+| csit | csit-cdash-version.yml<br>csit-perf-report.yml<br>csit-vpp-perf-hoststack-daily.yml<br>csit-vpp-perf-mrr-daily.yml<br>csit-vpp-perf-mrr-weekly.yml<br>csit-vpp-perf-ndrpdr-weekly.yml<br>dependabot-updates<br>gerrit-comment-handler.yaml<br>gerrit-verify.yaml<br>github2gerrit.yaml<br>update-graph<br>vpp-csit-bisect.yml | 12 |
 | vpp | dependabot-updates<br>gerrit-comment-handler.yml<br>gerrit-merge.yml<br>gerrit-verify.yml<br>github2gerrit.yaml<br>periodic-vpp-verify-cov.yml<br>periodic-vpp-verify-dpdk-rdma-ver.yml<br>periodic-vpp-verify-hst.yml<br>update-graph<br>vpp-csit-verify-api.yml<br>vpp-merge-docs.yml<br>vpp-merge-maketest.yml<br>vpp-verify-arm-drivers.yml<br>vpp-verify-checkstyle.yml<br>vpp-verify-docs.yml<br>vpp-verify-gcc.yml<br>vpp-verify-hst.yml<br>vpp-verify-maketest.yml | 18 |
 
 **Total:** 3 repositories with CI/CD jobs
