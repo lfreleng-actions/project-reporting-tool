@@ -1,37 +1,37 @@
 {
   "schema_version": "1.5.0",
-  "generated_at": "2026-06-20T08:08:14.759509+00:00",
+  "generated_at": "2026-06-21T08:30:14.681575+00:00",
   "project": "FDio",
   "config_digest": "7de8c3140d039a998962e9e2512de834ffa21ffb74486a7a374dff2672682a3b",
   "script_version": "0.1.dev1+g025cfcd5a",
   "time_windows": {
     "last_30": {
       "days": 30,
-      "start": "2026-05-21T08:08:14.759690+00:00",
-      "end": "2026-06-20T08:08:14.759690+00:00",
-      "start_timestamp": 1779350894.75969,
-      "end_timestamp": 1781942894.75969
+      "start": "2026-05-22T08:30:14.681718+00:00",
+      "end": "2026-06-21T08:30:14.681718+00:00",
+      "start_timestamp": 1779438614.681718,
+      "end_timestamp": 1782030614.681718
     },
     "last_90": {
       "days": 90,
-      "start": "2026-03-22T08:08:14.759690+00:00",
-      "end": "2026-06-20T08:08:14.759690+00:00",
-      "start_timestamp": 1774166894.75969,
-      "end_timestamp": 1781942894.75969
+      "start": "2026-03-23T08:30:14.681718+00:00",
+      "end": "2026-06-21T08:30:14.681718+00:00",
+      "start_timestamp": 1774254614.681718,
+      "end_timestamp": 1782030614.681718
     },
     "last_365": {
       "days": 365,
-      "start": "2025-06-20T08:08:14.759690+00:00",
-      "end": "2026-06-20T08:08:14.759690+00:00",
-      "start_timestamp": 1750406894.75969,
-      "end_timestamp": 1781942894.75969
+      "start": "2025-06-21T08:30:14.681718+00:00",
+      "end": "2026-06-21T08:30:14.681718+00:00",
+      "start_timestamp": 1750494614.681718,
+      "end_timestamp": 1782030614.681718
     },
     "last_3_years": {
       "days": 1095,
-      "start": "2023-06-21T08:08:14.759690+00:00",
-      "end": "2026-06-20T08:08:14.759690+00:00",
-      "start_timestamp": 1687334894.75969,
-      "end_timestamp": 1781942894.75969
+      "start": "2023-06-22T08:30:14.681718+00:00",
+      "end": "2026-06-21T08:30:14.681718+00:00",
+      "start_timestamp": 1687422614.681718,
+      "end_timestamp": 1782030614.681718
     }
   },
   "repositories": [
@@ -42,7 +42,7 @@
       "gerrit_path_prefix": "",
       "local_path": "/home/runner/work/project-reporting-tool/project-reporting-tool/gerrit.fd.io/test_injector",
       "last_commit_timestamp": "2016-08-30T20:24:05+00:00",
-      "days_since_last_commit": 3580,
+      "days_since_last_commit": 3581,
       "activity_status": "inactive",
       "has_any_commits": true,
       "total_commits_ever": 1,
@@ -175,7 +175,7 @@
       "gerrit_path_prefix": "",
       "local_path": "/home/runner/work/project-reporting-tool/project-reporting-tool/gerrit.fd.io/main_test",
       "last_commit_timestamp": "2020-10-30T09:44:41+01:00",
-      "days_since_last_commit": 2058,
+      "days_since_last_commit": 2059,
       "activity_status": "inactive",
       "has_any_commits": true,
       "total_commits_ever": 8,
@@ -361,7 +361,7 @@
       "gerrit_path_prefix": "",
       "local_path": "/home/runner/work/project-reporting-tool/project-reporting-tool/gerrit.fd.io/vppsb",
       "last_commit_timestamp": "2019-05-24T19:29:36+02:00",
-      "days_since_last_commit": 2583,
+      "days_since_last_commit": 2584,
       "activity_status": "inactive",
       "has_any_commits": true,
       "total_commits_ever": 88,
@@ -1198,7 +1198,7 @@
       "gerrit_path_prefix": "",
       "local_path": "/home/runner/work/project-reporting-tool/project-reporting-tool/gerrit.fd.io/.github",
       "last_commit_timestamp": "2026-05-14T13:52:01+02:00",
-      "days_since_last_commit": 36,
+      "days_since_last_commit": 37,
       "activity_status": "current",
       "has_any_commits": true,
       "total_commits_ever": 35,
@@ -1384,11 +1384,11 @@
                 "conclusion": "success",
                 "run_status": "completed",
                 "last_run": {
-                  "id": 27863966287,
-                  "number": 19004,
-                  "created_at": "2026-06-20T07:15:34Z",
-                  "updated_at": "2026-06-20T07:16:29Z",
-                  "html_url": "https://github.com/FDio/.github/actions/runs/27863966287",
+                  "id": 27886398651,
+                  "number": 19028,
+                  "created_at": "2026-06-20T22:54:32Z",
+                  "updated_at": "2026-06-20T22:55:11Z",
+                  "html_url": "https://github.com/FDio/.github/actions/runs/27886398651",
                   "head_branch": "main",
                   "head_sha": "1b5d2e2"
                 }
@@ -1636,26 +1636,26 @@
       "gerrit_path_prefix": "",
       "local_path": "/home/runner/work/project-reporting-tool/project-reporting-tool/gerrit.fd.io/csit",
       "last_commit_timestamp": "2026-06-17T13:46:53+02:00",
-      "days_since_last_commit": 2,
+      "days_since_last_commit": 3,
       "activity_status": "current",
       "has_any_commits": true,
       "total_commits_ever": 6509,
       "total_loc": 341294,
       "commit_counts": {
-        "last_30": 24,
-        "last_90": 80,
+        "last_30": 23,
+        "last_90": 78,
         "last_365": 350,
-        "last_3_years": 1040
+        "last_3_years": 1036
       },
       "loc_stats": {
         "last_30": {
-          "added": 805,
-          "removed": 512,
+          "added": 735,
+          "removed": 442,
           "net": 293
         },
         "last_90": {
-          "added": 7605,
-          "removed": 1461,
+          "added": 7601,
+          "removed": 1457,
           "net": 6144
         },
         "last_365": {
@@ -1664,9 +1664,9 @@
           "net": -19338
         },
         "last_3_years": {
-          "added": 179774,
-          "removed": 185595,
-          "net": -5821
+          "added": 179429,
+          "removed": 185461,
+          "net": -6032
         }
       },
       "unique_contributors": {
@@ -3534,20 +3534,20 @@
                 "name": "csit-vpp-perf-ndrpdr-weekly",
                 "path": ".github/workflows/csit-vpp-perf-ndrpdr-weekly.yml",
                 "state": "active",
-                "status": "building",
-                "color": "blue_anime",
+                "status": "failure",
+                "color": "red",
                 "urls": {
                   "workflow_page": "https://github.com/fdio/csit/actions/workflows/csit-vpp-perf-ndrpdr-weekly.yml",
                   "source": "https://github.com/fdio/csit/blob/master/.github/workflows/csit-vpp-perf-ndrpdr-weekly.yml",
                   "badge": "https://github.com/FDio/csit/workflows/csit-vpp-perf-ndrpdr-weekly/badge.svg"
                 },
-                "conclusion": null,
-                "run_status": "in_progress",
+                "conclusion": "failure",
+                "run_status": "completed",
                 "last_run": {
                   "id": 27855567182,
                   "number": 30,
                   "created_at": "2026-06-20T01:05:50Z",
-                  "updated_at": "2026-06-20T01:13:29Z",
+                  "updated_at": "2026-06-21T01:12:47Z",
                   "html_url": "https://github.com/FDio/csit/actions/runs/27855567182",
                   "head_branch": "master",
                   "head_sha": "fa1c2ec"
@@ -3654,20 +3654,20 @@
                 "name": "csit-perf-report",
                 "path": ".github/workflows/csit-perf-report.yml",
                 "state": "active",
-                "status": "building",
-                "color": "blue_anime",
+                "status": "failure",
+                "color": "red",
                 "urls": {
                   "workflow_page": "https://github.com/fdio/csit/actions/workflows/csit-perf-report.yml",
                   "source": "https://github.com/fdio/csit/blob/master/.github/workflows/csit-perf-report.yml",
                   "badge": "https://github.com/FDio/csit/workflows/csit-perf-report/badge.svg"
                 },
-                "conclusion": null,
-                "run_status": "in_progress",
+                "conclusion": "failure",
+                "run_status": "completed",
                 "last_run": {
                   "id": 27849400461,
                   "number": 1750,
                   "created_at": "2026-06-19T21:32:42Z",
-                  "updated_at": "2026-06-19T21:41:17Z",
+                  "updated_at": "2026-06-20T14:31:06Z",
                   "html_url": "https://github.com/FDio/csit/actions/runs/27849400461",
                   "head_branch": "master",
                   "head_sha": "fa1c2ec"
@@ -3769,19 +3769,19 @@
           "username": "Peter",
           "domain": "icloud.com",
           "commits": {
-            "last_30": 13,
+            "last_30": 12,
             "last_90": 29,
             "last_365": 169,
             "last_3_years": 221
           },
           "lines_added": {
-            "last_30": 441,
+            "last_30": 371,
             "last_90": 795,
             "last_365": 49055,
             "last_3_years": 52173
           },
           "lines_removed": {
-            "last_30": 267,
+            "last_30": 197,
             "last_90": 637,
             "last_365": 76036,
             "last_3_years": 80083
@@ -3806,27 +3806,27 @@
           "domain": "cisco.com",
           "commits": {
             "last_30": 8,
-            "last_90": 21,
+            "last_90": 20,
             "last_365": 104,
-            "last_3_years": 322
+            "last_3_years": 320
           },
           "lines_added": {
             "last_30": 327,
-            "last_90": 1425,
+            "last_90": 1422,
             "last_365": 8555,
-            "last_3_years": 26903
+            "last_3_years": 26561
           },
           "lines_removed": {
             "last_30": 228,
-            "last_90": 438,
+            "last_90": 435,
             "last_365": 6656,
-            "last_3_years": 25331
+            "last_3_years": 25200
           },
           "lines_net": {
             "last_30": 99,
             "last_90": 987,
             "last_365": 1899,
-            "last_3_years": 1572
+            "last_3_years": 1361
           },
           "repositories": {
             "last_30": 1,
@@ -3844,19 +3844,19 @@
             "last_30": 2,
             "last_90": 19,
             "last_365": 59,
-            "last_3_years": 220
+            "last_3_years": 219
           },
           "lines_added": {
             "last_30": 36,
             "last_90": 5371,
             "last_365": 22025,
-            "last_3_years": 54106
+            "last_3_years": 54105
           },
           "lines_removed": {
             "last_30": 16,
             "last_90": 372,
             "last_365": 16359,
-            "last_3_years": 46559
+            "last_3_years": 46558
           },
           "lines_net": {
             "last_30": 20,
@@ -3878,19 +3878,19 @@
           "domain": "github.com",
           "commits": {
             "last_30": 1,
-            "last_90": 11,
+            "last_90": 10,
             "last_365": 15,
             "last_3_years": 15
           },
           "lines_added": {
             "last_30": 1,
-            "last_90": 14,
+            "last_90": 13,
             "last_365": 18,
             "last_3_years": 18
           },
           "lines_removed": {
             "last_30": 1,
-            "last_90": 14,
+            "last_90": 13,
             "last_365": 18,
             "last_3_years": 18
           },
@@ -3988,19 +3988,19 @@
             "last_30": 0,
             "last_90": 0,
             "last_365": 0,
-            "last_3_years": 233
+            "last_3_years": 232
           },
           "lines_added": {
             "last_30": 0,
             "last_90": 0,
             "last_365": 0,
-            "last_3_years": 43390
+            "last_3_years": 43388
           },
           "lines_removed": {
             "last_30": 0,
             "last_90": 0,
             "last_365": 0,
-            "last_3_years": 33303
+            "last_3_years": 33301
           },
           "lines_net": {
             "last_30": 0,
@@ -6723,38 +6723,38 @@
       "gerrit_url": "https://github.com/gerrit.fd.io/vpp",
       "gerrit_path_prefix": "",
       "local_path": "/home/runner/work/project-reporting-tool/project-reporting-tool/gerrit.fd.io/vpp",
-      "last_commit_timestamp": "2026-06-19T12:13:09-04:00",
-      "days_since_last_commit": 0,
+      "last_commit_timestamp": "2026-06-19T18:33:17-04:00",
+      "days_since_last_commit": 1,
       "activity_status": "current",
       "has_any_commits": true,
-      "total_commits_ever": 15993,
-      "total_loc": 1512529,
+      "total_commits_ever": 15995,
+      "total_loc": 1513207,
       "commit_counts": {
-        "last_30": 111,
+        "last_30": 107,
         "last_90": 387,
-        "last_365": 1454,
+        "last_365": 1450,
         "last_3_years": 3021
       },
       "loc_stats": {
         "last_30": {
-          "added": 13437,
-          "removed": 10401,
-          "net": 3036
+          "added": 13849,
+          "removed": 10319,
+          "net": 3530
         },
         "last_90": {
-          "added": 52333,
-          "removed": 26288,
-          "net": 26045
+          "added": 52970,
+          "removed": 26293,
+          "net": 26677
         },
         "last_365": {
-          "added": 208446,
-          "removed": 127456,
-          "net": 80990
+          "added": 208667,
+          "removed": 127349,
+          "net": 81318
         },
         "last_3_years": {
-          "added": 375545,
-          "removed": 190667,
-          "net": 184878
+          "added": 376067,
+          "removed": 190565,
+          "net": 185502
         }
       },
       "unique_contributors": {
@@ -10715,23 +10715,23 @@
                 "name": "gerrit-verify",
                 "path": ".github/workflows/gerrit-verify.yml",
                 "state": "active",
-                "status": "building",
-                "color": "blue_anime",
+                "status": "success",
+                "color": "blue",
                 "urls": {
                   "workflow_page": "https://github.com/fdio/vpp/actions/workflows/gerrit-verify.yml",
                   "source": "https://github.com/fdio/vpp/blob/master/.github/workflows/gerrit-verify.yml",
                   "badge": "https://github.com/FDio/vpp/workflows/gerrit-verify/badge.svg"
                 },
-                "conclusion": null,
-                "run_status": "in_progress",
+                "conclusion": "success",
+                "run_status": "completed",
                 "last_run": {
-                  "id": 27863965660,
-                  "number": 6149,
-                  "created_at": "2026-06-20T07:15:33Z",
-                  "updated_at": "2026-06-20T08:04:18Z",
-                  "html_url": "https://github.com/FDio/vpp/actions/runs/27863965660",
+                  "id": 27886397930,
+                  "number": 6173,
+                  "created_at": "2026-06-20T22:54:30Z",
+                  "updated_at": "2026-06-21T04:23:09Z",
+                  "html_url": "https://github.com/FDio/vpp/actions/runs/27886397930",
                   "head_branch": "master",
-                  "head_sha": "bc976b8"
+                  "head_sha": "16f9597"
                 }
               },
               {
@@ -10763,13 +10763,13 @@
                 "conclusion": "success",
                 "run_status": "completed",
                 "last_run": {
-                  "id": 27862987501,
-                  "number": 1035,
-                  "created_at": "2026-06-20T06:32:19Z",
-                  "updated_at": "2026-06-20T07:39:16Z",
-                  "html_url": "https://github.com/FDio/vpp/actions/runs/27862987501",
+                  "id": 27881143959,
+                  "number": 1037,
+                  "created_at": "2026-06-20T19:13:04Z",
+                  "updated_at": "2026-06-20T20:21:17Z",
+                  "html_url": "https://github.com/FDio/vpp/actions/runs/27881143959",
                   "head_branch": "master",
-                  "head_sha": "4f504a0"
+                  "head_sha": "bc976b8"
                 }
               },
               {
@@ -10849,13 +10849,13 @@
                 "conclusion": "success",
                 "run_status": "completed",
                 "last_run": {
-                  "id": 27855302870,
-                  "number": 188,
-                  "created_at": "2026-06-20T00:54:59Z",
-                  "updated_at": "2026-06-20T05:33:42Z",
-                  "html_url": "https://github.com/FDio/vpp/actions/runs/27855302870",
+                  "id": 27889125403,
+                  "number": 189,
+                  "created_at": "2026-06-21T01:00:59Z",
+                  "updated_at": "2026-06-21T05:43:39Z",
+                  "html_url": "https://github.com/FDio/vpp/actions/runs/27889125403",
                   "head_branch": "master",
-                  "head_sha": "4f504a0"
+                  "head_sha": "16f9597"
                 }
               },
               {
@@ -10873,13 +10873,13 @@
                 "conclusion": "success",
                 "run_status": "completed",
                 "last_run": {
-                  "id": 27858483349,
-                  "number": 185,
-                  "created_at": "2026-06-20T03:13:20Z",
-                  "updated_at": "2026-06-20T03:19:02Z",
-                  "html_url": "https://github.com/FDio/vpp/actions/runs/27858483349",
+                  "id": 27891958144,
+                  "number": 186,
+                  "created_at": "2026-06-21T03:15:41Z",
+                  "updated_at": "2026-06-21T03:21:16Z",
+                  "html_url": "https://github.com/FDio/vpp/actions/runs/27891958144",
                   "head_branch": "master",
-                  "head_sha": "4f504a0"
+                  "head_sha": "16f9597"
                 }
               },
               {
@@ -10897,13 +10897,13 @@
                 "conclusion": "success",
                 "run_status": "completed",
                 "last_run": {
-                  "id": 27856529932,
-                  "number": 370,
-                  "created_at": "2026-06-20T01:47:09Z",
-                  "updated_at": "2026-06-20T03:04:38Z",
-                  "html_url": "https://github.com/FDio/vpp/actions/runs/27856529932",
+                  "id": 27890219978,
+                  "number": 372,
+                  "created_at": "2026-06-21T01:53:49Z",
+                  "updated_at": "2026-06-21T03:06:54Z",
+                  "html_url": "https://github.com/FDio/vpp/actions/runs/27890219978",
                   "head_branch": "master",
-                  "head_sha": "4f504a0"
+                  "head_sha": "16f9597"
                 }
               },
               {
@@ -10948,33 +10948,33 @@
       },
       "authors": [
         {
-          "name": "Matus Fabian",
-          "email": "matfabia@cisco.com",
-          "username": "Matus",
+          "name": "Florin Coras",
+          "email": "fcoras@cisco.com",
+          "username": "Florin",
           "domain": "cisco.com",
           "commits": {
-            "last_30": 20,
-            "last_90": 76,
-            "last_365": 256,
-            "last_3_years": 412
+            "last_30": 18,
+            "last_90": 57,
+            "last_365": 243,
+            "last_3_years": 483
           },
           "lines_added": {
-            "last_30": 1198,
-            "last_90": 7496,
-            "last_365": 32700,
-            "last_3_years": 60043
+            "last_30": 8196,
+            "last_90": 23428,
+            "last_365": 32045,
+            "last_3_years": 41462
           },
           "lines_removed": {
-            "last_30": 704,
-            "last_90": 5964,
-            "last_365": 13492,
-            "last_3_years": 21736
+            "last_30": 7340,
+            "last_90": 8568,
+            "last_365": 12813,
+            "last_3_years": 16259
           },
           "lines_net": {
-            "last_30": 494,
-            "last_90": 1532,
-            "last_365": 19208,
-            "last_3_years": 38307
+            "last_30": 856,
+            "last_90": 14860,
+            "last_365": 19232,
+            "last_3_years": 25203
           },
           "repositories": {
             "last_30": 1,
@@ -10984,33 +10984,33 @@
           }
         },
         {
-          "name": "Florin Coras",
-          "email": "fcoras@cisco.com",
-          "username": "Florin",
+          "name": "Matus Fabian",
+          "email": "matfabia@cisco.com",
+          "username": "Matus",
           "domain": "cisco.com",
           "commits": {
-            "last_30": 16,
-            "last_90": 56,
-            "last_365": 243,
-            "last_3_years": 482
+            "last_30": 18,
+            "last_90": 75,
+            "last_365": 254,
+            "last_3_years": 412
           },
           "lines_added": {
-            "last_30": 7507,
-            "last_90": 22740,
-            "last_365": 31433,
-            "last_3_years": 40824
+            "last_30": 1159,
+            "last_90": 7445,
+            "last_365": 32393,
+            "last_3_years": 60043
           },
           "lines_removed": {
-            "last_30": 7329,
-            "last_90": 8558,
-            "last_365": 12830,
-            "last_3_years": 16248
+            "last_30": 699,
+            "last_90": 5959,
+            "last_365": 13446,
+            "last_3_years": 21736
           },
           "lines_net": {
-            "last_30": 178,
-            "last_90": 14182,
-            "last_365": 18603,
-            "last_3_years": 24576
+            "last_30": 460,
+            "last_90": 1486,
+            "last_365": 18947,
+            "last_3_years": 38307
           },
           "repositories": {
             "last_30": 1,
@@ -11208,25 +11208,25 @@
             "last_30": 13,
             "last_90": 29,
             "last_365": 213,
-            "last_3_years": 273
+            "last_3_years": 272
           },
           "lines_added": {
             "last_30": 105,
             "last_90": 1416,
             "last_365": 12178,
-            "last_3_years": 20700
+            "last_3_years": 20584
           },
           "lines_removed": {
             "last_30": 422,
             "last_90": 2226,
             "last_365": 6385,
-            "last_3_years": 14050
+            "last_3_years": 13937
           },
           "lines_net": {
             "last_30": -317,
             "last_90": -810,
             "last_365": 5793,
-            "last_3_years": 6650
+            "last_3_years": 6647
           },
           "repositories": {
             "last_30": 1,
@@ -11313,25 +11313,25 @@
           "username": "Klement",
           "domain": "netgate.com",
           "commits": {
-            "last_30": 14,
+            "last_30": 12,
             "last_90": 42,
             "last_365": 42,
             "last_3_years": 42
           },
           "lines_added": {
-            "last_30": 818,
+            "last_30": 704,
             "last_90": 2654,
             "last_365": 2654,
             "last_3_years": 2654
           },
           "lines_removed": {
-            "last_30": 212,
+            "last_30": 179,
             "last_90": 674,
             "last_365": 674,
             "last_3_years": 674
           },
           "lines_net": {
-            "last_30": 606,
+            "last_30": 525,
             "last_90": 1980,
             "last_365": 1980,
             "last_3_years": 1980
@@ -11493,25 +11493,25 @@
           "username": "Samuel",
           "domain": "cisco.com",
           "commits": {
-            "last_30": 6,
+            "last_30": 4,
             "last_90": 9,
             "last_365": 9,
             "last_3_years": 9
           },
           "lines_added": {
-            "last_30": 361,
+            "last_30": 237,
             "last_90": 894,
             "last_365": 894,
             "last_3_years": 894
           },
           "lines_removed": {
-            "last_30": 84,
+            "last_30": 29,
             "last_90": 88,
             "last_365": 88,
             "last_3_years": 88
           },
           "lines_net": {
-            "last_30": 277,
+            "last_30": 208,
             "last_90": 806,
             "last_365": 806,
             "last_3_years": 806
@@ -12719,25 +12719,25 @@
           "commits": {
             "last_30": 0,
             "last_90": 0,
-            "last_365": 19,
+            "last_365": 18,
             "last_3_years": 51
           },
           "lines_added": {
             "last_30": 0,
             "last_90": 0,
-            "last_365": 3526,
+            "last_365": 3481,
             "last_3_years": 4743
           },
           "lines_removed": {
             "last_30": 0,
             "last_90": 0,
-            "last_365": 353,
+            "last_365": 322,
             "last_3_years": 642
           },
           "lines_net": {
             "last_30": 0,
             "last_90": 0,
-            "last_365": 3173,
+            "last_365": 3159,
             "last_3_years": 4101
           },
           "repositories": {
@@ -14339,25 +14339,25 @@
           "commits": {
             "last_30": 0,
             "last_90": 0,
-            "last_365": 2,
+            "last_365": 1,
             "last_3_years": 6
           },
           "lines_added": {
             "last_30": 0,
             "last_90": 0,
-            "last_365": 41,
+            "last_365": 2,
             "last_3_years": 1511
           },
           "lines_removed": {
             "last_30": 0,
             "last_90": 0,
-            "last_365": 13,
+            "last_365": 0,
             "last_3_years": 764
           },
           "lines_net": {
             "last_30": 0,
             "last_90": 0,
-            "last_365": 28,
+            "last_365": 2,
             "last_3_years": 747
           },
           "repositories": {
@@ -32725,10 +32725,10 @@
         "last_3_years": 393
       },
       "repositories_touched": {
-        "last_30": "{'main_test', 'test_injector', '.github', 'csit', 'vpp'}",
-        "last_90": "{'main_test', 'test_injector', '.github', 'csit', 'vpp'}",
-        "last_365": "{'main_test', 'test_injector', '.github', 'csit', 'vpp'}",
-        "last_3_years": "{'main_test', 'test_injector', '.github', 'csit', 'vpp'}"
+        "last_30": "{'main_test', '.github', 'vpp', 'csit', 'test_injector'}",
+        "last_90": "{'main_test', '.github', 'vpp', 'csit', 'test_injector'}",
+        "last_365": "{'main_test', '.github', 'vpp', 'csit', 'test_injector'}",
+        "last_3_years": "{'main_test', '.github', 'vpp', 'csit', 'test_injector'}"
       },
       "repositories_count": {
         "last_30": 5,
@@ -32746,19 +32746,19 @@
         "last_30": 3,
         "last_90": 25,
         "last_365": 75,
-        "last_3_years": 253
+        "last_3_years": 252
       },
       "lines_added": {
         "last_30": 41,
         "last_90": 5386,
         "last_365": 22077,
-        "last_3_years": 54643
+        "last_3_years": 54642
       },
       "lines_removed": {
         "last_30": 20,
         "last_90": 382,
         "last_365": 16464,
-        "last_3_years": 46913
+        "last_3_years": 46912
       },
       "lines_net": {
         "last_30": 21,
@@ -32767,10 +32767,10 @@
         "last_3_years": 7730
       },
       "repositories_touched": {
-        "last_30": "{'main_test', 'vpp', 'csit'}",
-        "last_90": "{'main_test', 'vpp', 'csit'}",
-        "last_365": "{'main_test', 'vpp', 'csit'}",
-        "last_3_years": "{'main_test', 'vpp', 'csit'}"
+        "last_30": "{'main_test', 'csit', 'vpp'}",
+        "last_90": "{'main_test', 'csit', 'vpp'}",
+        "last_365": "{'main_test', 'csit', 'vpp'}",
+        "last_3_years": "{'main_test', 'csit', 'vpp'}"
       },
       "repositories_count": {
         "last_30": 3,
@@ -33040,31 +33040,31 @@
         "last_30": 13,
         "last_90": 30,
         "last_365": 230,
-        "last_3_years": 290
+        "last_3_years": 289
       },
       "lines_added": {
         "last_30": 105,
         "last_90": 1433,
         "last_365": 15130,
-        "last_3_years": 23652
+        "last_3_years": 23536
       },
       "lines_removed": {
         "last_30": 422,
         "last_90": 2237,
         "last_365": 6527,
-        "last_3_years": 14192
+        "last_3_years": 14079
       },
       "lines_net": {
         "last_30": -317,
         "last_90": -804,
         "last_365": 8603,
-        "last_3_years": 9460
+        "last_3_years": 9457
       },
       "repositories_touched": {
-        "last_30": "{'csit', 'vppsb', 'vpp', '.github'}",
-        "last_90": "{'csit', 'vppsb', 'vpp', '.github'}",
-        "last_365": "{'csit', 'vppsb', 'vpp', '.github'}",
-        "last_3_years": "{'csit', 'vppsb', 'vpp', '.github'}"
+        "last_30": "{'vppsb', '.github', 'csit', 'vpp'}",
+        "last_90": "{'vppsb', '.github', 'csit', 'vpp'}",
+        "last_365": "{'vppsb', '.github', 'csit', 'vpp'}",
+        "last_3_years": "{'vppsb', '.github', 'csit', 'vpp'}"
       },
       "repositories_count": {
         "last_30": 4,
@@ -33229,10 +33229,10 @@
         "last_3_years": 6223
       },
       "repositories_touched": {
-        "last_30": "{'csit', 'vppsb', 'vpp'}",
-        "last_90": "{'csit', 'vppsb', 'vpp'}",
-        "last_365": "{'csit', 'vppsb', 'vpp'}",
-        "last_3_years": "{'csit', 'vppsb', 'vpp'}"
+        "last_30": "{'vppsb', 'csit', 'vpp'}",
+        "last_90": "{'vppsb', 'csit', 'vpp'}",
+        "last_365": "{'vppsb', 'csit', 'vpp'}",
+        "last_3_years": "{'vppsb', 'csit', 'vpp'}"
       },
       "repositories_count": {
         "last_30": 3,
@@ -33271,10 +33271,10 @@
         "last_3_years": 0
       },
       "repositories_touched": {
-        "last_30": "{'csit', 'vppsb', 'vpp'}",
-        "last_90": "{'csit', 'vppsb', 'vpp'}",
-        "last_365": "{'csit', 'vppsb', 'vpp'}",
-        "last_3_years": "{'csit', 'vppsb', 'vpp'}"
+        "last_30": "{'vppsb', 'csit', 'vpp'}",
+        "last_90": "{'vppsb', 'csit', 'vpp'}",
+        "last_365": "{'vppsb', 'csit', 'vpp'}",
+        "last_3_years": "{'vppsb', 'csit', 'vpp'}"
       },
       "repositories_count": {
         "last_30": 3,
@@ -33417,25 +33417,25 @@
       "commits": {
         "last_30": 0,
         "last_90": 0,
-        "last_365": 19,
+        "last_365": 18,
         "last_3_years": 51
       },
       "lines_added": {
         "last_30": 0,
         "last_90": 0,
-        "last_365": 3526,
+        "last_365": 3481,
         "last_3_years": 4743
       },
       "lines_removed": {
         "last_30": 0,
         "last_90": 0,
-        "last_365": 353,
+        "last_365": 322,
         "last_3_years": 642
       },
       "lines_net": {
         "last_30": 0,
         "last_90": 0,
-        "last_365": 3173,
+        "last_365": 3159,
         "last_3_years": 4101
       },
       "repositories_touched": {
@@ -33541,19 +33541,19 @@
       "username": "Peter",
       "domain": "icloud.com",
       "commits": {
-        "last_30": 13,
+        "last_30": 12,
         "last_90": 40,
         "last_365": 186,
         "last_3_years": 238
       },
       "lines_added": {
-        "last_30": 441,
+        "last_30": 371,
         "last_90": 2021,
         "last_365": 51248,
         "last_3_years": 54366
       },
       "lines_removed": {
-        "last_30": 267,
+        "last_30": 197,
         "last_90": 727,
         "last_365": 76160,
         "last_3_years": 80207
@@ -33565,10 +33565,10 @@
         "last_3_years": -25841
       },
       "repositories_touched": {
-        "last_30": "{'csit', 'vpp', '.github'}",
-        "last_90": "{'csit', 'vpp', '.github'}",
-        "last_365": "{'csit', 'vpp', '.github'}",
-        "last_3_years": "{'csit', 'vpp', '.github'}"
+        "last_30": "{'.github', 'csit', 'vpp'}",
+        "last_90": "{'.github', 'csit', 'vpp'}",
+        "last_365": "{'.github', 'csit', 'vpp'}",
+        "last_3_years": "{'.github', 'csit', 'vpp'}"
       },
       "repositories_count": {
         "last_30": 3,
@@ -33607,10 +33607,10 @@
         "last_3_years": 143
       },
       "repositories_touched": {
-        "last_30": "{'csit', 'vpp', '.github'}",
-        "last_90": "{'csit', 'vpp', '.github'}",
-        "last_365": "{'csit', 'vpp', '.github'}",
-        "last_3_years": "{'csit', 'vpp', '.github'}"
+        "last_30": "{'.github', 'csit', 'vpp'}",
+        "last_90": "{'.github', 'csit', 'vpp'}",
+        "last_365": "{'.github', 'csit', 'vpp'}",
+        "last_3_years": "{'.github', 'csit', 'vpp'}"
       },
       "repositories_count": {
         "last_30": 3,
@@ -33626,27 +33626,27 @@
       "domain": "cisco.com",
       "commits": {
         "last_30": 8,
-        "last_90": 21,
+        "last_90": 20,
         "last_365": 104,
-        "last_3_years": 322
+        "last_3_years": 320
       },
       "lines_added": {
         "last_30": 327,
-        "last_90": 1425,
+        "last_90": 1422,
         "last_365": 8555,
-        "last_3_years": 26903
+        "last_3_years": 26561
       },
       "lines_removed": {
         "last_30": 228,
-        "last_90": 438,
+        "last_90": 435,
         "last_365": 6656,
-        "last_3_years": 25331
+        "last_3_years": 25200
       },
       "lines_net": {
         "last_30": 99,
         "last_90": 987,
         "last_365": 1899,
-        "last_3_years": 1572
+        "last_3_years": 1361
       },
       "repositories_touched": {
         "last_30": "{'csit', 'vpp'}",
@@ -33668,19 +33668,19 @@
       "domain": "github.com",
       "commits": {
         "last_30": 1,
-        "last_90": 11,
+        "last_90": 10,
         "last_365": 15,
         "last_3_years": 15
       },
       "lines_added": {
         "last_30": 1,
-        "last_90": 14,
+        "last_90": 13,
         "last_365": 18,
         "last_3_years": 18
       },
       "lines_removed": {
         "last_30": 1,
-        "last_90": 14,
+        "last_90": 13,
         "last_365": 18,
         "last_3_years": 18
       },
@@ -33754,19 +33754,19 @@
         "last_30": 0,
         "last_90": 0,
         "last_365": 0,
-        "last_3_years": 233
+        "last_3_years": 232
       },
       "lines_added": {
         "last_30": 0,
         "last_90": 0,
         "last_365": 0,
-        "last_3_years": 43390
+        "last_3_years": 43388
       },
       "lines_removed": {
         "last_30": 0,
         "last_90": 0,
         "last_365": 0,
-        "last_3_years": 33303
+        "last_3_years": 33301
       },
       "lines_net": {
         "last_30": 0,
@@ -36397,27 +36397,27 @@
       "username": "Matus",
       "domain": "cisco.com",
       "commits": {
-        "last_30": 20,
-        "last_90": 76,
-        "last_365": 256,
+        "last_30": 18,
+        "last_90": 75,
+        "last_365": 254,
         "last_3_years": 412
       },
       "lines_added": {
-        "last_30": 1198,
-        "last_90": 7496,
-        "last_365": 32700,
+        "last_30": 1159,
+        "last_90": 7445,
+        "last_365": 32393,
         "last_3_years": 60043
       },
       "lines_removed": {
-        "last_30": 704,
-        "last_90": 5964,
-        "last_365": 13492,
+        "last_30": 699,
+        "last_90": 5959,
+        "last_365": 13446,
         "last_3_years": 21736
       },
       "lines_net": {
-        "last_30": 494,
-        "last_90": 1532,
-        "last_365": 19208,
+        "last_30": 460,
+        "last_90": 1486,
+        "last_365": 18947,
         "last_3_years": 38307
       },
       "repositories_touched": {
@@ -36481,28 +36481,28 @@
       "username": "Florin",
       "domain": "cisco.com",
       "commits": {
-        "last_30": 16,
-        "last_90": 56,
+        "last_30": 18,
+        "last_90": 57,
         "last_365": 243,
-        "last_3_years": 482
+        "last_3_years": 483
       },
       "lines_added": {
-        "last_30": 7507,
-        "last_90": 22740,
-        "last_365": 31433,
-        "last_3_years": 40824
+        "last_30": 8196,
+        "last_90": 23428,
+        "last_365": 32045,
+        "last_3_years": 41462
       },
       "lines_removed": {
-        "last_30": 7329,
-        "last_90": 8558,
-        "last_365": 12830,
-        "last_3_years": 16248
+        "last_30": 7340,
+        "last_90": 8568,
+        "last_365": 12813,
+        "last_3_years": 16259
       },
       "lines_net": {
-        "last_30": 178,
-        "last_90": 14182,
-        "last_365": 18603,
-        "last_3_years": 24576
+        "last_30": 856,
+        "last_90": 14860,
+        "last_365": 19232,
+        "last_3_years": 25203
       },
       "repositories_touched": {
         "last_30": "{'csit', 'vpp'}",
@@ -37069,25 +37069,25 @@
       "username": "Klement",
       "domain": "netgate.com",
       "commits": {
-        "last_30": 14,
+        "last_30": 12,
         "last_90": 42,
         "last_365": 42,
         "last_3_years": 42
       },
       "lines_added": {
-        "last_30": 818,
+        "last_30": 704,
         "last_90": 2654,
         "last_365": 2654,
         "last_3_years": 2654
       },
       "lines_removed": {
-        "last_30": 212,
+        "last_30": 179,
         "last_90": 674,
         "last_365": 674,
         "last_3_years": 674
       },
       "lines_net": {
-        "last_30": 606,
+        "last_30": 525,
         "last_90": 1980,
         "last_365": 1980,
         "last_3_years": 1980
@@ -37279,25 +37279,25 @@
       "username": "Samuel",
       "domain": "cisco.com",
       "commits": {
-        "last_30": 6,
+        "last_30": 4,
         "last_90": 9,
         "last_365": 9,
         "last_3_years": 9
       },
       "lines_added": {
-        "last_30": 361,
+        "last_30": 237,
         "last_90": 894,
         "last_365": 894,
         "last_3_years": 894
       },
       "lines_removed": {
-        "last_30": 84,
+        "last_30": 29,
         "last_90": 88,
         "last_365": 88,
         "last_3_years": 88
       },
       "lines_net": {
-        "last_30": 277,
+        "last_30": 208,
         "last_90": 806,
         "last_365": 806,
         "last_3_years": 806
@@ -40179,25 +40179,25 @@
       "commits": {
         "last_30": 0,
         "last_90": 0,
-        "last_365": 2,
+        "last_365": 1,
         "last_3_years": 6
       },
       "lines_added": {
         "last_30": 0,
         "last_90": 0,
-        "last_365": 41,
+        "last_365": 2,
         "last_3_years": 1511
       },
       "lines_removed": {
         "last_30": 0,
         "last_90": 0,
-        "last_365": 13,
+        "last_365": 0,
         "last_3_years": 764
       },
       "lines_net": {
         "last_30": 0,
         "last_90": 0,
-        "last_365": 28,
+        "last_365": 2,
         "last_3_years": 747
       },
       "repositories_touched": {
@@ -60077,28 +60077,28 @@
       "domain": "cisco.com",
       "contributor_count": 156,
       "commits": {
-        "last_30": 80,
-        "last_90": 285,
-        "last_365": 1133,
-        "last_3_years": 2487
+        "last_30": 78,
+        "last_90": 284,
+        "last_365": 1130,
+        "last_3_years": 2485
       },
       "lines_added": {
-        "last_30": 12452,
-        "last_90": 49129,
-        "last_365": 174365,
-        "last_3_years": 334779
+        "last_30": 12978,
+        "last_90": 49763,
+        "last_365": 174625,
+        "last_3_years": 335074
       },
       "lines_removed": {
-        "last_30": 9924,
-        "last_90": 20580,
-        "last_365": 134298,
-        "last_3_years": 229712
+        "last_30": 9875,
+        "last_90": 20582,
+        "last_365": 134204,
+        "last_3_years": 229591
       },
       "lines_net": {
-        "last_30": 2528,
-        "last_90": 28549,
-        "last_365": 40067,
-        "last_3_years": 105067
+        "last_30": 3103,
+        "last_90": 29181,
+        "last_365": 40421,
+        "last_3_years": 105483
       },
       "repositories_count": {
         "last_30": 4,
@@ -60182,25 +60182,25 @@
         "last_30": 21,
         "last_90": 56,
         "last_365": 308,
-        "last_3_years": 469
+        "last_3_years": 468
       },
       "lines_added": {
         "last_30": 460,
         "last_90": 3212,
         "last_365": 23351,
-        "last_3_years": 45093
+        "last_3_years": 44977
       },
       "lines_removed": {
         "last_30": 482,
         "last_90": 5017,
         "last_365": 12363,
-        "last_3_years": 21496
+        "last_3_years": 21383
       },
       "lines_net": {
         "last_30": -22,
         "last_90": -1805,
         "last_365": 10988,
-        "last_3_years": 23597
+        "last_3_years": 23594
       },
       "repositories_count": {
         "last_30": 4,
@@ -60247,19 +60247,19 @@
       "domain": "icloud.com",
       "contributor_count": 2,
       "commits": {
-        "last_30": 13,
+        "last_30": 12,
         "last_90": 41,
         "last_365": 188,
         "last_3_years": 240
       },
       "lines_added": {
-        "last_30": 441,
+        "last_30": 371,
         "last_90": 2037,
         "last_365": 51267,
         "last_3_years": 54385
       },
       "lines_removed": {
-        "last_30": 267,
+        "last_30": 197,
         "last_90": 731,
         "last_365": 76166,
         "last_3_years": 80213
@@ -60282,19 +60282,19 @@
       "contributor_count": 2,
       "commits": {
         "last_30": 1,
-        "last_90": 11,
+        "last_90": 10,
         "last_365": 15,
         "last_3_years": 19
       },
       "lines_added": {
         "last_30": 1,
-        "last_90": 14,
+        "last_90": 13,
         "last_365": 18,
         "last_3_years": 545
       },
       "lines_removed": {
         "last_30": 1,
-        "last_90": 14,
+        "last_90": 13,
         "last_365": 18,
         "last_3_years": 54
       },
@@ -60317,25 +60317,25 @@
       "commits": {
         "last_30": 0,
         "last_90": 3,
-        "last_365": 10,
+        "last_365": 9,
         "last_3_years": 83
       },
       "lines_added": {
         "last_30": 0,
         "last_90": 74,
-        "last_365": 232,
+        "last_365": 193,
         "last_3_years": 10728
       },
       "lines_removed": {
         "last_30": 0,
         "last_90": 5,
-        "last_365": 33,
+        "last_365": 20,
         "last_3_years": 1323
       },
       "lines_net": {
         "last_30": 0,
         "last_90": 69,
-        "last_365": 199,
+        "last_365": 173,
         "last_3_years": 9405
       },
       "repositories_count": {
@@ -60352,19 +60352,19 @@
         "last_30": 0,
         "last_90": 0,
         "last_365": 0,
-        "last_3_years": 233
+        "last_3_years": 232
       },
       "lines_added": {
         "last_30": 0,
         "last_90": 0,
         "last_365": 0,
-        "last_3_years": 43390
+        "last_3_years": 43388
       },
       "lines_removed": {
         "last_30": 0,
         "last_90": 0,
         "last_365": 0,
-        "last_3_years": 33303
+        "last_3_years": 33301
       },
       "lines_net": {
         "last_30": 0,
@@ -60723,25 +60723,25 @@
       "domain": "netgate.com",
       "contributor_count": 16,
       "commits": {
-        "last_30": 16,
+        "last_30": 14,
         "last_90": 63,
         "last_365": 74,
         "last_3_years": 115
       },
       "lines_added": {
-        "last_30": 847,
+        "last_30": 733,
         "last_90": 4747,
         "last_365": 5469,
         "last_3_years": 7973
       },
       "lines_removed": {
-        "last_30": 214,
+        "last_30": 181,
         "last_90": 1042,
         "last_365": 1206,
         "last_3_years": 1439
       },
       "lines_net": {
-        "last_30": 633,
+        "last_30": 552,
         "last_90": 3705,
         "last_365": 4263,
         "last_3_years": 6534
@@ -65287,8 +65287,8 @@
       "active_repositories": 0,
       "inactive_repositories": 3,
       "no_commit_repositories": 0,
-      "total_commits": 1832,
-      "total_lines_added": 293281,
+      "total_commits": 1828,
+      "total_lines_added": 293502,
       "total_authors": 651,
       "total_organizations": 154
     },
@@ -65296,30 +65296,30 @@
       "current": [
         {
           "gerrit_project": ".github",
-          "days_since_last_commit": 36
+          "days_since_last_commit": 37
         },
         {
           "gerrit_project": "csit",
-          "days_since_last_commit": 2
+          "days_since_last_commit": 3
         },
         {
           "gerrit_project": "vpp",
-          "days_since_last_commit": 0
+          "days_since_last_commit": 1
         }
       ],
       "active": [],
       "inactive": [
         {
           "gerrit_project": "test_injector",
-          "days_since_last_commit": 3580
+          "days_since_last_commit": 3581
         },
         {
           "gerrit_project": "main_test",
-          "days_since_last_commit": 2058
+          "days_since_last_commit": 2059
         },
         {
           "gerrit_project": "vppsb",
-          "days_since_last_commit": 2583
+          "days_since_last_commit": 2584
         }
       ]
     },
@@ -65330,38 +65330,38 @@
         "gerrit_url": "https://github.com/gerrit.fd.io/vpp",
         "gerrit_path_prefix": "",
         "local_path": "/home/runner/work/project-reporting-tool/project-reporting-tool/gerrit.fd.io/vpp",
-        "last_commit_timestamp": "2026-06-19T12:13:09-04:00",
-        "days_since_last_commit": 0,
+        "last_commit_timestamp": "2026-06-19T18:33:17-04:00",
+        "days_since_last_commit": 1,
         "activity_status": "current",
         "has_any_commits": true,
-        "total_commits_ever": 15993,
-        "total_loc": 1512529,
+        "total_commits_ever": 15995,
+        "total_loc": 1513207,
         "commit_counts": {
-          "last_30": 111,
+          "last_30": 107,
           "last_90": 387,
-          "last_365": 1454,
+          "last_365": 1450,
           "last_3_years": 3021
         },
         "loc_stats": {
           "last_30": {
-            "added": 13437,
-            "removed": 10401,
-            "net": 3036
+            "added": 13849,
+            "removed": 10319,
+            "net": 3530
           },
           "last_90": {
-            "added": 52333,
-            "removed": 26288,
-            "net": 26045
+            "added": 52970,
+            "removed": 26293,
+            "net": 26677
           },
           "last_365": {
-            "added": 208446,
-            "removed": 127456,
-            "net": 80990
+            "added": 208667,
+            "removed": 127349,
+            "net": 81318
           },
           "last_3_years": {
-            "added": 375545,
-            "removed": 190667,
-            "net": 184878
+            "added": 376067,
+            "removed": 190565,
+            "net": 185502
           }
         },
         "unique_contributors": {
@@ -69322,23 +69322,23 @@
                   "name": "gerrit-verify",
                   "path": ".github/workflows/gerrit-verify.yml",
                   "state": "active",
-                  "status": "building",
-                  "color": "blue_anime",
+                  "status": "success",
+                  "color": "blue",
                   "urls": {
                     "workflow_page": "https://github.com/fdio/vpp/actions/workflows/gerrit-verify.yml",
                     "source": "https://github.com/fdio/vpp/blob/master/.github/workflows/gerrit-verify.yml",
                     "badge": "https://github.com/FDio/vpp/workflows/gerrit-verify/badge.svg"
                   },
-                  "conclusion": null,
-                  "run_status": "in_progress",
+                  "conclusion": "success",
+                  "run_status": "completed",
                   "last_run": {
-                    "id": 27863965660,
-                    "number": 6149,
-                    "created_at": "2026-06-20T07:15:33Z",
-                    "updated_at": "2026-06-20T08:04:18Z",
-                    "html_url": "https://github.com/FDio/vpp/actions/runs/27863965660",
+                    "id": 27886397930,
+                    "number": 6173,
+                    "created_at": "2026-06-20T22:54:30Z",
+                    "updated_at": "2026-06-21T04:23:09Z",
+                    "html_url": "https://github.com/FDio/vpp/actions/runs/27886397930",
                     "head_branch": "master",
-                    "head_sha": "bc976b8"
+                    "head_sha": "16f9597"
                   }
                 },
                 {
@@ -69370,13 +69370,13 @@
                   "conclusion": "success",
                   "run_status": "completed",
                   "last_run": {
-                    "id": 27862987501,
-                    "number": 1035,
-                    "created_at": "2026-06-20T06:32:19Z",
-                    "updated_at": "2026-06-20T07:39:16Z",
-                    "html_url": "https://github.com/FDio/vpp/actions/runs/27862987501",
+                    "id": 27881143959,
+                    "number": 1037,
+                    "created_at": "2026-06-20T19:13:04Z",
+                    "updated_at": "2026-06-20T20:21:17Z",
+                    "html_url": "https://github.com/FDio/vpp/actions/runs/27881143959",
                     "head_branch": "master",
-                    "head_sha": "4f504a0"
+                    "head_sha": "bc976b8"
                   }
                 },
                 {
@@ -69456,13 +69456,13 @@
                   "conclusion": "success",
                   "run_status": "completed",
                   "last_run": {
-                    "id": 27855302870,
-                    "number": 188,
-                    "created_at": "2026-06-20T00:54:59Z",
-                    "updated_at": "2026-06-20T05:33:42Z",
-                    "html_url": "https://github.com/FDio/vpp/actions/runs/27855302870",
+                    "id": 27889125403,
+                    "number": 189,
+                    "created_at": "2026-06-21T01:00:59Z",
+                    "updated_at": "2026-06-21T05:43:39Z",
+                    "html_url": "https://github.com/FDio/vpp/actions/runs/27889125403",
                     "head_branch": "master",
-                    "head_sha": "4f504a0"
+                    "head_sha": "16f9597"
                   }
                 },
                 {
@@ -69480,13 +69480,13 @@
                   "conclusion": "success",
                   "run_status": "completed",
                   "last_run": {
-                    "id": 27858483349,
-                    "number": 185,
-                    "created_at": "2026-06-20T03:13:20Z",
-                    "updated_at": "2026-06-20T03:19:02Z",
-                    "html_url": "https://github.com/FDio/vpp/actions/runs/27858483349",
+                    "id": 27891958144,
+                    "number": 186,
+                    "created_at": "2026-06-21T03:15:41Z",
+                    "updated_at": "2026-06-21T03:21:16Z",
+                    "html_url": "https://github.com/FDio/vpp/actions/runs/27891958144",
                     "head_branch": "master",
-                    "head_sha": "4f504a0"
+                    "head_sha": "16f9597"
                   }
                 },
                 {
@@ -69504,13 +69504,13 @@
                   "conclusion": "success",
                   "run_status": "completed",
                   "last_run": {
-                    "id": 27856529932,
-                    "number": 370,
-                    "created_at": "2026-06-20T01:47:09Z",
-                    "updated_at": "2026-06-20T03:04:38Z",
-                    "html_url": "https://github.com/FDio/vpp/actions/runs/27856529932",
+                    "id": 27890219978,
+                    "number": 372,
+                    "created_at": "2026-06-21T01:53:49Z",
+                    "updated_at": "2026-06-21T03:06:54Z",
+                    "html_url": "https://github.com/FDio/vpp/actions/runs/27890219978",
                     "head_branch": "master",
-                    "head_sha": "4f504a0"
+                    "head_sha": "16f9597"
                   }
                 },
                 {
@@ -69555,33 +69555,33 @@
         },
         "authors": [
           {
-            "name": "Matus Fabian",
-            "email": "matfabia@cisco.com",
-            "username": "Matus",
+            "name": "Florin Coras",
+            "email": "fcoras@cisco.com",
+            "username": "Florin",
             "domain": "cisco.com",
             "commits": {
-              "last_30": 20,
-              "last_90": 76,
-              "last_365": 256,
-              "last_3_years": 412
+              "last_30": 18,
+              "last_90": 57,
+              "last_365": 243,
+              "last_3_years": 483
             },
             "lines_added": {
-              "last_30": 1198,
-              "last_90": 7496,
-              "last_365": 32700,
-              "last_3_years": 60043
+              "last_30": 8196,
+              "last_90": 23428,
+              "last_365": 32045,
+              "last_3_years": 41462
             },
             "lines_removed": {
-              "last_30": 704,
-              "last_90": 5964,
-              "last_365": 13492,
-              "last_3_years": 21736
+              "last_30": 7340,
+              "last_90": 8568,
+              "last_365": 12813,
+              "last_3_years": 16259
             },
             "lines_net": {
-              "last_30": 494,
-              "last_90": 1532,
-              "last_365": 19208,
-              "last_3_years": 38307
+              "last_30": 856,
+              "last_90": 14860,
+              "last_365": 19232,
+              "last_3_years": 25203
             },
             "repositories": {
               "last_30": 1,
@@ -69591,33 +69591,33 @@
             }
           },
           {
-            "name": "Florin Coras",
-            "email": "fcoras@cisco.com",
-            "username": "Florin",
+            "name": "Matus Fabian",
+            "email": "matfabia@cisco.com",
+            "username": "Matus",
             "domain": "cisco.com",
             "commits": {
-              "last_30": 16,
-              "last_90": 56,
-              "last_365": 243,
-              "last_3_years": 482
+              "last_30": 18,
+              "last_90": 75,
+              "last_365": 254,
+              "last_3_years": 412
             },
             "lines_added": {
-              "last_30": 7507,
-              "last_90": 22740,
-              "last_365": 31433,
-              "last_3_years": 40824
+              "last_30": 1159,
+              "last_90": 7445,
+              "last_365": 32393,
+              "last_3_years": 60043
             },
             "lines_removed": {
-              "last_30": 7329,
-              "last_90": 8558,
-              "last_365": 12830,
-              "last_3_years": 16248
+              "last_30": 699,
+              "last_90": 5959,
+              "last_365": 13446,
+              "last_3_years": 21736
             },
             "lines_net": {
-              "last_30": 178,
-              "last_90": 14182,
-              "last_365": 18603,
-              "last_3_years": 24576
+              "last_30": 460,
+              "last_90": 1486,
+              "last_365": 18947,
+              "last_3_years": 38307
             },
             "repositories": {
               "last_30": 1,
@@ -69815,25 +69815,25 @@
               "last_30": 13,
               "last_90": 29,
               "last_365": 213,
-              "last_3_years": 273
+              "last_3_years": 272
             },
             "lines_added": {
               "last_30": 105,
               "last_90": 1416,
               "last_365": 12178,
-              "last_3_years": 20700
+              "last_3_years": 20584
             },
             "lines_removed": {
               "last_30": 422,
               "last_90": 2226,
               "last_365": 6385,
-              "last_3_years": 14050
+              "last_3_years": 13937
             },
             "lines_net": {
               "last_30": -317,
               "last_90": -810,
               "last_365": 5793,
-              "last_3_years": 6650
+              "last_3_years": 6647
             },
             "repositories": {
               "last_30": 1,
@@ -69920,25 +69920,25 @@
             "username": "Klement",
             "domain": "netgate.com",
             "commits": {
-              "last_30": 14,
+              "last_30": 12,
               "last_90": 42,
               "last_365": 42,
               "last_3_years": 42
             },
             "lines_added": {
-              "last_30": 818,
+              "last_30": 704,
               "last_90": 2654,
               "last_365": 2654,
               "last_3_years": 2654
             },
             "lines_removed": {
-              "last_30": 212,
+              "last_30": 179,
               "last_90": 674,
               "last_365": 674,
               "last_3_years": 674
             },
             "lines_net": {
-              "last_30": 606,
+              "last_30": 525,
               "last_90": 1980,
               "last_365": 1980,
               "last_3_years": 1980
@@ -70100,25 +70100,25 @@
             "username": "Samuel",
             "domain": "cisco.com",
             "commits": {
-              "last_30": 6,
+              "last_30": 4,
               "last_90": 9,
               "last_365": 9,
               "last_3_years": 9
             },
             "lines_added": {
-              "last_30": 361,
+              "last_30": 237,
               "last_90": 894,
               "last_365": 894,
               "last_3_years": 894
             },
             "lines_removed": {
-              "last_30": 84,
+              "last_30": 29,
               "last_90": 88,
               "last_365": 88,
               "last_3_years": 88
             },
             "lines_net": {
-              "last_30": 277,
+              "last_30": 208,
               "last_90": 806,
               "last_365": 806,
               "last_3_years": 806
@@ -71326,25 +71326,25 @@
             "commits": {
               "last_30": 0,
               "last_90": 0,
-              "last_365": 19,
+              "last_365": 18,
               "last_3_years": 51
             },
             "lines_added": {
               "last_30": 0,
               "last_90": 0,
-              "last_365": 3526,
+              "last_365": 3481,
               "last_3_years": 4743
             },
             "lines_removed": {
               "last_30": 0,
               "last_90": 0,
-              "last_365": 353,
+              "last_365": 322,
               "last_3_years": 642
             },
             "lines_net": {
               "last_30": 0,
               "last_90": 0,
-              "last_365": 3173,
+              "last_365": 3159,
               "last_3_years": 4101
             },
             "repositories": {
@@ -72946,25 +72946,25 @@
             "commits": {
               "last_30": 0,
               "last_90": 0,
-              "last_365": 2,
+              "last_365": 1,
               "last_3_years": 6
             },
             "lines_added": {
               "last_30": 0,
               "last_90": 0,
-              "last_365": 41,
+              "last_365": 2,
               "last_3_years": 1511
             },
             "lines_removed": {
               "last_30": 0,
               "last_90": 0,
-              "last_365": 13,
+              "last_365": 0,
               "last_3_years": 764
             },
             "lines_net": {
               "last_30": 0,
               "last_90": 0,
-              "last_365": 28,
+              "last_365": 2,
               "last_3_years": 747
             },
             "repositories": {
@@ -91307,26 +91307,26 @@
         "gerrit_path_prefix": "",
         "local_path": "/home/runner/work/project-reporting-tool/project-reporting-tool/gerrit.fd.io/csit",
         "last_commit_timestamp": "2026-06-17T13:46:53+02:00",
-        "days_since_last_commit": 2,
+        "days_since_last_commit": 3,
         "activity_status": "current",
         "has_any_commits": true,
         "total_commits_ever": 6509,
         "total_loc": 341294,
         "commit_counts": {
-          "last_30": 24,
-          "last_90": 80,
+          "last_30": 23,
+          "last_90": 78,
           "last_365": 350,
-          "last_3_years": 1040
+          "last_3_years": 1036
         },
         "loc_stats": {
           "last_30": {
-            "added": 805,
-            "removed": 512,
+            "added": 735,
+            "removed": 442,
             "net": 293
           },
           "last_90": {
-            "added": 7605,
-            "removed": 1461,
+            "added": 7601,
+            "removed": 1457,
             "net": 6144
           },
           "last_365": {
@@ -91335,9 +91335,9 @@
             "net": -19338
           },
           "last_3_years": {
-            "added": 179774,
-            "removed": 185595,
-            "net": -5821
+            "added": 179429,
+            "removed": 185461,
+            "net": -6032
           }
         },
         "unique_contributors": {
@@ -93205,20 +93205,20 @@
                   "name": "csit-vpp-perf-ndrpdr-weekly",
                   "path": ".github/workflows/csit-vpp-perf-ndrpdr-weekly.yml",
                   "state": "active",
-                  "status": "building",
-                  "color": "blue_anime",
+                  "status": "failure",
+                  "color": "red",
                   "urls": {
                     "workflow_page": "https://github.com/fdio/csit/actions/workflows/csit-vpp-perf-ndrpdr-weekly.yml",
                     "source": "https://github.com/fdio/csit/blob/master/.github/workflows/csit-vpp-perf-ndrpdr-weekly.yml",
                     "badge": "https://github.com/FDio/csit/workflows/csit-vpp-perf-ndrpdr-weekly/badge.svg"
                   },
-                  "conclusion": null,
-                  "run_status": "in_progress",
+                  "conclusion": "failure",
+                  "run_status": "completed",
                   "last_run": {
                     "id": 27855567182,
                     "number": 30,
                     "created_at": "2026-06-20T01:05:50Z",
-                    "updated_at": "2026-06-20T01:13:29Z",
+                    "updated_at": "2026-06-21T01:12:47Z",
                     "html_url": "https://github.com/FDio/csit/actions/runs/27855567182",
                     "head_branch": "master",
                     "head_sha": "fa1c2ec"
@@ -93325,20 +93325,20 @@
                   "name": "csit-perf-report",
                   "path": ".github/workflows/csit-perf-report.yml",
                   "state": "active",
-                  "status": "building",
-                  "color": "blue_anime",
+                  "status": "failure",
+                  "color": "red",
                   "urls": {
                     "workflow_page": "https://github.com/fdio/csit/actions/workflows/csit-perf-report.yml",
                     "source": "https://github.com/fdio/csit/blob/master/.github/workflows/csit-perf-report.yml",
                     "badge": "https://github.com/FDio/csit/workflows/csit-perf-report/badge.svg"
                   },
-                  "conclusion": null,
-                  "run_status": "in_progress",
+                  "conclusion": "failure",
+                  "run_status": "completed",
                   "last_run": {
                     "id": 27849400461,
                     "number": 1750,
                     "created_at": "2026-06-19T21:32:42Z",
-                    "updated_at": "2026-06-19T21:41:17Z",
+                    "updated_at": "2026-06-20T14:31:06Z",
                     "html_url": "https://github.com/FDio/csit/actions/runs/27849400461",
                     "head_branch": "master",
                     "head_sha": "fa1c2ec"
@@ -93440,19 +93440,19 @@
             "username": "Peter",
             "domain": "icloud.com",
             "commits": {
-              "last_30": 13,
+              "last_30": 12,
               "last_90": 29,
               "last_365": 169,
               "last_3_years": 221
             },
             "lines_added": {
-              "last_30": 441,
+              "last_30": 371,
               "last_90": 795,
               "last_365": 49055,
               "last_3_years": 52173
             },
             "lines_removed": {
-              "last_30": 267,
+              "last_30": 197,
               "last_90": 637,
               "last_365": 76036,
               "last_3_years": 80083
@@ -93477,27 +93477,27 @@
             "domain": "cisco.com",
             "commits": {
               "last_30": 8,
-              "last_90": 21,
+              "last_90": 20,
               "last_365": 104,
-              "last_3_years": 322
+              "last_3_years": 320
             },
             "lines_added": {
               "last_30": 327,
-              "last_90": 1425,
+              "last_90": 1422,
               "last_365": 8555,
-              "last_3_years": 26903
+              "last_3_years": 26561
             },
             "lines_removed": {
               "last_30": 228,
-              "last_90": 438,
+              "last_90": 435,
               "last_365": 6656,
-              "last_3_years": 25331
+              "last_3_years": 25200
             },
             "lines_net": {
               "last_30": 99,
               "last_90": 987,
               "last_365": 1899,
-              "last_3_years": 1572
+              "last_3_years": 1361
             },
             "repositories": {
               "last_30": 1,
@@ -93515,19 +93515,19 @@
               "last_30": 2,
               "last_90": 19,
               "last_365": 59,
-              "last_3_years": 220
+              "last_3_years": 219
             },
             "lines_added": {
               "last_30": 36,
               "last_90": 5371,
               "last_365": 22025,
-              "last_3_years": 54106
+              "last_3_years": 54105
             },
             "lines_removed": {
               "last_30": 16,
               "last_90": 372,
               "last_365": 16359,
-              "last_3_years": 46559
+              "last_3_years": 46558
             },
             "lines_net": {
               "last_30": 20,
@@ -93549,19 +93549,19 @@
             "domain": "github.com",
             "commits": {
               "last_30": 1,
-              "last_90": 11,
+              "last_90": 10,
               "last_365": 15,
               "last_3_years": 15
             },
             "lines_added": {
               "last_30": 1,
-              "last_90": 14,
+              "last_90": 13,
               "last_365": 18,
               "last_3_years": 18
             },
             "lines_removed": {
               "last_30": 1,
-              "last_90": 14,
+              "last_90": 13,
               "last_365": 18,
               "last_3_years": 18
             },
@@ -93659,19 +93659,19 @@
               "last_30": 0,
               "last_90": 0,
               "last_365": 0,
-              "last_3_years": 233
+              "last_3_years": 232
             },
             "lines_added": {
               "last_30": 0,
               "last_90": 0,
               "last_365": 0,
-              "last_3_years": 43390
+              "last_3_years": 43388
             },
             "lines_removed": {
               "last_30": 0,
               "last_90": 0,
               "last_365": 0,
-              "last_3_years": 33303
+              "last_3_years": 33301
             },
             "lines_net": {
               "last_30": 0,
@@ -96395,7 +96395,7 @@
         "gerrit_path_prefix": "",
         "local_path": "/home/runner/work/project-reporting-tool/project-reporting-tool/gerrit.fd.io/.github",
         "last_commit_timestamp": "2026-05-14T13:52:01+02:00",
-        "days_since_last_commit": 36,
+        "days_since_last_commit": 37,
         "activity_status": "current",
         "has_any_commits": true,
         "total_commits_ever": 35,
@@ -96581,11 +96581,11 @@
                   "conclusion": "success",
                   "run_status": "completed",
                   "last_run": {
-                    "id": 27863966287,
-                    "number": 19004,
-                    "created_at": "2026-06-20T07:15:34Z",
-                    "updated_at": "2026-06-20T07:16:29Z",
-                    "html_url": "https://github.com/FDio/.github/actions/runs/27863966287",
+                    "id": 27886398651,
+                    "number": 19028,
+                    "created_at": "2026-06-20T22:54:32Z",
+                    "updated_at": "2026-06-20T22:55:11Z",
+                    "html_url": "https://github.com/FDio/.github/actions/runs/27886398651",
                     "head_branch": "main",
                     "head_sha": "1b5d2e2"
                   }
@@ -96836,7 +96836,7 @@
         "gerrit_path_prefix": "",
         "local_path": "/home/runner/work/project-reporting-tool/project-reporting-tool/gerrit.fd.io/test_injector",
         "last_commit_timestamp": "2016-08-30T20:24:05+00:00",
-        "days_since_last_commit": 3580,
+        "days_since_last_commit": 3581,
         "activity_status": "inactive",
         "has_any_commits": true,
         "total_commits_ever": 1,
@@ -96969,7 +96969,7 @@
         "gerrit_path_prefix": "",
         "local_path": "/home/runner/work/project-reporting-tool/project-reporting-tool/gerrit.fd.io/vppsb",
         "last_commit_timestamp": "2019-05-24T19:29:36+02:00",
-        "days_since_last_commit": 2583,
+        "days_since_last_commit": 2584,
         "activity_status": "inactive",
         "has_any_commits": true,
         "total_commits_ever": 88,
@@ -97806,7 +97806,7 @@
         "gerrit_path_prefix": "",
         "local_path": "/home/runner/work/project-reporting-tool/project-reporting-tool/gerrit.fd.io/main_test",
         "last_commit_timestamp": "2020-10-30T09:44:41+01:00",
-        "days_since_last_commit": 2058,
+        "days_since_last_commit": 2059,
         "activity_status": "inactive",
         "has_any_commits": true,
         "total_commits_ever": 8,
@@ -97993,38 +97993,38 @@
         "gerrit_url": "https://github.com/gerrit.fd.io/vpp",
         "gerrit_path_prefix": "",
         "local_path": "/home/runner/work/project-reporting-tool/project-reporting-tool/gerrit.fd.io/vpp",
-        "last_commit_timestamp": "2026-06-19T12:13:09-04:00",
-        "days_since_last_commit": 0,
+        "last_commit_timestamp": "2026-06-19T18:33:17-04:00",
+        "days_since_last_commit": 1,
         "activity_status": "current",
         "has_any_commits": true,
-        "total_commits_ever": 15993,
-        "total_loc": 1512529,
+        "total_commits_ever": 15995,
+        "total_loc": 1513207,
         "commit_counts": {
-          "last_30": 111,
+          "last_30": 107,
           "last_90": 387,
-          "last_365": 1454,
+          "last_365": 1450,
           "last_3_years": 3021
         },
         "loc_stats": {
           "last_30": {
-            "added": 13437,
-            "removed": 10401,
-            "net": 3036
+            "added": 13849,
+            "removed": 10319,
+            "net": 3530
           },
           "last_90": {
-            "added": 52333,
-            "removed": 26288,
-            "net": 26045
+            "added": 52970,
+            "removed": 26293,
+            "net": 26677
           },
           "last_365": {
-            "added": 208446,
-            "removed": 127456,
-            "net": 80990
+            "added": 208667,
+            "removed": 127349,
+            "net": 81318
           },
           "last_3_years": {
-            "added": 375545,
-            "removed": 190667,
-            "net": 184878
+            "added": 376067,
+            "removed": 190565,
+            "net": 185502
           }
         },
         "unique_contributors": {
@@ -101985,23 +101985,23 @@
                   "name": "gerrit-verify",
                   "path": ".github/workflows/gerrit-verify.yml",
                   "state": "active",
-                  "status": "building",
-                  "color": "blue_anime",
+                  "status": "success",
+                  "color": "blue",
                   "urls": {
                     "workflow_page": "https://github.com/fdio/vpp/actions/workflows/gerrit-verify.yml",
                     "source": "https://github.com/fdio/vpp/blob/master/.github/workflows/gerrit-verify.yml",
                     "badge": "https://github.com/FDio/vpp/workflows/gerrit-verify/badge.svg"
                   },
-                  "conclusion": null,
-                  "run_status": "in_progress",
+                  "conclusion": "success",
+                  "run_status": "completed",
                   "last_run": {
-                    "id": 27863965660,
-                    "number": 6149,
-                    "created_at": "2026-06-20T07:15:33Z",
-                    "updated_at": "2026-06-20T08:04:18Z",
-                    "html_url": "https://github.com/FDio/vpp/actions/runs/27863965660",
+                    "id": 27886397930,
+                    "number": 6173,
+                    "created_at": "2026-06-20T22:54:30Z",
+                    "updated_at": "2026-06-21T04:23:09Z",
+                    "html_url": "https://github.com/FDio/vpp/actions/runs/27886397930",
                     "head_branch": "master",
-                    "head_sha": "bc976b8"
+                    "head_sha": "16f9597"
                   }
                 },
                 {
@@ -102033,13 +102033,13 @@
                   "conclusion": "success",
                   "run_status": "completed",
                   "last_run": {
-                    "id": 27862987501,
-                    "number": 1035,
-                    "created_at": "2026-06-20T06:32:19Z",
-                    "updated_at": "2026-06-20T07:39:16Z",
-                    "html_url": "https://github.com/FDio/vpp/actions/runs/27862987501",
+                    "id": 27881143959,
+                    "number": 1037,
+                    "created_at": "2026-06-20T19:13:04Z",
+                    "updated_at": "2026-06-20T20:21:17Z",
+                    "html_url": "https://github.com/FDio/vpp/actions/runs/27881143959",
                     "head_branch": "master",
-                    "head_sha": "4f504a0"
+                    "head_sha": "bc976b8"
                   }
                 },
                 {
@@ -102119,13 +102119,13 @@
                   "conclusion": "success",
                   "run_status": "completed",
                   "last_run": {
-                    "id": 27855302870,
-                    "number": 188,
-                    "created_at": "2026-06-20T00:54:59Z",
-                    "updated_at": "2026-06-20T05:33:42Z",
-                    "html_url": "https://github.com/FDio/vpp/actions/runs/27855302870",
+                    "id": 27889125403,
+                    "number": 189,
+                    "created_at": "2026-06-21T01:00:59Z",
+                    "updated_at": "2026-06-21T05:43:39Z",
+                    "html_url": "https://github.com/FDio/vpp/actions/runs/27889125403",
                     "head_branch": "master",
-                    "head_sha": "4f504a0"
+                    "head_sha": "16f9597"
                   }
                 },
                 {
@@ -102143,13 +102143,13 @@
                   "conclusion": "success",
                   "run_status": "completed",
                   "last_run": {
-                    "id": 27858483349,
-                    "number": 185,
-                    "created_at": "2026-06-20T03:13:20Z",
-                    "updated_at": "2026-06-20T03:19:02Z",
-                    "html_url": "https://github.com/FDio/vpp/actions/runs/27858483349",
+                    "id": 27891958144,
+                    "number": 186,
+                    "created_at": "2026-06-21T03:15:41Z",
+                    "updated_at": "2026-06-21T03:21:16Z",
+                    "html_url": "https://github.com/FDio/vpp/actions/runs/27891958144",
                     "head_branch": "master",
-                    "head_sha": "4f504a0"
+                    "head_sha": "16f9597"
                   }
                 },
                 {
@@ -102167,13 +102167,13 @@
                   "conclusion": "success",
                   "run_status": "completed",
                   "last_run": {
-                    "id": 27856529932,
-                    "number": 370,
-                    "created_at": "2026-06-20T01:47:09Z",
-                    "updated_at": "2026-06-20T03:04:38Z",
-                    "html_url": "https://github.com/FDio/vpp/actions/runs/27856529932",
+                    "id": 27890219978,
+                    "number": 372,
+                    "created_at": "2026-06-21T01:53:49Z",
+                    "updated_at": "2026-06-21T03:06:54Z",
+                    "html_url": "https://github.com/FDio/vpp/actions/runs/27890219978",
                     "head_branch": "master",
-                    "head_sha": "4f504a0"
+                    "head_sha": "16f9597"
                   }
                 },
                 {
@@ -102218,33 +102218,33 @@
         },
         "authors": [
           {
-            "name": "Matus Fabian",
-            "email": "matfabia@cisco.com",
-            "username": "Matus",
+            "name": "Florin Coras",
+            "email": "fcoras@cisco.com",
+            "username": "Florin",
             "domain": "cisco.com",
             "commits": {
-              "last_30": 20,
-              "last_90": 76,
-              "last_365": 256,
-              "last_3_years": 412
+              "last_30": 18,
+              "last_90": 57,
+              "last_365": 243,
+              "last_3_years": 483
             },
             "lines_added": {
-              "last_30": 1198,
-              "last_90": 7496,
-              "last_365": 32700,
-              "last_3_years": 60043
+              "last_30": 8196,
+              "last_90": 23428,
+              "last_365": 32045,
+              "last_3_years": 41462
             },
             "lines_removed": {
-              "last_30": 704,
-              "last_90": 5964,
-              "last_365": 13492,
-              "last_3_years": 21736
+              "last_30": 7340,
+              "last_90": 8568,
+              "last_365": 12813,
+              "last_3_years": 16259
             },
             "lines_net": {
-              "last_30": 494,
-              "last_90": 1532,
-              "last_365": 19208,
-              "last_3_years": 38307
+              "last_30": 856,
+              "last_90": 14860,
+              "last_365": 19232,
+              "last_3_years": 25203
             },
             "repositories": {
               "last_30": 1,
@@ -102254,33 +102254,33 @@
             }
           },
           {
-            "name": "Florin Coras",
-            "email": "fcoras@cisco.com",
-            "username": "Florin",
+            "name": "Matus Fabian",
+            "email": "matfabia@cisco.com",
+            "username": "Matus",
             "domain": "cisco.com",
             "commits": {
-              "last_30": 16,
-              "last_90": 56,
-              "last_365": 243,
-              "last_3_years": 482
+              "last_30": 18,
+              "last_90": 75,
+              "last_365": 254,
+              "last_3_years": 412
             },
             "lines_added": {
-              "last_30": 7507,
-              "last_90": 22740,
-              "last_365": 31433,
-              "last_3_years": 40824
+              "last_30": 1159,
+              "last_90": 7445,
+              "last_365": 32393,
+              "last_3_years": 60043
             },
             "lines_removed": {
-              "last_30": 7329,
-              "last_90": 8558,
-              "last_365": 12830,
-              "last_3_years": 16248
+              "last_30": 699,
+              "last_90": 5959,
+              "last_365": 13446,
+              "last_3_years": 21736
             },
             "lines_net": {
-              "last_30": 178,
-              "last_90": 14182,
-              "last_365": 18603,
-              "last_3_years": 24576
+              "last_30": 460,
+              "last_90": 1486,
+              "last_365": 18947,
+              "last_3_years": 38307
             },
             "repositories": {
               "last_30": 1,
@@ -102478,25 +102478,25 @@
               "last_30": 13,
               "last_90": 29,
               "last_365": 213,
-              "last_3_years": 273
+              "last_3_years": 272
             },
             "lines_added": {
               "last_30": 105,
               "last_90": 1416,
               "last_365": 12178,
-              "last_3_years": 20700
+              "last_3_years": 20584
             },
             "lines_removed": {
               "last_30": 422,
               "last_90": 2226,
               "last_365": 6385,
-              "last_3_years": 14050
+              "last_3_years": 13937
             },
             "lines_net": {
               "last_30": -317,
               "last_90": -810,
               "last_365": 5793,
-              "last_3_years": 6650
+              "last_3_years": 6647
             },
             "repositories": {
               "last_30": 1,
@@ -102583,25 +102583,25 @@
             "username": "Klement",
             "domain": "netgate.com",
             "commits": {
-              "last_30": 14,
+              "last_30": 12,
               "last_90": 42,
               "last_365": 42,
               "last_3_years": 42
             },
             "lines_added": {
-              "last_30": 818,
+              "last_30": 704,
               "last_90": 2654,
               "last_365": 2654,
               "last_3_years": 2654
             },
             "lines_removed": {
-              "last_30": 212,
+              "last_30": 179,
               "last_90": 674,
               "last_365": 674,
               "last_3_years": 674
             },
             "lines_net": {
-              "last_30": 606,
+              "last_30": 525,
               "last_90": 1980,
               "last_365": 1980,
               "last_3_years": 1980
@@ -102763,25 +102763,25 @@
             "username": "Samuel",
             "domain": "cisco.com",
             "commits": {
-              "last_30": 6,
+              "last_30": 4,
               "last_90": 9,
               "last_365": 9,
               "last_3_years": 9
             },
             "lines_added": {
-              "last_30": 361,
+              "last_30": 237,
               "last_90": 894,
               "last_365": 894,
               "last_3_years": 894
             },
             "lines_removed": {
-              "last_30": 84,
+              "last_30": 29,
               "last_90": 88,
               "last_365": 88,
               "last_3_years": 88
             },
             "lines_net": {
-              "last_30": 277,
+              "last_30": 208,
               "last_90": 806,
               "last_365": 806,
               "last_3_years": 806
@@ -103989,25 +103989,25 @@
             "commits": {
               "last_30": 0,
               "last_90": 0,
-              "last_365": 19,
+              "last_365": 18,
               "last_3_years": 51
             },
             "lines_added": {
               "last_30": 0,
               "last_90": 0,
-              "last_365": 3526,
+              "last_365": 3481,
               "last_3_years": 4743
             },
             "lines_removed": {
               "last_30": 0,
               "last_90": 0,
-              "last_365": 353,
+              "last_365": 322,
               "last_3_years": 642
             },
             "lines_net": {
               "last_30": 0,
               "last_90": 0,
-              "last_365": 3173,
+              "last_365": 3159,
               "last_3_years": 4101
             },
             "repositories": {
@@ -105609,25 +105609,25 @@
             "commits": {
               "last_30": 0,
               "last_90": 0,
-              "last_365": 2,
+              "last_365": 1,
               "last_3_years": 6
             },
             "lines_added": {
               "last_30": 0,
               "last_90": 0,
-              "last_365": 41,
+              "last_365": 2,
               "last_3_years": 1511
             },
             "lines_removed": {
               "last_30": 0,
               "last_90": 0,
-              "last_365": 13,
+              "last_365": 0,
               "last_3_years": 764
             },
             "lines_net": {
               "last_30": 0,
               "last_90": 0,
-              "last_365": 28,
+              "last_365": 2,
               "last_3_years": 747
             },
             "repositories": {
@@ -123970,26 +123970,26 @@
         "gerrit_path_prefix": "",
         "local_path": "/home/runner/work/project-reporting-tool/project-reporting-tool/gerrit.fd.io/csit",
         "last_commit_timestamp": "2026-06-17T13:46:53+02:00",
-        "days_since_last_commit": 2,
+        "days_since_last_commit": 3,
         "activity_status": "current",
         "has_any_commits": true,
         "total_commits_ever": 6509,
         "total_loc": 341294,
         "commit_counts": {
-          "last_30": 24,
-          "last_90": 80,
+          "last_30": 23,
+          "last_90": 78,
           "last_365": 350,
-          "last_3_years": 1040
+          "last_3_years": 1036
         },
         "loc_stats": {
           "last_30": {
-            "added": 805,
-            "removed": 512,
+            "added": 735,
+            "removed": 442,
             "net": 293
           },
           "last_90": {
-            "added": 7605,
-            "removed": 1461,
+            "added": 7601,
+            "removed": 1457,
             "net": 6144
           },
           "last_365": {
@@ -123998,9 +123998,9 @@
             "net": -19338
           },
           "last_3_years": {
-            "added": 179774,
-            "removed": 185595,
-            "net": -5821
+            "added": 179429,
+            "removed": 185461,
+            "net": -6032
           }
         },
         "unique_contributors": {
@@ -125868,20 +125868,20 @@
                   "name": "csit-vpp-perf-ndrpdr-weekly",
                   "path": ".github/workflows/csit-vpp-perf-ndrpdr-weekly.yml",
                   "state": "active",
-                  "status": "building",
-                  "color": "blue_anime",
+                  "status": "failure",
+                  "color": "red",
                   "urls": {
                     "workflow_page": "https://github.com/fdio/csit/actions/workflows/csit-vpp-perf-ndrpdr-weekly.yml",
                     "source": "https://github.com/fdio/csit/blob/master/.github/workflows/csit-vpp-perf-ndrpdr-weekly.yml",
                     "badge": "https://github.com/FDio/csit/workflows/csit-vpp-perf-ndrpdr-weekly/badge.svg"
                   },
-                  "conclusion": null,
-                  "run_status": "in_progress",
+                  "conclusion": "failure",
+                  "run_status": "completed",
                   "last_run": {
                     "id": 27855567182,
                     "number": 30,
                     "created_at": "2026-06-20T01:05:50Z",
-                    "updated_at": "2026-06-20T01:13:29Z",
+                    "updated_at": "2026-06-21T01:12:47Z",
                     "html_url": "https://github.com/FDio/csit/actions/runs/27855567182",
                     "head_branch": "master",
                     "head_sha": "fa1c2ec"
@@ -125988,20 +125988,20 @@
                   "name": "csit-perf-report",
                   "path": ".github/workflows/csit-perf-report.yml",
                   "state": "active",
-                  "status": "building",
-                  "color": "blue_anime",
+                  "status": "failure",
+                  "color": "red",
                   "urls": {
                     "workflow_page": "https://github.com/fdio/csit/actions/workflows/csit-perf-report.yml",
                     "source": "https://github.com/fdio/csit/blob/master/.github/workflows/csit-perf-report.yml",
                     "badge": "https://github.com/FDio/csit/workflows/csit-perf-report/badge.svg"
                   },
-                  "conclusion": null,
-                  "run_status": "in_progress",
+                  "conclusion": "failure",
+                  "run_status": "completed",
                   "last_run": {
                     "id": 27849400461,
                     "number": 1750,
                     "created_at": "2026-06-19T21:32:42Z",
-                    "updated_at": "2026-06-19T21:41:17Z",
+                    "updated_at": "2026-06-20T14:31:06Z",
                     "html_url": "https://github.com/FDio/csit/actions/runs/27849400461",
                     "head_branch": "master",
                     "head_sha": "fa1c2ec"
@@ -126103,19 +126103,19 @@
             "username": "Peter",
             "domain": "icloud.com",
             "commits": {
-              "last_30": 13,
+              "last_30": 12,
               "last_90": 29,
               "last_365": 169,
               "last_3_years": 221
             },
             "lines_added": {
-              "last_30": 441,
+              "last_30": 371,
               "last_90": 795,
               "last_365": 49055,
               "last_3_years": 52173
             },
             "lines_removed": {
-              "last_30": 267,
+              "last_30": 197,
               "last_90": 637,
               "last_365": 76036,
               "last_3_years": 80083
@@ -126140,27 +126140,27 @@
             "domain": "cisco.com",
             "commits": {
               "last_30": 8,
-              "last_90": 21,
+              "last_90": 20,
               "last_365": 104,
-              "last_3_years": 322
+              "last_3_years": 320
             },
             "lines_added": {
               "last_30": 327,
-              "last_90": 1425,
+              "last_90": 1422,
               "last_365": 8555,
-              "last_3_years": 26903
+              "last_3_years": 26561
             },
             "lines_removed": {
               "last_30": 228,
-              "last_90": 438,
+              "last_90": 435,
               "last_365": 6656,
-              "last_3_years": 25331
+              "last_3_years": 25200
             },
             "lines_net": {
               "last_30": 99,
               "last_90": 987,
               "last_365": 1899,
-              "last_3_years": 1572
+              "last_3_years": 1361
             },
             "repositories": {
               "last_30": 1,
@@ -126178,19 +126178,19 @@
               "last_30": 2,
               "last_90": 19,
               "last_365": 59,
-              "last_3_years": 220
+              "last_3_years": 219
             },
             "lines_added": {
               "last_30": 36,
               "last_90": 5371,
               "last_365": 22025,
-              "last_3_years": 54106
+              "last_3_years": 54105
             },
             "lines_removed": {
               "last_30": 16,
               "last_90": 372,
               "last_365": 16359,
-              "last_3_years": 46559
+              "last_3_years": 46558
             },
             "lines_net": {
               "last_30": 20,
@@ -126212,19 +126212,19 @@
             "domain": "github.com",
             "commits": {
               "last_30": 1,
-              "last_90": 11,
+              "last_90": 10,
               "last_365": 15,
               "last_3_years": 15
             },
             "lines_added": {
               "last_30": 1,
-              "last_90": 14,
+              "last_90": 13,
               "last_365": 18,
               "last_3_years": 18
             },
             "lines_removed": {
               "last_30": 1,
-              "last_90": 14,
+              "last_90": 13,
               "last_365": 18,
               "last_3_years": 18
             },
@@ -126322,19 +126322,19 @@
               "last_30": 0,
               "last_90": 0,
               "last_365": 0,
-              "last_3_years": 233
+              "last_3_years": 232
             },
             "lines_added": {
               "last_30": 0,
               "last_90": 0,
               "last_365": 0,
-              "last_3_years": 43390
+              "last_3_years": 43388
             },
             "lines_removed": {
               "last_30": 0,
               "last_90": 0,
               "last_365": 0,
-              "last_3_years": 33303
+              "last_3_years": 33301
             },
             "lines_net": {
               "last_30": 0,
@@ -129058,7 +129058,7 @@
         "gerrit_path_prefix": "",
         "local_path": "/home/runner/work/project-reporting-tool/project-reporting-tool/gerrit.fd.io/.github",
         "last_commit_timestamp": "2026-05-14T13:52:01+02:00",
-        "days_since_last_commit": 36,
+        "days_since_last_commit": 37,
         "activity_status": "current",
         "has_any_commits": true,
         "total_commits_ever": 35,
@@ -129244,11 +129244,11 @@
                   "conclusion": "success",
                   "run_status": "completed",
                   "last_run": {
-                    "id": 27863966287,
-                    "number": 19004,
-                    "created_at": "2026-06-20T07:15:34Z",
-                    "updated_at": "2026-06-20T07:16:29Z",
-                    "html_url": "https://github.com/FDio/.github/actions/runs/27863966287",
+                    "id": 27886398651,
+                    "number": 19028,
+                    "created_at": "2026-06-20T22:54:32Z",
+                    "updated_at": "2026-06-20T22:55:11Z",
+                    "html_url": "https://github.com/FDio/.github/actions/runs/27886398651",
                     "head_branch": "main",
                     "head_sha": "1b5d2e2"
                   }
@@ -129496,7 +129496,7 @@
         "gerrit_path_prefix": "",
         "local_path": "/home/runner/work/project-reporting-tool/project-reporting-tool/gerrit.fd.io/main_test",
         "last_commit_timestamp": "2020-10-30T09:44:41+01:00",
-        "days_since_last_commit": 2058,
+        "days_since_last_commit": 2059,
         "activity_status": "inactive",
         "has_any_commits": true,
         "total_commits_ever": 8,
@@ -129682,7 +129682,7 @@
         "gerrit_path_prefix": "",
         "local_path": "/home/runner/work/project-reporting-tool/project-reporting-tool/gerrit.fd.io/test_injector",
         "last_commit_timestamp": "2016-08-30T20:24:05+00:00",
-        "days_since_last_commit": 3580,
+        "days_since_last_commit": 3581,
         "activity_status": "inactive",
         "has_any_commits": true,
         "total_commits_ever": 1,
@@ -129815,7 +129815,7 @@
         "gerrit_path_prefix": "",
         "local_path": "/home/runner/work/project-reporting-tool/project-reporting-tool/gerrit.fd.io/vppsb",
         "last_commit_timestamp": "2019-05-24T19:29:36+02:00",
-        "days_since_last_commit": 2583,
+        "days_since_last_commit": 2584,
         "activity_status": "inactive",
         "has_any_commits": true,
         "total_commits_ever": 88,
@@ -130654,27 +130654,27 @@
         "username": "Matus",
         "domain": "cisco.com",
         "commits": {
-          "last_30": 20,
-          "last_90": 76,
-          "last_365": 256,
+          "last_30": 18,
+          "last_90": 75,
+          "last_365": 254,
           "last_3_years": 412
         },
         "lines_added": {
-          "last_30": 1198,
-          "last_90": 7496,
-          "last_365": 32700,
+          "last_30": 1159,
+          "last_90": 7445,
+          "last_365": 32393,
           "last_3_years": 60043
         },
         "lines_removed": {
-          "last_30": 704,
-          "last_90": 5964,
-          "last_365": 13492,
+          "last_30": 699,
+          "last_90": 5959,
+          "last_365": 13446,
           "last_3_years": 21736
         },
         "lines_net": {
-          "last_30": 494,
-          "last_90": 1532,
-          "last_365": 19208,
+          "last_30": 460,
+          "last_90": 1486,
+          "last_365": 18947,
           "last_3_years": 38307
         },
         "repositories_touched": {
@@ -130696,28 +130696,28 @@
         "username": "Florin",
         "domain": "cisco.com",
         "commits": {
-          "last_30": 16,
-          "last_90": 56,
+          "last_30": 18,
+          "last_90": 57,
           "last_365": 243,
-          "last_3_years": 482
+          "last_3_years": 483
         },
         "lines_added": {
-          "last_30": 7507,
-          "last_90": 22740,
-          "last_365": 31433,
-          "last_3_years": 40824
+          "last_30": 8196,
+          "last_90": 23428,
+          "last_365": 32045,
+          "last_3_years": 41462
         },
         "lines_removed": {
-          "last_30": 7329,
-          "last_90": 8558,
-          "last_365": 12830,
-          "last_3_years": 16248
+          "last_30": 7340,
+          "last_90": 8568,
+          "last_365": 12813,
+          "last_3_years": 16259
         },
         "lines_net": {
-          "last_30": 178,
-          "last_90": 14182,
-          "last_365": 18603,
-          "last_3_years": 24576
+          "last_30": 856,
+          "last_90": 14860,
+          "last_365": 19232,
+          "last_3_years": 25203
         },
         "repositories_touched": {
           "last_30": "{'csit', 'vpp'}",
@@ -130741,31 +130741,31 @@
           "last_30": 13,
           "last_90": 30,
           "last_365": 230,
-          "last_3_years": 290
+          "last_3_years": 289
         },
         "lines_added": {
           "last_30": 105,
           "last_90": 1433,
           "last_365": 15130,
-          "last_3_years": 23652
+          "last_3_years": 23536
         },
         "lines_removed": {
           "last_30": 422,
           "last_90": 2237,
           "last_365": 6527,
-          "last_3_years": 14192
+          "last_3_years": 14079
         },
         "lines_net": {
           "last_30": -317,
           "last_90": -804,
           "last_365": 8603,
-          "last_3_years": 9460
+          "last_3_years": 9457
         },
         "repositories_touched": {
-          "last_30": "{'csit', 'vppsb', 'vpp', '.github'}",
-          "last_90": "{'csit', 'vppsb', 'vpp', '.github'}",
-          "last_365": "{'csit', 'vppsb', 'vpp', '.github'}",
-          "last_3_years": "{'csit', 'vppsb', 'vpp', '.github'}"
+          "last_30": "{'vppsb', '.github', 'csit', 'vpp'}",
+          "last_90": "{'vppsb', '.github', 'csit', 'vpp'}",
+          "last_365": "{'vppsb', '.github', 'csit', 'vpp'}",
+          "last_3_years": "{'vppsb', '.github', 'csit', 'vpp'}"
         },
         "repositories_count": {
           "last_30": 4,
@@ -130780,19 +130780,19 @@
         "username": "Peter",
         "domain": "icloud.com",
         "commits": {
-          "last_30": 13,
+          "last_30": 12,
           "last_90": 40,
           "last_365": 186,
           "last_3_years": 238
         },
         "lines_added": {
-          "last_30": 441,
+          "last_30": 371,
           "last_90": 2021,
           "last_365": 51248,
           "last_3_years": 54366
         },
         "lines_removed": {
-          "last_30": 267,
+          "last_30": 197,
           "last_90": 727,
           "last_365": 76160,
           "last_3_years": 80207
@@ -130804,10 +130804,10 @@
           "last_3_years": -25841
         },
         "repositories_touched": {
-          "last_30": "{'csit', 'vpp', '.github'}",
-          "last_90": "{'csit', 'vpp', '.github'}",
-          "last_365": "{'csit', 'vpp', '.github'}",
-          "last_3_years": "{'csit', 'vpp', '.github'}"
+          "last_30": "{'.github', 'csit', 'vpp'}",
+          "last_90": "{'.github', 'csit', 'vpp'}",
+          "last_365": "{'.github', 'csit', 'vpp'}",
+          "last_3_years": "{'.github', 'csit', 'vpp'}"
         },
         "repositories_count": {
           "last_30": 3,
@@ -130865,27 +130865,27 @@
         "domain": "cisco.com",
         "commits": {
           "last_30": 8,
-          "last_90": 21,
+          "last_90": 20,
           "last_365": 104,
-          "last_3_years": 322
+          "last_3_years": 320
         },
         "lines_added": {
           "last_30": 327,
-          "last_90": 1425,
+          "last_90": 1422,
           "last_365": 8555,
-          "last_3_years": 26903
+          "last_3_years": 26561
         },
         "lines_removed": {
           "last_30": 228,
-          "last_90": 438,
+          "last_90": 435,
           "last_365": 6656,
-          "last_3_years": 25331
+          "last_3_years": 25200
         },
         "lines_net": {
           "last_30": 99,
           "last_90": 987,
           "last_365": 1899,
-          "last_3_years": 1572
+          "last_3_years": 1361
         },
         "repositories_touched": {
           "last_30": "{'csit', 'vpp'}",
@@ -130951,19 +130951,19 @@
           "last_30": 3,
           "last_90": 25,
           "last_365": 75,
-          "last_3_years": 253
+          "last_3_years": 252
         },
         "lines_added": {
           "last_30": 41,
           "last_90": 5386,
           "last_365": 22077,
-          "last_3_years": 54643
+          "last_3_years": 54642
         },
         "lines_removed": {
           "last_30": 20,
           "last_90": 382,
           "last_365": 16464,
-          "last_3_years": 46913
+          "last_3_years": 46912
         },
         "lines_net": {
           "last_30": 21,
@@ -130972,10 +130972,10 @@
           "last_3_years": 7730
         },
         "repositories_touched": {
-          "last_30": "{'main_test', 'vpp', 'csit'}",
-          "last_90": "{'main_test', 'vpp', 'csit'}",
-          "last_365": "{'main_test', 'vpp', 'csit'}",
-          "last_3_years": "{'main_test', 'vpp', 'csit'}"
+          "last_30": "{'main_test', 'csit', 'vpp'}",
+          "last_90": "{'main_test', 'csit', 'vpp'}",
+          "last_365": "{'main_test', 'csit', 'vpp'}",
+          "last_3_years": "{'main_test', 'csit', 'vpp'}"
         },
         "repositories_count": {
           "last_30": 3,
@@ -131032,25 +131032,25 @@
         "username": "Klement",
         "domain": "netgate.com",
         "commits": {
-          "last_30": 14,
+          "last_30": 12,
           "last_90": 42,
           "last_365": 42,
           "last_3_years": 42
         },
         "lines_added": {
-          "last_30": 818,
+          "last_30": 704,
           "last_90": 2654,
           "last_365": 2654,
           "last_3_years": 2654
         },
         "lines_removed": {
-          "last_30": 212,
+          "last_30": 179,
           "last_90": 674,
           "last_365": 674,
           "last_3_years": 674
         },
         "lines_net": {
-          "last_30": 606,
+          "last_30": 525,
           "last_90": 1980,
           "last_365": 1980,
           "last_3_years": 1980
@@ -131244,25 +131244,25 @@
         "commits": {
           "last_30": 0,
           "last_90": 0,
-          "last_365": 19,
+          "last_365": 18,
           "last_3_years": 51
         },
         "lines_added": {
           "last_30": 0,
           "last_90": 0,
-          "last_365": 3526,
+          "last_365": 3481,
           "last_3_years": 4743
         },
         "lines_removed": {
           "last_30": 0,
           "last_90": 0,
-          "last_365": 353,
+          "last_365": 322,
           "last_3_years": 642
         },
         "lines_net": {
           "last_30": 0,
           "last_90": 0,
-          "last_365": 3173,
+          "last_365": 3159,
           "last_3_years": 4101
         },
         "repositories_touched": {
@@ -131392,10 +131392,10 @@
           "last_3_years": 6223
         },
         "repositories_touched": {
-          "last_30": "{'csit', 'vppsb', 'vpp'}",
-          "last_90": "{'csit', 'vppsb', 'vpp'}",
-          "last_365": "{'csit', 'vppsb', 'vpp'}",
-          "last_3_years": "{'csit', 'vppsb', 'vpp'}"
+          "last_30": "{'vppsb', 'csit', 'vpp'}",
+          "last_90": "{'vppsb', 'csit', 'vpp'}",
+          "last_365": "{'vppsb', 'csit', 'vpp'}",
+          "last_3_years": "{'vppsb', 'csit', 'vpp'}"
         },
         "repositories_count": {
           "last_30": 3,
@@ -131411,19 +131411,19 @@
         "domain": "github.com",
         "commits": {
           "last_30": 1,
-          "last_90": 11,
+          "last_90": 10,
           "last_365": 15,
           "last_3_years": 15
         },
         "lines_added": {
           "last_30": 1,
-          "last_90": 14,
+          "last_90": 13,
           "last_365": 18,
           "last_3_years": 18
         },
         "lines_removed": {
           "last_30": 1,
-          "last_90": 14,
+          "last_90": 13,
           "last_365": 18,
           "last_3_years": 18
         },
@@ -131662,25 +131662,25 @@
         "username": "Samuel",
         "domain": "cisco.com",
         "commits": {
-          "last_30": 6,
+          "last_30": 4,
           "last_90": 9,
           "last_365": 9,
           "last_3_years": 9
         },
         "lines_added": {
-          "last_30": 361,
+          "last_30": 237,
           "last_90": 894,
           "last_365": 894,
           "last_3_years": 894
         },
         "lines_removed": {
-          "last_30": 84,
+          "last_30": 29,
           "last_90": 88,
           "last_365": 88,
           "last_3_years": 88
         },
         "lines_net": {
-          "last_30": 277,
+          "last_30": 208,
           "last_90": 806,
           "last_365": 806,
           "last_3_years": 806
@@ -132022,10 +132022,10 @@
           "last_3_years": 393
         },
         "repositories_touched": {
-          "last_30": "{'main_test', 'test_injector', '.github', 'csit', 'vpp'}",
-          "last_90": "{'main_test', 'test_injector', '.github', 'csit', 'vpp'}",
-          "last_365": "{'main_test', 'test_injector', '.github', 'csit', 'vpp'}",
-          "last_3_years": "{'main_test', 'test_injector', '.github', 'csit', 'vpp'}"
+          "last_30": "{'main_test', '.github', 'vpp', 'csit', 'test_injector'}",
+          "last_90": "{'main_test', '.github', 'vpp', 'csit', 'test_injector'}",
+          "last_365": "{'main_test', '.github', 'vpp', 'csit', 'test_injector'}",
+          "last_3_years": "{'main_test', '.github', 'vpp', 'csit', 'test_injector'}"
         },
         "repositories_count": {
           "last_30": 5,
@@ -132818,48 +132818,6 @@
           "last_90": 0,
           "last_365": 364,
           "last_3_years": 364
-        },
-        "repositories_touched": {
-          "last_30": "{'vpp'}",
-          "last_90": "{'vpp'}",
-          "last_365": "{'vpp'}",
-          "last_3_years": "{'vpp'}"
-        },
-        "repositories_count": {
-          "last_30": 1,
-          "last_90": 1,
-          "last_365": 1,
-          "last_3_years": 1
-        }
-      },
-      {
-        "name": "Varun Rapelly",
-        "email": "vrapelly@marvell.com",
-        "username": "Varun",
-        "domain": "marvell.com",
-        "commits": {
-          "last_30": 0,
-          "last_90": 0,
-          "last_365": 2,
-          "last_3_years": 6
-        },
-        "lines_added": {
-          "last_30": 0,
-          "last_90": 0,
-          "last_365": 41,
-          "last_3_years": 1511
-        },
-        "lines_removed": {
-          "last_30": 0,
-          "last_90": 0,
-          "last_365": 13,
-          "last_3_years": 764
-        },
-        "lines_net": {
-          "last_30": 0,
-          "last_90": 0,
-          "last_365": 28,
-          "last_3_years": 747
         },
         "repositories_touched": {
           "last_30": "{'vpp'}",
@@ -134162,6 +134120,48 @@
           "last_90": 0,
           "last_365": 1,
           "last_3_years": 1
+        },
+        "repositories_touched": {
+          "last_30": "{'vpp'}",
+          "last_90": "{'vpp'}",
+          "last_365": "{'vpp'}",
+          "last_3_years": "{'vpp'}"
+        },
+        "repositories_count": {
+          "last_30": 1,
+          "last_90": 1,
+          "last_365": 1,
+          "last_3_years": 1
+        }
+      },
+      {
+        "name": "Varun Rapelly",
+        "email": "vrapelly@marvell.com",
+        "username": "Varun",
+        "domain": "marvell.com",
+        "commits": {
+          "last_30": 0,
+          "last_90": 0,
+          "last_365": 1,
+          "last_3_years": 6
+        },
+        "lines_added": {
+          "last_30": 0,
+          "last_90": 0,
+          "last_365": 2,
+          "last_3_years": 1511
+        },
+        "lines_removed": {
+          "last_30": 0,
+          "last_90": 0,
+          "last_365": 0,
+          "last_3_years": 764
+        },
+        "lines_net": {
+          "last_30": 0,
+          "last_90": 0,
+          "last_365": 2,
+          "last_3_years": 747
         },
         "repositories_touched": {
           "last_30": "{'vpp'}",
@@ -135886,10 +135886,10 @@
           "last_3_years": 143
         },
         "repositories_touched": {
-          "last_30": "{'csit', 'vpp', '.github'}",
-          "last_90": "{'csit', 'vpp', '.github'}",
-          "last_365": "{'csit', 'vpp', '.github'}",
-          "last_3_years": "{'csit', 'vpp', '.github'}"
+          "last_30": "{'.github', 'csit', 'vpp'}",
+          "last_90": "{'.github', 'csit', 'vpp'}",
+          "last_365": "{'.github', 'csit', 'vpp'}",
+          "last_3_years": "{'.github', 'csit', 'vpp'}"
         },
         "repositories_count": {
           "last_30": 3,
@@ -149662,10 +149662,10 @@
           "last_3_years": 0
         },
         "repositories_touched": {
-          "last_30": "{'csit', 'vppsb', 'vpp'}",
-          "last_90": "{'csit', 'vppsb', 'vpp'}",
-          "last_365": "{'csit', 'vppsb', 'vpp'}",
-          "last_3_years": "{'csit', 'vppsb', 'vpp'}"
+          "last_30": "{'vppsb', 'csit', 'vpp'}",
+          "last_90": "{'vppsb', 'csit', 'vpp'}",
+          "last_365": "{'vppsb', 'csit', 'vpp'}",
+          "last_3_years": "{'vppsb', 'csit', 'vpp'}"
         },
         "repositories_count": {
           "last_30": 3,
@@ -156361,19 +156361,19 @@
           "last_30": 0,
           "last_90": 0,
           "last_365": 0,
-          "last_3_years": 233
+          "last_3_years": 232
         },
         "lines_added": {
           "last_30": 0,
           "last_90": 0,
           "last_365": 0,
-          "last_3_years": 43390
+          "last_3_years": 43388
         },
         "lines_removed": {
           "last_30": 0,
           "last_90": 0,
           "last_365": 0,
-          "last_3_years": 33303
+          "last_3_years": 33301
         },
         "lines_net": {
           "last_30": 0,
@@ -157993,33 +157993,33 @@
     ],
     "top_contributors_loc": [
       {
-        "name": "Matus Fabian",
-        "email": "matfabia@cisco.com",
-        "username": "Matus",
+        "name": "Florin Coras",
+        "email": "fcoras@cisco.com",
+        "username": "Florin",
         "domain": "cisco.com",
         "commits": {
-          "last_30": 20,
-          "last_90": 76,
-          "last_365": 256,
-          "last_3_years": 412
+          "last_30": 18,
+          "last_90": 57,
+          "last_365": 243,
+          "last_3_years": 483
         },
         "lines_added": {
-          "last_30": 1198,
-          "last_90": 7496,
-          "last_365": 32700,
-          "last_3_years": 60043
+          "last_30": 8196,
+          "last_90": 23428,
+          "last_365": 32045,
+          "last_3_years": 41462
         },
         "lines_removed": {
-          "last_30": 704,
-          "last_90": 5964,
-          "last_365": 13492,
-          "last_3_years": 21736
+          "last_30": 7340,
+          "last_90": 8568,
+          "last_365": 12813,
+          "last_3_years": 16259
         },
         "lines_net": {
-          "last_30": 494,
-          "last_90": 1532,
-          "last_365": 19208,
-          "last_3_years": 38307
+          "last_30": 856,
+          "last_90": 14860,
+          "last_365": 19232,
+          "last_3_years": 25203
         },
         "repositories_touched": {
           "last_30": "{'csit', 'vpp'}",
@@ -158035,33 +158035,33 @@
         }
       },
       {
-        "name": "Florin Coras",
-        "email": "fcoras@cisco.com",
-        "username": "Florin",
+        "name": "Matus Fabian",
+        "email": "matfabia@cisco.com",
+        "username": "Matus",
         "domain": "cisco.com",
         "commits": {
-          "last_30": 16,
-          "last_90": 56,
-          "last_365": 243,
-          "last_3_years": 482
+          "last_30": 18,
+          "last_90": 75,
+          "last_365": 254,
+          "last_3_years": 412
         },
         "lines_added": {
-          "last_30": 7507,
-          "last_90": 22740,
-          "last_365": 31433,
-          "last_3_years": 40824
+          "last_30": 1159,
+          "last_90": 7445,
+          "last_365": 32393,
+          "last_3_years": 60043
         },
         "lines_removed": {
-          "last_30": 7329,
-          "last_90": 8558,
-          "last_365": 12830,
-          "last_3_years": 16248
+          "last_30": 699,
+          "last_90": 5959,
+          "last_365": 13446,
+          "last_3_years": 21736
         },
         "lines_net": {
-          "last_30": 178,
-          "last_90": 14182,
-          "last_365": 18603,
-          "last_3_years": 24576
+          "last_30": 460,
+          "last_90": 1486,
+          "last_365": 18947,
+          "last_3_years": 38307
         },
         "repositories_touched": {
           "last_30": "{'csit', 'vpp'}",
@@ -158169,31 +158169,31 @@
           "last_30": 13,
           "last_90": 30,
           "last_365": 230,
-          "last_3_years": 290
+          "last_3_years": 289
         },
         "lines_added": {
           "last_30": 105,
           "last_90": 1433,
           "last_365": 15130,
-          "last_3_years": 23652
+          "last_3_years": 23536
         },
         "lines_removed": {
           "last_30": 422,
           "last_90": 2237,
           "last_365": 6527,
-          "last_3_years": 14192
+          "last_3_years": 14079
         },
         "lines_net": {
           "last_30": -317,
           "last_90": -804,
           "last_365": 8603,
-          "last_3_years": 9460
+          "last_3_years": 9457
         },
         "repositories_touched": {
-          "last_30": "{'csit', 'vppsb', 'vpp', '.github'}",
-          "last_90": "{'csit', 'vppsb', 'vpp', '.github'}",
-          "last_365": "{'csit', 'vppsb', 'vpp', '.github'}",
-          "last_3_years": "{'csit', 'vppsb', 'vpp', '.github'}"
+          "last_30": "{'vppsb', '.github', 'csit', 'vpp'}",
+          "last_90": "{'vppsb', '.github', 'csit', 'vpp'}",
+          "last_365": "{'vppsb', '.github', 'csit', 'vpp'}",
+          "last_3_years": "{'vppsb', '.github', 'csit', 'vpp'}"
         },
         "repositories_count": {
           "last_30": 4,
@@ -158253,19 +158253,19 @@
           "last_30": 3,
           "last_90": 25,
           "last_365": 75,
-          "last_3_years": 253
+          "last_3_years": 252
         },
         "lines_added": {
           "last_30": 41,
           "last_90": 5386,
           "last_365": 22077,
-          "last_3_years": 54643
+          "last_3_years": 54642
         },
         "lines_removed": {
           "last_30": 20,
           "last_90": 382,
           "last_365": 16464,
-          "last_3_years": 46913
+          "last_3_years": 46912
         },
         "lines_net": {
           "last_30": 21,
@@ -158274,10 +158274,10 @@
           "last_3_years": 7730
         },
         "repositories_touched": {
-          "last_30": "{'main_test', 'vpp', 'csit'}",
-          "last_90": "{'main_test', 'vpp', 'csit'}",
-          "last_365": "{'main_test', 'vpp', 'csit'}",
-          "last_3_years": "{'main_test', 'vpp', 'csit'}"
+          "last_30": "{'main_test', 'csit', 'vpp'}",
+          "last_90": "{'main_test', 'csit', 'vpp'}",
+          "last_365": "{'main_test', 'csit', 'vpp'}",
+          "last_3_years": "{'main_test', 'csit', 'vpp'}"
         },
         "repositories_count": {
           "last_30": 3,
@@ -158378,25 +158378,25 @@
         "commits": {
           "last_30": 0,
           "last_90": 0,
-          "last_365": 19,
+          "last_365": 18,
           "last_3_years": 51
         },
         "lines_added": {
           "last_30": 0,
           "last_90": 0,
-          "last_365": 3526,
+          "last_365": 3481,
           "last_3_years": 4743
         },
         "lines_removed": {
           "last_30": 0,
           "last_90": 0,
-          "last_365": 353,
+          "last_365": 322,
           "last_3_years": 642
         },
         "lines_net": {
           "last_30": 0,
           "last_90": 0,
-          "last_365": 3173,
+          "last_365": 3159,
           "last_3_years": 4101
         },
         "repositories_touched": {
@@ -158460,25 +158460,25 @@
         "username": "Klement",
         "domain": "netgate.com",
         "commits": {
-          "last_30": 14,
+          "last_30": 12,
           "last_90": 42,
           "last_365": 42,
           "last_3_years": 42
         },
         "lines_added": {
-          "last_30": 818,
+          "last_30": 704,
           "last_90": 2654,
           "last_365": 2654,
           "last_3_years": 2654
         },
         "lines_removed": {
-          "last_30": 212,
+          "last_30": 179,
           "last_90": 674,
           "last_365": 674,
           "last_3_years": 674
         },
         "lines_net": {
-          "last_30": 606,
+          "last_30": 525,
           "last_90": 1980,
           "last_365": 1980,
           "last_3_years": 1980
@@ -158503,27 +158503,27 @@
         "domain": "cisco.com",
         "commits": {
           "last_30": 8,
-          "last_90": 21,
+          "last_90": 20,
           "last_365": 104,
-          "last_3_years": 322
+          "last_3_years": 320
         },
         "lines_added": {
           "last_30": 327,
-          "last_90": 1425,
+          "last_90": 1422,
           "last_365": 8555,
-          "last_3_years": 26903
+          "last_3_years": 26561
         },
         "lines_removed": {
           "last_30": 228,
-          "last_90": 438,
+          "last_90": 435,
           "last_365": 6656,
-          "last_3_years": 25331
+          "last_3_years": 25200
         },
         "lines_net": {
           "last_30": 99,
           "last_90": 987,
           "last_365": 1899,
-          "last_3_years": 1572
+          "last_3_years": 1361
         },
         "repositories_touched": {
           "last_30": "{'csit', 'vpp'}",
@@ -158838,25 +158838,25 @@
         "username": "Samuel",
         "domain": "cisco.com",
         "commits": {
-          "last_30": 6,
+          "last_30": 4,
           "last_90": 9,
           "last_365": 9,
           "last_3_years": 9
         },
         "lines_added": {
-          "last_30": 361,
+          "last_30": 237,
           "last_90": 894,
           "last_365": 894,
           "last_3_years": 894
         },
         "lines_removed": {
-          "last_30": 84,
+          "last_30": 29,
           "last_90": 88,
           "last_365": 88,
           "last_3_years": 88
         },
         "lines_net": {
-          "last_30": 277,
+          "last_30": 208,
           "last_90": 806,
           "last_365": 806,
           "last_3_years": 806
@@ -159324,10 +159324,10 @@
           "last_3_years": 6223
         },
         "repositories_touched": {
-          "last_30": "{'csit', 'vppsb', 'vpp'}",
-          "last_90": "{'csit', 'vppsb', 'vpp'}",
-          "last_365": "{'csit', 'vppsb', 'vpp'}",
-          "last_3_years": "{'csit', 'vppsb', 'vpp'}"
+          "last_30": "{'vppsb', 'csit', 'vpp'}",
+          "last_90": "{'vppsb', 'csit', 'vpp'}",
+          "last_365": "{'vppsb', 'csit', 'vpp'}",
+          "last_3_years": "{'vppsb', 'csit', 'vpp'}"
         },
         "repositories_count": {
           "last_30": 3,
@@ -159492,10 +159492,10 @@
           "last_3_years": 393
         },
         "repositories_touched": {
-          "last_30": "{'main_test', 'test_injector', '.github', 'csit', 'vpp'}",
-          "last_90": "{'main_test', 'test_injector', '.github', 'csit', 'vpp'}",
-          "last_365": "{'main_test', 'test_injector', '.github', 'csit', 'vpp'}",
-          "last_3_years": "{'main_test', 'test_injector', '.github', 'csit', 'vpp'}"
+          "last_30": "{'main_test', '.github', 'vpp', 'csit', 'test_injector'}",
+          "last_90": "{'main_test', '.github', 'vpp', 'csit', 'test_injector'}",
+          "last_365": "{'main_test', '.github', 'vpp', 'csit', 'test_injector'}",
+          "last_3_years": "{'main_test', '.github', 'vpp', 'csit', 'test_injector'}"
         },
         "repositories_count": {
           "last_30": 5,
@@ -160048,48 +160048,6 @@
           "last_90": 2,
           "last_365": 2,
           "last_3_years": 2
-        }
-      },
-      {
-        "name": "Varun Rapelly",
-        "email": "vrapelly@marvell.com",
-        "username": "Varun",
-        "domain": "marvell.com",
-        "commits": {
-          "last_30": 0,
-          "last_90": 0,
-          "last_365": 2,
-          "last_3_years": 6
-        },
-        "lines_added": {
-          "last_30": 0,
-          "last_90": 0,
-          "last_365": 41,
-          "last_3_years": 1511
-        },
-        "lines_removed": {
-          "last_30": 0,
-          "last_90": 0,
-          "last_365": 13,
-          "last_3_years": 764
-        },
-        "lines_net": {
-          "last_30": 0,
-          "last_90": 0,
-          "last_365": 28,
-          "last_3_years": 747
-        },
-        "repositories_touched": {
-          "last_30": "{'vpp'}",
-          "last_90": "{'vpp'}",
-          "last_365": "{'vpp'}",
-          "last_3_years": "{'vpp'}"
-        },
-        "repositories_count": {
-          "last_30": 1,
-          "last_90": 1,
-          "last_365": 1,
-          "last_3_years": 1
         }
       },
       {
@@ -160972,6 +160930,48 @@
           "last_90": 2,
           "last_365": 2,
           "last_3_years": 2
+        }
+      },
+      {
+        "name": "Varun Rapelly",
+        "email": "vrapelly@marvell.com",
+        "username": "Varun",
+        "domain": "marvell.com",
+        "commits": {
+          "last_30": 0,
+          "last_90": 0,
+          "last_365": 1,
+          "last_3_years": 6
+        },
+        "lines_added": {
+          "last_30": 0,
+          "last_90": 0,
+          "last_365": 2,
+          "last_3_years": 1511
+        },
+        "lines_removed": {
+          "last_30": 0,
+          "last_90": 0,
+          "last_365": 0,
+          "last_3_years": 764
+        },
+        "lines_net": {
+          "last_30": 0,
+          "last_90": 0,
+          "last_365": 2,
+          "last_3_years": 747
+        },
+        "repositories_touched": {
+          "last_30": "{'vpp'}",
+          "last_90": "{'vpp'}",
+          "last_365": "{'vpp'}",
+          "last_3_years": "{'vpp'}"
+        },
+        "repositories_count": {
+          "last_30": 1,
+          "last_90": 1,
+          "last_365": 1,
+          "last_3_years": 1
         }
       },
       {
@@ -162642,10 +162642,10 @@
           "last_3_years": 143
         },
         "repositories_touched": {
-          "last_30": "{'csit', 'vpp', '.github'}",
-          "last_90": "{'csit', 'vpp', '.github'}",
-          "last_365": "{'csit', 'vpp', '.github'}",
-          "last_3_years": "{'csit', 'vpp', '.github'}"
+          "last_30": "{'.github', 'csit', 'vpp'}",
+          "last_90": "{'.github', 'csit', 'vpp'}",
+          "last_365": "{'.github', 'csit', 'vpp'}",
+          "last_3_years": "{'.github', 'csit', 'vpp'}"
         },
         "repositories_count": {
           "last_30": 3,
@@ -176586,10 +176586,10 @@
           "last_3_years": 0
         },
         "repositories_touched": {
-          "last_30": "{'csit', 'vppsb', 'vpp'}",
-          "last_90": "{'csit', 'vppsb', 'vpp'}",
-          "last_365": "{'csit', 'vppsb', 'vpp'}",
-          "last_3_years": "{'csit', 'vppsb', 'vpp'}"
+          "last_30": "{'vppsb', 'csit', 'vpp'}",
+          "last_90": "{'vppsb', 'csit', 'vpp'}",
+          "last_365": "{'vppsb', 'csit', 'vpp'}",
+          "last_3_years": "{'vppsb', 'csit', 'vpp'}"
         },
         "repositories_count": {
           "last_30": 3,
@@ -181981,19 +181981,19 @@
         "domain": "github.com",
         "commits": {
           "last_30": 1,
-          "last_90": 11,
+          "last_90": 10,
           "last_365": 15,
           "last_3_years": 15
         },
         "lines_added": {
           "last_30": 1,
-          "last_90": 14,
+          "last_90": 13,
           "last_365": 18,
           "last_3_years": 18
         },
         "lines_removed": {
           "last_30": 1,
-          "last_90": 14,
+          "last_90": 13,
           "last_365": 18,
           "last_3_years": 18
         },
@@ -183453,19 +183453,19 @@
           "last_30": 0,
           "last_90": 0,
           "last_365": 0,
-          "last_3_years": 233
+          "last_3_years": 232
         },
         "lines_added": {
           "last_30": 0,
           "last_90": 0,
           "last_365": 0,
-          "last_3_years": 43390
+          "last_3_years": 43388
         },
         "lines_removed": {
           "last_30": 0,
           "last_90": 0,
           "last_365": 0,
-          "last_3_years": 33303
+          "last_3_years": 33301
         },
         "lines_net": {
           "last_30": 0,
@@ -185256,19 +185256,19 @@
         "username": "Peter",
         "domain": "icloud.com",
         "commits": {
-          "last_30": 13,
+          "last_30": 12,
           "last_90": 40,
           "last_365": 186,
           "last_3_years": 238
         },
         "lines_added": {
-          "last_30": 441,
+          "last_30": 371,
           "last_90": 2021,
           "last_365": 51248,
           "last_3_years": 54366
         },
         "lines_removed": {
-          "last_30": 267,
+          "last_30": 197,
           "last_90": 727,
           "last_365": 76160,
           "last_3_years": 80207
@@ -185280,10 +185280,10 @@
           "last_3_years": -25841
         },
         "repositories_touched": {
-          "last_30": "{'csit', 'vpp', '.github'}",
-          "last_90": "{'csit', 'vpp', '.github'}",
-          "last_365": "{'csit', 'vpp', '.github'}",
-          "last_3_years": "{'csit', 'vpp', '.github'}"
+          "last_30": "{'.github', 'csit', 'vpp'}",
+          "last_90": "{'.github', 'csit', 'vpp'}",
+          "last_365": "{'.github', 'csit', 'vpp'}",
+          "last_3_years": "{'.github', 'csit', 'vpp'}"
         },
         "repositories_count": {
           "last_30": 3,
@@ -185340,28 +185340,28 @@
         "domain": "cisco.com",
         "contributor_count": 156,
         "commits": {
-          "last_30": 80,
-          "last_90": 285,
-          "last_365": 1133,
-          "last_3_years": 2487
+          "last_30": 78,
+          "last_90": 284,
+          "last_365": 1130,
+          "last_3_years": 2485
         },
         "lines_added": {
-          "last_30": 12452,
-          "last_90": 49129,
-          "last_365": 174365,
-          "last_3_years": 334779
+          "last_30": 12978,
+          "last_90": 49763,
+          "last_365": 174625,
+          "last_3_years": 335074
         },
         "lines_removed": {
-          "last_30": 9924,
-          "last_90": 20580,
-          "last_365": 134298,
-          "last_3_years": 229712
+          "last_30": 9875,
+          "last_90": 20582,
+          "last_365": 134204,
+          "last_3_years": 229591
         },
         "lines_net": {
-          "last_30": 2528,
-          "last_90": 28549,
-          "last_365": 40067,
-          "last_3_years": 105067
+          "last_30": 3103,
+          "last_90": 29181,
+          "last_365": 40421,
+          "last_3_years": 105483
         },
         "repositories_count": {
           "last_30": 4,
@@ -185377,25 +185377,25 @@
           "last_30": 21,
           "last_90": 56,
           "last_365": 308,
-          "last_3_years": 469
+          "last_3_years": 468
         },
         "lines_added": {
           "last_30": 460,
           "last_90": 3212,
           "last_365": 23351,
-          "last_3_years": 45093
+          "last_3_years": 44977
         },
         "lines_removed": {
           "last_30": 482,
           "last_90": 5017,
           "last_365": 12363,
-          "last_3_years": 21496
+          "last_3_years": 21383
         },
         "lines_net": {
           "last_30": -22,
           "last_90": -1805,
           "last_365": 10988,
-          "last_3_years": 23597
+          "last_3_years": 23594
         },
         "repositories_count": {
           "last_30": 4,
@@ -185408,19 +185408,19 @@
         "domain": "icloud.com",
         "contributor_count": 2,
         "commits": {
-          "last_30": 13,
+          "last_30": 12,
           "last_90": 41,
           "last_365": 188,
           "last_3_years": 240
         },
         "lines_added": {
-          "last_30": 441,
+          "last_30": 371,
           "last_90": 2037,
           "last_365": 51267,
           "last_3_years": 54385
         },
         "lines_removed": {
-          "last_30": 267,
+          "last_30": 197,
           "last_90": 731,
           "last_365": 76166,
           "last_3_years": 80213
@@ -185442,25 +185442,25 @@
         "domain": "netgate.com",
         "contributor_count": 16,
         "commits": {
-          "last_30": 16,
+          "last_30": 14,
           "last_90": 63,
           "last_365": 74,
           "last_3_years": 115
         },
         "lines_added": {
-          "last_30": 847,
+          "last_30": 733,
           "last_90": 4747,
           "last_365": 5469,
           "last_3_years": 7973
         },
         "lines_removed": {
-          "last_30": 214,
+          "last_30": 181,
           "last_90": 1042,
           "last_365": 1206,
           "last_3_years": 1439
         },
         "lines_net": {
-          "last_30": 633,
+          "last_30": 552,
           "last_90": 3705,
           "last_365": 4263,
           "last_3_years": 6534
@@ -185511,19 +185511,19 @@
         "contributor_count": 2,
         "commits": {
           "last_30": 1,
-          "last_90": 11,
+          "last_90": 10,
           "last_365": 15,
           "last_3_years": 19
         },
         "lines_added": {
           "last_30": 1,
-          "last_90": 14,
+          "last_90": 13,
           "last_365": 18,
           "last_3_years": 545
         },
         "lines_removed": {
           "last_30": 1,
-          "last_90": 14,
+          "last_90": 13,
           "last_365": 18,
           "last_3_years": 54
         },
@@ -185575,40 +185575,6 @@
         }
       },
       {
-        "domain": "marvell.com",
-        "contributor_count": 16,
-        "commits": {
-          "last_30": 0,
-          "last_90": 3,
-          "last_365": 10,
-          "last_3_years": 83
-        },
-        "lines_added": {
-          "last_30": 0,
-          "last_90": 74,
-          "last_365": 232,
-          "last_3_years": 10728
-        },
-        "lines_removed": {
-          "last_30": 0,
-          "last_90": 5,
-          "last_365": 33,
-          "last_3_years": 1323
-        },
-        "lines_net": {
-          "last_30": 0,
-          "last_90": 69,
-          "last_365": 199,
-          "last_3_years": 9405
-        },
-        "repositories_count": {
-          "last_30": 2,
-          "last_90": 2,
-          "last_365": 2,
-          "last_3_years": 2
-        }
-      },
-      {
         "domain": "barachs.net",
         "contributor_count": 2,
         "commits": {
@@ -185640,6 +185606,40 @@
           "last_90": 1,
           "last_365": 1,
           "last_3_years": 1
+        }
+      },
+      {
+        "domain": "marvell.com",
+        "contributor_count": 16,
+        "commits": {
+          "last_30": 0,
+          "last_90": 3,
+          "last_365": 9,
+          "last_3_years": 83
+        },
+        "lines_added": {
+          "last_30": 0,
+          "last_90": 74,
+          "last_365": 193,
+          "last_3_years": 10728
+        },
+        "lines_removed": {
+          "last_30": 0,
+          "last_90": 5,
+          "last_365": 20,
+          "last_3_years": 1323
+        },
+        "lines_net": {
+          "last_30": 0,
+          "last_90": 69,
+          "last_365": 173,
+          "last_3_years": 9405
+        },
+        "repositories_count": {
+          "last_30": 2,
+          "last_90": 2,
+          "last_365": 2,
+          "last_3_years": 2
         }
       },
       {
@@ -189559,19 +189559,19 @@
           "last_30": 0,
           "last_90": 0,
           "last_365": 0,
-          "last_3_years": 233
+          "last_3_years": 232
         },
         "lines_added": {
           "last_30": 0,
           "last_90": 0,
           "last_365": 0,
-          "last_3_years": 43390
+          "last_3_years": 43388
         },
         "lines_removed": {
           "last_30": 0,
           "last_90": 0,
           "last_365": 0,
-          "last_3_years": 33303
+          "last_3_years": 33301
         },
         "lines_net": {
           "last_30": 0,
@@ -190604,7 +190604,7 @@
             "timezone": "Europe/Zagreb",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 0
+            "days_since_last_commit": 1
           },
           {
             "name": "Dave Barach",
@@ -190614,7 +190614,7 @@
             "timezone": "",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 0
+            "days_since_last_commit": 1
           },
           {
             "name": "Florin Coras",
@@ -190624,7 +190624,7 @@
             "timezone": "",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 0
+            "days_since_last_commit": 1
           },
           {
             "name": "Benoit Ganne",
@@ -190634,7 +190634,7 @@
             "timezone": "",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 0
+            "days_since_last_commit": 1
           },
           {
             "name": "John Lo",
@@ -190644,7 +190644,7 @@
             "timezone": "",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 0
+            "days_since_last_commit": 1
           },
           {
             "name": "Chris Luke",
@@ -190654,7 +190654,7 @@
             "timezone": "",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 0
+            "days_since_last_commit": 1
           },
           {
             "name": "Neale Ranns",
@@ -190664,7 +190664,7 @@
             "timezone": "",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 0
+            "days_since_last_commit": 1
           },
           {
             "name": "Matthew Smith",
@@ -190674,7 +190674,7 @@
             "timezone": "",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 0
+            "days_since_last_commit": 1
           },
           {
             "name": "Ole Trøan",
@@ -190684,7 +190684,7 @@
             "timezone": "",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 0
+            "days_since_last_commit": 1
           },
           {
             "name": "Paul Vinciguerra",
@@ -190694,7 +190694,7 @@
             "timezone": "",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 0
+            "days_since_last_commit": 1
           },
           {
             "name": "Dave Wallace",
@@ -190704,7 +190704,7 @@
             "timezone": "",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 0
+            "days_since_last_commit": 1
           },
           {
             "name": "Ed Warnicke",
@@ -190714,7 +190714,7 @@
             "timezone": "",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 0
+            "days_since_last_commit": 1
           },
           {
             "name": "Andrew Yourtchenko",
@@ -190724,7 +190724,7 @@
             "timezone": "",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 0
+            "days_since_last_commit": 1
           },
           {
             "name": "Fan Zhang",
@@ -190734,7 +190734,7 @@
             "timezone": "",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 0
+            "days_since_last_commit": 1
           },
           {
             "name": "Mohammed HAWARI",
@@ -190744,7 +190744,7 @@
             "timezone": "",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 0
+            "days_since_last_commit": 1
           }
         ],
         "issue_tracking": {
@@ -190757,9 +190757,9 @@
         "repositories": [
           "vpp"
         ],
-        "yaml_file_path": "/tmp/info-master-vokn40fo/info-master/gerrit.fd.io/vpp/INFO.yaml",
+        "yaml_file_path": "/tmp/info-master-c1xcx6bd/info-master/gerrit.fd.io/vpp/INFO.yaml",
         "has_git_data": true,
-        "project_days_since_last_commit": 0,
+        "project_days_since_last_commit": 1,
         "errors": []
       },
       {
@@ -190858,7 +190858,7 @@
         "repositories": [
           "cicn"
         ],
-        "yaml_file_path": "/tmp/info-master-vokn40fo/info-master/gerrit.fd.io/cicn/INFO.yaml",
+        "yaml_file_path": "/tmp/info-master-c1xcx6bd/info-master/gerrit.fd.io/cicn/INFO.yaml",
         "has_git_data": false,
         "project_days_since_last_commit": null,
         "errors": []
@@ -190969,7 +190969,7 @@
         "repositories": [
           "hicn"
         ],
-        "yaml_file_path": "/tmp/info-master-vokn40fo/info-master/gerrit.fd.io/hicn/INFO.yaml",
+        "yaml_file_path": "/tmp/info-master-c1xcx6bd/info-master/gerrit.fd.io/hicn/INFO.yaml",
         "has_git_data": false,
         "project_days_since_last_commit": null,
         "errors": []
@@ -191080,7 +191080,7 @@
         "repositories": [
           "vsap"
         ],
-        "yaml_file_path": "/tmp/info-master-vokn40fo/info-master/gerrit.fd.io/vsap/INFO.yaml",
+        "yaml_file_path": "/tmp/info-master-c1xcx6bd/info-master/gerrit.fd.io/vsap/INFO.yaml",
         "has_git_data": false,
         "project_days_since_last_commit": null,
         "errors": []
@@ -191108,7 +191108,7 @@
             "timezone": "Europe/London",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 2
+            "days_since_last_commit": 3
           },
           {
             "name": "Dave Wallace",
@@ -191118,7 +191118,7 @@
             "timezone": "Unknown/Unknown",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 2
+            "days_since_last_commit": 3
           },
           {
             "name": "Juraj Linkeš",
@@ -191128,7 +191128,7 @@
             "timezone": "Europe/Bratislava",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 2
+            "days_since_last_commit": 3
           },
           {
             "name": "Peter Mikus",
@@ -191138,7 +191138,7 @@
             "timezone": "Europe/Bratislava",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 2
+            "days_since_last_commit": 3
           },
           {
             "name": "Tibor Frank",
@@ -191148,7 +191148,7 @@
             "timezone": "Europe/Bratislava",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 2
+            "days_since_last_commit": 3
           },
           {
             "name": "Vratko Polak",
@@ -191158,7 +191158,7 @@
             "timezone": "Europe/Bratislava",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 2
+            "days_since_last_commit": 3
           }
         ],
         "issue_tracking": {
@@ -191171,9 +191171,9 @@
         "repositories": [
           "csit"
         ],
-        "yaml_file_path": "/tmp/info-master-vokn40fo/info-master/gerrit.fd.io/csit/INFO.yaml",
+        "yaml_file_path": "/tmp/info-master-c1xcx6bd/info-master/gerrit.fd.io/csit/INFO.yaml",
         "has_git_data": true,
-        "project_days_since_last_commit": 2,
+        "project_days_since_last_commit": 3,
         "errors": []
       },
       {
@@ -191272,7 +191272,7 @@
         "repositories": [
           "ci-management"
         ],
-        "yaml_file_path": "/tmp/info-master-vokn40fo/info-master/gerrit.fd.io/ci-management/INFO.yaml",
+        "yaml_file_path": "/tmp/info-master-c1xcx6bd/info-master/gerrit.fd.io/ci-management/INFO.yaml",
         "has_git_data": false,
         "project_days_since_last_commit": null,
         "errors": []
@@ -191373,7 +191373,7 @@
         "repositories": [
           "honeycomb"
         ],
-        "yaml_file_path": "/tmp/info-master-vokn40fo/info-master/gerrit.fd.io/honeycomb/INFO.yaml",
+        "yaml_file_path": "/tmp/info-master-c1xcx6bd/info-master/gerrit.fd.io/honeycomb/INFO.yaml",
         "has_git_data": false,
         "project_days_since_last_commit": null,
         "errors": []
@@ -191604,7 +191604,7 @@
         "repositories": [
           "udpi"
         ],
-        "yaml_file_path": "/tmp/info-master-vokn40fo/info-master/gerrit.fd.io/udpi/INFO.yaml",
+        "yaml_file_path": "/tmp/info-master-c1xcx6bd/info-master/gerrit.fd.io/udpi/INFO.yaml",
         "has_git_data": false,
         "project_days_since_last_commit": null,
         "errors": []
@@ -191675,7 +191675,7 @@
         "repositories": [
           "tldk"
         ],
-        "yaml_file_path": "/tmp/info-master-vokn40fo/info-master/gerrit.fd.io/tldk/INFO.yaml",
+        "yaml_file_path": "/tmp/info-master-c1xcx6bd/info-master/gerrit.fd.io/tldk/INFO.yaml",
         "has_git_data": false,
         "project_days_since_last_commit": null,
         "errors": []
@@ -191756,7 +191756,7 @@
         "repositories": [
           "govpp"
         ],
-        "yaml_file_path": "/tmp/info-master-vokn40fo/info-master/gerrit.fd.io/govpp/INFO.yaml",
+        "yaml_file_path": "/tmp/info-master-c1xcx6bd/info-master/gerrit.fd.io/govpp/INFO.yaml",
         "has_git_data": false,
         "project_days_since_last_commit": null,
         "errors": []
@@ -191784,7 +191784,7 @@
             "timezone": "America/Chicago",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 36
+            "days_since_last_commit": 37
           },
           {
             "name": "Andrew Grimberg",
@@ -191794,7 +191794,7 @@
             "timezone": "America/Los_Angeles",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 36
+            "days_since_last_commit": 37
           },
           {
             "name": "Anil Anil Belur",
@@ -191804,7 +191804,7 @@
             "timezone": "Unknown/Unknown",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 36
+            "days_since_last_commit": 37
           },
           {
             "name": "Eric Ball",
@@ -191814,7 +191814,7 @@
             "timezone": "America/Los_Angeles",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 36
+            "days_since_last_commit": 37
           },
           {
             "name": "Jessica Wagantall",
@@ -191824,7 +191824,7 @@
             "timezone": "America/Los_Angeles",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 36
+            "days_since_last_commit": 37
           },
           {
             "name": "Kevin Sandi",
@@ -191834,7 +191834,7 @@
             "timezone": "America/Costa_Rica",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 36
+            "days_since_last_commit": 37
           },
           {
             "name": "Matt Watkins",
@@ -191844,7 +191844,7 @@
             "timezone": "Europe/London",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 36
+            "days_since_last_commit": 37
           },
           {
             "name": "Dave Wallace",
@@ -191854,7 +191854,7 @@
             "timezone": "America/New_York",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 36
+            "days_since_last_commit": 37
           },
           {
             "name": "Ed Warnicke",
@@ -191864,7 +191864,7 @@
             "timezone": "America/Chicago",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 36
+            "days_since_last_commit": 37
           },
           {
             "name": "Peter Mikus",
@@ -191874,7 +191874,7 @@
             "timezone": "Europe/Bratislava",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 36
+            "days_since_last_commit": 37
           },
           {
             "name": "Vratko Polak",
@@ -191884,7 +191884,7 @@
             "timezone": "Europe/Bratislava",
             "activity_status": "current",
             "activity_color": "green",
-            "days_since_last_commit": 36
+            "days_since_last_commit": 37
           }
         ],
         "issue_tracking": {
@@ -191897,9 +191897,9 @@
         "repositories": [
           ".github"
         ],
-        "yaml_file_path": "/tmp/info-master-vokn40fo/info-master/gerrit.fd.io/.github/INFO.yaml",
+        "yaml_file_path": "/tmp/info-master-c1xcx6bd/info-master/gerrit.fd.io/.github/INFO.yaml",
         "has_git_data": true,
-        "project_days_since_last_commit": 36,
+        "project_days_since_last_commit": 37,
         "errors": []
       }
     ],
