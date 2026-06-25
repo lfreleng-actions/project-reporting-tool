@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-06-24 08:07:41 UTC
+**Generated:** 2026-06-25 08:07:15 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -29,8 +29,8 @@
 | Active Repositories | 0 | 0.0% |
 | Inactive Repositories | 3 | 50.0% |
 | No Apparent Commits | 0 | 0.0% |
-| Total Commits | 22.6K | - |
-| Total Lines of Code | 292.0K | - |
+| Total Commits | 22.7K | - |
+| Total Lines of Code | 299.5K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -41,11 +41,11 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 156 | 1133 | +175810 | 310386 | +36 | 4 |
-| 2 | gmail.com | 115 | 310 | +23392 | 35760 | +35 | 4 |
-| 3 | icloud.com | 2 | 188 | +51220 | 127333 | -132 | 3 |
-| 4 | netgate.com | 16 | 75 | +5470 | 6677 | +56 | 1 |
-| 5 | hawari.fr | 1 | 19 | +16354 | 17561 | +797 | 1 |
+| 1 | cisco.com | 156 | 1137 | +176187 | 310766 | +36 | 4 |
+| 2 | gmail.com | 115 | 312 | +24169 | 36538 | +37 | 4 |
+| 3 | icloud.com | 2 | 187 | +51192 | 127239 | -132 | 3 |
+| 4 | netgate.com | 16 | 78 | +5681 | 6895 | +57 | 1 |
+| 5 | hawari.fr | 1 | 18 | +16236 | 17443 | +834 | 1 |
 | 6 | github.com | 2 | 15 | +18 | 36 | 0 | 2 |
 | 7 | ipng.nl | 1 | 12 | +4009 | 4378 | +303 | 1 |
 | 8 | barachs.net | 2 | 9 | +533 | 588 | +53 | 1 |
@@ -81,20 +81,20 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Matus Fabian | 254 | +33036 | 46853 | +75 | 2 | cisco.com |
-| 2 | Florin Coras | 245 | +32568 | 45370 | +80 | 2 | cisco.com |
+| 1 | Matus Fabian | 256 | +33051 | 46872 | +75 | 2 | cisco.com |
+| 2 | Florin Coras | 247 | +32932 | 45738 | +81 | 2 | cisco.com |
 | 3 | Dave Wallace | 230 | +15130 | 21657 | +37 | 4 | gmail.com |
-| 4 | Peter Mikus | 186 | +51201 | 127308 | -133 | 3 | icloud.com |
+| 4 | Peter Mikus | 185 | +51173 | 127214 | -134 | 3 | icloud.com |
 | 5 | Damjan Marion | 159 | +42105 | 115253 | -195 | 1 | cisco.com |
 | 6 | Tibor Frank | 104 | +8555 | 15211 | +18 | 2 | cisco.com |
-| 7 | Adrian Villin | 89 | +12846 | 20190 | +61 | 1 | cisco.com |
+| 7 | Adrian Villin | 88 | +12776 | 20107 | +61 | 1 | cisco.com |
 | 8 | Vratko Polak | 75 | +22077 | 38541 | +74 | 3 | cisco.com |
-| 9 | Benoît Ganne | 55 | +2816 | 4313 | +23 | 1 | cisco.com |
-| 10 | Klement Sekera | 42 | +2654 | 3328 | +47 | 1 | netgate.com |
+| 9 | Benoît Ganne | 56 | +2836 | 4341 | +23 | 1 | cisco.com |
+| 10 | Klement Sekera | 45 | +2865 | 3546 | +48 | 1 | netgate.com |
 | 11 | Jerome Tollet | 31 | +6392 | 7107 | +183 | 1 | cisco.com |
-| 12 | Hadi Rayan Al-Sandid | 24 | +3388 | 3642 | +130 | 1 | cisco.com |
-| 13 | Semir Sionek | 22 | +1425 | 1766 | +49 | 1 | cisco.com |
-| 14 | Mohammed Hawari | 19 | +16354 | 17561 | +797 | 1 | hawari.fr |
+| 12 | Hadi Rayan Al-Sandid | 25 | +3402 | 3659 | +125 | 1 | cisco.com |
+| 13 | Semir Sionek | 21 | +1384 | 1721 | +49 | 1 | cisco.com |
+| 14 | Mohammed Hawari | 18 | +16236 | 17443 | +834 | 1 | hawari.fr |
 | 15 | Mohsin KAZMI | 18 | +3481 | 3803 | +175 | 2 | cisco.com |
 | 16 | Maxime Peim | 16 | +2343 | 4570 | +7 | 1 | gmail.com |
 | 17 | Rob Shearman | 16 | +821 | 925 | +44 | 1 | gmail.com |
@@ -103,12 +103,12 @@ The data presented in the table below covers the past 365 days.
 | 20 | Aritra Basu | 12 | +1691 | 1763 | +134 | 1 | cisco.com |
 | 21 | Pim van Pelt | 12 | +4009 | 4378 | +303 | 1 | ipng.nl |
 | 22 | Matthew Smith | 11 | +291 | 460 | +11 | 1 | netgate.com |
-| 23 | Damjan Marion | 9 | +657 | 948 | +40 | 1 | gmail.com |
-| 24 | Dave Barach | 9 | +533 | 588 | +53 | 1 | barachs.net |
-| 25 | Samuel Benko | 9 | +894 | 982 | +89 | 1 | cisco.com |
+| 23 | Samuel Benko | 10 | +979 | 1071 | +88 | 1 | cisco.com |
+| 24 | Damjan Marion | 9 | +657 | 948 | +40 | 1 | gmail.com |
+| 25 | Dave Barach | 9 | +533 | 588 | +53 | 1 | barachs.net |
 | 26 | Yoann Desmouceaux | 9 | +133 | 190 | +8 | 1 | cisco.com |
-| 27 | Ivan Shvedunov | 8 | +1596 | 1737 | +181 | 1 | netgate.com |
-| 28 | Andrew Yourtchenko | 7 | +1260 | 1265 | +179 | 1 | gmail.com |
+| 27 | Andrew Yourtchenko | 8 | +2032 | 2037 | +253 | 1 | gmail.com |
+| 28 | Ivan Shvedunov | 8 | +1596 | 1737 | +181 | 1 | netgate.com |
 | 29 | Vladimir Zhigulin | 7 | +124 | 175 | +10 | 1 | travelping.com |
 | 30 | hbouatto_cisco | 7 | +1651 | 2204 | +156 | 1 | gmail.com |
 
@@ -117,12 +117,12 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 16007 | +209911 | 90 | 1 | 2026-06-23 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6511 | +79694 | 5 | 0 | 2026-06-23 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2587 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 35 | +5094 | 2 | 40 | 2026-05-14 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2062 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3584 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 16019 | +211158 | 89 | 0 | 2026-06-24 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6511 | +79666 | 5 | 1 | 2026-06-23 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2588 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 35 | +5094 | 2 | 41 | 2026-05-14 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2063 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3585 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
@@ -141,12 +141,12 @@ The data presented in the table below covers the past 365 days.
 ---
 ## 🏁 Deployed CI/CD Jobs
 
-**Total GitHub workflows:** 32
+**Total GitHub workflows:** 30
 
 | Gerrit Project | GitHub Workflows | Workflow Count |
 |----------------|-------------------|----------------|
 | .github | gerrit-required-verify-non-voting.yaml<br>gerrit-verify.yaml<br>gha-dispatcher.yaml<br>update-graph | 4 |
-| csit | csit-cdash-version.yml<br>csit-perf-report.yml<br>csit-vpp-perf-hoststack-daily.yml<br>csit-vpp-perf-mrr-daily.yml<br>dependabot-updates<br>gerrit-comment-handler.yaml<br>gerrit-verify.yaml<br>github2gerrit.yaml<br>update-graph<br>vpp-csit-bisect.yml | 10 |
+| csit | csit-cdash-version.yml<br>csit-perf-report.yml<br>dependabot-updates<br>gerrit-comment-handler.yaml<br>gerrit-verify.yaml<br>github2gerrit.yaml<br>update-graph<br>vpp-csit-bisect.yml | 8 |
 | vpp | dependabot-updates<br>gerrit-comment-handler.yml<br>gerrit-merge.yml<br>gerrit-verify.yml<br>github2gerrit.yaml<br>periodic-vpp-verify-cov.yml<br>periodic-vpp-verify-dpdk-rdma-ver.yml<br>periodic-vpp-verify-hst.yml<br>update-graph<br>vpp-csit-verify-api.yml<br>vpp-merge-docs.yml<br>vpp-merge-maketest.yml<br>vpp-verify-arm-drivers.yml<br>vpp-verify-checkstyle.yml<br>vpp-verify-docs.yml<br>vpp-verify-gcc.yml<br>vpp-verify-hst.yml<br>vpp-verify-maketest.yml | 18 |
 
 **Total:** 3 repositories with CI/CD jobs
