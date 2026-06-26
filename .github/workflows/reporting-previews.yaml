@@ -47,7 +47,7 @@ jobs:
 
       - name: "Checkout pull request"
         # yamllint disable-line rule:line-length
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           persist-credentials: false
@@ -196,7 +196,7 @@ jobs:
 
       - name: "Checkout pull request"
         # yamllint disable-line rule:line-length
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           persist-credentials: false
@@ -452,7 +452,7 @@ jobs:
 
       - name: "Checkout pull request branch for scripts"
         # yamllint disable-line rule:line-length
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           persist-credentials: false
@@ -468,7 +468,7 @@ jobs:
       # the repository-scoped GITHUB_TOKEN, so artipacked is suppressed.
       - name: "Checkout gh-pages branch"
         # yamllint disable-line rule:line-length
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3 # zizmor: ignore[artipacked]
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v6.0.3 # zizmor: ignore[artipacked]
         with:
           ref: gh-pages
           token: ${{ secrets.GITHUB_TOKEN }}
