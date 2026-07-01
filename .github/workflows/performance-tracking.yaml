@@ -26,9 +26,9 @@ jobs:
   benchmark-suite:
     name: Full Benchmark Suite
     permissions:
-      contents: read
-      issues: write
-      pull-requests: write
+      contents: read  # Read repository contents (checkout, artifacts)
+      issues: write  # Open performance alert issues on threshold violations
+      pull-requests: write  # Comment on PRs with performance alerts
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -63,11 +63,11 @@ jobs:
         continue-on-error: true
         env:
           # yamllint disable-line rule:line-length
-          BASELINE_INPUT: ${{ github.event.inputs.comparison_baseline || 'main' }}
+          COMPARISON_BASELINE: ${{ github.event.inputs.comparison_baseline || 'main' }}
         run: |
           mkdir -p .benchmarks
           # Try to fetch previous benchmark results from artifacts
-          BASELINE="${BASELINE_INPUT}"
+          BASELINE="${COMPARISON_BASELINE}"
           echo "Baseline: ${BASELINE}"
 
       - name: Run comprehensive benchmarks
@@ -91,13 +91,15 @@ jobs:
 
       - name: Generate performance report
         if: always()
-        run: |
+        # github.sha/github.run_number are trusted, GitHub-assigned values
+        # rendered inside a quoted heredoc (GitHub templating, not shell).
+        run: | # zizmor: ignore[template-injection]
           cat > performance-report.md << 'EOF'
           # Performance Tracking Report
 
           **Date:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")
           **Commit:** ${{ github.sha }}
-          **Branch:** ${GITHUB_REF_NAME}
+          **Branch:** ${{ github.ref_name }}
           **Run:** ${{ github.run_number }}
 
           ## Benchmark Results
@@ -178,7 +180,9 @@ jobs:
 
       - name: Analyze threshold failures
         if: steps.threshold-check.outcome == 'failure'
-        run: |
+        # github.run_number/github.sha are trusted, GitHub-assigned values
+        # rendered inside a quoted heredoc (GitHub templating, not shell).
+        run: | # zizmor: ignore[template-injection]
           echo "⚠️ Performance threshold violations detected!"
           echo "threshold_failures=true" >> "$GITHUB_OUTPUT"
 
@@ -212,6 +216,8 @@ jobs:
           github.ref == 'refs/heads/main'
         # yamllint disable-line rule:line-length
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
+        env:
+          RUN_NUMBER: ${{ github.run_number }}
         with:
           script: |
             const fs = require('fs');
@@ -221,7 +227,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: `Performance Alert: Threshold Violations ` +
-                `(Run ${{ github.run_number }})`,
+                `(Run ${process.env.RUN_NUMBER})`,
               body: alert,
               labels: ['performance', 'automated', 'needs-investigation']
             });
@@ -232,6 +238,8 @@ jobs:
         if: steps.threshold-check.outcome == 'failure'
         # yamllint disable-line rule:line-length
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
+        env:
+          RUN_NUMBER: ${{ github.run_number }}
         with:
           script: |
             const { data: prs } = await github.rest.pulls.list({
@@ -246,7 +254,7 @@ jobs:
             const comment = `⚠️ **Performance Alert**\n\n` +
               `Recent performance tracking run detected ` +
               `threshold violations.\n` +
-              `Run: ${{ github.run_number }}\n` +
+              `Run: ${process.env.RUN_NUMBER}\n` +
               `Please review if your changes may have ` +
               `impacted performance.`;
 
@@ -371,7 +379,9 @@ jobs:
         continue-on-error: true
 
       - name: Generate dashboard
-        run: |
+        # github.run_number and needs.*.result are trusted values rendered
+        # inside a quoted heredoc (GitHub templating, not shell).
+        run: | # zizmor: ignore[template-injection]
           cat > performance-dashboard.md << 'EOF'
           # Performance Dashboard
 

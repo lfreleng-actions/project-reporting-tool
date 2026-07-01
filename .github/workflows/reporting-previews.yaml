@@ -31,8 +31,9 @@ jobs:
     name: "Verify configuration"
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
+    environment: production
     permissions:
-      contents: read
+      contents: read  # Required to check out the repository
     timeout-minutes: 5
     outputs:
       matrix: ${{ steps.parse-projects.outputs.matrix }}
@@ -55,19 +56,21 @@ jobs:
       - name: "Generate run metadata"
         id: metadata
         shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          RUN_ID: ${{ github.run_id }}
         run: |
           timestamp=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-          pr_number="${{ github.event.pull_request.number }}"
 
           echo "timestamp=$timestamp" >> "$GITHUB_OUTPUT"
-          echo "pr_number=$pr_number" >> "$GITHUB_OUTPUT"
+          echo "pr_number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
 
           {
             echo "## 🔍 Preview Report Generation"
             echo ""
-            echo "**PR:** #$pr_number"
+            echo "**PR:** #${PR_NUMBER}"
             echo "**Started:** $timestamp"
-            echo "**Run ID:** ${{ github.run_id }}"
+            echo "**Run ID:** ${RUN_ID}"
             echo ""
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -180,8 +183,9 @@ jobs:
     name: "${{ matrix.project }} (Preview)"
     needs: verify
     runs-on: ubuntu-latest
+    environment: production
     permissions:
-      contents: read
+      contents: read  # Required to check out the repository
     timeout-minutes: 60
     strategy:
       fail-fast: false
@@ -240,6 +244,9 @@ jobs:
 
       - name: "Check clone status"
         shell: bash
+        env:
+          MATRIX_GERRIT: ${{ matrix.gerrit }}
+          MATRIX_GITHUB: ${{ matrix.github }}
         run: |
           # Determine which clone step ran and check its outcome
           if [ -n "${MATRIX_GERRIT}" ]; then
@@ -261,9 +268,6 @@ jobs:
           else
             echo "::warning::Clone path does not exist: $clone_path"
           fi
-        env:
-          MATRIX_GERRIT: ${{ matrix.gerrit }}
-          MATRIX_GITHUB: ${{ matrix.github }}
 
       - name: "Clone info-master repository"
         shell: bash
@@ -334,10 +338,13 @@ jobs:
           MATRIX_JENKINS: ${{ matrix.jenkins }}
           MATRIX_GITHUB: ${{ matrix.github }}
           MATRIX_SLUG: ${{ matrix.slug }}
-          # yamllint disable rule:line-length
-          NEEDS_VERIFY_OUTPUTS_RUN_TIMESTAMP: ${{ needs.verify.outputs.run_timestamp }}
-          GITHUB_EVENT_PULL_REQUEST_USER_LOGIN: ${{ github.event.pull_request.user.login }}
-          # yamllint enable rule:line-length
+          RUN_TIMESTAMP: ${{ needs.verify.outputs.run_timestamp }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_NUMBER: ${{ github.run_number }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+          GIT_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
         run: |
           project="${MATRIX_PROJECT}"
           report_dir="./reports/$project"
@@ -360,14 +367,14 @@ jobs:
             "gerrit_server": "${gerrit_server:-}",
             "jenkins_server": "${jenkins_server:-}",
             "github_org": "${github_org:-}",
-            "generated_at": "${NEEDS_VERIFY_OUTPUTS_RUN_TIMESTAMP}",
-            "workflow_run_id": "${{ github.run_id }}",
-            "workflow_run_number": "${{ github.run_number }}",
-            "workflow_run_attempt": "${{ github.run_attempt }}",
-            "git_sha": "${{ github.event.pull_request.head.sha }}",
+            "generated_at": "${RUN_TIMESTAMP}",
+            "workflow_run_id": "${RUN_ID}",
+            "workflow_run_number": "${RUN_NUMBER}",
+            "workflow_run_attempt": "${RUN_ATTEMPT}",
+            "git_sha": "${GIT_SHA}",
             "git_ref": "$PR_HEAD_REF",
-            "pr_number": ${{ github.event.pull_request.number }},
-            "pr_author": "${GITHUB_EVENT_PULL_REQUEST_USER_LOGIN}",
+            "pr_number": ${PR_NUMBER},
+            "pr_author": "${PR_AUTHOR}",
             "environment": "previews"
           }
           EOF
@@ -377,6 +384,9 @@ jobs:
       - name: "Copy raw data files to temp directory"
         if: always()
         shell: bash
+        env:
+          MATRIX_SLUG: ${{ matrix.slug }}
+          MATRIX_PROJECT: ${{ matrix.project }}
         run: |
           # Create temp directory for raw data files
           mkdir -p "./temp-raw-data-${MATRIX_SLUG}"
@@ -397,9 +407,6 @@ jobs:
           fi
 
           echo "Raw data files prepared for upload"
-        env:
-          MATRIX_SLUG: ${{ matrix.slug }}
-          MATRIX_PROJECT: ${{ matrix.project }}
 
       - name: "Upload raw data artifacts"
         if: always()
@@ -439,9 +446,10 @@ jobs:
     needs: [verify, analyze]
     if: always() && needs.verify.result == 'success'
     runs-on: ubuntu-latest
+    environment: production
     permissions:
-      contents: write
-      pull-requests: write
+      contents: write  # Required to push preview commits to gh-pages
+      pull-requests: write  # Required to comment preview links on the PR
     timeout-minutes: 15
     steps:
       # Harden the runner
@@ -463,12 +471,11 @@ jobs:
           mkdir -p /tmp/pr-scripts
           cp .github/scripts/generate-index.sh /tmp/pr-scripts/
 
-      # This checkout intentionally persists credentials so the later
-      # "git push origin gh-pages" step can authenticate. The token is
-      # the repository-scoped GITHUB_TOKEN, so artipacked is suppressed.
       - name: "Checkout gh-pages branch"
+        # persist-credentials must stay enabled: the later "Commit and push
+        # preview" step runs `git push origin gh-pages` using these creds.
         # yamllint disable-line rule:line-length
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v6.0.3 # zizmor: ignore[artipacked]
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0 # zizmor: ignore[artipacked]
         with:
           ref: gh-pages
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -483,12 +490,13 @@ jobs:
 
       - name: "Prepare preview directory"
         shell: bash
+        env:
+          PR_NUMBER: ${{ needs.verify.outputs.pr_number }}
         run: |
-          pr_number="${NEEDS_VERIFY_OUTPUTS_PR_NUMBER}"
-          echo "📦 Preparing Preview report for #$pr_number"
+          echo "📦 Preparing Preview report for #${PR_NUMBER}"
 
           # Create Preview report directory
-          preview_dir="previews/$pr_number"
+          preview_dir="previews/${PR_NUMBER}"
           mkdir -p "$preview_dir"
 
           # Clean up old preview if it exists
@@ -531,24 +539,21 @@ jobs:
           echo "REPORT_COUNT=$report_count" >> "$GITHUB_ENV"
           echo "PREVIEW_DIR=$preview_dir" >> "$GITHUB_ENV"
           echo "✅ Prepared $report_count preview report(s)"
-        env:
-          NEEDS_VERIFY_OUTPUTS_PR_NUMBER: ${{ needs.verify.outputs.pr_number }}
 
       - name: "Generate preview index page"
         shell: bash
+        env:
+          PR_NUMBER: ${{ needs.verify.outputs.pr_number }}
         run: |
           # Create .nojekyll to disable Jekyll processing
           touch .nojekyll
           echo "✅ Created .nojekyll file"
 
-          pr_number="${NEEDS_VERIFY_OUTPUTS_PR_NUMBER}"
-          preview_dir="previews/$pr_number"
+          preview_dir="previews/${PR_NUMBER}"
 
           # Use the script from the PR branch (has latest fixes)
           bash /tmp/pr-scripts/generate-index.sh \
             "$preview_dir" "previews"
-        env:
-          NEEDS_VERIFY_OUTPUTS_PR_NUMBER: ${{ needs.verify.outputs.pr_number }}
 
       - name: "Generate parent previews index"
         shell: bash
@@ -789,13 +794,13 @@ jobs:
         shell: bash
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
-          NEEDS_VERIFY_OUTPUTS_PR_NUMBER: ${{ needs.verify.outputs.pr_number }}
-          # yamllint disable-line rule:line-length
-          NEEDS_VERIFY_OUTPUTS_RUN_TIMESTAMP: ${{ needs.verify.outputs.run_timestamp }}
-          GITHUB_EVENT_REPOSITORY_NAME: ${{ github.event.repository.name }}
+          PR_NUMBER: ${{ needs.verify.outputs.pr_number }}
+          RUN_TIMESTAMP: ${{ needs.verify.outputs.run_timestamp }}
+          RUN_ID: ${{ github.run_id }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          REPO_OWNER: ${{ github.repository_owner }}
         run: |
-          pr_number="${NEEDS_VERIFY_OUTPUTS_PR_NUMBER}"
-          preview_dir="previews/$pr_number"
+          preview_dir="previews/${PR_NUMBER}"
 
           git config user.name "lf-releng-reports-bot"
           git config user.email \
@@ -811,36 +816,39 @@ jobs:
           fi
 
           cat > /tmp/commit-msg.txt <<EOF
-          chore: add PR #$pr_number preview reports
+          chore: add PR #${PR_NUMBER} preview reports
 
-          Generated: ${NEEDS_VERIFY_OUTPUTS_RUN_TIMESTAMP}
+          Generated: ${RUN_TIMESTAMP}
           Reports: ${REPORT_COUNT} project(s)
-          PR: #$pr_number - $PR_TITLE
-          Run: ${{ github.run_id }}
+          PR: #${PR_NUMBER} - $PR_TITLE
+          Run: ${RUN_ID}
           EOF
 
           git commit -F /tmp/commit-msg.txt
           git push origin gh-pages
 
-          repo_name="${GITHUB_EVENT_REPOSITORY_NAME}"
-          owner="${{ github.repository_owner }}"
-          base_url="https://${owner}.github.io/${repo_name}"
+          base_url="https://${REPO_OWNER}.github.io/${REPO_NAME}"
           echo "PREVIEW_URL=${base_url}/${preview_dir}" >> "$GITHUB_ENV"
           echo "✅ Published Preview report"
 
       - name: "Comment on pull request with links"
         # yamllint disable-line rule:line-length
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          SERVER_URL: ${{ github.server_url }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const prNumber = ${{ github.event.pull_request.number }};
+            const prNumber = Number(process.env.PR_NUMBER);
             const previewUrl = process.env.PREVIEW_URL;
             const reportCount = process.env.REPORT_COUNT;
 
-            const serverUrl = '${{ github.server_url }}';
-            const repo = '${{ github.repository }}';
-            const runId = '${{ github.run_id }}';
+            const serverUrl = process.env.SERVER_URL;
+            const repo = process.env.REPOSITORY;
+            const runId = process.env.RUN_ID;
             const runUrl = `${serverUrl}/${repo}/actions/runs/${runId}`;
             const body = `## 🔍 Preview Reports Available
 
@@ -894,6 +902,11 @@ jobs:
 
       - name: "Generate workflow summary"
         shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          VERIFY_RESULT: ${{ needs.verify.result }}
+          ANALYZE_RESULT: ${{ needs.analyze.result }}
+          PUBLISH_RESULT: ${{ needs.publish-preview.result }}
         run: |
           # Helper function to convert result to emoji
           result_emoji() {
@@ -909,17 +922,17 @@ jobs:
           {
             echo "## 🔍 Preview Reports Complete"
             echo ""
-            echo "**PR:** #${{ github.event.pull_request.number }}"
+            echo "**PR:** #${PR_NUMBER}"
             echo "**Completed:** $(date -u +%Y-%m-%dT%H:%M:%SZ)"
             echo ""
             echo "### Job Results"
             echo ""
             echo "- **Verify:** $(result_emoji \
-              '${{ needs.verify.result }}')"
+              "${VERIFY_RESULT}")"
             echo "- **Analyze:** $(result_emoji \
-              '${{ needs.analyze.result }}')"
+              "${ANALYZE_RESULT}")"
             echo "- **Publish:** $(result_emoji \
-              '${{ needs.publish-preview.result }}')"
+              "${PUBLISH_RESULT}")"
             echo ""
             echo "✅ Preview reports are available from pull request comments"
             echo ""
