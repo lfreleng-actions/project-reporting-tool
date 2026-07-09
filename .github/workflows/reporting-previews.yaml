@@ -475,8 +475,8 @@ jobs:
         # persist-credentials must stay enabled: the later "Commit and push
         # preview" step runs `git push origin gh-pages` using these creds.
         # yamllint disable-line rule:line-length
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0 # zizmor: ignore[artipacked]
-        with:
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with: # zizmor: ignore[artipacked]
           ref: gh-pages
           token: ${{ secrets.GITHUB_TOKEN }}
 
