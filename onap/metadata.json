@@ -4,11 +4,11 @@
   "gerrit_server": "gerrit.onap.org",
   "jenkins_server": "jenkins.onap.org",
   "github_org": "",
-  "generated_at":     "2026-07-09T08:11:36Z",
-  "workflow_run_id": "29003684904",
-  "workflow_run_number": "312",
+  "generated_at":     "2026-07-10T08:06:04Z",
+  "workflow_run_id": "29078687550",
+  "workflow_run_number": "313",
   "workflow_run_attempt": "1",
-  "git_sha": "8d356878dd8238d6cc1bb8edf208ac7753a35110",
+  "git_sha": "def025c22688eb3437848daf302c0c3f1b45afc4",
   "git_ref": "refs/heads/main",
   "environment": "production"
 }
