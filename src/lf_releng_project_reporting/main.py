@@ -36,18 +36,14 @@ from lf_releng_project_reporting.config import (
     load_configuration,
     save_resolved_config,
 )
-
-# Import main orchestration
 from lf_releng_project_reporting.reporter import RepositoryReporter
 from util.github_org import determine_github_org
 from util.zip_bundle import create_report_bundle
 
 
-# =============================================================================
-# CONSTANTS AND SCHEMA DEFINITIONS
-# =============================================================================
+logger = logging.getLogger(__name__)
 
-# Import version from package
+
 try:
     from lf_releng_project_reporting import __version__
 except ImportError:
@@ -64,11 +60,6 @@ DEFAULT_TIME_WINDOWS = {
     "last_365": 365,
     "last_3_years": 1095,
 }
-
-
-# =============================================================================
-# API STATISTICS TRACKING
-# =============================================================================
 
 
 class APIStatistics:
@@ -260,16 +251,11 @@ class APIStatistics:
                     f.write("or that no features requiring external API calls were enabled.*\n\n")
 
         except Exception as e:
-            print(f"Warning: Could not write API stats to step summary: {e}", file=sys.stderr)
+            logger.warning("Could not write API stats to step summary: %s", e)
 
 
 # Global API statistics instance
 api_stats = APIStatistics()
-
-
-# =============================================================================
-# LOGGING SETUP
-# =============================================================================
 
 
 def setup_logging(level: str = "INFO", include_timestamps: bool = True) -> logging.Logger:
@@ -300,8 +286,11 @@ def write_config_to_step_summary(config: dict[str, Any], project: str) -> None:
         return
 
     try:
-        current_days = config.get("activity_thresholds", {}).get("current_days", "N/A")
-        active_days = config.get("activity_thresholds", {}).get("active_days", "N/A")
+        thresholds = config.get("activity_thresholds", {})
+        current_days = thresholds.get("current_days", "N/A")
+        active_days = thresholds.get("active_days", "N/A")
+        features = config.get("features", {})
+        features_enabled = features.get("enabled", [])
 
         with open(step_summary_file, "a") as f:
             f.write(f"## 🔧 Configuration for {project}\n\n")
@@ -311,18 +300,11 @@ def write_config_to_step_summary(config: dict[str, Any], project: str) -> None:
             f.write(f"| Current Threshold | {current_days} days |\n")
             f.write(f"| Active Threshold | {active_days} days |\n")
             f.write(f"| Time Windows | {len(config.get('time_windows', {}))} |\n")
-            f.write(
-                f"| Features Enabled | {len(config.get('features', {}).get('enabled', []))} |\n"
-            )
+            f.write(f"| Features Enabled | {len(features_enabled)} |\n")
             f.write("\n")
 
     except Exception as e:
-        print(f"Warning: Could not write config to step summary: {e}", file=sys.stderr)
-
-
-# =============================================================================
-# MAIN ENTRY POINT
-# =============================================================================
+        logger.warning("Could not write config to step summary: %s", e)
 
 
 def main(args=None) -> int:
@@ -342,7 +324,6 @@ def main(args=None) -> int:
 
             args = parse_arguments()
 
-        # Load configuration
         try:
             config = load_configuration(args.project, args.config_dir)
         except Exception as e:
@@ -363,7 +344,6 @@ def main(args=None) -> int:
             # Store in API stats for reporting
             api_stats.set_github_org(github_org, github_org_source)
 
-            # Log what we determined
             if github_org_source == "auto_derived":
                 print(
                     f"ℹ️  Derived GitHub organization '{github_org}' from repository path",
@@ -386,7 +366,6 @@ def main(args=None) -> int:
         elif hasattr(args, "verbose") and args.verbose:
             config.setdefault("logging", {})["level"] = "DEBUG"
 
-        # Setup logging
         log_config = config.get("logging", {})
         logger = setup_logging(
             level=log_config.get("level", "INFO"),
@@ -398,24 +377,22 @@ def main(args=None) -> int:
         logger.info(f"Configuration digest: {compute_config_digest(config)[:12]}...")
         logger.debug(f"Using GitHub token from environment variable: {github_token_env}")
 
-        # Write configuration to GitHub Step Summary
         write_config_to_step_summary(config, args.project)
 
         # Validate-only mode
         if hasattr(args, "validate_only") and args.validate_only:
             logger.info("Configuration validation successful")
+            features = config.get("features", {})
             print(f"✅ Configuration valid for project '{args.project}'")
             print(f"   - Schema version: {config.get('schema_version', 'Unknown')}")
             print(f"   - Time windows: {list(config.get('time_windows', {}).keys())}")
-            print(f"   - Features enabled: {len(config.get('features', {}).get('enabled', []))}")
+            print(f"   - Features enabled: {len(features.get('enabled', []))}")
             return 0
 
-        # Create output directory
         args.output_dir.mkdir(parents=True, exist_ok=True)
         project_output_dir = args.output_dir / args.project
         project_output_dir.mkdir(parents=True, exist_ok=True)
 
-        # Initialize reporter with API statistics tracking
         reporter = RepositoryReporter(config, logger, api_stats)
 
         # Analyze repositories
@@ -427,7 +404,6 @@ def main(args=None) -> int:
         html_path = project_output_dir / "report.html"
         config_path = project_output_dir / "config_resolved.json"
 
-        # Write JSON report
         import json
 
         logger.info(f"Writing JSON report to {json_path}")
@@ -443,14 +419,12 @@ def main(args=None) -> int:
             logger.info(f"Converting to HTML report at {html_path}")
             reporter.renderer.render_html_report(report_data, html_path)
 
-        # Write resolved configuration
         save_resolved_config(config, config_path)
 
         # Create ZIP bundle (unless disabled)
         if not (hasattr(args, "no_zip") and args.no_zip):
             create_report_bundle(project_output_dir, args.project, logger)
 
-        # Print summary
         repo_count = len(report_data["repositories"])
         error_count = len(report_data["errors"])
 
@@ -462,12 +436,10 @@ def main(args=None) -> int:
         if error_count > 0:
             print(f"   - Check {json_path} for error details")
 
-        # Print API statistics
         api_stats_output = api_stats.format_console_output()
         if api_stats_output:
             print(api_stats_output)
 
-        # Write API statistics to GitHub Step Summary
         api_stats.write_to_step_summary()
 
         return 0

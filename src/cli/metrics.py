@@ -20,6 +20,7 @@ Features:
 Phase 13: CLI & UX Improvements - Step 6
 """
 
+import logging
 import threading
 import time
 from collections import defaultdict
@@ -28,6 +29,9 @@ from pathlib import Path
 from typing import Any
 
 import psutil
+
+
+logger = logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -232,7 +236,7 @@ class MetricsCollector:
                     self._peak_memory = max(self._peak_memory, memory_mb)
                 time.sleep(0.5)  # Sample every 500ms
             except Exception:
-                pass
+                logger.debug("Memory sampling iteration failed", exc_info=True)
 
     def time_operation(self, name: str, **metadata):
         """
@@ -369,7 +373,7 @@ class MetricsCollector:
                     1024 * 1024
                 )
             except AttributeError:
-                pass
+                logger.debug("Disk I/O counters unavailable", exc_info=True)
 
         return ResourceUsage(
             peak_memory_mb=peak_memory,

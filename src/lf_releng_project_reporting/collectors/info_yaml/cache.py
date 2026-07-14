@@ -137,7 +137,6 @@ class LRUCache(Generic[T]):
             self._evict_entry(key)
             return default
 
-        # Update access metadata
         entry.touch()
         self._hits += 1
 
@@ -164,7 +163,6 @@ class LRUCache(Generic[T]):
         if key in self._cache:
             self._evict_entry(key)
 
-        # Create cache entry
         entry = CacheEntry(
             key=key,
             value=value,
@@ -222,11 +220,9 @@ class LRUCache(Generic[T]):
         Args:
             incoming_size: Size of entry being added
         """
-        # Check entry count limit
         while len(self._cache) >= self.max_entries:
             self._evict_lru()
 
-        # Check size limit
         if self.max_size_bytes is not None:
             while self._total_size_bytes + incoming_size > self.max_size_bytes and self._cache:
                 self._evict_lru()
@@ -355,7 +351,17 @@ class PersistentCache:
                 with open(cache_file) as f:
                     return json.load(f)
             elif self.format == "pickle":
-                with open(cache_file, "rb") as f:
+                # Defense in depth: never unpickle a file that resolves
+                # outside the cache directory (e.g. via a symlink).
+                resolved = cache_file.resolve()
+                if self.cache_dir.resolve() not in resolved.parents:
+                    self.logger.warning(
+                        "Refusing to load cache file outside cache directory: %s",
+                        cache_file,
+                    )
+                    return None
+                with open(resolved, "rb") as f:
+                    # aislop-ignore-next-line pickle-load -- path-contained cache file written by this tool
                     return pickle.load(f)
             else:
                 self.logger.error(f"Unknown format: {self.format}")
@@ -527,10 +533,8 @@ class MultiLevelCache(Generic[T]):
             value: Value to cache
             ttl: Time-to-live in seconds
         """
-        # Write to L1
         self.memory_cache.set(key, value, ttl=ttl)
 
-        # Write to L2
         if self.disk_cache is not None:
             self.disk_cache.set(key, value)
 
@@ -595,7 +599,6 @@ def create_info_yaml_cache(
     Returns:
         Configured MultiLevelCache instance
     """
-    # Create memory cache
     memory_cache: LRUCache[Any] = LRUCache(
         max_entries=max_memory_entries,
         max_size_bytes=100 * 1024 * 1024,  # 100MB

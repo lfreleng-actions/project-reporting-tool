@@ -198,7 +198,7 @@ class CacheManager:
 
     def __init__(
         self,
-        cache_dir: str | Path = ".report-cache",
+        cache_dir: str | Path | None = None,
         ttl: float = 3600,
         max_size_mb: float = 1000,
         auto_cleanup: bool = True,
@@ -207,11 +207,16 @@ class CacheManager:
         Initialize cache manager.
 
         Args:
-            cache_dir: Directory for cache storage
+            cache_dir: Directory for cache storage. Defaults to a per-user
+                cache location rather than a working-directory-relative path,
+                so the tool never unpickles cache files that happen to live
+                inside an analyzed (and potentially untrusted) repository.
             ttl: Default time-to-live in seconds (0 = never expire)
             max_size_mb: Maximum cache size in megabytes
             auto_cleanup: Automatically clean expired entries
         """
+        if cache_dir is None:
+            cache_dir = Path.home() / ".cache" / "lf-releng-project-reporting" / "report-cache"
         self.cache_dir = Path(cache_dir)
         self.ttl = ttl
         self.max_size_mb = max_size_mb
@@ -224,10 +229,8 @@ class CacheManager:
         # Statistics
         self._stats = CacheStats()
 
-        # Initialize cache directory
         self._init_cache_dir()
 
-        # Load existing cache
         self._load_cache()
 
         logger.info(
@@ -239,7 +242,6 @@ class CacheManager:
         """Initialize cache directory structure."""
         self.cache_dir.mkdir(parents=True, exist_ok=True)
 
-        # Create subdirectories for different cache types
         for cache_type in CacheType:
             (self.cache_dir / cache_type.value).mkdir(exist_ok=True)
 
@@ -261,9 +263,23 @@ class CacheManager:
             if not type_dir.exists():
                 continue
 
+            cache_root = self.cache_dir.resolve()
             for cache_file in type_dir.rglob("*.pkl"):
                 try:
-                    with open(cache_file, "rb") as f:
+                    # Defense in depth: never unpickle a file that resolves
+                    # outside the cache directory (e.g. via a symlink).
+                    resolved = cache_file.resolve()
+                    if cache_root not in resolved.parents:
+                        # Skip without unlinking: the path may resolve
+                        # outside the cache because a parent directory is a
+                        # symlink, and unlinking would delete the external
+                        # target rather than the cache entry.
+                        logger.warning(
+                            "Skipping cache file outside cache directory: %s", cache_file
+                        )
+                        continue
+                    with open(resolved, "rb") as f:
+                        # aislop-ignore-next-line pickle-load -- path-contained cache file written by this tool
                         entry: CacheEntry = pickle.load(f)
 
                     if entry.is_expired():
@@ -346,7 +362,6 @@ class CacheManager:
             if self.auto_cleanup:
                 self._maybe_evict(size_bytes)
 
-            # Create entry
             entry = CacheEntry(
                 key=key,
                 value=value,
@@ -420,10 +435,8 @@ class CacheManager:
 
     def _invalidate_entry(self, key: str, entry: CacheEntry) -> None:
         """Remove entry from cache."""
-        # Remove from memory
         del self._cache[key]
 
-        # Remove from disk
         cache_file = self._get_cache_file(key, entry.cache_type)
         cache_file.unlink(missing_ok=True)
 
@@ -796,7 +809,7 @@ class AnalysisResultCache:
 
 
 def create_cache_manager(
-    cache_dir: str | Path = ".report-cache",
+    cache_dir: str | Path | None = None,
     ttl: float = 3600,
     max_size_mb: float = 1000,
     auto_cleanup: bool = True,

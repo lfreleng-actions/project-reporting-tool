@@ -25,7 +25,6 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
-# Import API clients for GitHub integration
 from api.github_client import GitHubAPIClient
 
 
@@ -117,7 +116,8 @@ class FeatureRegistry:
             >>> if features["dependabot"]["present"]:
             ...     print("Dependabot is configured!")
         """
-        enabled_features = self.config.get("features", {}).get("enabled", [])
+        features_config = self.config.get("features", {})
+        enabled_features = features_config.get("enabled", [])
         results = {}
 
         for feature_name in enabled_features:
@@ -178,7 +178,6 @@ class FeatureRegistry:
 
         matching_workflows: list[dict[str, str]] = []
         try:
-            # Process .yml files
             for workflow_file in workflows_dir.glob("*.yml"):
                 try:
                     with open(workflow_file, encoding="utf-8") as f:
@@ -294,7 +293,6 @@ class FeatureRegistry:
                     compiled_pattern = re.compile(regex_str, re.IGNORECASE)
                     regex_patterns.append((pattern, compiled_pattern))
                 except re.error as e:
-                    # Log invalid regex but continue processing
                     self.logger.warning(
                         f"Invalid regex pattern '{regex_str}' in g2g configuration: {e}"
                     )
@@ -304,7 +302,6 @@ class FeatureRegistry:
         found_files = []
         matched_patterns: dict[str, list[str]] = {}
 
-        # Check exact filenames first
         for filename in exact_filenames:
             file_path = workflows_dir / filename
             if file_path.exists():
@@ -313,10 +310,8 @@ class FeatureRegistry:
                     matched_patterns[filename] = []
                 matched_patterns[filename].append(filename)
 
-        # Check regex patterns against all workflow files
         if regex_patterns:
             try:
-                # Get all files in the workflows directory
                 workflow_files = [
                     f for f in workflows_dir.iterdir() if f.is_file() and not f.name.startswith(".")
                 ]
@@ -335,7 +330,6 @@ class FeatureRegistry:
                             matched_patterns[pattern_str].append(workflow_filename)
 
             except OSError as e:
-                # Log error reading directory but continue
                 self.logger.warning(f"Error reading workflows directory {workflows_dir}: {e}")
 
         # Sort found files for consistent ordering
@@ -396,7 +390,6 @@ class FeatureRegistry:
         Returns:
             Dict with keys: present (bool), config_type (str or None), config_files (list)
         """
-        # Check for RTD config files
         rtd_configs = [
             ".readthedocs.yml",
             ".readthedocs.yaml",
@@ -411,20 +404,17 @@ class FeatureRegistry:
         found_configs = []
         config_type = None
 
-        # Check RTD config files
         for config in rtd_configs:
             if (repo_path / config).exists():
                 found_configs.append(config)
                 config_type = "readthedocs"
 
-        # Check Sphinx configs
         for config in sphinx_configs:
             if (repo_path / config).exists():
                 found_configs.append(config)
                 if not config_type:
                     config_type = "sphinx"
 
-        # Check MkDocs configs
         for config in mkdocs_configs:
             if (repo_path / config).exists():
                 found_configs.append(config)
@@ -553,7 +543,6 @@ class FeatureRegistry:
             matches = []
             for config_pattern in config_files:
                 if "*" in config_pattern:
-                    # Handle glob patterns
                     try:
                         matching_files = list(repo_path.glob(config_pattern))
                         if matching_files:
@@ -586,7 +575,6 @@ class FeatureRegistry:
                 {"type": "Java/Maven", "files": [], "confidence": combined_confidence}
             )
             confidence_scores["Java/Maven"] = combined_confidence
-            # Remove individual entries
             detected_types = [t for t in detected_types if t["type"] not in ["Java", "Maven"]]
             confidence_scores.pop("Java", None)
             confidence_scores.pop("Maven", None)
@@ -607,7 +595,6 @@ class FeatureRegistry:
                 {"type": "Java/Gradle", "files": [], "confidence": combined_confidence}
             )
             confidence_scores["Java/Gradle"] = combined_confidence
-            # Remove individual entries
             detected_types = [t for t in detected_types if t["type"] not in ["Java", "Gradle"]]
             confidence_scores.pop("Java", None)
             confidence_scores.pop("Gradle", None)
@@ -709,7 +696,6 @@ class FeatureRegistry:
         """
         indicators = []
 
-        # Check for common documentation files
         doc_files = [
             "README.md",
             "README.rst",
@@ -730,7 +716,6 @@ class FeatureRegistry:
             if (repo_path / doc_file).exists():
                 indicators.append(doc_file)
 
-        # Check for documentation directories
         doc_dirs = [
             "docs",
             "doc",
@@ -744,16 +729,14 @@ class FeatureRegistry:
             if (repo_path / doc_dir).is_dir():
                 indicators.append(f"{doc_dir}/")
 
-        # Check for common documentation file extensions in root
         try:
             doc_extensions = [".md", ".rst", ".adoc", ".txt"]
             for ext in doc_extensions:
                 if list(repo_path.glob(f"*{ext}")):
                     indicators.append(f"*{ext}")
         except OSError:
-            pass
+            self.logger.debug("Failed to scan %s for documentation files", repo_path, exc_info=True)
 
-        # Check for static site generators
         static_generators = [
             ".gitbook",  # GitBook
             "_config.yml",  # Jekyll
@@ -787,8 +770,8 @@ class FeatureRegistry:
                 "files": [],
             }
 
-        # Get classification patterns from config
-        workflow_config = self.config.get("workflows", {}).get("classify", {})
+        workflows_config = self.config.get("workflows", {})
+        workflow_config = workflows_config.get("classify", {})
         verify_patterns = workflow_config.get("verify", ["verify", "test", "ci", "check"])
         merge_patterns = workflow_config.get("merge", ["merge", "release", "deploy", "publish"])
 
@@ -796,7 +779,6 @@ class FeatureRegistry:
         classified = {"verify": 0, "merge": 0, "other": 0}
 
         try:
-            # Process .yml files
             for workflow_file in workflows_dir.glob("*.yml"):
                 workflow_info = self._analyze_workflow_file(
                     workflow_file, verify_patterns, merge_patterns
@@ -804,7 +786,6 @@ class FeatureRegistry:
                 workflow_files.append(workflow_info)
                 classified[workflow_info["classification"]] += 1
 
-            # Process .yaml files
             for workflow_file in workflows_dir.glob("*.yaml"):
                 workflow_info = self._analyze_workflow_file(
                     workflow_file, verify_patterns, merge_patterns
@@ -819,7 +800,6 @@ class FeatureRegistry:
                 "files": [],
             }
 
-        # Extract just the workflow names for telemetry
         workflow_names = [workflow_info["name"] for workflow_info in workflow_files]
 
         # Base result with static analysis
@@ -832,14 +812,12 @@ class FeatureRegistry:
         }
 
         # Try GitHub API integration if enabled and token available
-        github_api_enabled = (
-            self.config.get("extensions", {}).get("github_api", {}).get("enabled", False)
-        )
+        extensions_config = self.config.get("extensions", {})
+        github_api_config = extensions_config.get("github_api", {})
+        github_api_enabled = github_api_config.get("enabled", False)
         # Get the configured environment variable name (defaults to GITHUB_TOKEN)
         github_token_env = self.config.get("_github_token_env", "GITHUB_TOKEN")
-        github_token = self.config.get("extensions", {}).get("github_api", {}).get(
-            "token"
-        ) or os.environ.get(github_token_env)
+        github_token = github_api_config.get("token") or os.environ.get(github_token_env)
 
         is_github_repo = self._is_github_repository(repo_path)
 
@@ -850,7 +828,6 @@ class FeatureRegistry:
             f"is_github_repo={is_github_repo}"
         )
 
-        # Validate prerequisites for GitHub API integration
         if github_api_enabled and not github_token:
             self.logger.warning(
                 f"GitHub API enabled but token not available ({github_token_env}). "
@@ -1040,7 +1017,6 @@ class FeatureRegistry:
             True if repository has GitHub indicators
         """
         try:
-            # Check for git directory
             git_dir = repo_path / ".git"
             if not git_dir.exists():
                 return False
@@ -1108,9 +1084,9 @@ class FeatureRegistry:
             # Try to access GitHub API to verify repository exists
             # Get the configured environment variable name (defaults to GITHUB_TOKEN)
             github_token_env = self.config.get("_github_token_env", "GITHUB_TOKEN")
-            github_token = self.config.get("extensions", {}).get("github_api", {}).get(
-                "token"
-            ) or os.environ.get(github_token_env)
+            extensions_config = self.config.get("extensions", {})
+            github_api_config = extensions_config.get("github_api", {})
+            github_token = github_api_config.get("token") or os.environ.get(github_token_env)
 
             if github_token:
                 try:
@@ -1169,7 +1145,6 @@ class FeatureRegistry:
                 match = re.search(pattern, content)
                 if match:
                     owner, repo = match.groups()
-                    # Clean up repo name
                     repo = repo.rstrip(".git")
                     return owner, repo
 
@@ -1216,7 +1191,6 @@ class FeatureRegistry:
                     break
 
             if gerrit_host_index >= 0 and gerrit_host_index < len(path_parts) - 1:
-                # Get all path components after the gerrit host
                 repo_parts = path_parts[gerrit_host_index + 1 :]
                 if repo_parts:
                     # Join multi-level paths with hyphens
@@ -1253,7 +1227,6 @@ class FeatureRegistry:
         if not gitreview_file.exists():
             return {"present": False, "file": None, "config": {}}
 
-        # Parse .gitreview file content
         config = {}
         try:
             with open(gitreview_file, encoding="utf-8") as f:
