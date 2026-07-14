@@ -220,6 +220,7 @@ def select_option(question: str, options: list[tuple[str, str]], default: int = 
                 print(f"Please enter a number between 1 and {len(options)}")
         except ValueError:
             print(f"Please enter a number between 1 and {len(options)}")
+            continue
 
 
 def print_section(title: str) -> None:

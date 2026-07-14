@@ -26,6 +26,7 @@ Example:
 
 import contextlib
 import hashlib
+import logging
 import os
 import shutil
 import subprocess
@@ -34,6 +35,9 @@ from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
 from typing import Any
+
+
+logger = logging.getLogger(__name__)
 
 
 class CloneStrategy(Enum):
@@ -211,9 +215,7 @@ class ReferenceRepository:
         Returns:
             Path to reference repository
         """
-        # Create hash of URL for directory name
         url_hash = hashlib.sha256(repo_url.encode()).hexdigest()[:16]
-        # Extract repo name from URL
         repo_name = repo_url.rstrip("/").split("/")[-1].replace(".git", "")
         return self.reference_dir / f"{repo_name}_{url_hash}"
 
@@ -248,7 +250,6 @@ class ReferenceRepository:
                 return ref_path
 
             if ref_path.exists() and update:
-                # Update existing reference
                 subprocess.run(
                     ["git", "fetch", "--all"],
                     cwd=ref_path,
@@ -313,7 +314,6 @@ class ReferenceRepository:
             if not ref_path.is_dir():
                 continue
 
-            # Check age
             mtime = ref_path.stat().st_mtime
             age = now - mtime
 
@@ -322,7 +322,7 @@ class ReferenceRepository:
                     shutil.rmtree(ref_path)
                     count += 1
                 except Exception:
-                    pass
+                    logger.debug("Failed to remove stale reference %s", ref_path, exc_info=True)
 
         return count
 
@@ -356,7 +356,6 @@ class GitOptimizer:
         self.config.validate()
         self.profiler = profiler
 
-        # Initialize sub-components
         self.shallow_strategy = ShallowCloneStrategy(default_depth=self.config.shallow_depth)
 
         self.reference_repo = None
@@ -465,7 +464,6 @@ class GitOptimizer:
             else:
                 strategy = CloneStrategy.FULL
 
-        # Build git clone command
         cmd = ["git", "clone"]
 
         # Add shallow clone options
@@ -585,12 +583,10 @@ class GitOptimizer:
                 repositories=repositories, processor_func=clone_func
             )
 
-            # Extract GitOperationResults from aggregated results
             results = []
             for item in aggregated.successful:
                 results.append(item.result)
             for item in aggregated.failed:
-                # Create error result
                 url, dest = repositories[len(results)]
                 results.append(
                     GitOperationResult(

@@ -136,7 +136,6 @@ class JJBRepoManager:
             True if repository should be updated, False otherwise
         """
         try:
-            # Get the last modification time of the .git directory
             git_dir = path / ".git"
             if not git_dir.exists():
                 logger.warning(f"No .git directory found in {path}")
@@ -339,16 +338,14 @@ class JJBRepoManager:
                 if not repo_dir.is_dir():
                     continue
 
-                # Get repository size
                 size = 0
                 try:
                     for item in repo_dir.rglob("*"):
                         if item.is_file():
                             size += item.stat().st_size
                 except Exception:
-                    pass
+                    logger.debug("Failed to compute size for %s", repo_dir, exc_info=True)
 
-                # Get age
                 try:
                     age = time.time() - repo_dir.stat().st_mtime
                     age_hours = age / 3600
