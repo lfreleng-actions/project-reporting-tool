@@ -31,6 +31,7 @@ Example:
 
 import importlib.util
 import json
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
@@ -41,6 +42,28 @@ from cli.errors import ConfigurationError
 
 
 HAS_JSONSCHEMA = importlib.util.find_spec("jsonschema") is not None
+
+
+def _extract_quoted(message: str) -> str:
+    """Return the first single-quoted token in a schema error message."""
+    return message.split("'")[1]
+
+
+# Table-driven formatting for JSON Schema validation errors, keyed by the
+# jsonschema validator that produced the error. Any validator absent from this
+# table falls back to the raw error message.
+_SCHEMA_ERROR_FORMATTERS: dict[str, Callable[[Any], str]] = {
+    "required": lambda e: f"Missing required field: '{_extract_quoted(e.message)}'",
+    "type": lambda e: (
+        f"Invalid type: expected {e.validator_value}, " f"got {type(e.instance).__name__}"
+    ),
+    "enum": lambda e: (
+        "Invalid value. Must be one of: " + ", ".join(f"'{v}'" for v in e.validator_value)
+    ),
+    "minimum": lambda e: f"Value {e.instance} is below minimum {e.validator_value}",
+    "maximum": lambda e: f"Value {e.instance} exceeds maximum {e.validator_value}",
+    "pattern": lambda e: (f"Value does not match required pattern: {e.validator_value}"),
+}
 
 
 class ValidationLevel(Enum):
@@ -252,30 +275,15 @@ class ConfigValidator:
 
     def _format_schema_error(self, error: Any) -> str:
         """Format JSON schema error message."""
-        # Simplify common error messages
-        if error.validator == "required":
-            missing = error.message.split("'")[1]
-            return f"Missing required field: '{missing}'"
-        elif error.validator == "type":
-            expected = error.validator_value
-            actual = type(error.instance).__name__
-            return f"Invalid type: expected {expected}, got {actual}"
-        elif error.validator == "enum":
-            valid_values = ", ".join(f"'{v}'" for v in error.validator_value)
-            return f"Invalid value. Must be one of: {valid_values}"
-        elif error.validator == "minimum":
-            return f"Value {error.instance} is below minimum {error.validator_value}"
-        elif error.validator == "maximum":
-            return f"Value {error.instance} exceeds maximum {error.validator_value}"
-        elif error.validator == "pattern":
-            return f"Value does not match required pattern: {error.validator_value}"
-        else:
-            return str(error.message)
+        formatter = _SCHEMA_ERROR_FORMATTERS.get(error.validator)
+        if formatter is not None:
+            return formatter(error)
+        return str(error.message)
 
     def _get_schema_error_suggestion(self, error: Any) -> str | None:
         """Get helpful suggestion for schema error."""
         if error.validator == "required":
-            missing = error.message.split("'")[1]
+            missing = _extract_quoted(error.message)
             if missing == "schema_version":
                 return "Add 'schema_version: \"1.2.0\"' to your configuration"
             elif missing == "project":
@@ -283,7 +291,7 @@ class ConfigValidator:
         elif error.validator == "additionalProperties":
             # Find which property is not allowed
             if hasattr(error, "message") and "'" in error.message:
-                extra_prop = error.message.split("'")[1]
+                extra_prop = _extract_quoted(error.message)
                 return f"Remove '{extra_prop}' or check for typos in property name"
 
         return None
