@@ -210,8 +210,10 @@ class GitDataCollector:
         """Initialize the Jenkins API client from the environment or config.
 
         The ``JENKINS_HOST`` environment variable takes precedence over the
-        config-file host. Jenkins is mandatory when configured, so failures are
-        re-raised after logging.
+        config-file host. Client initialization failures are logged and
+        re-raised. A config-enabled Jenkins with no host configured is logged
+        as an error and skipped (no client is created, no exception raised),
+        preserving the original behavior.
         """
         if jenkins_host:
             # Environment variable takes precedence - enables Jenkins integration
@@ -1162,9 +1164,9 @@ class GitDataCollector:
 
                         # Skip binary files if configured
                         data_quality_config = self.config.get("data_quality", {})
-                        if data_quality_config.get("skip_binary_changes", True) and (
-                            parts[0] == "-" or parts[1] == "-"
-                        ):
+                        if data_quality_config.get(
+                            "skip_binary_changes", True
+                        ) and (parts[0] == "-" or parts[1] == "-"):
                             continue
 
                         files_changed = current_commit["files_changed"]

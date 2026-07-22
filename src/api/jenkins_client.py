@@ -191,9 +191,7 @@ class JenkinsAPIClient(BaseAPIClient):
         if hasattr(self, "client"):
             self.client.close()
 
-    def _probe_api_patterns(
-        self, api_patterns: list[str], *, via_http: bool = False
-    ) -> tuple[bool, bool]:
+    def _probe_api_patterns(self, api_patterns: list[str], *, via_http: bool = False) -> tuple[bool, bool]:
         """Try each API pattern against the current base URL.
 
         Records the first pattern that returns a valid jobs listing on
@@ -270,6 +268,10 @@ class JenkinsAPIClient(BaseAPIClient):
 
         jenkins_user = os.environ.get("JENKINS_USER")
         jenkins_token = os.environ.get("JENKINS_API_TOKEN")
+
+        # Close the existing HTTPS client before replacing it to avoid leaking
+        # open connections during API base-path discovery.
+        self.client.close()
 
         if jenkins_user and jenkins_token:
             self.client = httpx.Client(timeout=self.timeout, auth=(jenkins_user, jenkins_token))
