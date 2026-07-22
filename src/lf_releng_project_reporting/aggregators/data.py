@@ -43,62 +43,16 @@ class DataAggregator:
 
         # Primary time window for rankings (configurable, defaults to last_365)
         primary_window = self.config.get("primary_reporting_window", "last_365")
-
-        time_windows = self.config.get("time_windows", {})
-        window_config = time_windows.get(primary_window, {})
-
-        if isinstance(window_config, dict) and "days" in window_config:
-            primary_window_days = window_config["days"]
-        elif isinstance(window_config, int):
-            primary_window_days = window_config
-        else:
-            # Fallback to 365 if window not found
-            self.logger.warning(
-                f"Primary reporting window '{primary_window}' not found in time_windows, "
-                "defaulting to 365 days"
-            )
-            primary_window_days = 365
+        primary_window_days = self._resolve_primary_window_days(primary_window)
 
         # Classify repositories by unified activity status
-        current_repos = []
-        active_repos = []
-        inactive_repos = []
-
-        total_commits = 0
-        total_lines_added = 0
-        no_commit_repos = []  # Separate list for repositories with no commits
-
-        for repo in repo_metrics:
-            days_since_last = repo.get("days_since_last_commit")
-
-            # Count total commits and lines of code
-            commit_counts = repo.get("commit_counts", {})
-            total_commits += commit_counts.get(primary_window, 0)
-            loc_stats = repo.get("loc_stats", {})
-            primary_loc_stats = loc_stats.get(primary_window, {})
-            total_lines_added += primary_loc_stats.get("added", 0)
-
-            # Check if repository has no commits at all (use the explicit flag)
-            has_any_commits = repo.get("has_any_commits", False)
-
-            if not has_any_commits:
-                # Repository with no commits - separate category
-                no_commit_repos.append(repo)
-            else:
-                # Repository has commits - categorize by unified activity status
-                # Handle case where days_since_last_commit might be None
-                if days_since_last is None:
-                    # If we have commits but no days_since_last, treat as inactive
-                    inactive_repos.append(repo)
-                else:
-                    activity_status = repo.get("activity_status", "inactive")
-
-                    if activity_status == "current":
-                        current_repos.append(repo)
-                    elif activity_status == "active":
-                        active_repos.append(repo)
-                    else:
-                        inactive_repos.append(repo)
+        classification = self._classify_repositories(repo_metrics, primary_window)
+        current_repos = classification["current"]
+        active_repos = classification["active"]
+        inactive_repos = classification["inactive"]
+        no_commit_repos = classification["no_commit"]
+        total_commits = classification["total_commits"]
+        total_lines_added = classification["total_lines_added"]
 
         # Aggregate author and organization data
         self.logger.info("Computing author rollups")
@@ -161,33 +115,9 @@ class DataAggregator:
                 "total_organizations": len(organizations),
             },
             "activity_status_distribution": {
-                "current": [
-                    {
-                        "gerrit_project": r.get("gerrit_project", "Unknown"),
-                        "days_since_last_commit": r.get("days_since_last_commit")
-                        if r.get("days_since_last_commit") is not None
-                        else 999999,
-                    }
-                    for r in current_repos
-                ],
-                "active": [
-                    {
-                        "gerrit_project": r.get("gerrit_project", "Unknown"),
-                        "days_since_last_commit": r.get("days_since_last_commit")
-                        if r.get("days_since_last_commit") is not None
-                        else 999999,
-                    }
-                    for r in active_repos
-                ],
-                "inactive": [
-                    {
-                        "gerrit_project": r.get("gerrit_project", "Unknown"),
-                        "days_since_last_commit": r.get("days_since_last_commit")
-                        if r.get("days_since_last_commit") is not None
-                        else 999999,
-                    }
-                    for r in inactive_repos
-                ],
+                "current": self._activity_distribution_entries(current_repos),
+                "active": self._activity_distribution_entries(active_repos),
+                "inactive": self._activity_distribution_entries(inactive_repos),
             },
             "top_current_repositories": top_current,
             "top_active_repositories": top_active,
@@ -205,6 +135,93 @@ class DataAggregator:
         self.logger.info(f"Found {len(authors)} authors across {len(organizations)} organizations")
 
         return summaries
+
+    def _resolve_primary_window_days(self, primary_window: str) -> int:
+        """Resolve the day count for the configured primary reporting window.
+
+        Falls back to 365 days (with a warning) when the window is missing or
+        malformed in the configuration.
+        """
+        time_windows = self.config.get("time_windows", {})
+        window_config = time_windows.get(primary_window, {})
+
+        if isinstance(window_config, dict) and "days" in window_config:
+            return window_config["days"]
+        if isinstance(window_config, int):
+            return window_config
+
+        # Fallback to 365 if window not found
+        self.logger.warning(
+            f"Primary reporting window '{primary_window}' not found in time_windows, "
+            "defaulting to 365 days"
+        )
+        return 365
+
+    def _classify_repositories(
+        self, repo_metrics: list[dict[str, Any]], primary_window: str
+    ) -> dict[str, Any]:
+        """Classify repositories by activity status and total commit/LOC counts.
+
+        Returns a dict with the ``current``, ``active``, ``inactive``, and
+        ``no_commit`` repository lists plus ``total_commits`` and
+        ``total_lines_added`` for the primary window.
+        """
+        current_repos: list[dict[str, Any]] = []
+        active_repos: list[dict[str, Any]] = []
+        inactive_repos: list[dict[str, Any]] = []
+        no_commit_repos: list[dict[str, Any]] = []
+
+        total_commits = 0
+        total_lines_added = 0
+
+        for repo in repo_metrics:
+            days_since_last = repo.get("days_since_last_commit")
+
+            # Count total commits and lines of code
+            commit_counts = repo.get("commit_counts", {})
+            total_commits += commit_counts.get(primary_window, 0)
+            loc_stats = repo.get("loc_stats", {})
+            primary_loc_stats = loc_stats.get(primary_window, {})
+            total_lines_added += primary_loc_stats.get("added", 0)
+
+            # Repository with no commits at all - separate category
+            if not repo.get("has_any_commits", False):
+                no_commit_repos.append(repo)
+                continue
+
+            # Repository has commits but no days_since_last - treat as inactive
+            if days_since_last is None:
+                inactive_repos.append(repo)
+                continue
+
+            activity_status = repo.get("activity_status", "inactive")
+            if activity_status == "current":
+                current_repos.append(repo)
+            elif activity_status == "active":
+                active_repos.append(repo)
+            else:
+                inactive_repos.append(repo)
+
+        return {
+            "current": current_repos,
+            "active": active_repos,
+            "inactive": inactive_repos,
+            "no_commit": no_commit_repos,
+            "total_commits": total_commits,
+            "total_lines_added": total_lines_added,
+        }
+
+    def _activity_distribution_entries(self, repos: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        """Build activity-distribution entries, defaulting missing ages to 999999."""
+        return [
+            {
+                "gerrit_project": r.get("gerrit_project", "Unknown"),
+                "days_since_last_commit": r.get("days_since_last_commit")
+                if r.get("days_since_last_commit") is not None
+                else 999999,
+            }
+            for r in repos
+        ]
 
     def _analyze_repository_commit_status(self, repo_metrics: list[dict[str, Any]]) -> None:
         """Diagnostic function to analyze repository commit status."""
