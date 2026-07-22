@@ -20,6 +20,10 @@ Features:
 Phase 13: CLI & UX Improvements - Step 6
 """
 
+# This module renders user-facing terminal output (performance summaries and
+# debug metrics); print() is the intended sink here, not leftover debugging.
+# aislop-ignore-file python-print-debug -- intentional user-facing CLI output
+
 import logging
 import threading
 import time

@@ -24,6 +24,11 @@ Example:
     ...         print(f"WARNING: {warning.message}")
 """
 
+# The print_validation_result helper renders configuration validation output to
+# the terminal (stderr); print() is the intended output sink here, not leftover
+# debugging.
+# aislop-ignore-file python-print-debug -- intentional user-facing CLI output
+
 import importlib.util
 import json
 from dataclasses import dataclass, field

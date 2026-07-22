@@ -10,6 +10,10 @@ before executing repository analysis.
 Phase 9: CLI & UX Improvements
 """
 
+# This module renders dry-run validation results to the terminal; print() is
+# the intended output sink here, not leftover debugging.
+# aislop-ignore-file python-print-debug -- intentional user-facing CLI output
+
 import logging
 import os
 import shutil
