@@ -104,6 +104,59 @@ def test_basic_connectivity(host, verbose=False):
     return None
 
 
+def _probe_jenkins_pattern(base_url, pattern, verbose=False):
+    """Probe one Jenkins API pattern; return (pattern, job_count) or None."""
+    url = f"{base_url}{pattern}?tree=jobs[name]"
+    print_info(f"Testing: {pattern}")
+
+    try:
+        with httpx.Client(timeout=10.0, follow_redirects=True) as client:
+            response = client.get(url)
+    except httpx.ConnectError as e:
+        print_error(f"Connection failed: {e}")
+        return None
+    except httpx.TimeoutException:
+        print_error("Timeout")
+        return None
+    except Exception as e:
+        print_error(f"Error: {type(e).__name__}: {e}")
+        return None
+
+    if response.status_code == 403:
+        print_warning("Access forbidden (403) - may require authentication")
+        return None
+    if response.status_code == 404:
+        print_info("Not found (404)")
+        return None
+    if response.status_code != 200:
+        print_warning(f"HTTP {response.status_code}")
+        if verbose:
+            print(f"   Response: {response.text[:200]}")
+        return None
+
+    try:
+        data = response.json()
+    except json.JSONDecodeError as e:
+        print_error(f"Invalid JSON response: {e}")
+        if verbose:
+            print(f"   Response preview: {response.text[:200]}")
+        return None
+
+    if "jobs" not in data:
+        print_warning(f"Valid JSON but no 'jobs' key: {list(data.keys())}")
+        return None
+
+    job_count = len(data.get("jobs", []))
+    print_success(f"Working endpoint! Found {job_count} jobs")
+
+    if verbose and job_count > 0:
+        print("   Sample jobs:")
+        for job in data["jobs"][:5]:
+            print(f"      - {job.get('name', 'N/A')}")
+
+    return pattern, job_count
+
+
 def test_jenkins_api_patterns(base_url, verbose=False):
     """Test different Jenkins API endpoint patterns."""
     print_header("Test 2: Jenkins API Endpoint Discovery")
@@ -121,47 +174,9 @@ def test_jenkins_api_patterns(base_url, verbose=False):
     working_endpoints = []
 
     for pattern in patterns:
-        url = f"{base_url}{pattern}?tree=jobs[name]"
-        print_info(f"Testing: {pattern}")
-
-        try:
-            with httpx.Client(timeout=10.0, follow_redirects=True) as client:
-                response = client.get(url)
-
-                if response.status_code == 200:
-                    try:
-                        data = response.json()
-                        if "jobs" in data:
-                            job_count = len(data.get("jobs", []))
-                            print_success(f"Working endpoint! Found {job_count} jobs")
-                            working_endpoints.append((pattern, job_count))
-
-                            if verbose and job_count > 0:
-                                print("   Sample jobs:")
-                                for job in data["jobs"][:5]:
-                                    print(f"      - {job.get('name', 'N/A')}")
-                        else:
-                            print_warning(f"Valid JSON but no 'jobs' key: {list(data.keys())}")
-                    except json.JSONDecodeError as e:
-                        print_error(f"Invalid JSON response: {e}")
-                        if verbose:
-                            print(f"   Response preview: {response.text[:200]}")
-
-                elif response.status_code == 403:
-                    print_warning("Access forbidden (403) - may require authentication")
-                elif response.status_code == 404:
-                    print_info("Not found (404)")
-                else:
-                    print_warning(f"HTTP {response.status_code}")
-                    if verbose:
-                        print(f"   Response: {response.text[:200]}")
-
-        except httpx.ConnectError as e:
-            print_error(f"Connection failed: {e}")
-        except httpx.TimeoutException:
-            print_error("Timeout")
-        except Exception as e:
-            print_error(f"Error: {type(e).__name__}: {e}")
+        result = _probe_jenkins_pattern(base_url, pattern, verbose)
+        if result is not None:
+            working_endpoints.append(result)
 
     return working_endpoints
 

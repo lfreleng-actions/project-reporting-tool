@@ -204,13 +204,24 @@ def analyze_json_data(json_file):
     with open(json_file, encoding="utf-8") as f:
         data = json.load(f)
 
+    est_tech = _report_est_tech_org(data)
+    if est_tech is None:
+        return
+
+    repositories = data.get("repositories", [])
+    _report_repository_sample(repositories)
+    _check_duplicate_counting(repositories, est_tech)
+
+
+def _report_est_tech_org(data):
+    """Print est.tech organization and author details; return the org or None."""
     # Find est.tech organization
     organizations = data.get("organizations", [])
     est_tech = next((o for o in organizations if o.get("domain") == "est.tech"), None)
 
     if not est_tech:
         print("❌ est.tech not found in JSON data!")
-        return
+        return None
 
     print("\nOrganization Data:")
     print(f"  Domain: {est_tech.get('domain')}")
@@ -250,8 +261,11 @@ def analyze_json_data(json_file):
             print(f"     Lines added: {lines_added}")
             print(f"     Lines removed: {lines_removed}")
 
-    # Check repositories
-    repositories = data.get("repositories", [])
+    return est_tech
+
+
+def _report_repository_sample(repositories):
+    """Print a sample of repositories that have est.tech contributors."""
     print(f"\n\n📦 Total repositories: {len(repositories)}")
 
     # Sample some repositories and their metrics
@@ -274,7 +288,9 @@ def analyze_json_data(json_file):
             f"  - {repo_info['name']}: {repo_info['est_tech_count']}/{repo_info['total_authors']} authors from est.tech"
         )
 
-    # Check for duplicate counting
+
+def _check_duplicate_counting(repositories, est_tech):
+    """Compare summed per-repo est.tech metrics against organization totals."""
     print("\n\n🔎 Checking for duplicate counting issues...")
 
     # Sum up est.tech contributions from all repositories
