@@ -84,7 +84,6 @@ class RepositoryReporter:
         Returns the path to the cloned repository in a temporary directory,
         or None if cloning failed.
         """
-        # Create a temporary directory for info-master
         self.info_master_temp_dir = tempfile.mkdtemp(prefix="info-master-")
         info_master_path = Path(self.info_master_temp_dir) / "info-master"
         info_master_url = "https://gerrit.linuxfoundation.org/infra/releng/info-master"
@@ -185,7 +184,6 @@ class RepositoryReporter:
             }
             report_data["jenkins_metadata"] = jenkins_metadata
 
-        # Update git collector with time windows
         self.git_collector.time_windows = cast(
             dict[str, dict[str, Any]], report_data["time_windows"]
         )
@@ -200,13 +198,11 @@ class RepositoryReporter:
         # Analyze repositories (with concurrency)
         repo_metrics = self._analyze_repositories_parallel(repo_dirs)
 
-        # Extract successful metrics and errors
         successful_repos = []
         for metrics in repo_metrics:
             if "error" in metrics:
                 cast(list[dict[str, Any]], report_data["errors"]).append(metrics)
             else:
-                # Extract the repository record with embedded author data
                 successful_repos.append(metrics["repository"])
 
         report_data["repositories"] = successful_repos
@@ -255,14 +251,12 @@ class RepositoryReporter:
             self.logger.info(f"  Unallocated: {allocation_summary['unallocated_jobs']}")
             self.logger.info(f"  Allocation rate: {allocation_summary['allocation_percentage']}%")
 
-            # Validate allocation and report any issues
             validation_issues = self.git_collector.validate_jenkins_job_allocation()
             if validation_issues:
                 self.logger.warning("Jenkins job allocation information:")
                 for issue in validation_issues:
                     self.logger.debug(f"  - {issue}")
 
-                # Get final counts for reporting
                 allocation_summary = self.git_collector.get_jenkins_job_allocation_summary()
                 orphaned_summary = self.git_collector.get_orphaned_jenkins_jobs_summary()
 
@@ -279,7 +273,6 @@ class RepositoryReporter:
             # Add allocation data to report for debugging
             report_data["jenkins_allocation"] = allocation_summary
 
-            # Get unallocated job names and details for the report
             if allocation_summary.get("unallocated_jobs", 0) > 0:
                 all_jobs = self.git_collector.jenkins_allocation_context.get_all_jobs()
                 all_jobs_list = all_jobs.get("jobs", [])
@@ -342,7 +335,6 @@ class RepositoryReporter:
         # Analyze repositories
         report_data = self.analyze_repositories(repos_path)
 
-        # Define output paths
         project = self.config["project"]
         json_path = output_dir / "report_raw.json"
         markdown_path = output_dir / "report.md"
@@ -364,7 +356,6 @@ class RepositoryReporter:
             self.renderer.render_html_report(report_data, html_path)
             generated_files["html"] = html_path
 
-        # Save resolved configuration
         save_resolved_config(self.config, config_path)
         generated_files["config"] = config_path
 

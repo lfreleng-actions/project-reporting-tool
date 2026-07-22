@@ -45,11 +45,9 @@ class OrganizationMetrics:
 
     def __post_init__(self) -> None:
         """Validate organization metrics after initialization."""
-        # Validate required fields
         if not self.domain:
             raise ValueError("domain cannot be empty")
 
-        # Validate non-negative counts
         if self.contributor_count < 0:
             raise ValueError(
                 f"contributor_count must be non-negative, got {self.contributor_count}"

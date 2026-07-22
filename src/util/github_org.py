@@ -122,7 +122,6 @@ def _is_valid_github_org_name(org_name: str) -> bool:
     if not all(c.isalnum() or c == "-" for c in org_name):
         return False
 
-    # Check that it doesn't start or end with hyphen
     return not (org_name.startswith("-") or org_name.endswith("-"))
 
 
@@ -162,7 +161,6 @@ def _derive_org_from_path(repos_path: Path) -> str:
                 # Return the middle part (organization name)
                 org_name = parts[1]
 
-                # Validate before returning
                 if _is_valid_github_org_name(org_name):
                     return org_name
 

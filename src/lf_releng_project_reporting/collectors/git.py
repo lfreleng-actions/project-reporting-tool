@@ -79,7 +79,6 @@ def parse_git_iso_date(date_str: str) -> datetime.datetime:
     # Replace first space with 'T' to separate date and time
     date_str = date_str.replace(" ", "T", 1)
 
-    # Handle timezone offset: convert "+0100" to "+01:00"
     if "+" in date_str or date_str.count("-") > 2:
         # Split at the timezone offset
         if "+" in date_str:
@@ -142,7 +141,6 @@ class GitDataCollector:
         self.jenkins_allocation_context = jenkins_allocation_context or JenkinsAllocationContext()
         self._jenkins_initialized = False
 
-        # Check for Jenkins host from environment variable
         jenkins_host = os.environ.get("JENKINS_HOST")
         jenkins_config = self.config.get("jenkins", {})
 
@@ -157,7 +155,6 @@ class GitDataCollector:
                         host, base_url, timeout, stats=self.api_stats
                     )
                     self.logger.info(f"Initialized Gerrit API client for {host}")
-                    # Fetch all project data upfront
                     self._fetch_all_gerrit_projects()
                 except Exception as e:
                     self.logger.error(f"Failed to initialize Gerrit API client for {host}: {e}")
@@ -170,7 +167,6 @@ class GitDataCollector:
 
                 raise ConfigurationError(error_msg)
 
-        # Initialize Jenkins client
         if jenkins_host:
             # Environment variable takes precedence - enables Jenkins integration
             timeout = jenkins_config.get("timeout", 30.0)
@@ -183,12 +179,10 @@ class GitDataCollector:
                         "ci_management"
                     )
 
-                # Get Gerrit host for auto-deriving ci-management URL
                 gerrit_host = (
                     gerrit_config.get("host") if gerrit_config.get("enabled", False) else None
                 )
 
-                # Get HTTP fallback setting
                 allow_http_fallback = jenkins_config.get("allow_http_fallback", False)
 
                 self.jenkins_client = JenkinsAPIClient(
@@ -226,12 +220,10 @@ class GitDataCollector:
                             "ci_management"
                         )
 
-                    # Get Gerrit host for auto-deriving ci-management URL
                     gerrit_host = (
                         gerrit_config.get("host") if gerrit_config.get("enabled", False) else None
                     )
 
-                    # Get HTTP fallback setting
                     allow_http_fallback = jenkins_config.get("allow_http_fallback", False)
 
                     self.jenkins_client = JenkinsAPIClient(
@@ -243,7 +235,6 @@ class GitDataCollector:
                         allow_http_fallback=allow_http_fallback,
                     )
                     self.logger.info(f"Initialized Jenkins API client for {host} (from config)")
-                    # Initialize cache for config-based Jenkins client too
                     self._initialize_jenkins_cache()
                 except Exception as e:
                     self.logger.error(f"Failed to initialize Jenkins API client for {host}: {e}")
@@ -519,7 +510,6 @@ class GitDataCollector:
                 parts = output.split(",")
                 for part in parts:
                     if "insertion" in part:
-                        # Extract number before "insertion"
                         num_str = part.strip().split()[0]
                         try:
                             total_lines = int(num_str)
@@ -555,7 +545,6 @@ class GitDataCollector:
         else:
             repo_identifier = self._extract_gerrit_project(repo_path)
 
-        # Extract host/org information conditionally
         if gerrit_enabled:
             # Gerrit project - extract Gerrit-specific information
             gerrit_host = self._extract_gerrit_host(repo_path)
@@ -578,7 +567,6 @@ class GitDataCollector:
         # Use repo_identifier for gerrit_project field (works for both types)
         gerrit_project = repo_identifier
 
-        # Initialize metrics structure with Gerrit-centric model
         metrics: dict[str, Any] = {
             "repository": {
                 "gerrit_project": gerrit_project,  # PRIMARY identifier
@@ -618,7 +606,6 @@ class GitDataCollector:
                     self.logger.debug(f"Using cached metrics for {gerrit_project}")
                     return cached_metrics
 
-            # Get git log with numstat in a single command
             git_command = [
                 "git",
                 "log",
@@ -636,17 +623,14 @@ class GitDataCollector:
                 metrics["errors"].append(f"Git command failed: {output}")
                 return metrics
 
-            # Parse git log output
             commits_data = self._parse_git_log_output(output, gerrit_project)
 
-            # Update total commit count regardless of time windows
             metrics["repository"]["total_commits_ever"] = len(commits_data)
             metrics["repository"]["has_any_commits"] = len(commits_data) > 0
 
             # Count total lines of code in current repository HEAD
             metrics["repository"]["total_loc"] = self._count_total_loc(repo_path)
 
-            # Process commits into time windows
             for commit_data in commits_data:
                 self._update_commit_metrics(commit_data, metrics)
 
@@ -883,7 +867,6 @@ class GitDataCollector:
                     issues.append("Suggestions for unallocated project jobs:")
                     issues.extend(suggestions)
 
-            # Log infrastructure jobs as informational
             if infrastructure_jobs:
                 infrastructure_jobs_list = sorted(infrastructure_jobs)
                 issues.append(
@@ -933,7 +916,6 @@ class GitDataCollector:
 
             if best_match and best_score > 0:
                 project_name, project_info = best_match
-                # Update orphaned jobs in context
                 orphaned = self.jenkins_allocation_context.get_orphaned_jobs()
                 orphaned[job_name] = {
                     "project_name": project_name,
@@ -1007,7 +989,6 @@ class GitDataCollector:
         if full_domain in self._domain_config.get("preserve_full_domain", []):
             return full_domain
 
-        # Check for custom mappings
         custom_mappings = self._domain_config.get("custom_mappings", {})
         if full_domain in custom_mappings:
             return str(custom_mappings[full_domain])
@@ -1019,7 +1000,6 @@ class GitDataCollector:
         if len(parts) <= 2:
             return full_domain
 
-        # Return last two parts
         return ".".join(parts[-2:])
 
     def _load_domain_config(self) -> dict[str, Any]:
@@ -1056,11 +1036,9 @@ class GitDataCollector:
         - Handle malformed emails gracefully
         - Domain extraction for organization analysis
         """
-        # Clean and normalize inputs
         clean_name = name.strip() if name else "Unknown"
         clean_email = email.lower().strip() if email else ""
 
-        # Handle empty or malformed emails
         if not clean_email or "@" not in clean_email:
             unknown_placeholder = self.config.get("data_quality", {}).get(
                 "unknown_email_placeholder", "unknown@unknown"
@@ -1074,7 +1052,6 @@ class GitDataCollector:
             "domain": "",
         }
 
-        # Extract username and domain from email
         if "@" in clean_email:
             # Always split on the LAST @ symbol to handle complex email addresses
             parts = clean_email.split("@")
@@ -1174,7 +1151,6 @@ class GitDataCollector:
         )
         author_email = norm_email
 
-        # Create author info dict for compatibility
         author_info = {
             "name": norm_name,
             "email": norm_email,
@@ -1189,7 +1165,6 @@ class GitDataCollector:
         total_removed = sum(f["removed"] for f in commit["files_changed"])
         net_lines = total_added - total_removed
 
-        # Update repository metrics for each matching window
         for window in applicable_windows:
             metrics["repository"]["commit_counts"][window] += 1
             metrics["repository"]["loc_stats"][window]["added"] += total_added
@@ -1197,7 +1172,6 @@ class GitDataCollector:
             metrics["repository"]["loc_stats"][window]["net"] += net_lines
             metrics["repository"]["unique_contributors"][window].add(author_email)
 
-        # Update author metrics
         if author_email not in metrics["authors"]:
             metrics["authors"][author_email] = {
                 "name": author_info["name"],
@@ -1211,7 +1185,6 @@ class GitDataCollector:
                 "repositories": {window: set() for window in self.time_windows},
             }
 
-        # Update author metrics for each matching window
         author_metrics = metrics["authors"][author_email]
         for window in applicable_windows:
             author_metrics["commit_counts"][window] += 1
@@ -1264,7 +1237,6 @@ class GitDataCollector:
                     else:
                         repo_metrics["activity_status"] = "inactive"
 
-                    # Log appropriate message based on activity
                     if any(count > 0 for count in repo_metrics["commit_counts"].values()):
                         self.logger.debug(
                             f"Repository {repo_name} has {repo_metrics['total_commits_ever']} commits ({sum(repo_metrics['commit_counts'].values())} recent)"
@@ -1351,7 +1323,6 @@ class GitDataCollector:
             with open(cache_path, encoding="utf-8") as f:
                 cached_data = json.load(f)
 
-            # Validate cache structure
             if not isinstance(cached_data, dict) or "repository" not in cached_data:
                 project_name = self._extract_gerrit_project(repo_path)
                 self.logger.warning(f"Invalid cache structure for {project_name}")

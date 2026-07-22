@@ -94,14 +94,12 @@ class CommitterInfo:
         if not self.name or self.name == "Unknown":
             raise ValueError("Committer name cannot be empty or 'Unknown'")
 
-        # Validate activity status
         valid_statuses = {"current", "active", "inactive", "unknown"}
         if self.activity_status not in valid_statuses:
             raise ValueError(
                 f"activity_status must be one of {valid_statuses}, got '{self.activity_status}'"
             )
 
-        # Validate activity color
         valid_colors = {"green", "orange", "red", "gray"}
         if self.activity_color not in valid_colors:
             raise ValueError(
@@ -309,14 +307,12 @@ class ProjectInfo:
         if not data or not isinstance(data, dict):
             raise ValueError("Invalid project data")
 
-        # Parse project lead
         project_lead = None
         lead_data = data.get("project_lead")
         if lead_data:
             with contextlib.suppress(ValueError):
                 project_lead = PersonInfo.from_dict(lead_data)
 
-        # Parse committers
         committers = []
         for committer_data in data.get("committers", []):
             try:
@@ -325,7 +321,6 @@ class ProjectInfo:
                 # Skip invalid committer data
                 continue
 
-        # Parse issue tracking
         issue_tracking = IssueTracking.from_dict(data.get("issue_tracking", {}))
 
         return cls(

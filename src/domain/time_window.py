@@ -45,7 +45,6 @@ class TimeWindow:
         if not self.name:
             raise wrap_validation_error("cannot be empty", field="TimeWindow.name")
 
-        # Validate ISO 8601 format by attempting to parse
         try:
             datetime.fromisoformat(self.start_date.replace("Z", "+00:00"))
         except (ValueError, AttributeError) as e:

@@ -127,7 +127,6 @@ class HybridExecutor:
         if self._process_pool:
             self._process_pool.shutdown(wait=True)
 
-        # Log final stats
         stats = self.get_stats()
         self.logger.info(
             f"Shutting down hybrid executor: "
@@ -219,7 +218,6 @@ class HybridExecutor:
         """
         fn_name = fn.__name__.lower()
 
-        # Check cache
         if fn_name in self._operation_types:
             return self._operation_types[fn_name]
 

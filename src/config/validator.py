@@ -383,7 +383,6 @@ class ConfigValidator:
     def _validate_security(self, config: dict[str, Any], result: ValidationResult) -> None:
         """Check for potential security issues."""
 
-        # Check for hardcoded tokens
         github = config.get("extensions", {}).get("github_api", {})
         if github.get("token") and len(github.get("token", "")) > 10:
             result.add_warning(
@@ -393,7 +392,6 @@ class ConfigValidator:
                 suggestion="Use environment variable GITHUB_TOKEN instead (or specify --github-token-env for custom variable)",
             )
 
-        # Check privacy settings
         privacy = config.get("privacy", {})
         if not privacy.get("mask_emails") and not privacy.get("anonymize_authors"):
             result.add_info(
@@ -417,7 +415,6 @@ class ConfigValidator:
                 suggestion="Consider using 4-16 workers for optimal performance",
             )
 
-        # Check HTML table settings for large datasets
         html = config.get("html_tables", {})
         entries_per_page = html.get("entries_per_page", 20)
 

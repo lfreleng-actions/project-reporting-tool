@@ -20,6 +20,7 @@ from typing import Any
 # surfaced with a friendly error at startup rather than crashing deep
 # inside lf_releng_project_reporting.config when it imports yaml.
 try:
+    # aislop-ignore-next-line unused-import -- deliberate PyYAML importability check
     import yaml as _yaml  # noqa: F401
 except ImportError:
     print(

@@ -251,7 +251,6 @@ class InfoYamlRenderer:
         name = committer.name
         color = committer.activity_color
 
-        # Create tooltip based on activity status
         if color == "green":
             tooltip = "✅ Current - commits within last 365 days"
         elif color == "orange":
@@ -306,7 +305,6 @@ class InfoYamlRenderer:
             state = project.lifecycle_state
             state_counts[state] = state_counts.get(state, 0) + 1
 
-        # Create summary objects
         summaries = []
         for state, count in state_counts.items():
             percentage = (count / total * 100) if total > 0 else 0.0
@@ -362,7 +360,6 @@ class InfoYamlRenderer:
         # Sort projects
         sorted_projects = sorted(projects, key=lambda p: p.project_name)
 
-        # Build context
         context: dict[str, Any] = {
             "projects": [p.to_dict() for p in sorted_projects],
             "total_projects": len(projects),

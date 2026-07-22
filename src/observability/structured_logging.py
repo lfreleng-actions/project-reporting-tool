@@ -273,7 +273,6 @@ class StructuredLogger:
             duration_ms: Optional duration for performance tracking
             extra_context: Additional context fields
         """
-        # Create log entry
         context = self.current_context
         if extra_context:
             context = LogContext(
@@ -294,7 +293,6 @@ class StructuredLogger:
         # Add to aggregator
         self.aggregator.add_entry(entry)
 
-        # Log to underlying logger
         log_level = getattr(logging, level.value)
         context_dict = context.to_dict()
 

@@ -94,7 +94,6 @@ class ErrorType(Enum):
     DATA_INCONSISTENT = "data_inconsistent"
     DATA_CONVERSION = "data_conversion"
 
-    # Rendering errors
     RENDER_TEMPLATE = "render_template"
     RENDER_FORMAT = "render_format"
     RENDER_OUTPUT = "render_output"
@@ -145,7 +144,6 @@ ERROR_TYPE_CATEGORY_MAP: dict[ErrorType, ErrorCategory] = {
     ErrorType.DATA_CORRUPT: ErrorCategory.DATA,
     ErrorType.DATA_INCONSISTENT: ErrorCategory.DATA,
     ErrorType.DATA_CONVERSION: ErrorCategory.DATA,
-    # Rendering
     ErrorType.RENDER_TEMPLATE: ErrorCategory.RENDERING,
     ErrorType.RENDER_FORMAT: ErrorCategory.RENDERING,
     ErrorType.RENDER_OUTPUT: ErrorCategory.RENDERING,

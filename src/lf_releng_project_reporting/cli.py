@@ -22,7 +22,6 @@ from rich import print as rprint
 from rich.console import Console
 
 
-# Initialize Typer app with rich formatting
 app = typer.Typer(
     name="lf-releng-project-reporting",
     help="📊 Comprehensive Multi-Repository Analysis Tool",
@@ -228,7 +227,6 @@ def generate(
         # With custom configuration
         lf-releng-project-reporting generate -p my-project -r ./repos --config-dir ./config
 
-        # Validate without running
         lf-releng-project-reporting generate -p my-project -r ./repos --dry-run
 
         # Generate only HTML with verbose output
@@ -245,7 +243,6 @@ def generate(
 
     from lf_releng_project_reporting.main import main as reporting_main
 
-    # Validate required arguments
     if not project:
         console.print("[red]Error:[/red] --project is required")
         raise typer.Exit(code=ExitCode.USAGE_ERROR)
@@ -253,7 +250,6 @@ def generate(
         console.print("[red]Error:[/red] --repos-path is required")
         raise typer.Exit(code=ExitCode.USAGE_ERROR)
 
-    # Build arguments namespace for main function
     args = Namespace(
         project=project,
         repos_path=repos_path,

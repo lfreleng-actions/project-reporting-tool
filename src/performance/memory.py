@@ -546,7 +546,6 @@ class MemoryOptimizer:
         if self._env_optimized:
             return
 
-        # Configure garbage collector
         gc.set_threshold(700, 10, 10)  # More aggressive GC
 
         # Enable GC debug stats (development only)
@@ -728,7 +727,6 @@ class MemoryContext:
         # Run GC if needed
         self.optimizer.run_gc()
 
-        # Log memory usage
         if self._start_snapshot and self._end_snapshot:
             delta = self._end_snapshot.memory_mb - self._start_snapshot.memory_mb
             logger.debug(

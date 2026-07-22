@@ -74,12 +74,10 @@ class URLValidator:
         if not url:
             return (False, "No URL provided")
 
-        # Check cache first
         if self.cache_enabled and url in self._cache:
             self.logger.debug(f"Cache hit for URL: {url}")
             return self._cache[url]
 
-        # Validate the URL
         result = self._validate_with_retry(url)
 
         # Cache the result
@@ -107,7 +105,6 @@ class URLValidator:
                     # Use HEAD request for efficiency
                     response = client.head(url)
 
-                    # Check status code
                     if response.status_code < 400:
                         self.logger.debug(
                             f"URL validation succeeded for {url}: HTTP {response.status_code}"
@@ -198,12 +195,10 @@ class URLValidator:
         if not url:
             return (False, "No URL provided")
 
-        # Check cache first
         if self.cache_enabled and url in self._cache:
             self.logger.debug(f"Cache hit for URL: {url}")
             return self._cache[url]
 
-        # Validate the URL
         result = await self._validate_with_retry_async(url)
 
         # Cache the result
@@ -231,7 +226,6 @@ class URLValidator:
                     # Use HEAD request for efficiency
                     response = await client.head(url)
 
-                    # Check status code
                     if response.status_code < 400:
                         self.logger.debug(
                             f"URL validation succeeded for {url}: HTTP {response.status_code}"
@@ -309,7 +303,6 @@ class URLValidator:
         if not valid_urls:
             return {}
 
-        # Create semaphore to limit concurrent connections
         semaphore = asyncio.Semaphore(max_concurrent)
 
         async def validate_with_semaphore(url: str) -> tuple[str, tuple[bool, str]]:
@@ -318,10 +311,8 @@ class URLValidator:
                 result = await self.validate_async(url)
                 return (url, result)
 
-        # Create tasks for all URLs
         tasks = [validate_with_semaphore(url) for url in valid_urls]
 
-        # Execute all tasks concurrently
         self.logger.info(
             f"Starting concurrent validation of {len(valid_urls)} URLs "
             f"(max_concurrent={max_concurrent})"

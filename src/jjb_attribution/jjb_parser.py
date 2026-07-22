@@ -143,7 +143,6 @@ class JJBAttribution:
         """
         logger.info("Loading JJB templates and job-groups...")
 
-        # Load from global-jjb first
         if self.global_jjb_path.exists():
             jjb_templates_path = self.global_jjb_path / "jjb"
             if jjb_templates_path.exists():
@@ -193,7 +192,6 @@ class JJBAttribution:
 
             for item in data:
                 if isinstance(item, dict):
-                    # Load job-template definitions
                     if "job-template" in item:
                         template = item["job-template"]
                         template_id = template.get("id")
@@ -207,7 +205,6 @@ class JJBAttribution:
                             self._templates[template_name] = template
                             logger.debug(f"Loaded template by name: {template_name}")
 
-                    # Load job-group definitions
                     elif "job-group" in item:
                         job_group = item["job-group"]
                         group_name = job_group.get("name")
@@ -302,7 +299,6 @@ class JJBAttribution:
         if not self.jjb_path.exists():
             return None
 
-        # Get all YAML files recursively
         yaml_files = list(self.jjb_path.glob("**/*.yaml")) + list(self.jjb_path.glob("**/*.yml"))
 
         for yaml_file in yaml_files:
@@ -398,7 +394,6 @@ class JJBAttribution:
                 name=name, gerrit_project=gerrit_project, parameters=project_block
             )
 
-            # Extract jobs
             jobs_list = project_block.get("jobs", [])
             for job_item in jobs_list:
                 if isinstance(job_item, str):
@@ -531,7 +526,6 @@ class JJBAttribution:
         """Expand a JJB name pattern with parameters."""
         job_names = []
 
-        # Handle stream expansion
         streams = params.get("stream", [])
         if streams:
             for stream_item in streams:
@@ -540,7 +534,6 @@ class JJBAttribution:
                     stream_vars: dict[str, Any] = {}
                 elif isinstance(stream_item, dict):
                     stream_name = list(stream_item.keys())[0]
-                    # Extract nested variables from the stream dictionary
                     stream_vars = (
                         stream_item[stream_name]
                         if isinstance(stream_item[stream_name], dict)
@@ -591,12 +584,10 @@ class JJBAttribution:
         """
         job_names = []
 
-        # Get common parameters
         mvn_version = params.get("mvn-version", "mvn36")
         java_version = params.get("java-version", "openjdk11")
         streams = params.get("stream", [{"master": {"branch": "master"}}])
 
-        # Handle stream variations
         stream_names = []
         if streams:
             for stream_item in streams:
@@ -620,7 +611,6 @@ class JJBAttribution:
             "github-maven-merge": f"{project_name}-maven-merge-{{stream}}-{mvn_version}-{java_version}",
         }
 
-        # Get pattern for this template
         pattern = patterns.get(template_name)
 
         if pattern:

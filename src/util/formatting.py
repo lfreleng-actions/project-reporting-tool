@@ -48,7 +48,6 @@ def format_number(value: int | float, signed: bool = False) -> str:
     if not isinstance(value, (int, float)):
         return "0"  # type: ignore[unreachable]
 
-    # Handle negative numbers
     is_negative = value < 0
     abs_value = abs(value)
 
@@ -94,7 +93,6 @@ def format_age(days: int | None) -> str:
         >>> format_age(UNKNOWN_AGE)
         'Unknown'
     """
-    # Handle unknown/sentinel values
     if days is None or days == UNKNOWN_AGE:
         return "Unknown"
 
@@ -130,7 +128,6 @@ def slugify(text: str) -> str:
     """
     import re
 
-    # Remove emojis and special chars, convert to lowercase
     slug = re.sub(r"[^\w\s-]", "", text).strip().lower()
     # Normalize whitespace and underscores to single hyphens
     slug = re.sub(r"[\s_-]+", "-", slug)

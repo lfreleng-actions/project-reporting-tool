@@ -356,7 +356,6 @@ class MetricsVisualizer:
         min_val = min(values)
         range_val = max_val - min_val if max_val != min_val else 1
 
-        # Create bars
         for i, value in enumerate(values):
             normalized = (value - min_val) / range_val
             bar_length = int(normalized * (width - 20))

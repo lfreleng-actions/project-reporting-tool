@@ -112,7 +112,6 @@ def load_configuration(
     if default_config_name is None:
         default_config_name = "default.yaml"
 
-    # Load default configuration
     default_path = config_dir / default_config_name
     if not default_path.exists():
         logger.warning(f"Default configuration not found: {default_path}")

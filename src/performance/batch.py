@@ -188,7 +188,6 @@ class RequestQueue:
     def dequeue(self) -> APIRequest | None:
         """Get next request from queue (highest priority first)."""
         with self._lock:
-            # Check priorities from highest to lowest
             for priority in sorted(RequestPriority, key=lambda p: p.value, reverse=True):
                 if self._queues[priority]:
                     request: APIRequest = self._queues[priority].popleft()
@@ -532,7 +531,6 @@ class BatchProcessor:
         Returns:
             Tuple of (result, error)
         """
-        # Check cache first
         cached = self.batcher.get_cached_result(request)
         if cached is not None:
             return cached, None
@@ -541,10 +539,8 @@ class BatchProcessor:
 
         while request.can_retry():
             try:
-                # Check rate limit
                 self.rate_limiter.wait_if_needed(request.endpoint, request.cost)
 
-                # Execute request
                 result = executor(request)
 
                 # Record success

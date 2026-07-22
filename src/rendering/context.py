@@ -90,17 +90,14 @@ class RenderContext:
         """Build project metadata context."""
         project_name = self.data.get("project", "Repository Analysis")
 
-        # Handle both string and dict formats
         if isinstance(project_name, dict):
             project_name = project_name.get("name", "Repository Analysis")
 
-        # Check for generated_at in root or metadata
         generated_at = self.data.get("generated_at", "")
         if not generated_at:
             metadata = self.data.get("metadata", {})
             generated_at = metadata.get("generated_at", "")
 
-        # Format the generated_at timestamp
         generated_at_formatted = "Unknown"
         if generated_at:
             try:
@@ -109,7 +106,6 @@ class RenderContext:
             except (ValueError, AttributeError):
                 generated_at_formatted = str(generated_at)
 
-        # Check for report_version in metadata
         metadata = self.data.get("metadata", {})
         report_version = metadata.get("report_version", "")
 
@@ -117,7 +113,6 @@ class RenderContext:
         # Priority: gerrit.host exists -> "gerrit", otherwise -> "github"
         project_type = self._detect_project_type()
 
-        # Build terminology based on project type
         terminology = self._build_terminology(project_type)
 
         result = {
@@ -291,12 +286,10 @@ class RenderContext:
         # Transform repository data for templates
         all_repos = []
         for repo in all_repos_raw:
-            # Get primary reporting window from summaries
             summaries = self.data.get("summaries", {})
             reporting_period = summaries.get("reporting_period", {})
             primary_window = reporting_period.get("window_name", "last_365")
 
-            # Get unique contributors from time window
             unique_contributors_dict = repo.get("unique_contributors", {})
             if isinstance(unique_contributors_dict, dict):
                 unique_contributors_value = unique_contributors_dict.get(primary_window, 0)
@@ -316,7 +309,6 @@ class RenderContext:
             # Get all-time LOC from total_loc field (added in schema v1.3.0)
             total_loc = repo.get("total_loc", 0)
 
-            # Extract last commit date
             last_commit_timestamp = repo.get("last_commit_timestamp", "")
             last_commit_date = "N/A"
             if last_commit_timestamp:
@@ -333,7 +325,6 @@ class RenderContext:
             status_emoji_map = {"current": "✅", "active": "☑️", "inactive": "🛑", "unknown": "🛑"}
             activity_status_emoji = status_emoji_map.get(activity_status_raw, "🛑")
 
-            # Build Gerrit admin URL
             gerrit_project_name = repo.get("gerrit_project", "Unknown")
             gerrit_host = repo.get("gerrit_host", "")
             gerrit_path_prefix = repo.get("gerrit_path_prefix", "")
@@ -395,7 +386,6 @@ class RenderContext:
         top_commits_raw = summaries.get("top_contributors_commits", [])
         top_loc_raw = summaries.get("top_contributors_loc", [])
 
-        # Get primary reporting window from data
         reporting_period = summaries.get("reporting_period", {})
         primary_window = reporting_period.get("window_name", "last_365")
 
@@ -403,7 +393,6 @@ class RenderContext:
         # Contributors use time-windowed metrics (dicts with last_30, last_90, etc.)
         top_commits = []
         for contrib in top_commits_raw:
-            # Get commits from time windows
             commits_dict = contrib.get("commits", {})
             # Handle both dict (new format) and int (old format)
             if isinstance(commits_dict, dict):
@@ -411,7 +400,6 @@ class RenderContext:
             else:
                 total_commits = commits_dict if isinstance(commits_dict, int) else 0
 
-            # Get repository counts from repositories_touched
             repos_touched = contrib.get("repositories_touched", {})
 
             # Extract the count - repositories_touched values are sets stored as strings
@@ -469,7 +457,6 @@ class RenderContext:
 
         top_loc = []
         for contrib in top_loc_raw:
-            # Get LOC stats from time windows using primary window
             lines_added_dict = contrib.get("lines_added", {})
             lines_removed_dict = contrib.get("lines_removed", {})
             lines_net_dict = contrib.get("lines_net", {})
@@ -481,7 +468,6 @@ class RenderContext:
             # Calculate derived metrics
             delta_loc = total_lines_added + total_lines_removed
 
-            # Get commits for avg calculation
             commits_dict = contrib.get("commits", {})
             total_commits = commits_dict.get(primary_window, 0)
             avg_loc_per_commit = (net_lines / total_commits) if total_commits > 0 else 0
@@ -516,7 +502,6 @@ class RenderContext:
 
         top_orgs_raw = summaries.get("top_organizations", [])
 
-        # Get primary reporting window from data
         reporting_period = summaries.get("reporting_period", {})
         primary_window = reporting_period.get("window_name", "last_365")
 
@@ -527,7 +512,6 @@ class RenderContext:
         for org in top_orgs_raw:
             domain = org.get("domain", "Unknown")
 
-            # Get commits from time windows using primary window
             commits_dict = org.get("commits", {})
             # Handle both dict (new format) and int (old format)
             if isinstance(commits_dict, dict):
@@ -535,10 +519,8 @@ class RenderContext:
             else:
                 total_commits = commits_dict if isinstance(commits_dict, int) else 0
 
-            # Get contributor count
             contributor_count = org.get("contributor_count", 0)
 
-            # Get repository counts from time windows
             repos_dict = org.get("repositories_count", {})
             # Handle both dict (new format) and int (old format)
             if isinstance(repos_dict, dict):
@@ -546,7 +528,6 @@ class RenderContext:
             else:
                 repos_count = repos_dict if isinstance(repos_dict, int) else 0
 
-            # Get LOC data from time windows
             lines_added_dict = org.get("lines_added", {})
             lines_removed_dict = org.get("lines_removed", {})
             lines_net_dict = org.get("lines_net", {})
@@ -610,7 +591,6 @@ class RenderContext:
                 "repositories_count": 0,
             }
 
-        # Extract unique features across all repos
         features_set = set()
         for repo in repositories:
             repo_features = repo.get("features", {})
@@ -618,12 +598,10 @@ class RenderContext:
 
         features_list = sorted(features_set)
 
-        # Build feature matrix
         matrix = []
         for repo in repositories:
             repo_features = repo.get("features", {})
 
-            # Extract project types
             project_types = repo_features.get("project_types", {})
             if isinstance(project_types, dict):
                 primary_type = project_types.get("primary_type")
@@ -634,7 +612,6 @@ class RenderContext:
 
             # Separate primary type from other types
             if primary_type and detected_types:
-                # Remove primary type from detected_types to get other types
                 other_types = [t for t in detected_types if t != primary_type]
             else:
                 other_types = []
@@ -655,7 +632,6 @@ class RenderContext:
             # Normalize feature names for template (strip has_ prefix)
             normalized_features = {}
             for feature in features_list:
-                # Get the feature value
                 if isinstance(repo_features.get(feature), dict):
                     feature_value = repo_features.get(feature, {}).get("present", False)
                 else:
@@ -689,7 +665,6 @@ class RenderContext:
         """Build CI/CD workflows context."""
         repositories = self.data.get("repositories", [])
 
-        # Build repositories with CI/CD jobs grouped by project
         repos_with_cicd = []
         total_jenkins_jobs = 0
         total_github_workflows = 0
@@ -697,7 +672,6 @@ class RenderContext:
         for repo in repositories:
             gerrit_project = repo.get("gerrit_project", "Unknown")
 
-            # Get Jenkins jobs for this repo and flatten URL structure
             jenkins_data = repo.get("jenkins", {})
             jenkins_jobs_raw = jenkins_data.get("jobs", [])
 
@@ -718,7 +692,6 @@ class RenderContext:
                     job_dict["url"] = job.get("url", "")
                 jenkins_jobs.append(job_dict)
 
-            # Get GitHub workflows for this repo from features.workflows
             features = repo.get("features", {})
             workflows_data = features.get("workflows", {})
             workflow_files = workflows_data.get("files", [])
@@ -867,7 +840,6 @@ class RenderContext:
                     }
                 )
 
-        # Build jobs list with computed status
         jobs_list = []
         for job_data in unallocated_job_details:
             job_name = job_data.get("name", "")
@@ -1006,7 +978,6 @@ class RenderContext:
 
     def _build_config_context(self) -> dict[str, Any]:
         """Build configuration context."""
-        # Get project name from config
         project_config = self.config.get("project", "Repository Analysis")
         if isinstance(project_config, dict):
             project_name = project_config.get("name", "Repository Analysis")
@@ -1037,7 +1008,6 @@ class RenderContext:
             "info_yaml",
         ]
 
-        # Start with all sections enabled by default
         include_sections = dict.fromkeys(all_sections, True)
 
         # Check if output.include_sections is a dict (new style config)
@@ -1052,7 +1022,6 @@ class RenderContext:
                 if f"include_{section}" in output_config:
                     include_sections[section] = output_config[f"include_{section}"]
 
-        # Get html_tables config for DataTables support
         html_tables_config = self.config.get("html_tables", {})
         html_tables = {
             "sortable": html_tables_config.get("sortable", True),

@@ -44,11 +44,9 @@ class DataAggregator:
         # Primary time window for rankings (configurable, defaults to last_365)
         primary_window = self.config.get("primary_reporting_window", "last_365")
 
-        # Get the number of days for this window
         time_windows = self.config.get("time_windows", {})
         window_config = time_windows.get(primary_window, {})
 
-        # Extract days from the window configuration
         if isinstance(window_config, dict) and "days" in window_config:
             primary_window_days = window_config["days"]
         elif isinstance(window_config, int):
@@ -131,7 +129,6 @@ class DataAggregator:
             inactive_repos, "days_since_last_commit", reverse=True, limit=None
         )
 
-        # Build contributor leaderboards
         top_contributors_commits = self.rank_entities(
             authors, f"commits.{primary_window}", reverse=True, limit=None
         )
@@ -140,12 +137,10 @@ class DataAggregator:
             authors, f"lines_net.{primary_window}", reverse=True, limit=None
         )
 
-        # Build organization leaderboard
         top_organizations = self.rank_entities(
             organizations, f"commits.{primary_window}", reverse=True, limit=None
         )
 
-        # Build comprehensive summaries
         summaries = {
             "reporting_period": {
                 "window_name": primary_window,
@@ -268,7 +263,6 @@ class DataAggregator:
         for repo in repo_metrics:
             repo_name = repo.get("gerrit_project", "unknown")
 
-            # Process each author in this repository
             for author in repo.get("authors", []):
                 email = author.get("email", "").lower().strip()
                 if not email or email == "unknown@unknown":

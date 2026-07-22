@@ -65,7 +65,6 @@ class GitHubAPIClient(BaseAPIClient):
         self.base_url = "https://api.github.com"
         self.use_envelope = use_envelope
 
-        # Create httpx client with authentication
         self.client = httpx.Client(
             base_url=self.base_url,
             timeout=httpx.Timeout(timeout, connect=10.0),
@@ -159,7 +158,6 @@ class GitHubAPIClient(BaseAPIClient):
                 workflows = []
 
                 for workflow in data.get("workflows", []):
-                    # Build standardized workflow data structure
                     workflow_path = workflow.get("path", "")
                     source_url = None
                     if workflow_path and owner and repo:
@@ -258,7 +256,6 @@ class GitHubAPIClient(BaseAPIClient):
                 if not runs:
                     return {"status": "no_runs", "last_run": None}
 
-                # Get the most recent run
                 latest_run = runs[0]
 
                 # Compute standardized status from conclusion and run status
@@ -419,11 +416,9 @@ class GitHubAPIClient(BaseAPIClient):
         if not conclusion and not run_status:
             return "unknown"
 
-        # Handle in-progress workflows first
         if run_status in ("queued", "in_progress"):
             return "building"
 
-        # Handle completed workflows by conclusion
         if run_status == "completed":
             conclusion_map = {
                 "success": "success",

@@ -115,7 +115,6 @@ class AdaptiveThreadPool:
         if self._executor:
             self._executor.shutdown(wait=True)
 
-        # Log final stats
         metrics = self.get_metrics()
         self.logger.info(
             f"Shutting down adaptive pool: "
@@ -144,7 +143,6 @@ class AdaptiveThreadPool:
         wrapped_fn = self._wrap_task(fn)
         future = self._executor.submit(wrapped_fn, *args, **kwargs)
 
-        # Update queue depth metric
         with self._metrics_lock:
             self._metrics.queue_depth += 1
 
