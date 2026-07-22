@@ -123,7 +123,7 @@ What It Validates:
 
 Jobs:
 
-- `smoke-tests`: Quick validation (Python 3.10, 3.11, 3.12)
+- `smoke-tests`: Quick validation (Python 3.11, 3.12, 3.13, 3.14)
 - `unit-tests`: Full unit test suite with coverage
 - `integration-tests`: Component integration tests
 - `property-tests`: Property-based tests (Hypothesis)
@@ -137,7 +137,7 @@ Test Matrix:
 ```yaml
 strategy:
   matrix:
-    python-version: ['3.10', '3.11', '3.12']
+    python-version: ['3.11', '3.12', '3.13', '3.14']
     os: [ubuntu-latest, macos-latest, windows-latest]
 ```
 
@@ -864,7 +864,7 @@ Python Version Updates:
 
 ```yaml
 # Add new Python version to matrix
-python-version: ['3.10', '3.11', '3.12', '3.13']
+python-version: ['3.11', '3.12', '3.13', '3.14']
 ```
 
 ---

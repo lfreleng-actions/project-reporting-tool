@@ -158,7 +158,7 @@ reports/
 
 ## 🔧 Requirements
 
-- **Python**: 3.10+ (supports 3.10, 3.11, 3.12, 3.13)
+- **Python**: 3.11+ (supports 3.11, 3.12, 3.13, 3.14)
 - **Dependencies**: PyYAML, httpx, Jinja2, typer, rich
 - **Optional**: GitHub token for API features (required for workflow status colors)
 

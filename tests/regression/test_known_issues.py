@@ -19,7 +19,7 @@ Test Categories:
 """
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import pytest
 
@@ -249,7 +249,7 @@ class TestEdgeCaseRegressions:
 
         # Should parse without overflow
         dt = datetime.fromisoformat(old_timestamp.replace("Z", "+00:00"))
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
 
         days_since = (now - dt).days
 

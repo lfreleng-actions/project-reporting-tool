@@ -23,7 +23,6 @@ classifiers = [
     "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
@@ -47,7 +46,7 @@ keywords = [
     "linux-foundation",
     "committers",
 ]
-requires-python = ">=3.10.2"
+requires-python = ">=3.11"
 dependencies = [
     "httpx>=0.28.1",
     "PyYAML>=6.0.3",
@@ -240,7 +239,7 @@ directory = "htmlcov"
 
 # MyPy configuration
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.11"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = false
@@ -274,7 +273,7 @@ ignore_missing_imports = true
 
 # Basedpyright / Pyright configuration
 [tool.basedpyright]
-pythonVersion = "3.10"
+pythonVersion = "3.11"
 include = ["src"]
 # Use standard (stock pyright) checking mode rather than the stricter
 # basedpyright-specific defaults. The codebase uses mypy (see
@@ -292,7 +291,7 @@ reportMissingModuleSource = "none"
 # Ruff configuration
 [tool.ruff]
 line-length = 100
-target-version = "py310"
+target-version = "py311"
 src = ["src"]
 extend-exclude = [
     ".git",
@@ -341,7 +340,7 @@ lines-after-imports = 2
 # Black configuration (if needed as fallback)
 [tool.black]
 line-length = 100
-target-version = ["py310", "py311", "py312", "py313"]
+target-version = ["py311", "py312", "py313"]
 include = '\.pyi?$'
 extend-exclude = '''
 /(

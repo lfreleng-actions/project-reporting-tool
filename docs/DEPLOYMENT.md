@@ -91,11 +91,11 @@ Hardware Requirements:
 
 Software Requirements:
 
-- [ ] **Python:** 3.10, 3.11, or 3.12 installed
+- [ ] **Python:** 3.11, 3.12, 3.13, or 3.14 installed
 
   ```bash
   python --version
-  # Expected: Python 3.10.x, 3.11.x, or 3.12.x
+  # Expected: Python 3.11.x, 3.12.x, 3.13.x, or 3.14.x
   ```
 
 - [ ] **pip:** Latest version

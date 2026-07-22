@@ -11,7 +11,7 @@ This module tests the template-based rendering system including:
 - Template output correctness
 """
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from unittest.mock import Mock
 
@@ -67,7 +67,7 @@ class TestFormatters:
 
     def test_format_date_datetime(self):
         """Test date formatting with datetime object."""
-        dt = datetime(2025, 1, 16, 14, 30, 0, tzinfo=timezone.utc)
+        dt = datetime(2025, 1, 16, 14, 30, 0, tzinfo=UTC)
         assert format_date(dt) == "2025-01-16"
 
     def test_format_date_string(self):
@@ -77,7 +77,7 @@ class TestFormatters:
 
     def test_format_date_custom_format(self):
         """Test date formatting with custom format string."""
-        dt = datetime(2025, 1, 16, 14, 30, 0, tzinfo=timezone.utc)
+        dt = datetime(2025, 1, 16, 14, 30, 0, tzinfo=UTC)
         assert format_date(dt, format_str="%Y/%m/%d") == "2025/01/16"
         assert format_date(dt, format_str="%B %d, %Y") == "January 16, 2025"
 

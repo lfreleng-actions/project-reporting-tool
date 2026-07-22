@@ -30,7 +30,7 @@ SPDX-FileCopyrightText: 2025 The Linux Foundation
 
 ```bash
 # Check your versions
-python --version    # Need: 3.10+
+python --version    # Need: 3.11+
 git --version       # Need: 2.25+
 pytest --version    # Need: 7.0+
 
@@ -93,7 +93,7 @@ Notes:
 
 ### Required Software
 
-#### Python 3.10+
+#### Python 3.11+
 
 **Why:** Core language for the project
 
@@ -107,8 +107,8 @@ python3 --version
 
 Install:
 
-- **Ubuntu/Debian:** `sudo apt-get install python3.10 python3.10-dev`
-- **macOS:** `brew install python@3.10`
+- **Ubuntu/Debian:** `sudo apt-get install python3.11 python3.11-dev`
+- **macOS:** `brew install python@3.11`
 - **Windows:** Download from [python.org](https://www.python.org/downloads/)
 
 #### Git 2.25+
@@ -425,7 +425,7 @@ load_dotenv()
 
 ### Before Running Tests
 
-- [ ] Python 3.10+ installed
+- [ ] Python 3.11+ installed
 - [ ] Git 2.25+ installed
 - [ ] Virtual environment activated
 - [ ] Dependencies installed (`pip install -r requirements-dev.txt`)
@@ -685,7 +685,7 @@ echo "=== ✅ Environment validation complete ==="
 ### Minimum Setup (5 minutes)
 
 ```bash
-# 1. Install Python 3.10+ and Git 2.25+
+# 1. Install Python 3.11+ and Git 2.25+
 # 2. Create virtual environment
 python3 -m venv venv
 source venv/bin/activate

@@ -479,7 +479,7 @@ Solutions:
 ```yaml
 strategy:
   matrix:
-    python-version: ['3.10', '3.11', '3.12']
+    python-version: ['3.11', '3.12', '3.13', '3.14']
     os: [ubuntu-latest, macos-latest, windows-latest]
 
 steps:

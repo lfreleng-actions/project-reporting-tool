@@ -158,7 +158,7 @@ class RepositoryReporter:
         # Pass schema_version and script_version from constants in main module
         report_data = {
             "schema_version": self.config.get("_schema_version", "1.0.0"),
-            "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            "generated_at": datetime.datetime.now(datetime.UTC).isoformat(),
             "project": self.config["project"],
             "config_digest": self._compute_config_digest(self.config),
             "script_version": self.config.get("_script_version", "1.0.0"),
@@ -579,7 +579,7 @@ class RepositoryReporter:
         """
         from datetime import timedelta
 
-        now = datetime.datetime.now(datetime.timezone.utc)
+        now = datetime.datetime.now(datetime.UTC)
         windows = {}
 
         # Default time windows if not specified

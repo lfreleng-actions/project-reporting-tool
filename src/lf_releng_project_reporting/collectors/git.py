@@ -1114,7 +1114,7 @@ class GitDataCollector:
                 try:
                     commit_date = parse_git_iso_date(parts[1])
                     if commit_date.tzinfo is None:
-                        commit_date = commit_date.replace(tzinfo=datetime.timezone.utc)
+                        commit_date = commit_date.replace(tzinfo=datetime.UTC)
                 except (ValueError, IndexError) as e:
                     self.logger.warning(
                         f"Invalid date format in {repo_name}: {parts[1] if len(parts) > 1 else 'unknown'} - {e}"
@@ -1236,12 +1236,12 @@ class GitDataCollector:
                 try:
                     last_commit_date = parse_git_iso_date(output.strip())
                     if last_commit_date.tzinfo is None:
-                        last_commit_date = last_commit_date.replace(tzinfo=datetime.timezone.utc)
+                        last_commit_date = last_commit_date.replace(tzinfo=datetime.UTC)
 
                     repo_metrics["last_commit_timestamp"] = last_commit_date.isoformat()
 
                     # Calculate days since last commit
-                    now = datetime.datetime.now(datetime.timezone.utc)
+                    now = datetime.datetime.now(datetime.UTC)
                     days_since = (now - last_commit_date).days
                     repo_metrics["days_since_last_commit"] = days_since
 
