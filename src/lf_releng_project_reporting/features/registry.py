@@ -28,6 +28,72 @@ from urllib.parse import urlparse
 from api.github_client import GitHubAPIClient
 
 
+# Mapping of detected project type to the config files / glob patterns that
+# indicate it. Patterns containing "*" are treated as globs; all others are
+# checked as exact repository-relative paths.
+_PROJECT_TYPE_PATTERNS: dict[str, list[str]] = {
+    "Maven": ["pom.xml"],
+    "Gradle": [
+        "build.gradle",
+        "build.gradle.kts",
+        "gradle.properties",
+        "settings.gradle",
+    ],
+    "JavaScript": ["package.json", "**/*.js", "**/*.mjs", "**/*.cjs"],
+    "TypeScript": ["tsconfig.json", "**/*.ts", "**/*.tsx"],
+    "Node": ["package.json"],
+    "Python": [
+        "pyproject.toml",
+        "requirements.txt",
+        "setup.py",
+        "setup.cfg",
+        "Pipfile",
+        "poetry.lock",
+        "**/*.py",
+    ],
+    "Dockerfile": [
+        "Dockerfile",
+        "**/*.dockerfile",
+        "docker-compose.yml",
+        "docker-compose.yaml",
+    ],
+    "Shell": ["**/*.sh", "**/*.bash", "**/*.zsh", "**/*.ksh"],
+    "Go": ["go.mod", "go.sum", "**/*.go"],
+    "Rust": ["Cargo.toml", "Cargo.lock", "**/*.rs"],
+    "Java": ["**/*.java"],
+    "Java/Ant": ["build.xml", "ivy.xml"],
+    "C++": [
+        "**/*.cpp",
+        "**/*.hpp",
+        "**/*.cc",
+        "**/*.hh",
+        "**/*.cxx",
+        "**/*.hxx",
+        "CMakeLists.txt",
+    ],
+    "C": ["**/*.c", "**/*.h"],
+    ".NET": ["**/*.csproj", "**/*.sln", "project.json", "**/*.vbproj", "**/*.fsproj"],
+    "Ruby": ["Gemfile", "Rakefile", "**/*.gemspec", "**/*.rb"],
+    "PHP": ["composer.json", "composer.lock", "**/*.php"],
+    "Scala": ["build.sbt", "project/build.properties", "**/*.scala"],
+    "Swift": ["Package.swift", "**/*.swift"],
+    "Kotlin": ["**/*.kt", "**/*.kts"],
+    "Groovy": ["**/*.groovy", "Jenkinsfile", "**/*.gradle"],
+    "Smarty": ["**/*.tpl", "smarty.conf", "**/*.smarty"],
+    "EJS": ["**/*.ejs", "**/*.ect"],
+    "Robot Framework": ["**/*.robot", "**/*.resource"],
+    "D": ["**/*.d", "**/*.di"],
+    "SCSS": ["**/*.scss"],
+    "HTML": ["**/*.html", "**/*.htm"],
+    "CSS": ["**/*.css"],
+    "HCL": ["**/*.hcl", "**/*.tf", "**/*.tfvars"],
+    "Clojure": ["**/*.clj", "**/*.cljs", "**/*.cljc", "**/*.edn"],
+    "Erlang": ["**/*.erl", "**/*.hrl", "rebar.config"],
+    "Lua": ["**/*.lua"],
+    "PLpgSQL": ["**/*.pgsql", "**/*.sql"],
+}
+
+
 class FeatureRegistry:
     """
     Registry for repository feature detection functions.
@@ -178,43 +244,33 @@ class FeatureRegistry:
 
         matching_workflows: list[dict[str, str]] = []
         try:
-            for workflow_file in workflows_dir.glob("*.yml"):
-                try:
-                    with open(workflow_file, encoding="utf-8") as f:
-                        content = f.read().lower()
-                        for pattern in gerrit_patterns:
-                            if pattern in content:
-                                matching_workflows.append(
-                                    {
-                                        "file": workflow_file.name,
-                                        "pattern": pattern,
-                                    }
-                                )
-                                break
-                except (OSError, UnicodeDecodeError):
-                    continue
-
-            # Also check .yaml files
-            for workflow_file in workflows_dir.glob("*.yaml"):
-                try:
-                    with open(workflow_file, encoding="utf-8") as f:
-                        content = f.read().lower()
-                        for pattern in gerrit_patterns:
-                            if pattern in content:
-                                matching_workflows.append(
-                                    {
-                                        "file": workflow_file.name,
-                                        "pattern": pattern,
-                                    }
-                                )
-                                break
-                except (OSError, UnicodeDecodeError):
-                    continue
-
+            for glob_pattern in ("*.yml", "*.yaml"):
+                for workflow_file in workflows_dir.glob(glob_pattern):
+                    match = self._match_workflow_content_patterns(workflow_file, gerrit_patterns)
+                    if match is not None:
+                        matching_workflows.append(match)
         except OSError:
             return {"present": False, "workflows": []}
 
         return {"present": len(matching_workflows) > 0, "workflows": matching_workflows}
+
+    def _match_workflow_content_patterns(
+        self, workflow_file: Path, patterns: list[str]
+    ) -> dict[str, str] | None:
+        """Return the first content pattern matched in a workflow file, or None.
+
+        Files that cannot be read are skipped (treated as non-matching).
+        """
+        try:
+            with open(workflow_file, encoding="utf-8") as f:
+                content = f.read().lower()
+        except (OSError, UnicodeDecodeError):
+            return None
+
+        for pattern in patterns:
+            if pattern in content:
+                return {"file": workflow_file.name, "pattern": pattern}
+        return None
 
     def _check_g2g(self, repo_path: Path) -> dict[str, Any]:
         """
@@ -311,26 +367,9 @@ class FeatureRegistry:
                 matched_patterns[filename].append(filename)
 
         if regex_patterns:
-            try:
-                workflow_files = [
-                    f for f in workflows_dir.iterdir() if f.is_file() and not f.name.startswith(".")
-                ]
-
-                # Test each workflow file against each regex pattern
-                for workflow_file in workflow_files:
-                    workflow_filename = workflow_file.name
-                    relative_path = f".github/workflows/{workflow_filename}"
-
-                    for pattern_str, compiled_pattern in regex_patterns:
-                        if compiled_pattern.search(workflow_filename):
-                            if relative_path not in found_files:
-                                found_files.append(relative_path)
-                            if pattern_str not in matched_patterns:
-                                matched_patterns[pattern_str] = []
-                            matched_patterns[pattern_str].append(workflow_filename)
-
-            except OSError as e:
-                self.logger.warning(f"Error reading workflows directory {workflows_dir}: {e}")
+            self._match_regex_workflow_files(
+                workflows_dir, regex_patterns, found_files, matched_patterns
+            )
 
         # Sort found files for consistent ordering
         found_files.sort()
@@ -341,6 +380,34 @@ class FeatureRegistry:
             "file_path": found_files[0] if found_files else None,  # Backward compatibility
             "matched_patterns": matched_patterns,
         }
+
+    def _match_regex_workflow_files(
+        self,
+        workflows_dir: Path,
+        regex_patterns: list[tuple[str, Any]],
+        found_files: list[str],
+        matched_patterns: dict[str, list[str]],
+    ) -> None:
+        """Match workflow files against regex patterns, updating results in place."""
+        try:
+            workflow_files = [
+                f for f in workflows_dir.iterdir() if f.is_file() and not f.name.startswith(".")
+            ]
+        except OSError as e:
+            self.logger.warning(f"Error reading workflows directory {workflows_dir}: {e}")
+            return
+
+        # Test each workflow file against each regex pattern
+        for workflow_file in workflow_files:
+            workflow_filename = workflow_file.name
+            relative_path = f".github/workflows/{workflow_filename}"
+
+            for pattern_str, compiled_pattern in regex_patterns:
+                if not compiled_pattern.search(workflow_filename):
+                    continue
+                if relative_path not in found_files:
+                    found_files.append(relative_path)
+                matched_patterns.setdefault(pattern_str, []).append(workflow_filename)
 
     def _check_pre_commit(self, repo_path: Path) -> dict[str, Any]:
         """
@@ -474,162 +541,13 @@ class FeatureRegistry:
                 "details": [{"type": "jjb", "files": ["repository_name"], "confidence": 100}],
             }
 
-        project_types = {
-            "Maven": ["pom.xml"],
-            "Gradle": [
-                "build.gradle",
-                "build.gradle.kts",
-                "gradle.properties",
-                "settings.gradle",
-            ],
-            "JavaScript": ["package.json", "**/*.js", "**/*.mjs", "**/*.cjs"],
-            "TypeScript": ["tsconfig.json", "**/*.ts", "**/*.tsx"],
-            "Node": ["package.json"],
-            "Python": [
-                "pyproject.toml",
-                "requirements.txt",
-                "setup.py",
-                "setup.cfg",
-                "Pipfile",
-                "poetry.lock",
-                "**/*.py",
-            ],
-            "Dockerfile": [
-                "Dockerfile",
-                "**/*.dockerfile",
-                "docker-compose.yml",
-                "docker-compose.yaml",
-            ],
-            "Shell": ["**/*.sh", "**/*.bash", "**/*.zsh", "**/*.ksh"],
-            "Go": ["go.mod", "go.sum", "**/*.go"],
-            "Rust": ["Cargo.toml", "Cargo.lock", "**/*.rs"],
-            "Java": ["**/*.java"],
-            "Java/Ant": ["build.xml", "ivy.xml"],
-            "C++": [
-                "**/*.cpp",
-                "**/*.hpp",
-                "**/*.cc",
-                "**/*.hh",
-                "**/*.cxx",
-                "**/*.hxx",
-                "CMakeLists.txt",
-            ],
-            "C": ["**/*.c", "**/*.h"],
-            ".NET": ["**/*.csproj", "**/*.sln", "project.json", "**/*.vbproj", "**/*.fsproj"],
-            "Ruby": ["Gemfile", "Rakefile", "**/*.gemspec", "**/*.rb"],
-            "PHP": ["composer.json", "composer.lock", "**/*.php"],
-            "Scala": ["build.sbt", "project/build.properties", "**/*.scala"],
-            "Swift": ["Package.swift", "**/*.swift"],
-            "Kotlin": ["**/*.kt", "**/*.kts"],
-            "Groovy": ["**/*.groovy", "Jenkinsfile", "**/*.gradle"],
-            "Smarty": ["**/*.tpl", "smarty.conf", "**/*.smarty"],
-            "EJS": ["**/*.ejs", "**/*.ect"],
-            "Robot Framework": ["**/*.robot", "**/*.resource"],
-            "D": ["**/*.d", "**/*.di"],
-            "SCSS": ["**/*.scss"],
-            "HTML": ["**/*.html", "**/*.htm"],
-            "CSS": ["**/*.css"],
-            "HCL": ["**/*.hcl", "**/*.tf", "**/*.tfvars"],
-            "Clojure": ["**/*.clj", "**/*.cljs", "**/*.cljc", "**/*.edn"],
-            "Erlang": ["**/*.erl", "**/*.hrl", "rebar.config"],
-            "Lua": ["**/*.lua"],
-            "PLpgSQL": ["**/*.pgsql", "**/*.sql"],
-        }
-
-        detected_types = []
-        confidence_scores = {}
-
-        for project_type, config_files in project_types.items():
-            matches = []
-            for config_pattern in config_files:
-                if "*" in config_pattern:
-                    try:
-                        matching_files = list(repo_path.glob(config_pattern))
-                        if matching_files:
-                            matches.extend([f.name for f in matching_files])
-                    except OSError:
-                        continue
-                else:
-                    # Regular file check
-                    if (repo_path / config_pattern).exists():
-                        matches.append(config_pattern)
-
-            if matches:
-                detected_types.append(
-                    {"type": project_type, "files": matches, "confidence": len(matches)}
-                )
-                confidence_scores[project_type] = len(matches)
+        detected_types, confidence_scores = self._score_project_types(repo_path)
 
         # Post-process to create combined Java/Maven and Java/Gradle types
-        has_maven = "Maven" in confidence_scores
-        has_gradle = "Gradle" in confidence_scores
-        has_java = "Java" in confidence_scores
-
-        # If we have Java files with Maven or Gradle, create combined types
-        if has_java and has_maven:
-            # Combine Java + Maven confidence
-            combined_confidence = confidence_scores.get("Java", 0) + confidence_scores.get(
-                "Maven", 0
-            )
-            detected_types.append(
-                {"type": "Java/Maven", "files": [], "confidence": combined_confidence}
-            )
-            confidence_scores["Java/Maven"] = combined_confidence
-            detected_types = [t for t in detected_types if t["type"] not in ["Java", "Maven"]]
-            confidence_scores.pop("Java", None)
-            confidence_scores.pop("Maven", None)
-        elif has_maven and not has_java:
-            # Maven without Java files, rename to Java/Maven
-            for t in detected_types:
-                if t["type"] == "Maven":
-                    t["type"] = "Java/Maven"
-            if "Maven" in confidence_scores:
-                confidence_scores["Java/Maven"] = confidence_scores.pop("Maven")
-
-        if has_java and has_gradle:
-            # Combine Java + Gradle confidence
-            combined_confidence = confidence_scores.get("Java", 0) + confidence_scores.get(
-                "Gradle", 0
-            )
-            detected_types.append(
-                {"type": "Java/Gradle", "files": [], "confidence": combined_confidence}
-            )
-            confidence_scores["Java/Gradle"] = combined_confidence
-            detected_types = [t for t in detected_types if t["type"] not in ["Java", "Gradle"]]
-            confidence_scores.pop("Java", None)
-            confidence_scores.pop("Gradle", None)
-        elif has_gradle and not has_java:
-            # Gradle without Java files, rename to Java/Gradle
-            for t in detected_types:
-                if t["type"] == "Gradle":
-                    t["type"] = "Java/Gradle"
-            if "Gradle" in confidence_scores:
-                confidence_scores["Java/Gradle"] = confidence_scores.pop("Gradle")
+        detected_types = self._combine_java_build_types(detected_types, confidence_scores)
 
         # Apply priority boosts for certain project types
-        repo_name_lower = repo_name.lower()
-
-        # Boost Dockerfile priority if found at root
-        if "Dockerfile" in confidence_scores:
-            dockerfile_at_root = (repo_path / "Dockerfile").exists()
-            docker_compose_at_root = (repo_path / "docker-compose.yml").exists() or (
-                repo_path / "docker-compose.yaml"
-            ).exists()
-            if dockerfile_at_root or docker_compose_at_root:
-                # Boost by 50% if Dockerfile/docker-compose at root
-                confidence_scores["Dockerfile"] = int(confidence_scores["Dockerfile"] * 1.5)
-
-        # Boost Robot Framework priority for test-related repos
-        if "Robot Framework" in confidence_scores and (
-            "test" in repo_name_lower or "testsuite" in repo_name_lower
-        ):
-            # Boost by 100% for test repos
-            confidence_scores["Robot Framework"] = int(confidence_scores["Robot Framework"] * 2.0)
-
-        # Boost Shell priority if many shell scripts found
-        if "Shell" in confidence_scores and confidence_scores["Shell"] >= 5:
-            # Boost shell if we found 5+ shell scripts
-            confidence_scores["Shell"] = int(confidence_scores["Shell"] * 1.3)
+        self._apply_type_priority_boosts(repo_path, repo_name, confidence_scores)
 
         # Determine primary type (highest confidence)
         primary_type = None
@@ -655,6 +573,119 @@ class FeatureRegistry:
             "primary_type": primary_type,
             "details": detected_types,
         }
+
+    def _score_project_types(self, repo_path: Path) -> tuple[list[dict[str, Any]], dict[str, int]]:
+        """Detect project types by matching configuration files and glob patterns.
+
+        Returns:
+            Tuple of ``(detected_types, confidence_scores)`` where each detected
+            type carries the matched files and a confidence equal to the number
+            of matches.
+        """
+        detected_types: list[dict[str, Any]] = []
+        confidence_scores: dict[str, int] = {}
+
+        for project_type, config_files in _PROJECT_TYPE_PATTERNS.items():
+            matches: list[str] = []
+            for config_pattern in config_files:
+                if "*" in config_pattern:
+                    try:
+                        matching_files = list(repo_path.glob(config_pattern))
+                    except OSError:
+                        continue
+                    if matching_files:
+                        matches.extend([f.name for f in matching_files])
+                elif (repo_path / config_pattern).exists():
+                    matches.append(config_pattern)
+
+            if matches:
+                detected_types.append(
+                    {"type": project_type, "files": matches, "confidence": len(matches)}
+                )
+                confidence_scores[project_type] = len(matches)
+
+        return detected_types, confidence_scores
+
+    def _combine_java_build_types(
+        self, detected_types: list[dict[str, Any]], confidence_scores: dict[str, int]
+    ) -> list[dict[str, Any]]:
+        """Fold Java + Maven/Gradle detections into combined build-system types.
+
+        Mutates ``confidence_scores`` in place and returns the (possibly
+        rewritten) detected-types list.
+        """
+        has_maven = "Maven" in confidence_scores
+        has_gradle = "Gradle" in confidence_scores
+        has_java = "Java" in confidence_scores
+
+        # If we have Java files with Maven or Gradle, create combined types
+        if has_java and has_maven:
+            combined_confidence = confidence_scores.get("Java", 0) + confidence_scores.get(
+                "Maven", 0
+            )
+            detected_types.append(
+                {"type": "Java/Maven", "files": [], "confidence": combined_confidence}
+            )
+            confidence_scores["Java/Maven"] = combined_confidence
+            detected_types = [t for t in detected_types if t["type"] not in ["Java", "Maven"]]
+            confidence_scores.pop("Java", None)
+            confidence_scores.pop("Maven", None)
+        elif has_maven and not has_java:
+            # Maven without Java files, rename to Java/Maven
+            for t in detected_types:
+                if t["type"] == "Maven":
+                    t["type"] = "Java/Maven"
+            if "Maven" in confidence_scores:
+                confidence_scores["Java/Maven"] = confidence_scores.pop("Maven")
+
+        if has_java and has_gradle:
+            combined_confidence = confidence_scores.get("Java", 0) + confidence_scores.get(
+                "Gradle", 0
+            )
+            detected_types.append(
+                {"type": "Java/Gradle", "files": [], "confidence": combined_confidence}
+            )
+            confidence_scores["Java/Gradle"] = combined_confidence
+            detected_types = [t for t in detected_types if t["type"] not in ["Java", "Gradle"]]
+            confidence_scores.pop("Java", None)
+            confidence_scores.pop("Gradle", None)
+        elif has_gradle and not has_java:
+            # Gradle without Java files, rename to Java/Gradle
+            for t in detected_types:
+                if t["type"] == "Gradle":
+                    t["type"] = "Java/Gradle"
+            if "Gradle" in confidence_scores:
+                confidence_scores["Java/Gradle"] = confidence_scores.pop("Gradle")
+
+        return detected_types
+
+    def _apply_type_priority_boosts(
+        self, repo_path: Path, repo_name: str, confidence_scores: dict[str, int]
+    ) -> None:
+        """Boost confidence scores for context-sensitive project types in place."""
+        repo_name_lower = repo_name.lower()
+
+        # Boost Dockerfile priority if found at root
+        if "Dockerfile" in confidence_scores:
+            dockerfile_at_root = (repo_path / "Dockerfile").exists()
+            docker_compose_at_root = (repo_path / "docker-compose.yml").exists() or (
+                repo_path / "docker-compose.yaml"
+            ).exists()
+            if dockerfile_at_root or docker_compose_at_root:
+                # Boost by 50% if Dockerfile/docker-compose at root
+                confidence_scores["Dockerfile"] = int(confidence_scores["Dockerfile"] * 1.5)
+
+        # Boost Robot Framework priority for test-related repos
+        if "Robot Framework" in confidence_scores and (
+            "test" in repo_name_lower or "testsuite" in repo_name_lower
+        ):
+            # Boost by 100% for test repos
+            confidence_scores["Robot Framework"] = int(confidence_scores["Robot Framework"] * 2.0)
+
+        # Boost Shell priority if many shell scripts found
+        if "Shell" in confidence_scores and confidence_scores["Shell"] >= 5:
+            # Boost shell if we found 5+ shell scripts
+            confidence_scores["Shell"] = int(confidence_scores["Shell"] * 1.3)
 
     def _is_documentation_repository(self, repo_path: Path) -> bool:
         """
@@ -812,6 +843,19 @@ class FeatureRegistry:
         }
 
         # Try GitHub API integration if enabled and token available
+        self._augment_workflows_with_github_api(result, repo_path, workflow_names)
+
+        return result
+
+    def _augment_workflows_with_github_api(
+        self, result: dict[str, Any], repo_path: Path, workflow_names: list[str]
+    ) -> None:
+        """Enrich workflow results with GitHub API runtime status when configured.
+
+        No-op unless GitHub API integration is enabled, a token is available,
+        an org is known, and the repository is a GitHub repository. Failures
+        are logged and swallowed so static analysis results are preserved.
+        """
         extensions_config = self.config.get("extensions", {})
         github_api_config = extensions_config.get("github_api", {})
         github_api_enabled = github_api_config.get("enabled", False)
@@ -834,44 +878,42 @@ class FeatureRegistry:
                 f"Workflow status will not be queried for {repo_path.name}"
             )
 
-        if github_api_enabled and github_token and self.github_org and is_github_repo:
-            try:
-                owner, repo_name = self._extract_github_repo_info(repo_path, self.github_org)
-                self.logger.debug(f"Attempting GitHub API query for {owner}/{repo_name}")
-                if owner and repo_name:
-                    github_client = GitHubAPIClient(github_token, stats=self.api_stats)
-                    github_status = github_client.get_repository_workflow_status_summary(
-                        owner, repo_name
+        if not (github_api_enabled and github_token and self.github_org and is_github_repo):
+            return
+
+        try:
+            owner, repo_name = self._extract_github_repo_info(repo_path, self.github_org)
+            self.logger.debug(f"Attempting GitHub API query for {owner}/{repo_name}")
+            if not (owner and repo_name):
+                return
+
+            github_client = GitHubAPIClient(github_token, stats=self.api_stats)
+            github_status = github_client.get_repository_workflow_status_summary(owner, repo_name)
+
+            # Merge GitHub API data with static analysis
+            result["github_api_data"] = github_status
+            result["has_runtime_status"] = True
+
+            self.logger.debug(f"Retrieved GitHub workflow status for {owner}/{repo_name}")
+
+            # If no local workflows were found but GitHub has workflows, use GitHub as source
+            # This handles cases where Gerrit is primary but GitHub mirror has workflows
+            if not workflow_names and github_status.get("workflows"):
+                github_workflow_names = [
+                    os.path.basename(workflow.get("path", ""))
+                    for workflow in github_status.get("workflows", [])
+                    if workflow.get("path")
+                ]
+                if github_workflow_names:
+                    result["workflow_names"] = github_workflow_names
+                    result["count"] = len(github_workflow_names)
+                    self.logger.debug(
+                        f"Using GitHub API as workflow source for {owner}/{repo_name}: "
+                        f"{github_workflow_names}"
                     )
 
-                    # Merge GitHub API data with static analysis
-                    result["github_api_data"] = github_status
-                    result["has_runtime_status"] = True
-
-                    self.logger.debug(f"Retrieved GitHub workflow status for {owner}/{repo_name}")
-
-                    # If no local workflows were found but GitHub has workflows, use GitHub as source
-                    # This handles cases where Gerrit is primary but GitHub mirror has workflows
-                    if not workflow_names and github_status.get("workflows"):
-                        github_workflow_names = []
-                        for workflow in github_status.get("workflows", []):
-                            workflow_path = workflow.get("path", "")
-                            if workflow_path:
-                                file_name = os.path.basename(workflow_path)
-                                github_workflow_names.append(file_name)
-
-                        if github_workflow_names:
-                            result["workflow_names"] = github_workflow_names
-                            result["count"] = len(github_workflow_names)
-                            self.logger.debug(
-                                f"Using GitHub API as workflow source for {owner}/{repo_name}: "
-                                f"{github_workflow_names}"
-                            )
-
-            except Exception as e:
-                self.logger.warning(f"Failed to fetch GitHub workflow status for {repo_path}: {e}")
-
-        return result
+        except Exception as e:
+            self.logger.warning(f"Failed to fetch GitHub workflow status for {repo_path}: {e}")
 
     def _analyze_workflow_file(
         self, workflow_file: Path, verify_patterns: list[str], merge_patterns: list[str]
