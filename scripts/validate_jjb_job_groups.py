@@ -153,6 +153,10 @@ def _print_expansion_summary(total_projects, total_jobs, total_resolved, fully_r
     print("=" * 80)
     print("Summary:")
     print("=" * 80)
+    if not total_projects or not total_jobs:
+        print("❌ VALIDATION FAILED - No JJB job definitions were found")
+        print(f"   Projects tested: {total_projects}, jobs found: {total_jobs}")
+        return 1
     print(f"Projects tested: {total_projects}")
     print(
         f"Fully resolved projects: {fully_resolved_projects} ({fully_resolved_projects / total_projects * 100:.1f}%)"

@@ -369,12 +369,12 @@ class DataAggregator:
             contributors_set.add(author.get("email", ""))
 
             # Sum metrics across all time windows
-            author_commits = author.get("commits", {})
+            author_commits = author.get("commits") or {}
             author_lines_added = author.get("lines_added", {})
             author_lines_removed = author.get("lines_removed", {})
             author_lines_net = author.get("lines_net", {})
             author_repositories_touched = author.get("repositories_touched", {})
-            for window_name in author.get("commits", {}):
+            for window_name in author_commits:
                 org_aggregates[domain]["commits"][window_name] += author_commits.get(window_name, 0)
                 org_aggregates[domain]["lines_added"][window_name] += author_lines_added.get(
                     window_name, 0

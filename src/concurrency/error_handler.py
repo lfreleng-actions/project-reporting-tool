@@ -273,7 +273,7 @@ def with_retry(
 
     Example:
         >>> @with_retry(max_retries=3, backoff_factor=2.0)
-        >>> def fetch_data():
+        >>> def fetch_data(endpoint_url):
         >>>     return requests.get(endpoint_url)
     """
 

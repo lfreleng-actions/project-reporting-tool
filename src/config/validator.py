@@ -45,8 +45,13 @@ HAS_JSONSCHEMA = importlib.util.find_spec("jsonschema") is not None
 
 
 def _extract_quoted(message: str) -> str:
-    """Return the first single-quoted token in a schema error message."""
-    return message.split("'")[1]
+    """Return the first single-quoted token in a schema error message.
+
+    Falls back to the raw message when it contains no quoted token, so a
+    differently phrased jsonschema error cannot raise IndexError.
+    """
+    parts = message.split("'")
+    return parts[1] if len(parts) >= 3 else message
 
 
 def _format_required_error(e: Any) -> str:

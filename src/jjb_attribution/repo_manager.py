@@ -183,9 +183,9 @@ class JJBRepoManager:
                 logger.warning("Continuing with existing cached version")
 
         # aislop-ignore-next-line silent-recovery -- best-effort update; falls back to cached repo
-        except subprocess.TimeoutExpired as e:
+        except subprocess.TimeoutExpired:
             logger.warning(f"Timeout updating {name} repository")
-            logger.debug("Git pull timed out for %s", name, exc_info=e)
+            logger.debug("Git pull timed out for %s", name, exc_info=True)
             logger.warning("Continuing with existing cached version")
         except Exception as e:
             logger.warning(f"Error updating {name} repository: {e}")
