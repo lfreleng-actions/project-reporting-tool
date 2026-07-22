@@ -153,7 +153,6 @@ class RepositoryReporter:
         # Store info_master_path for INFO.yaml collection
         self._info_master_path = info_master_path
 
-        # Initialize data structure
         report_data = self._build_initial_report_data()
 
         self.git_collector.time_windows = cast(

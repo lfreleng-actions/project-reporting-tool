@@ -49,20 +49,41 @@ def _extract_quoted(message: str) -> str:
     return message.split("'")[1]
 
 
+def _format_required_error(e: Any) -> str:
+    return f"Missing required field: '{_extract_quoted(e.message)}'"
+
+
+def _format_type_error(e: Any) -> str:
+    return f"Invalid type: expected {e.validator_value}, got {type(e.instance).__name__}"
+
+
+def _format_enum_error(e: Any) -> str:
+    valid_values = ", ".join(f"'{v}'" for v in e.validator_value)
+    return f"Invalid value. Must be one of: {valid_values}"
+
+
+def _format_minimum_error(e: Any) -> str:
+    return f"Value {e.instance} is below minimum {e.validator_value}"
+
+
+def _format_maximum_error(e: Any) -> str:
+    return f"Value {e.instance} exceeds maximum {e.validator_value}"
+
+
+def _format_pattern_error(e: Any) -> str:
+    return f"Value does not match required pattern: {e.validator_value}"
+
+
 # Table-driven formatting for JSON Schema validation errors, keyed by the
 # jsonschema validator that produced the error. Any validator absent from this
 # table falls back to the raw error message.
 _SCHEMA_ERROR_FORMATTERS: dict[str, Callable[[Any], str]] = {
-    "required": lambda e: f"Missing required field: '{_extract_quoted(e.message)}'",
-    "type": lambda e: (
-        f"Invalid type: expected {e.validator_value}, " f"got {type(e.instance).__name__}"
-    ),
-    "enum": lambda e: (
-        "Invalid value. Must be one of: " + ", ".join(f"'{v}'" for v in e.validator_value)
-    ),
-    "minimum": lambda e: f"Value {e.instance} is below minimum {e.validator_value}",
-    "maximum": lambda e: f"Value {e.instance} exceeds maximum {e.validator_value}",
-    "pattern": lambda e: (f"Value does not match required pattern: {e.validator_value}"),
+    "required": _format_required_error,
+    "type": _format_type_error,
+    "enum": _format_enum_error,
+    "minimum": _format_minimum_error,
+    "maximum": _format_maximum_error,
+    "pattern": _format_pattern_error,
 }
 
 
