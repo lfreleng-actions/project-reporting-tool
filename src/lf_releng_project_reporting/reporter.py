@@ -154,35 +154,7 @@ class RepositoryReporter:
         self._info_master_path = info_master_path
 
         # Initialize data structure
-        # Pass schema_version and script_version from constants in main module
-        report_data = {
-            "schema_version": self.config.get("_schema_version", "1.0.0"),
-            "generated_at": datetime.datetime.now(datetime.UTC).isoformat(),
-            "project": self.config["project"],
-            "config_digest": self._compute_config_digest(self.config),
-            "script_version": self.config.get("_script_version", "1.0.0"),
-            "time_windows": self._setup_time_windows(self.config),
-            "repositories": [],
-            "authors": [],
-            "organizations": [],
-            "summaries": {},
-            "errors": [],
-        }
-
-        # Add Jenkins metadata if Jenkins is configured
-        jenkins_config = self.config.get("jenkins", {})
-        import os
-
-        jenkins_host = os.environ.get("JENKINS_HOST") or jenkins_config.get("host", "")
-
-        if jenkins_host or jenkins_config.get("enabled"):
-            jenkins_metadata = {
-                "host": jenkins_host,
-                "requires_auth": bool(
-                    os.environ.get("JENKINS_USER") and os.environ.get("JENKINS_API_TOKEN")
-                ),
-            }
-            report_data["jenkins_metadata"] = jenkins_metadata
+        report_data = self._build_initial_report_data()
 
         self.git_collector.time_windows = cast(
             dict[str, dict[str, Any]], report_data["time_windows"]
@@ -213,101 +185,146 @@ class RepositoryReporter:
         report_data["summaries"] = self.aggregator.aggregate_global_data(successful_repos)
 
         # Collect INFO.yaml data if info-master is available
-        # Filter to only the current Gerrit server to avoid cross-project contamination
-        if info_master_path and self.info_yaml_collector.is_enabled():
-            try:
-                self.logger.info(f"Collecting INFO.yaml project data for {gerrit_server}...")
-                info_yaml_data = self.info_yaml_collector.collect(
-                    info_master_path,
-                    git_metrics=repo_metrics,
-                    gerrit_server=gerrit_server,  # Filter by server
-                )
-                report_data["info_yaml"] = info_yaml_data
-                self.logger.info(
-                    f"✅ Collected {info_yaml_data.get('total_projects', 0)} INFO.yaml projects for {gerrit_server}"
-                )
-            except Exception as e:
-                self.logger.error(f"❌ Failed to collect INFO.yaml data: {e}")
-                report_data["info_yaml"] = {
-                    "projects": [],
-                    "lifecycle_summary": [],
-                    "total_projects": 0,
-                    "servers": [],
-                    "error": str(e),
-                }
-        else:
-            if not info_master_path:
-                self.logger.debug("INFO.yaml collection skipped: info-master not available")
-            else:
-                self.logger.debug("INFO.yaml collection skipped: disabled in configuration")
+        self._collect_info_yaml_data(report_data, info_master_path, gerrit_server, repo_metrics)
 
         # Log comprehensive Jenkins job allocation summary for auditing
-        if self.git_collector.jenkins_client and self.git_collector._jenkins_initialized:
-            allocation_summary = self.git_collector.get_jenkins_job_allocation_summary()
-
-            self.logger.info("Jenkins job allocation summary:")
-            self.logger.info(f"  Total jobs: {allocation_summary['total_jenkins_jobs']}")
-            self.logger.info(f"  Allocated: {allocation_summary['allocated_jobs']}")
-            self.logger.info(f"  Unallocated: {allocation_summary['unallocated_jobs']}")
-            self.logger.info(f"  Allocation rate: {allocation_summary['allocation_percentage']}%")
-
-            validation_issues = self.git_collector.validate_jenkins_job_allocation()
-            if validation_issues:
-                self.logger.warning("Jenkins job allocation information:")
-                for issue in validation_issues:
-                    self.logger.debug(f"  - {issue}")
-
-                allocation_summary = self.git_collector.get_jenkins_job_allocation_summary()
-                orphaned_summary = self.git_collector.get_orphaned_jenkins_jobs_summary()
-
-                total_jobs = allocation_summary.get("total_jenkins_jobs", 0)
-                allocated_jobs = allocation_summary.get("allocated_jobs", 0)
-                orphaned_jobs = orphaned_summary.get("total_orphaned_jobs", 0)
-
-                self.logger.info(
-                    f"Final Jenkins job allocation: {allocated_jobs}/{total_jobs} active, {orphaned_jobs} orphaned"
-                )
-            else:
-                self.logger.info("Jenkins job allocation validation: No issues found")
-
-            # Add allocation data to report for debugging
-            report_data["jenkins_allocation"] = allocation_summary
-
-            if allocation_summary.get("unallocated_jobs", 0) > 0:
-                all_jobs = self.git_collector.jenkins_allocation_context.get_all_jobs()
-                all_jobs_list = all_jobs.get("jobs", [])
-                all_job_names = {job.get("name", "") for job in all_jobs_list}
-                allocated_job_names = set(allocation_summary.get("allocated_job_names", []))
-                unallocated_job_names = sorted(all_job_names - allocated_job_names)
-                report_data["jenkins_allocation"]["unallocated_job_names"] = unallocated_job_names
-
-                # Store basic job data for unallocated jobs (same structure as cache)
-                # This includes: name, url, color, buildable, disabled
-                unallocated_job_details = []
-                for job in all_jobs_list:
-                    job_name = job.get("name", "")
-                    if job_name in unallocated_job_names:
-                        unallocated_job_details.append(job)
-
-                report_data["jenkins_allocation"]["unallocated_job_details"] = (
-                    unallocated_job_details
-                )
-
-            # Add orphaned jobs data to report
-            orphaned_summary = self.git_collector.get_orphaned_jenkins_jobs_summary()
-            report_data["orphaned_jenkins_jobs"] = orphaned_summary
-            if orphaned_summary["total_orphaned_jobs"] > 0:
-                self.logger.info(
-                    f"Found {orphaned_summary['total_orphaned_jobs']} Jenkins jobs belonging to archived Gerrit projects"
-                )
-                for state, count in orphaned_summary["by_state"].items():
-                    self.logger.info(f"  - {count} jobs for {state} projects")
+        self._record_jenkins_allocation(report_data)
 
         self.logger.info(
             f"Analysis complete: {len(report_data['repositories'])} repositories, {len(report_data['errors'])} errors"
         )
 
         return report_data
+
+    def _build_initial_report_data(self) -> dict[str, Any]:
+        """Create the report skeleton and attach Jenkins metadata when configured."""
+        report_data: dict[str, Any] = {
+            "schema_version": self.config.get("_schema_version", "1.0.0"),
+            "generated_at": datetime.datetime.now(datetime.UTC).isoformat(),
+            "project": self.config["project"],
+            "config_digest": self._compute_config_digest(self.config),
+            "script_version": self.config.get("_script_version", "1.0.0"),
+            "time_windows": self._setup_time_windows(self.config),
+            "repositories": [],
+            "authors": [],
+            "organizations": [],
+            "summaries": {},
+            "errors": [],
+        }
+
+        # Add Jenkins metadata if Jenkins is configured
+        jenkins_config = self.config.get("jenkins", {})
+        jenkins_host = os.environ.get("JENKINS_HOST") or jenkins_config.get("host", "")
+        if jenkins_host or jenkins_config.get("enabled"):
+            report_data["jenkins_metadata"] = {
+                "host": jenkins_host,
+                "requires_auth": bool(
+                    os.environ.get("JENKINS_USER") and os.environ.get("JENKINS_API_TOKEN")
+                ),
+            }
+
+        return report_data
+
+    def _collect_info_yaml_data(
+        self,
+        report_data: dict[str, Any],
+        info_master_path: Path | None,
+        gerrit_server: str,
+        repo_metrics: list[dict[str, Any]],
+    ) -> None:
+        """Collect INFO.yaml data for the current Gerrit server, if available.
+
+        Filters to only the current Gerrit server to avoid cross-project
+        contamination. Skips collection (with a debug note) when info-master is
+        unavailable or the collector is disabled.
+        """
+        if not (info_master_path and self.info_yaml_collector.is_enabled()):
+            if not info_master_path:
+                self.logger.debug("INFO.yaml collection skipped: info-master not available")
+            else:
+                self.logger.debug("INFO.yaml collection skipped: disabled in configuration")
+            return
+
+        try:
+            self.logger.info(f"Collecting INFO.yaml project data for {gerrit_server}...")
+            info_yaml_data = self.info_yaml_collector.collect(
+                info_master_path,
+                git_metrics=repo_metrics,
+                gerrit_server=gerrit_server,  # Filter by server
+            )
+            report_data["info_yaml"] = info_yaml_data
+            self.logger.info(
+                f"✅ Collected {info_yaml_data.get('total_projects', 0)} INFO.yaml projects for {gerrit_server}"
+            )
+        except Exception as e:
+            self.logger.error(f"❌ Failed to collect INFO.yaml data: {e}")
+            report_data["info_yaml"] = {
+                "projects": [],
+                "lifecycle_summary": [],
+                "total_projects": 0,
+                "servers": [],
+                "error": str(e),
+            }
+
+    def _record_jenkins_allocation(self, report_data: dict[str, Any]) -> None:
+        """Log the Jenkins job allocation summary and attach it to the report."""
+        if not (self.git_collector.jenkins_client and self.git_collector._jenkins_initialized):
+            return
+
+        allocation_summary = self.git_collector.get_jenkins_job_allocation_summary()
+
+        self.logger.info("Jenkins job allocation summary:")
+        self.logger.info(f"  Total jobs: {allocation_summary['total_jenkins_jobs']}")
+        self.logger.info(f"  Allocated: {allocation_summary['allocated_jobs']}")
+        self.logger.info(f"  Unallocated: {allocation_summary['unallocated_jobs']}")
+        self.logger.info(f"  Allocation rate: {allocation_summary['allocation_percentage']}%")
+
+        validation_issues = self.git_collector.validate_jenkins_job_allocation()
+        if validation_issues:
+            self.logger.warning("Jenkins job allocation information:")
+            for issue in validation_issues:
+                self.logger.debug(f"  - {issue}")
+
+            allocation_summary = self.git_collector.get_jenkins_job_allocation_summary()
+            orphaned_summary = self.git_collector.get_orphaned_jenkins_jobs_summary()
+
+            total_jobs = allocation_summary.get("total_jenkins_jobs", 0)
+            allocated_jobs = allocation_summary.get("allocated_jobs", 0)
+            orphaned_jobs = orphaned_summary.get("total_orphaned_jobs", 0)
+
+            self.logger.info(
+                f"Final Jenkins job allocation: {allocated_jobs}/{total_jobs} active, {orphaned_jobs} orphaned"
+            )
+        else:
+            self.logger.info("Jenkins job allocation validation: No issues found")
+
+        # Add allocation data to report for debugging
+        report_data["jenkins_allocation"] = allocation_summary
+
+        if allocation_summary.get("unallocated_jobs", 0) > 0:
+            all_jobs = self.git_collector.jenkins_allocation_context.get_all_jobs()
+            all_jobs_list = all_jobs.get("jobs", [])
+            all_job_names = {job.get("name", "") for job in all_jobs_list}
+            allocated_job_names = set(allocation_summary.get("allocated_job_names", []))
+            unallocated_job_names = sorted(all_job_names - allocated_job_names)
+            report_data["jenkins_allocation"]["unallocated_job_names"] = unallocated_job_names
+
+            # Store basic job data for unallocated jobs (same structure as cache)
+            # This includes: name, url, color, buildable, disabled
+            unallocated_job_details = [
+                job for job in all_jobs_list if job.get("name", "") in unallocated_job_names
+            ]
+            report_data["jenkins_allocation"]["unallocated_job_details"] = unallocated_job_details
+
+        # Add orphaned jobs data to report
+        orphaned_summary = self.git_collector.get_orphaned_jenkins_jobs_summary()
+        report_data["orphaned_jenkins_jobs"] = orphaned_summary
+        if orphaned_summary["total_orphaned_jobs"] > 0:
+            self.logger.info(
+                f"Found {orphaned_summary['total_orphaned_jobs']} Jenkins jobs belonging to archived Gerrit projects"
+            )
+            for state, count in orphaned_summary["by_state"].items():
+                self.logger.info(f"  - {count} jobs for {state} projects")
 
     def generate_reports(self, repos_path: Path, output_dir: Path) -> dict[str, Path]:
         """
@@ -435,26 +452,8 @@ class RepositoryReporter:
         try:
             for git_dir in repos_path.rglob(".git"):
                 try:
-                    if git_dir.exists():
-                        repo_dir = git_dir.parent
-
-                        # Use relative path from repos_path for clean logging (fallback to absolute)
-                        try:
-                            rel_path = str(repo_dir.relative_to(repos_path))
-                        except ValueError:
-                            rel_path = str(repo_dir)
-
-                        self.logger.debug(f"Found git repository: {rel_path}")
-
-                        # Validate against Gerrit API cache if available
-                        if getattr(self.git_collector, "gerrit_projects_cache", None):
-                            if rel_path in self.git_collector.gerrit_projects_cache:
-                                self.logger.debug(f"Verified {rel_path} exists in Gerrit")
-                            else:
-                                self.logger.warning(
-                                    f"Repository {rel_path} not found in Gerrit API cache"
-                                )
-
+                    repo_dir = self._validate_discovered_repo(git_dir, repos_path)
+                    if repo_dir is not None:
                         repo_dirs.append(repo_dir)
                 except (PermissionError, OSError) as e:
                     access_errors += 1
@@ -472,6 +471,38 @@ class RepositoryReporter:
             self.logger.debug(f"Encountered {access_errors} access errors during discovery")
 
         return unique_repos
+
+    def _validate_discovered_repo(self, git_dir: Path, repos_path: Path) -> Path | None:
+        """Resolve a discovered ``.git`` entry to its repository directory.
+
+        Logs the discovery and, when a Gerrit projects cache is available,
+        notes whether the repository is present in it.
+
+        Returns:
+            The repository directory, or None if the ``.git`` entry no longer
+            exists.
+        """
+        if not git_dir.exists():
+            return None
+
+        repo_dir = git_dir.parent
+
+        # Use relative path from repos_path for clean logging (fallback to absolute)
+        try:
+            rel_path = str(repo_dir.relative_to(repos_path))
+        except ValueError:
+            rel_path = str(repo_dir)
+
+        self.logger.debug(f"Found git repository: {rel_path}")
+
+        # Validate against Gerrit API cache if available
+        cache = getattr(self.git_collector, "gerrit_projects_cache", None)
+        if cache and rel_path in cache:
+            self.logger.debug(f"Verified {rel_path} exists in Gerrit")
+        elif cache:
+            self.logger.warning(f"Repository {rel_path} not found in Gerrit API cache")
+
+        return repo_dir
 
     def _analyze_repositories_parallel(self, repo_dirs: list[Path]) -> list[dict[str, Any]]:
         """
