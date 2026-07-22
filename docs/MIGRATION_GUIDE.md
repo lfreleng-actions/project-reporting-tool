@@ -95,7 +95,7 @@ The modern reporting system provides:
 
 | Component            | Legacy                | Modern                 | Compatible |
 | -------------------- | --------------------- | ---------------------- | ---------- |
-| **Python**           | 3.10+                 | 3.10+                  | ✅ Yes     |
+| **Python**           | 3.10+                 | 3.11+                  | ✅ Yes     |
 | **Configuration**    | YAML                  | YAML                   | ✅ Yes     |
 | **Data Format**      | JSON                  | JSON                   | ✅ Yes     |
 | **APIs**             | Gerrit/GitHub/Jenkins | Gerrit/GitHub/Jenkins  | ✅ Yes     |
@@ -128,7 +128,7 @@ cp -r reports/ reports.backup/
 
 ```bash
 # Check Python version
-python --version  # Should be 3.10+
+python --version  # Should be 3.11+
 
 # Check required tools
 which git

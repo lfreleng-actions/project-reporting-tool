@@ -110,7 +110,7 @@ When adding new examples:
 
 All examples require:
 
-- Python 3.10+
+- Python 3.11+
 - Repository reporting system source code
 - Dependencies from project root
 

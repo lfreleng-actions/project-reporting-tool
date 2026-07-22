@@ -19,7 +19,7 @@ SPDX-FileCopyrightText: 2025 The Linux Foundation
 
 ```bash
 # Python environment
-python --version  # 3.10+
+python --version  # 3.11+
 uv --version      # Latest
 
 # GitHub CLI (required for GitHub project cloning)

@@ -55,7 +55,7 @@ This guide covers template development for the Repository Reporting System's mod
 
 ```bash
 # Required
-Python 3.10+
+Python 3.11+
 Jinja2 3.0+
 
 # Optional (for development)

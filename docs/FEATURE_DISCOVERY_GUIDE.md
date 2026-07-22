@@ -217,7 +217,7 @@ Feature: docker
 
 📋 Configuration Example:
 
-  FROM python:3.10-slim
+  FROM python:3.11-slim
   WORKDIR /app
   COPY requirements.txt .
   RUN uv sync  # Recommended

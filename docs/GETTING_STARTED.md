@@ -13,7 +13,7 @@ SPDX-FileCopyrightText: 2025 The Linux Foundation
 
 Before you begin, ensure you have:
 
-- **Python 3.10+** (supports 3.10, 3.11, 3.12, 3.13)
+- **Python 3.11+** (supports 3.11, 3.12, 3.13, 3.14)
 - **Git** installed
 - **Repositories** cloned locally (the repos you want to analyze)
 

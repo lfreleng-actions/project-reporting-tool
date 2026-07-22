@@ -16,7 +16,6 @@ Phase: 12, Step 4, Task 1.3
 """
 
 import datetime
-from datetime import timezone
 
 from rendering.formatters import (
     UNKNOWN_AGE,
@@ -339,7 +338,7 @@ class TestFormatDate:
 
     def test_format_date_with_timezone_object(self):
         """Test datetime with timezone."""
-        dt = datetime.datetime(2025, 1, 16, 14, 30, 0, tzinfo=timezone.utc)
+        dt = datetime.datetime(2025, 1, 16, 14, 30, 0, tzinfo=datetime.UTC)
         assert format_date(dt) == "2025-01-16"
 
 
