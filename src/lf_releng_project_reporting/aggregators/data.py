@@ -146,7 +146,7 @@ class DataAggregator:
         window_config = time_windows.get(primary_window, {})
 
         if isinstance(window_config, dict) and "days" in window_config:
-            return window_config["days"]
+            return int(window_config["days"])
         if isinstance(window_config, int):
             return window_config
 

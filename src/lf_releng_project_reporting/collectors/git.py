@@ -129,14 +129,14 @@ class GitDataCollector:
             self.cache_dir.mkdir(exist_ok=True)
 
         # Initialize Gerrit API client if configured
-        self.gerrit_client = None
+        self.gerrit_client: GerritAPIClient | None = None
         self.gerrit_projects_cache: dict[
             str, dict[str, Any]
         ] = {}  # Cache for all Gerrit project data
         gerrit_config = self.config.get("gerrit", {})
 
         # Initialize Jenkins API client if configured
-        self.jenkins_client = None
+        self.jenkins_client: JenkinsAPIClient | None = None
         # Jenkins allocation context for thread-safe job tracking (Phase 7)
         # If not provided, create a new instance (each collector gets its own context)
         self.jenkins_allocation_context = jenkins_allocation_context or JenkinsAllocationContext()
@@ -804,7 +804,7 @@ class GitDataCollector:
 
     def validate_jenkins_job_allocation(self) -> list[str]:
         """Validate Jenkins job allocation and return any issues found."""
-        issues = []
+        issues: list[str] = []
 
         if not self.jenkins_client or not self._jenkins_initialized:
             return ["No Jenkins client available or not initialized for validation"]
