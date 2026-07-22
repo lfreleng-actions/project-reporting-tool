@@ -12,6 +12,7 @@ Phase: 8 - Renderer Modernization (Fixed for actual data schema)
 """
 
 import logging
+from collections.abc import Callable
 from datetime import datetime
 from typing import Any
 
@@ -680,69 +681,11 @@ class RenderContext:
             gerrit_project = repo.get("gerrit_project", "Unknown")
 
             jenkins_data = repo.get("jenkins", {})
-            jenkins_jobs_raw = jenkins_data.get("jobs", [])
-
-            # Transform Jenkins jobs to flatten URL structure for template
-            jenkins_jobs = []
-            for job in jenkins_jobs_raw:
-                job_dict = {
-                    "name": job.get("name", "Unknown"),
-                    "status": job.get("status", "unknown"),
-                    "color": job.get("color", "notbuilt"),
-                    "state": job.get("state", "active"),
-                }
-                # Flatten nested URL structure: urls.job_page -> url
-                urls = job.get("urls", {})
-                if isinstance(urls, dict):
-                    job_dict["url"] = urls.get("job_page", "")
-                else:
-                    job_dict["url"] = job.get("url", "")
-                jenkins_jobs.append(job_dict)
+            jenkins_jobs = self._flatten_jenkins_jobs(jenkins_data.get("jobs", []))
 
             features = repo.get("features", {})
             workflows_data = features.get("workflows", {})
-            workflow_files = workflows_data.get("files", [])
-
-            # Extract GitHub API data if available for runtime status
-            github_api_data = workflows_data.get("github_api_data", {})
-            github_workflows_api = github_api_data.get("workflows", [])
-
-            # Build github_workflows list with proper structure for template
-            github_workflows = []
-
-            # If we have GitHub API data with runtime status, use that
-            if github_workflows_api:
-                for gh_workflow in github_workflows_api:
-                    # Only include active workflows
-                    if gh_workflow.get("state") == "active":
-                        # Extract filename from path for display (matching production)
-                        workflow_path = gh_workflow.get("path", "")
-                        workflow_filename = (
-                            workflow_path.split("/")[-1] if workflow_path else "Unknown"
-                        )
-
-                        gh_urls = gh_workflow.get("urls", {})
-                        github_workflows.append(
-                            {
-                                "name": workflow_filename,  # Use filename instead of title
-                                "path": workflow_path,
-                                "state": gh_workflow.get("state", "active"),
-                                "status": gh_workflow.get("status", "unknown"),
-                                "url": gh_urls.get("workflow_page", ""),
-                            }
-                        )
-            # Otherwise use the static workflow files data
-            elif workflow_files:
-                for workflow_file in workflow_files:
-                    github_workflows.append(
-                        {
-                            "name": workflow_file.get("name", "Unknown"),
-                            "path": workflow_file.get("name", ""),
-                            "state": "active",  # Assume active if found locally
-                            "status": "unknown",  # No runtime status available
-                            "url": "",  # No URL without GitHub API data
-                        }
-                    )
+            github_workflows = self._build_github_workflows(workflows_data)
 
             # Only include repos that have at least one job or workflow
             if jenkins_jobs or github_workflows:
@@ -760,23 +703,7 @@ class RenderContext:
                 total_github_workflows += len(github_workflows)
 
         # Collect all Jenkins jobs (flat list for status counts)
-        all_jobs = []
-        for repo in repositories:
-            jenkins_data = repo.get("jenkins", {})
-            jobs = jenkins_data.get("jobs", [])
-            repo_name = repo.get("gerrit_project", "Unknown")
-
-            for job in jobs:
-                jenkins_color = job.get("color", "notbuilt")
-                all_jobs.append(
-                    {
-                        "name": job.get("name", "Unknown"),
-                        "repo": repo_name,
-                        "status": job.get("status", "UNKNOWN"),
-                        "color": self._get_status_color(jenkins_color),
-                        "url": job.get("url", ""),
-                    }
-                )
+        all_jobs = self._collect_all_jenkins_jobs(repositories)
 
         # Count by status
         status_counts: dict[str, int] = {}
@@ -795,6 +722,98 @@ class RenderContext:
             "all": all_jobs,
             "total_count": len(all_jobs),
         }
+
+    def _flatten_jenkins_jobs(self, jenkins_jobs_raw: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        """Flatten Jenkins job records into the template-friendly shape.
+
+        Collapses the nested ``urls.job_page`` structure to a flat ``url``.
+        """
+        jenkins_jobs = []
+        for job in jenkins_jobs_raw:
+            job_dict = {
+                "name": job.get("name", "Unknown"),
+                "status": job.get("status", "unknown"),
+                "color": job.get("color", "notbuilt"),
+                "state": job.get("state", "active"),
+            }
+            # Flatten nested URL structure: urls.job_page -> url
+            urls = job.get("urls", {})
+            if isinstance(urls, dict):
+                job_dict["url"] = urls.get("job_page", "")
+            else:
+                job_dict["url"] = job.get("url", "")
+            jenkins_jobs.append(job_dict)
+        return jenkins_jobs
+
+    def _build_github_workflows(self, workflows_data: dict[str, Any]) -> list[dict[str, Any]]:
+        """Build the GitHub workflows list from API data or static files.
+
+        Prefers GitHub API data (with runtime status, active workflows only)
+        and falls back to the statically discovered workflow files.
+        """
+        workflow_files = workflows_data.get("files", [])
+
+        # Extract GitHub API data if available for runtime status
+        github_api_data = workflows_data.get("github_api_data", {})
+        github_workflows_api = github_api_data.get("workflows", [])
+
+        github_workflows: list[dict[str, Any]] = []
+
+        # If we have GitHub API data with runtime status, use that
+        if github_workflows_api:
+            for gh_workflow in github_workflows_api:
+                # Only include active workflows
+                if gh_workflow.get("state") != "active":
+                    continue
+                # Extract filename from path for display (matching production)
+                workflow_path = gh_workflow.get("path", "")
+                workflow_filename = workflow_path.split("/")[-1] if workflow_path else "Unknown"
+
+                gh_urls = gh_workflow.get("urls", {})
+                github_workflows.append(
+                    {
+                        "name": workflow_filename,  # Use filename instead of title
+                        "path": workflow_path,
+                        "state": gh_workflow.get("state", "active"),
+                        "status": gh_workflow.get("status", "unknown"),
+                        "url": gh_urls.get("workflow_page", ""),
+                    }
+                )
+        # Otherwise use the static workflow files data
+        elif workflow_files:
+            for workflow_file in workflow_files:
+                github_workflows.append(
+                    {
+                        "name": workflow_file.get("name", "Unknown"),
+                        "path": workflow_file.get("name", ""),
+                        "state": "active",  # Assume active if found locally
+                        "status": "unknown",  # No runtime status available
+                        "url": "",  # No URL without GitHub API data
+                    }
+                )
+
+        return github_workflows
+
+    def _collect_all_jenkins_jobs(self, repositories: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        """Collect a flat list of all Jenkins jobs across repositories."""
+        all_jobs = []
+        for repo in repositories:
+            jenkins_data = repo.get("jenkins", {})
+            jobs = jenkins_data.get("jobs", [])
+            repo_name = repo.get("gerrit_project", "Unknown")
+
+            for job in jobs:
+                jenkins_color = job.get("color", "notbuilt")
+                all_jobs.append(
+                    {
+                        "name": job.get("name", "Unknown"),
+                        "repo": repo_name,
+                        "status": job.get("status", "UNKNOWN"),
+                        "color": self._get_status_color(jenkins_color),
+                        "url": job.get("url", ""),
+                    }
+                )
+        return all_jobs
 
     def _build_orphaned_jobs_context(self) -> dict[str, Any]:
         """Build orphaned jobs context."""
@@ -1064,117 +1083,67 @@ class RenderContext:
         if toc_enabled is False:
             return {"sections": [], "has_sections": False}
 
+        include_sections = config["include_sections"]
+
+        # Ordered TOC section specs: (config key, title, anchor, presence check).
+        # A section is listed when its include flag is enabled and the presence
+        # check (evaluated lazily) reports content is available.
+        section_specs: list[tuple[str, str, str, Callable[[], bool]]] = [
+            ("summary", "Global Summary", "summary", lambda: True),
+            (
+                "repositories",
+                "Gerrit Projects",
+                "repositories",
+                lambda: self._build_repositories_context()["has_repositories"],
+            ),
+            (
+                "contributors",
+                "Top Contributors",
+                "contributors",
+                lambda: self._build_contributors_context()["has_contributors"],
+            ),
+            (
+                "organizations",
+                "Top Organizations",
+                "organizations",
+                lambda: self._build_organizations_context()["has_organizations"],
+            ),
+            (
+                "features",
+                "Repository Feature Matrix",
+                "features",
+                lambda: self._build_features_context()["has_features"],
+            ),
+            (
+                "workflows",
+                "Deployed CI/CD Jobs",
+                "workflows",
+                lambda: self._build_workflows_context()["has_workflows"],
+            ),
+            (
+                "orphaned_jobs",
+                "Orphaned Jenkins Jobs",
+                "orphaned-jobs",
+                lambda: self._build_orphaned_jobs_context()["has_orphaned_jobs"],
+            ),
+            (
+                "unattributed_jobs",
+                "Unattributed Jenkins Jobs",
+                "unattributed-jobs",
+                lambda: self._build_unattributed_jobs_context()["has_unattributed_jobs"],
+            ),
+            (
+                "time_windows",
+                "Time Windows",
+                "time-windows",
+                lambda: len(self._build_time_windows_context()) > 0,
+            ),
+        ]
+
         sections = []
-
-        # Summary (always included if enabled)
-        if config["include_sections"].get("summary", True):
-            sections.append(
-                {
-                    "title": "Global Summary",
-                    "anchor": "summary",
-                    "level": 1,
-                }
-            )
-
-        # Repositories (comes before contributors to match expected order)
-        repositories = self._build_repositories_context()
-        if (
-            config["include_sections"].get("repositories", True)
-            and repositories["has_repositories"]
-        ):
-            sections.append(
-                {
-                    "title": "Gerrit Projects",
-                    "anchor": "repositories",
-                    "level": 1,
-                }
-            )
-
-        # Contributors
-        contributors = self._build_contributors_context()
-        if (
-            config["include_sections"].get("contributors", True)
-            and contributors["has_contributors"]
-        ):
-            sections.append(
-                {
-                    "title": "Top Contributors",
-                    "anchor": "contributors",
-                    "level": 1,
-                }
-            )
-
-        # Organizations
-        organizations = self._build_organizations_context()
-        if (
-            config["include_sections"].get("organizations", True)
-            and organizations["has_organizations"]
-        ):
-            sections.append(
-                {
-                    "title": "Top Organizations",
-                    "anchor": "organizations",
-                    "level": 1,
-                }
-            )
-
-        # Features
-        features = self._build_features_context()
-        if config["include_sections"].get("features", True) and features["has_features"]:
-            sections.append(
-                {
-                    "title": "Repository Feature Matrix",
-                    "anchor": "features",
-                    "level": 1,
-                }
-            )
-
-        # Workflows (use "Deployed CI/CD Jobs" to match test expectations)
-        workflows = self._build_workflows_context()
-        if config["include_sections"].get("workflows", True) and workflows["has_workflows"]:
-            sections.append(
-                {
-                    "title": "Deployed CI/CD Jobs",
-                    "anchor": "workflows",
-                    "level": 1,
-                }
-            )
-
-        # Orphaned Jobs
-        orphaned = self._build_orphaned_jobs_context()
-        if config["include_sections"].get("orphaned_jobs", True) and orphaned["has_orphaned_jobs"]:
-            sections.append(
-                {
-                    "title": "Orphaned Jenkins Jobs",
-                    "anchor": "orphaned-jobs",
-                    "level": 1,
-                }
-            )
-
-        # Unattributed Jobs
-        unattributed = self._build_unattributed_jobs_context()
-        if (
-            config["include_sections"].get("unattributed_jobs", True)
-            and unattributed["has_unattributed_jobs"]
-        ):
-            sections.append(
-                {
-                    "title": "Unattributed Jenkins Jobs",
-                    "anchor": "unattributed-jobs",
-                    "level": 1,
-                }
-            )
-
-        # Time Windows
-        time_windows = self._build_time_windows_context()
-        if config["include_sections"].get("time_windows", True) and len(time_windows) > 0:
-            sections.append(
-                {
-                    "title": "Time Windows",
-                    "anchor": "time-windows",
-                    "level": 1,
-                }
-            )
+        for config_key, title, anchor, is_present in section_specs:
+            if include_sections.get(config_key, True) and is_present():
+                sections.append({"title": title, "anchor": anchor, "level": 1})
 
         return {
             "sections": sections,
