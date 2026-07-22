@@ -145,54 +145,79 @@ class GitDataCollector:
         jenkins_host = os.environ.get("JENKINS_HOST")
         jenkins_config = self.config.get("jenkins", {})
 
-        if gerrit_config.get("enabled", False):
-            host = gerrit_config.get("host")
-            base_url = gerrit_config.get("base_url")
-            timeout = gerrit_config.get("timeout", 30.0)
+        self._init_gerrit_client(gerrit_config)
+        self._init_jenkins_client(jenkins_host, jenkins_config, gerrit_config)
 
-            if host:
-                try:
-                    self.gerrit_client = GerritAPIClient(
-                        host, base_url, timeout, stats=self.api_stats
-                    )
-                    self.logger.info(f"Initialized Gerrit API client for {host}")
-                    self._fetch_all_gerrit_projects()
-                except Exception as e:
-                    self.logger.error(f"Failed to initialize Gerrit API client for {host}: {e}")
-                    # Re-raise to stop execution - Gerrit configuration is mandatory when enabled
-                    raise
-            else:
-                error_msg = "Gerrit is enabled in configuration but no host is specified"
-                self.logger.error(error_msg)
-                from lf_releng_project_reporting.exceptions import ConfigurationError
+    def _init_gerrit_client(self, gerrit_config: dict[str, Any]) -> None:
+        """Initialize the Gerrit API client when Gerrit is enabled.
 
-                raise ConfigurationError(error_msg)
+        Gerrit configuration is mandatory when enabled, so a missing host or a
+        client failure is raised rather than swallowed.
+        """
+        if not gerrit_config.get("enabled", False):
+            return
 
+        host = gerrit_config.get("host")
+        if not host:
+            error_msg = "Gerrit is enabled in configuration but no host is specified"
+            self.logger.error(error_msg)
+            from lf_releng_project_reporting.exceptions import ConfigurationError
+
+            raise ConfigurationError(error_msg)
+
+        base_url = gerrit_config.get("base_url")
+        timeout = gerrit_config.get("timeout", 30.0)
+        try:
+            self.gerrit_client = GerritAPIClient(host, base_url, timeout, stats=self.api_stats)
+            self.logger.info(f"Initialized Gerrit API client for {host}")
+            self._fetch_all_gerrit_projects()
+        except Exception as e:
+            self.logger.error(f"Failed to initialize Gerrit API client for {host}: {e}")
+            # Re-raise to stop execution - Gerrit configuration is mandatory when enabled
+            raise
+
+    def _resolve_jjb_config(self, jenkins_config: dict[str, Any]) -> Any:
+        """Resolve JJB attribution config from Jenkins or top-level configuration."""
+        jjb_config = jenkins_config.get("jjb_attribution")
+        if not jjb_config:
+            # Check top-level config for jjb_attribution (or legacy ci_management)
+            jjb_config = self.config.get("jjb_attribution") or self.config.get("ci_management")
+        return jjb_config
+
+    def _create_jenkins_client(
+        self, host: str, jenkins_config: dict[str, Any], gerrit_config: dict[str, Any]
+    ) -> JenkinsAPIClient:
+        """Build a JenkinsAPIClient for the given host from configuration."""
+        timeout = jenkins_config.get("timeout", 30.0)
+        jjb_config = self._resolve_jjb_config(jenkins_config)
+        gerrit_host = gerrit_config.get("host") if gerrit_config.get("enabled", False) else None
+        allow_http_fallback = jenkins_config.get("allow_http_fallback", False)
+        return JenkinsAPIClient(
+            host,
+            timeout,
+            stats=self.api_stats,
+            jjb_config=jjb_config,
+            gerrit_host=gerrit_host,
+            allow_http_fallback=allow_http_fallback,
+        )
+
+    def _init_jenkins_client(
+        self,
+        jenkins_host: str | None,
+        jenkins_config: dict[str, Any],
+        gerrit_config: dict[str, Any],
+    ) -> None:
+        """Initialize the Jenkins API client from the environment or config.
+
+        The ``JENKINS_HOST`` environment variable takes precedence over the
+        config-file host. Jenkins is mandatory when configured, so failures are
+        re-raised after logging.
+        """
         if jenkins_host:
             # Environment variable takes precedence - enables Jenkins integration
-            timeout = jenkins_config.get("timeout", 30.0)
             try:
-                # Get JJB Attribution configuration if available
-                jjb_config = jenkins_config.get("jjb_attribution")
-                if not jjb_config:
-                    # Check top-level config for jjb_attribution (or legacy ci_management)
-                    jjb_config = self.config.get("jjb_attribution") or self.config.get(
-                        "ci_management"
-                    )
-
-                gerrit_host = (
-                    gerrit_config.get("host") if gerrit_config.get("enabled", False) else None
-                )
-
-                allow_http_fallback = jenkins_config.get("allow_http_fallback", False)
-
-                self.jenkins_client = JenkinsAPIClient(
-                    jenkins_host,
-                    timeout,
-                    stats=self.api_stats,
-                    jjb_config=jjb_config,
-                    gerrit_host=gerrit_host,
-                    allow_http_fallback=allow_http_fallback,
+                self.jenkins_client = self._create_jenkins_client(
+                    jenkins_host, jenkins_config, gerrit_config
                 )
                 self.logger.info(
                     f"Initialized Jenkins API client for {jenkins_host} (from environment)"
@@ -204,45 +229,27 @@ class GitDataCollector:
                     f"Failed to initialize Jenkins API client for {jenkins_host}: {e}"
                 )
                 self.jenkins_client = None
-                # Re-raise to stop execution - Jenkins configuration is mandatory when JENKINS_HOST is set
+                # Re-raise to stop execution - Jenkins is mandatory when JENKINS_HOST is set
                 raise
-        elif jenkins_config.get("enabled", False):
-            # Fallback to config file (for backward compatibility)
-            host = jenkins_config.get("host")
-            timeout = jenkins_config.get("timeout", 30.0)
+            return
 
-            if host:
-                try:
-                    # Get JJB Attribution configuration if available
-                    jjb_config = jenkins_config.get("jjb_attribution")
-                    if not jjb_config:
-                        # Check top-level config for jjb_attribution (or legacy ci_management)
-                        jjb_config = self.config.get("jjb_attribution") or self.config.get(
-                            "ci_management"
-                        )
+        if not jenkins_config.get("enabled", False):
+            return
 
-                    gerrit_host = (
-                        gerrit_config.get("host") if gerrit_config.get("enabled", False) else None
-                    )
+        # Fallback to config file (for backward compatibility)
+        host = jenkins_config.get("host")
+        if not host:
+            self.logger.error("Jenkins enabled but no host configured")
+            return
 
-                    allow_http_fallback = jenkins_config.get("allow_http_fallback", False)
-
-                    self.jenkins_client = JenkinsAPIClient(
-                        host,
-                        timeout,
-                        stats=self.api_stats,
-                        jjb_config=jjb_config,
-                        gerrit_host=gerrit_host,
-                        allow_http_fallback=allow_http_fallback,
-                    )
-                    self.logger.info(f"Initialized Jenkins API client for {host} (from config)")
-                    self._initialize_jenkins_cache()
-                except Exception as e:
-                    self.logger.error(f"Failed to initialize Jenkins API client for {host}: {e}")
-                    # Re-raise to stop execution - Jenkins configuration is mandatory when enabled
-                    raise
-            else:
-                self.logger.error("Jenkins enabled but no host configured")
+        try:
+            self.jenkins_client = self._create_jenkins_client(host, jenkins_config, gerrit_config)
+            self.logger.info(f"Initialized Jenkins API client for {host} (from config)")
+            self._initialize_jenkins_cache()
+        except Exception as e:
+            self.logger.error(f"Failed to initialize Jenkins API client for {host}: {e}")
+            # Re-raise to stop execution - Jenkins configuration is mandatory when enabled
+            raise
 
     def _initialize_jenkins_cache(self):
         """Initialize Jenkins jobs cache at startup for better performance."""
@@ -526,16 +533,14 @@ class GitDataCollector:
             self.logger.warning(f"Error counting total LOC for {repo_path.name}: {e}")
             return 0
 
-    def collect_repo_git_metrics(self, repo_path: Path) -> dict[str, Any]:
-        """
-        Extract Git metrics for a single repository across all time windows.
+    def _resolve_repository_identity(self, repo_path: Path) -> tuple[str, str, str, str]:
+        """Resolve the repository identifier and Gerrit/GitHub URL metadata.
 
-        Uses git log --numstat --date=iso --pretty=format for unified traversal.
-        Single pass filtering commits into all time windows.
-        Collects: timestamps, author name/email, added/removed lines.
-        Returns structured metrics or error descriptor.
+        Returns:
+            Tuple of ``(repo_identifier, gerrit_host, gerrit_url,
+            gerrit_path_prefix)``. GitHub-native projects derive the host from
+            the org directory name and build a github.com URL.
         """
-        # Check if Gerrit is enabled for this project
         gerrit_config = self.config.get("gerrit", {})
         gerrit_enabled = gerrit_config.get("enabled", False)
 
@@ -565,20 +570,28 @@ class GitDataCollector:
             gerrit_path_prefix = ""  # GitHub doesn't use path prefix
             self.logger.debug(f"Collecting Git metrics for GitHub repository: {repo_identifier}")
 
-        # Use repo_identifier for gerrit_project field (works for both types)
-        gerrit_project = repo_identifier
+        return repo_identifier, gerrit_host, gerrit_url, gerrit_path_prefix
 
-        metrics: dict[str, Any] = {
+    def _init_repo_metrics(
+        self,
+        repo_path: Path,
+        gerrit_project: str,
+        gerrit_host: str,
+        gerrit_url: str,
+        gerrit_path_prefix: str,
+    ) -> dict[str, Any]:
+        """Build the empty per-repository metrics structure for all time windows."""
+        return {
             "repository": {
                 "gerrit_project": gerrit_project,  # PRIMARY identifier
                 "gerrit_host": gerrit_host,
                 "gerrit_url": gerrit_url,
-                "gerrit_path_prefix": gerrit_path_prefix,  # Discovered URL path (e.g., "/r", "/gerrit")
+                "gerrit_path_prefix": gerrit_path_prefix,  # Discovered URL path (e.g., "/r")
                 "local_path": str(repo_path),  # Secondary, for internal use
                 "last_commit_timestamp": None,
                 "days_since_last_commit": None,
                 "activity_status": "inactive",  # "current", "active", or "inactive"
-                "has_any_commits": False,  # Track if repo has ANY commits (regardless of time windows)
+                "has_any_commits": False,  # Track if repo has ANY commits
                 "total_commits_ever": 0,  # Total commits across all history
                 "total_loc": 0,  # Total lines of code in current repository HEAD (all-time)
                 "commit_counts": dict.fromkeys(self.time_windows, 0),
@@ -591,6 +604,51 @@ class GitDataCollector:
             "authors": {},  # email -> author metrics
             "errors": [],  # List[str]
         }
+
+    def _attach_jenkins_jobs(self, repo_data: dict[str, Any], gerrit_project: str) -> None:
+        """Attach enriched Jenkins job data to the repository metrics.
+
+        Each job is normalized to include a ``status`` field for consistent
+        downstream access.
+        """
+        jenkins_jobs = self._get_jenkins_jobs_for_repo(gerrit_project)
+
+        # Store computed status for each job for consistent access
+        enriched_jobs = []
+        for job in jenkins_jobs:
+            if isinstance(job, dict) and "status" in job:
+                enriched_jobs.append(job)
+            else:
+                # Fallback for jobs missing status (shouldn't happen with new structure)
+                enriched_job = dict(job) if isinstance(job, dict) else {"name": str(job)}
+                enriched_job["status"] = "unknown"
+                enriched_jobs.append(enriched_job)
+
+        repo_data["jenkins"] = {
+            "jobs": enriched_jobs,
+            "job_count": len(enriched_jobs),
+            "has_jobs": len(enriched_jobs) > 0,
+        }
+
+    def collect_repo_git_metrics(self, repo_path: Path) -> dict[str, Any]:
+        """
+        Extract Git metrics for a single repository across all time windows.
+
+        Uses git log --numstat --date=iso --pretty=format for unified traversal.
+        Single pass filtering commits into all time windows.
+        Collects: timestamps, author name/email, added/removed lines.
+        Returns structured metrics or error descriptor.
+        """
+        repo_identifier, gerrit_host, gerrit_url, gerrit_path_prefix = (
+            self._resolve_repository_identity(repo_path)
+        )
+
+        # Use repo_identifier for gerrit_project field (works for both types)
+        gerrit_project = repo_identifier
+
+        metrics = self._init_repo_metrics(
+            repo_path, gerrit_project, gerrit_host, gerrit_url, gerrit_path_prefix
+        )
 
         try:
             # Check if this is actually a git repository
@@ -643,24 +701,8 @@ class GitDataCollector:
 
             # Add Jenkins job information if available
             if self.jenkins_client:
-                jenkins_jobs = self._get_jenkins_jobs_for_repo(gerrit_project)
+                self._attach_jenkins_jobs(repo_data, gerrit_project)
 
-                # Store computed status for each job for consistent access
-                enriched_jobs = []
-                for job in jenkins_jobs:
-                    if isinstance(job, dict) and "status" in job:
-                        enriched_jobs.append(job)
-                    else:
-                        # Fallback for jobs missing status (shouldn't happen with new structure)
-                        enriched_job = dict(job) if isinstance(job, dict) else {"name": str(job)}
-                        enriched_job["status"] = "unknown"
-                        enriched_jobs.append(enriched_job)
-
-                repo_data["jenkins"] = {
-                    "jobs": enriched_jobs,
-                    "job_count": len(enriched_jobs),
-                    "has_jobs": len(enriched_jobs) > 0,
-                }
             unique_contributors = repo_data["unique_contributors"]
             for window in self.time_windows:
                 contributor_set = unique_contributors[window]
