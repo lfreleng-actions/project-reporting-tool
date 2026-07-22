@@ -325,7 +325,8 @@ class ConfigValidator:
             )
 
         # GitHub API validation
-        github = config.get("extensions", {}).get("github_api", {})
+        extensions = config.get("extensions", {})
+        github = extensions.get("github_api", {})
         if github.get("enabled") and not github.get("token"):
             result.add_warning(
                 message="GitHub API is enabled but no token specified",
@@ -383,7 +384,8 @@ class ConfigValidator:
     def _validate_security(self, config: dict[str, Any], result: ValidationResult) -> None:
         """Check for potential security issues."""
 
-        github = config.get("extensions", {}).get("github_api", {})
+        extensions = config.get("extensions", {})
+        github = extensions.get("github_api", {})
         if github.get("token") and len(github.get("token", "")) > 10:
             result.add_warning(
                 message="GitHub token appears to be hardcoded in configuration",

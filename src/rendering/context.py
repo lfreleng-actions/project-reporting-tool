@@ -336,6 +336,9 @@ class RenderContext:
                 gerrit_project_name, gerrit_host, gerrit_path_prefix, project_type
             )
 
+            jenkins_data = repo.get("jenkins", {})
+            jenkins_jobs_count = len(jenkins_data.get("jobs", []))
+
             transformed = {
                 "gerrit_project": gerrit_project_name,
                 "name": gerrit_project_name,
@@ -348,7 +351,7 @@ class RenderContext:
                 "last_commit_date": last_commit_date,
                 "total_commits": repo.get("total_commits_ever", 0),
                 "unique_contributors": unique_contributors_value,
-                "jenkins_jobs_count": len(repo.get("jenkins", {}).get("jobs", [])),
+                "jenkins_jobs_count": jenkins_jobs_count,
                 "state": repo.get("state", "UNKNOWN"),
                 "total_lines_added": total_lines_added,
                 "total_lines_removed": total_lines_removed,
@@ -485,7 +488,8 @@ class RenderContext:
             top_loc.append(transformed)
 
         # Limit to top N (from config or default 30)
-        limit = self.config.get("output", {}).get("top_contributors_limit", 30)
+        output_config = self.config.get("output", {})
+        limit = output_config.get("top_contributors_limit", 30)
 
         return {
             "top_by_commits": top_commits[:limit],
@@ -569,7 +573,8 @@ class RenderContext:
             top_orgs.append(transformed)
 
         # Limit to top N
-        limit = self.config.get("output", {}).get("top_organizations_limit", 30)
+        output_config = self.config.get("output", {})
+        limit = output_config.get("top_organizations_limit", 30)
 
         return {
             "top": top_orgs[:limit],
@@ -633,7 +638,8 @@ class RenderContext:
             normalized_features = {}
             for feature in features_list:
                 if isinstance(repo_features.get(feature), dict):
-                    feature_value = repo_features.get(feature, {}).get("present", False)
+                    feature_entry = repo_features.get(feature, {})
+                    feature_value = feature_entry.get("present", False)
                 else:
                     feature_value = bool(repo_features.get(feature, False))
 
@@ -714,13 +720,14 @@ class RenderContext:
                             workflow_path.split("/")[-1] if workflow_path else "Unknown"
                         )
 
+                        gh_urls = gh_workflow.get("urls", {})
                         github_workflows.append(
                             {
                                 "name": workflow_filename,  # Use filename instead of title
                                 "path": workflow_path,
                                 "state": gh_workflow.get("state", "active"),
                                 "status": gh_workflow.get("status", "unknown"),
-                                "url": gh_workflow.get("urls", {}).get("workflow_page", ""),
+                                "url": gh_urls.get("workflow_page", ""),
                             }
                         )
             # Otherwise use the static workflow files data

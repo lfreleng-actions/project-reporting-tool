@@ -72,8 +72,11 @@ class DataAggregator:
             days_since_last = repo.get("days_since_last_commit")
 
             # Count total commits and lines of code
-            total_commits += repo.get("commit_counts", {}).get(primary_window, 0)
-            total_lines_added += repo.get("loc_stats", {}).get(primary_window, {}).get("added", 0)
+            commit_counts = repo.get("commit_counts", {})
+            total_commits += commit_counts.get(primary_window, 0)
+            loc_stats = repo.get("loc_stats", {})
+            primary_loc_stats = loc_stats.get(primary_window, {})
+            total_lines_added += primary_loc_stats.get("added", 0)
 
             # Check if repository has no commits at all (use the explicit flag)
             has_any_commits = repo.get("has_any_commits", False)
@@ -349,22 +352,25 @@ class DataAggregator:
             contributors_set.add(author.get("email", ""))
 
             # Sum metrics across all time windows
+            author_commits = author.get("commits", {})
+            author_lines_added = author.get("lines_added", {})
+            author_lines_removed = author.get("lines_removed", {})
+            author_lines_net = author.get("lines_net", {})
+            author_repositories_touched = author.get("repositories_touched", {})
             for window_name in author.get("commits", {}):
-                org_aggregates[domain]["commits"][window_name] += author.get("commits", {}).get(
+                org_aggregates[domain]["commits"][window_name] += author_commits.get(window_name, 0)
+                org_aggregates[domain]["lines_added"][window_name] += author_lines_added.get(
                     window_name, 0
                 )
-                org_aggregates[domain]["lines_added"][window_name] += author.get(
-                    "lines_added", {}
-                ).get(window_name, 0)
-                org_aggregates[domain]["lines_removed"][window_name] += author.get(
-                    "lines_removed", {}
-                ).get(window_name, 0)
-                org_aggregates[domain]["lines_net"][window_name] += author.get("lines_net", {}).get(
+                org_aggregates[domain]["lines_removed"][window_name] += author_lines_removed.get(
+                    window_name, 0
+                )
+                org_aggregates[domain]["lines_net"][window_name] += author_lines_net.get(
                     window_name, 0
                 )
 
                 # Track unique repositories per organization
-                author_repos = author.get("repositories_touched", {}).get(window_name, set())
+                author_repos = author_repositories_touched.get(window_name, set())
                 if author_repos:
                     repos_set = cast(
                         set[str],

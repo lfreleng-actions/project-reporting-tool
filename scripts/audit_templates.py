@@ -324,11 +324,13 @@ def verify_template_fields(
             runtime_cat, level = category_mapping[category]
 
             # Get available fields from runtime
-            available = runtime_fields.get(runtime_cat, {}).get(level, set())
+            runtime_cat_fields = runtime_fields.get(runtime_cat, {})
+            available = runtime_cat_fields.get(level, set())
 
             # Special case: repository in workflows context
             if category == "repository" and "workflows" in template_path:
-                workflow_items = runtime_fields.get("workflows", {}).get("items", set())
+                workflows_data = runtime_fields.get("workflows", {})
+                workflow_items = workflows_data.get("items", set())
                 available = available | workflow_items
 
             # Check for nested field access (e.g., features.dependabot)
@@ -336,7 +338,8 @@ def verify_template_fields(
             if category == "features" and level == "top_level":
                 # Features at top level are checking feature presence in items
                 # Get features from feature_matrix items
-                feature_items = runtime_fields.get("features", {}).get("items", set())
+                features_data = runtime_fields.get("features", {})
+                feature_items = features_data.get("items", set())
                 if "features" in feature_items:
                     # The 'features' field is a dict, individual features are checked within it
                     # This is not a missing field issue

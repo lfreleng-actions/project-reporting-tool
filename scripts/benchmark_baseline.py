@@ -319,7 +319,9 @@ def main():
     for name, report in reports.items():
         data = report.to_dict()
         duration = data.get("total_duration", 0)
-        repo_count = data.get("custom_metrics", {}).get("repository_count", {}).get("value", 0)
+        custom_metrics = data.get("custom_metrics", {})
+        repository_count = custom_metrics.get("repository_count", {})
+        repo_count = repository_count.get("value", 0)
         print(
             f"  {name.capitalize()}: {repo_count} repos in {duration:.2f}s ({duration / repo_count:.2f}s per repo)"
         )

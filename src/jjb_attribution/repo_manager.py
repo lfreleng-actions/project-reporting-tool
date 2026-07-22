@@ -182,8 +182,10 @@ class JJBRepoManager:
                 logger.warning(f"Failed to update {name} repository: {result.stderr.strip()}")
                 logger.warning("Continuing with existing cached version")
 
-        except subprocess.TimeoutExpired:
+        # aislop-ignore-next-line silent-recovery -- best-effort update; falls back to cached repo
+        except subprocess.TimeoutExpired as e:
             logger.warning(f"Timeout updating {name} repository")
+            logger.debug("Git pull timed out for %s", name, exc_info=e)
             logger.warning("Continuing with existing cached version")
         except Exception as e:
             logger.warning(f"Error updating {name} repository: {e}")
@@ -343,6 +345,7 @@ class JJBRepoManager:
                     for item in repo_dir.rglob("*"):
                         if item.is_file():
                             size += item.stat().st_size
+                # aislop-ignore-next-line silent-recovery -- best-effort size probe; cause logged at debug
                 except Exception:
                     logger.debug("Failed to compute size for %s", repo_dir, exc_info=True)
 

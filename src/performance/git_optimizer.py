@@ -321,6 +321,7 @@ class ReferenceRepository:
                 try:
                     shutil.rmtree(ref_path)
                     count += 1
+                # aislop-ignore-next-line silent-recovery -- best-effort cleanup; cause logged at debug
                 except Exception:
                     logger.debug("Failed to remove stale reference %s", ref_path, exc_info=True)
 

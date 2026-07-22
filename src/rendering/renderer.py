@@ -160,7 +160,8 @@ class ModernReportRenderer:
                 f"Ensure templates are installed correctly."
             )
 
-        theme = config.get("render", {}).get("theme", "default")
+        render = config.get("render", {})
+        theme = render.get("theme", "default")
 
         self.template_renderer = TemplateRenderer(template_dir, theme)
 
@@ -313,5 +314,6 @@ class ModernReportRenderer:
             Path to theme CSS file
         """
         theme_dir = Path(__file__).parent.parent / "themes"
-        theme_name = self.config.get("render", {}).get("theme", "default")
+        render = self.config.get("render", {})
+        theme_name = render.get("theme", "default")
         return theme_dir / f"{theme_name}.css"

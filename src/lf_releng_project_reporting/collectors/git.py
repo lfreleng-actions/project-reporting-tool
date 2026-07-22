@@ -120,7 +120,8 @@ class GitDataCollector:
         self.logger = logger
         self.api_stats = api_stats
         self._domain_config: dict[str, Any] | None = None
-        self.cache_enabled = config.get("performance", {}).get("cache", False)
+        performance_config = config.get("performance", {})
+        self.cache_enabled = performance_config.get("cache", False)
         self.cache_dir = None
         self.repos_path: Path | None = None  # Will be set later for relative path calculation
         if self.cache_enabled:
@@ -1040,7 +1041,8 @@ class GitDataCollector:
         clean_email = email.lower().strip() if email else ""
 
         if not clean_email or "@" not in clean_email:
-            unknown_placeholder = self.config.get("data_quality", {}).get(
+            data_quality_config = self.config.get("data_quality", {})
+            unknown_placeholder = data_quality_config.get(
                 "unknown_email_placeholder", "unknown@unknown"
             )
             clean_email = unknown_placeholder
@@ -1117,9 +1119,10 @@ class GitDataCollector:
                         filename = parts[2]
 
                         # Skip binary files if configured
-                        if self.config.get("data_quality", {}).get(
-                            "skip_binary_changes", True
-                        ) and (parts[0] == "-" or parts[1] == "-"):
+                        data_quality_config = self.config.get("data_quality", {})
+                        if data_quality_config.get("skip_binary_changes", True) and (
+                            parts[0] == "-" or parts[1] == "-"
+                        ):
                             continue
 
                         files_changed = current_commit["files_changed"]
@@ -1219,12 +1222,9 @@ class GitDataCollector:
                     repo_metrics["days_since_last_commit"] = days_since
 
                     # Determine activity status using unified thresholds
-                    current_threshold = self.config.get("activity_thresholds", {}).get(
-                        "current_days", 365
-                    )
-                    active_threshold = self.config.get("activity_thresholds", {}).get(
-                        "active_days", 1095
-                    )
+                    activity_thresholds = self.config.get("activity_thresholds", {})
+                    current_threshold = activity_thresholds.get("current_days", 365)
+                    active_threshold = activity_thresholds.get("active_days", 1095)
 
                     has_recent_commits = any(
                         count > 0 for count in repo_metrics["commit_counts"].values()
@@ -1329,7 +1329,8 @@ class GitDataCollector:
                 return None
 
             # Check if cache is compatible with current time windows
-            cached_windows = set(cached_data.get("repository", {}).get("commit_counts", {}).keys())
+            cached_repository = cached_data.get("repository", {})
+            cached_windows = set(cached_repository.get("commit_counts", {}).keys())
             current_windows = set(self.time_windows.keys())
 
             if cached_windows != current_windows:

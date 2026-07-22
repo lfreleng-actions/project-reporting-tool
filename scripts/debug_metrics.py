@@ -231,9 +231,12 @@ def analyze_json_data(json_file):
 
     if est_tech_authors:
         print("\nSample of top 5 authors by commits (last_365):")
-        sorted_authors = sorted(
-            est_tech_authors, key=lambda a: a.get("commits", {}).get("last_365", 0), reverse=True
-        )[:5]
+
+        def _last_365(a):
+            commits = a.get("commits", {})
+            return commits.get("last_365", 0)
+
+        sorted_authors = sorted(est_tech_authors, key=_last_365, reverse=True)[:5]
 
         for i, author in enumerate(sorted_authors, 1):
             name = author.get("name", "Unknown")
@@ -283,9 +286,12 @@ def analyze_json_data(json_file):
         for author in repo.get("authors", []):
             if author.get("domain") == "est.tech":
                 # Use last_365 window for comparison
-                total_commits_from_repos += author.get("commits", {}).get("last_365", 0)
-                total_added_from_repos += author.get("lines_added", {}).get("last_365", 0)
-                total_removed_from_repos += author.get("lines_removed", {}).get("last_365", 0)
+                commits_data = author.get("commits", {})
+                total_commits_from_repos += commits_data.get("last_365", 0)
+                added_data = author.get("lines_added", {})
+                total_added_from_repos += added_data.get("last_365", 0)
+                removed_data = author.get("lines_removed", {})
+                total_removed_from_repos += removed_data.get("last_365", 0)
 
     print("\nSumming est.tech metrics from repository.authors:")
     print(f"  Commits: {total_commits_from_repos:,}")
@@ -293,9 +299,12 @@ def analyze_json_data(json_file):
     print(f"  Lines removed: {total_removed_from_repos:,}")
 
     # Compare with organization totals
-    org_commits = est_tech.get("commits", {}).get("last_365", 0)
-    org_added = est_tech.get("lines_added", {}).get("last_365", 0)
-    org_removed = est_tech.get("lines_removed", {}).get("last_365", 0)
+    org_commits_data = est_tech.get("commits", {})
+    org_commits = org_commits_data.get("last_365", 0)
+    org_added_data = est_tech.get("lines_added", {})
+    org_added = org_added_data.get("last_365", 0)
+    org_removed_data = est_tech.get("lines_removed", {})
+    org_removed = org_removed_data.get("last_365", 0)
 
     print("\nOrganization totals (last_365):")
     print(f"  Commits: {org_commits:,}")

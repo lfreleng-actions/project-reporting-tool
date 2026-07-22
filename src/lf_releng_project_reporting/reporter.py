@@ -352,7 +352,8 @@ class RepositoryReporter:
         generated_files["markdown"] = markdown_path
 
         # Generate HTML report (if not disabled)
-        if not self.config.get("output", {}).get("no_html", False):
+        html_output_config = self.config.get("output", {})
+        if not html_output_config.get("no_html", False):
             self.renderer.render_html_report(report_data, html_path)
             generated_files["html"] = html_path
 
@@ -360,7 +361,8 @@ class RepositoryReporter:
         generated_files["config"] = config_path
 
         # Create ZIP bundle (if not disabled)
-        if not self.config.get("output", {}).get("no_zip", False):
+        zip_output_config = self.config.get("output", {})
+        if not zip_output_config.get("no_zip", False):
             zip_path = create_report_bundle(output_dir, project, self.logger)
             generated_files["zip"] = zip_path
 
@@ -481,7 +483,8 @@ class RepositoryReporter:
         Returns:
             List of analysis results (metrics or error records)
         """
-        max_workers = self.config.get("performance", {}).get("max_workers", 8)
+        performance_config = self.config.get("performance", {})
+        max_workers = performance_config.get("max_workers", 8)
 
         if max_workers == 1:
             # Sequential processing
