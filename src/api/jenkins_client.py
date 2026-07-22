@@ -80,6 +80,7 @@ class JenkinsAPIClient(BaseAPIClient):
         self.host = host
         self.timeout = timeout
         self.allow_http_fallback = allow_http_fallback
+        # aislop-ignore-next-line hardcoded-url -- scheme prefix on dynamic host, not a fixed endpoint
         self.base_url = f"https://{host}"
         self.api_base_path: str | None = None  # Will be discovered
         self._jobs_cache: dict[str, Any] = {}  # Cache for all jobs data
@@ -255,6 +256,7 @@ class JenkinsAPIClient(BaseAPIClient):
             )
 
             # Switch to HTTP (preserve authentication if present)
+            # aislop-ignore-next-line hardcoded-url -- scheme prefix on dynamic host, not a fixed endpoint
             self.base_url = f"http://{self.host}"
             import os
 

@@ -190,6 +190,7 @@ class RenderContext:
             # Examples:
             #   https://gerrit.onap.org/r/admin/repos/oom,general
             #   https://git.opendaylight.org/gerrit/admin/repos/releng/autorelease,general
+            # aislop-ignore-next-line hardcoded-url -- scheme prefix on dynamic host, not a fixed endpoint
             return f"https://{host}{path_prefix}/admin/repos/{project_name},general"
         else:  # github
             # GitHub repository URL format
