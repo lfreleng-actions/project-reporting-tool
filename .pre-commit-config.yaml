@@ -144,3 +144,13 @@ repos:
         language: script
         files: ^testing/projects\.json$
         pass_filenames: true
+
+      # Keep .python-version in sync with pyproject.toml so `uv sync`
+      # never resolves an interpreter that violates requires-python.
+      - id: check-python-version
+        name: Check .python-version matches pyproject.toml
+        entry: python scripts/check-python-version.py
+        language: python
+        additional_dependencies: ["packaging"]
+        pass_filenames: false
+        files: ^(\.python-version|pyproject\.toml)$

@@ -1,4 +1,13 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileCopyrightText: 2025 The Linux Foundation
+#
+# Default Python interpreter for local development, `uv`, and CI.
+#
+# Keep this as the LATEST version listed in the supported set (the
+# `Programming Language :: Python :: 3.x` trove classifiers and the
+# `requires-python` floor in pyproject.toml). The value here MUST
+# satisfy `requires-python`, or `uv sync` fails to resolve an
+# interpreter. The scripts/check-python-version.py pre-commit hook
+# enforces this invariant so the two files cannot drift apart again.
 
-3.10
+3.14
