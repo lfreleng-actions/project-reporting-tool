@@ -37,6 +37,7 @@ from lf_releng_project_reporting.config import (
     load_configuration,
     save_resolved_config,
 )
+from lf_releng_project_reporting.exceptions import NoRepositoriesError
 from lf_releng_project_reporting.reporter import RepositoryReporter
 from util.github_org import determine_github_org
 from util.zip_bundle import create_report_bundle
@@ -462,7 +463,8 @@ def main(args=None) -> int:
         reporter = RepositoryReporter(config, logger, api_stats)
 
         # Analyze repositories
-        report_data = reporter.analyze_repositories(args.repos_path)
+        allow_empty = bool(getattr(args, "allow_empty", False))
+        report_data = reporter.analyze_repositories(args.repos_path, allow_empty=allow_empty)
 
         # Generate outputs
         _write_report_outputs(reporter, report_data, config, args, project_output_dir, logger)
@@ -472,6 +474,12 @@ def main(args=None) -> int:
     except KeyboardInterrupt:
         print("\n❌ Operation cancelled by user", file=sys.stderr)
         return 130
+    except NoRepositoriesError as e:
+        # Empty working directory: almost always a transient upstream clone
+        # failure. Fail loudly with a retryable exit code rather than emitting
+        # an empty report that could overwrite previously good output.
+        print(f"❌ {e}", file=sys.stderr)
+        return 1
     except Exception as e:
         print(f"❌ Unexpected error: {e}", file=sys.stderr)
         if args is not None and hasattr(args, "verbose") and args.verbose:

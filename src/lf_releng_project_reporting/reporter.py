@@ -31,6 +31,7 @@ from typing import Any, cast
 from lf_releng_project_reporting.aggregators import DataAggregator
 from lf_releng_project_reporting.collectors import GitDataCollector, INFOYamlCollector
 from lf_releng_project_reporting.config import save_resolved_config
+from lf_releng_project_reporting.exceptions import NoRepositoriesError
 from lf_releng_project_reporting.features import FeatureRegistry
 from rendering.renderer import ModernReportRenderer
 from util.git import safe_git_command
@@ -115,7 +116,7 @@ class RepositoryReporter:
             self.info_master_temp_dir = None
             return None
 
-    def analyze_repositories(self, repos_path: Path) -> dict[str, Any]:
+    def analyze_repositories(self, repos_path: Path, allow_empty: bool = False) -> dict[str, Any]:
         """
         Main analysis workflow.
 
@@ -129,9 +130,18 @@ class RepositoryReporter:
 
         Args:
             repos_path: Path to directory containing repositories to analyze
+            allow_empty: When ``False`` (the default), a hard error is raised
+                if no repositories are discovered under ``repos_path``. This
+                guards against generating an empty, misleading report when an
+                upstream clone step failed transiently. Set to ``True`` only
+                when an empty result is genuinely acceptable.
 
         Returns:
             Complete report data dictionary with all analysis results
+
+        Raises:
+            NoRepositoriesError: If no repositories are discovered and
+                ``allow_empty`` is ``False``.
         """
         # Resolve to absolute path for consistent handling
         repos_path_abs = repos_path.resolve()
@@ -141,6 +151,24 @@ class RepositoryReporter:
         # This is used to filter INFO.yaml data to only the relevant server
         gerrit_server = self._determine_gerrit_server(repos_path_abs)
         self.logger.info(f"Detected Gerrit server: {gerrit_server}")
+
+        # Discover repositories up front and fail fast when the working
+        # directory is empty. An empty result almost always means an upstream
+        # clone step produced no repositories (for example, a transient Gerrit
+        # discovery/clone failure). Continuing would generate an empty report
+        # that could overwrite previously good output, so raise a retryable
+        # error before doing any further (network) work, unless the caller
+        # explicitly opts in via allow_empty.
+        repo_dirs = self._discover_repositories(repos_path_abs)
+        self.logger.info(f"Found {len(repo_dirs)} repositories to analyze")
+        if not repo_dirs and not allow_empty:
+            raise NoRepositoriesError(
+                f"No repositories found to analyze under '{repos_path_abs}'. "
+                "This usually indicates an upstream clone failure (for example, "
+                "a transient Gerrit discovery/clone problem). Re-run the clone "
+                "and report generation, or pass allow_empty=True if an empty "
+                "result is expected."
+            )
 
         # Clone info-master repository for additional context
         # This is cloned to a temporary directory to avoid it appearing in the report
@@ -161,10 +189,6 @@ class RepositoryReporter:
 
         # Update git collector with repos_path for relative path calculation
         self.git_collector.repos_path = repos_path_abs
-
-        # Find all repository directories
-        repo_dirs = self._discover_repositories(repos_path_abs)
-        self.logger.info(f"Found {len(repo_dirs)} repositories to analyze")
 
         # Analyze repositories (with concurrency)
         repo_metrics = self._analyze_repositories_parallel(repo_dirs)

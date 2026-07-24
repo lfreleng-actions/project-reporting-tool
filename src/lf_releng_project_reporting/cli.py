@@ -193,6 +193,16 @@ def generate(
             rich_help_panel="Validation",
         ),
     ] = False,
+    allow_empty: Annotated[
+        bool,
+        typer.Option(
+            "--allow-empty",
+            help="Allow report generation when no repositories are found "
+            "(default: fail, since an empty result usually means an upstream "
+            "clone failure)",
+            rich_help_panel="Validation",
+        ),
+    ] = False,
     # Version
     _version: Annotated[
         bool | None,
@@ -265,6 +275,7 @@ def generate(
         validate_only=dry_run,
         log_level=None,
         github_token_env=github_token_env,
+        allow_empty=allow_empty,
     )
 
     # Set log level based on verbosity
