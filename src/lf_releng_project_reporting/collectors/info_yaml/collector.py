@@ -51,7 +51,6 @@ class INFOYamlCollector(BaseCollector):
         """
         super().__init__(config)
 
-        # Extract INFO.yaml-specific config
         self.info_config = self.config.get("info_yaml", {})
 
         # Repository path configuration
@@ -117,7 +116,6 @@ class INFOYamlCollector(BaseCollector):
         Raises:
             ValueError: If source is invalid or collection fails
         """
-        # Validate source
         if not self.validate_source(source):
             raise ValueError(f"Invalid source path: {source}")
 
@@ -127,10 +125,8 @@ class INFOYamlCollector(BaseCollector):
         if not self.info_master_path:
             raise ValueError("Failed to determine info-master path")
 
-        # Initialize parser
         self.parser = INFOYamlParser(self.info_master_path)
 
-        # Initialize enricher
         self.enricher = InfoYamlEnricher(
             activity_windows=self.activity_windows,
             validate_urls=self.validate_urls,
@@ -138,7 +134,6 @@ class INFOYamlCollector(BaseCollector):
             url_retries=self.url_retries,
         )
 
-        # Parse all INFO.yaml files
         self.logger.info(f"Collecting INFO.yaml files from: {self.info_master_path}")
         self.projects = self.parser.parse_directory(self.info_master_path)
 
@@ -168,7 +163,6 @@ class INFOYamlCollector(BaseCollector):
             )
             filtered_projects = self.enricher.enrich_projects(filtered_projects, git_metrics)
 
-            # Get enrichment statistics
             stats = self.enricher.get_enrichment_statistics(filtered_projects)
             self.logger.info(
                 f"Enrichment complete: {stats['with_git_data']} projects with Git data, "
@@ -178,10 +172,8 @@ class INFOYamlCollector(BaseCollector):
         # Generate lifecycle summary
         lifecycle_summary = self._generate_lifecycle_summary(filtered_projects)
 
-        # Get unique servers
         servers = sorted({p.gerrit_server for p in filtered_projects})
 
-        # Build result
         result = {
             "projects": [p.to_dict() for p in filtered_projects],
             "lifecycle_summary": [s.to_dict() for s in lifecycle_summary],

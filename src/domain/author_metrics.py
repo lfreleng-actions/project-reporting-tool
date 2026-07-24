@@ -47,7 +47,6 @@ class AuthorMetrics:
 
     def __post_init__(self) -> None:
         """Validate author metrics after initialization."""
-        # Validate required fields
         if not self.email:
             raise ValueError("email cannot be empty")
 
@@ -56,7 +55,6 @@ class AuthorMetrics:
         if not self.name:
             object.__setattr__(self, "name", self.email)
 
-        # Validate non-negative counts
         for window, count in self.commits.items():
             if count < 0:
                 raise ValueError(f"commits['{window}'] must be non-negative, got {count}")

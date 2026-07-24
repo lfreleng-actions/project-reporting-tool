@@ -89,7 +89,6 @@ class InfoYamlEnricher:
         Returns:
             Enriched ProjectInfo object
         """
-        # Build repository lookup
         repo_lookup = self._build_repo_lookup(git_metrics)
 
         # Find matching repositories
@@ -102,7 +101,6 @@ class InfoYamlEnricher:
             # No Git data - mark as unknown
             project = self._mark_as_unknown(project)
 
-        # Validate issue tracker URL
         if self.validate_urls and project.issue_tracking.url:
             is_valid, error = self.url_validator.validate(project.issue_tracking.url)
             project.issue_tracking.is_valid = is_valid
@@ -160,7 +158,6 @@ class InfoYamlEnricher:
         Returns:
             Enriched ProjectInfo object (URLs not yet validated)
         """
-        # Build repository lookup
         repo_lookup = self._build_repo_lookup(git_metrics)
 
         # Find matching repositories
@@ -210,7 +207,6 @@ class InfoYamlEnricher:
         if not url_to_projects:
             return
 
-        # Validate all URLs asynchronously
         urls = list(url_to_projects.keys())
         self.logger.info(
             f"Validating {len(urls)} unique URLs asynchronously (max_concurrent={max_concurrent})"
@@ -322,7 +318,6 @@ class InfoYamlEnricher:
             )
             enriched_committers.append(enriched_committer)
 
-        # Update project
         project.committers = enriched_committers
         project.has_git_data = True
         project.project_days_since_last_commit = most_recent_days

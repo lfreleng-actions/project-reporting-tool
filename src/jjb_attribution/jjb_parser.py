@@ -143,7 +143,6 @@ class JJBAttribution:
         """
         logger.info("Loading JJB templates and job-groups...")
 
-        # Load from global-jjb first
         if self.global_jjb_path.exists():
             jjb_templates_path = self.global_jjb_path / "jjb"
             if jjb_templates_path.exists():
@@ -193,7 +192,6 @@ class JJBAttribution:
 
             for item in data:
                 if isinstance(item, dict):
-                    # Load job-template definitions
                     if "job-template" in item:
                         template = item["job-template"]
                         template_id = template.get("id")
@@ -207,7 +205,6 @@ class JJBAttribution:
                             self._templates[template_name] = template
                             logger.debug(f"Loaded template by name: {template_name}")
 
-                    # Load job-group definitions
                     elif "job-group" in item:
                         job_group = item["job-group"]
                         group_name = job_group.get("name")
@@ -302,7 +299,6 @@ class JJBAttribution:
         if not self.jjb_path.exists():
             return None
 
-        # Get all YAML files recursively
         yaml_files = list(self.jjb_path.glob("**/*.yaml")) + list(self.jjb_path.glob("**/*.yml"))
 
         for yaml_file in yaml_files:
@@ -398,65 +394,47 @@ class JJBAttribution:
                 name=name, gerrit_project=gerrit_project, parameters=project_block
             )
 
-            # Extract jobs
             jobs_list = project_block.get("jobs", [])
             for job_item in jobs_list:
                 if isinstance(job_item, str):
-                    # Check if this is a job-group reference
-                    expanded_jobs = self._expand_job_group(job_item, project_name, project_block)
-
-                    if expanded_jobs:
-                        # This was a job-group, add all expanded jobs
-                        for expanded_template in expanded_jobs:
-                            job_def = JJBJobDefinition(
-                                template_name=expanded_template,
-                                project_name=project_name,
-                                parameters=project_block,
-                            )
-                            jjb_project.jobs.append(job_def)
-                    else:
-                        # Simple job reference: "gerrit-maven-verify"
-                        job_def = JJBJobDefinition(
-                            template_name=job_item,
-                            project_name=project_name,
-                            parameters=project_block,
-                        )
-                        jjb_project.jobs.append(job_def)
-
+                    # Simple job or job-group reference: "gerrit-maven-verify"
+                    self._append_jobs(jjb_project, job_item, project_name, project_block)
                 elif isinstance(job_item, dict):
                     # Job with parameters: {"gerrit-maven-stage": {"sign-artifacts": true}}
                     for template_name, params in job_item.items():
                         merged_params = {**project_block}
                         if isinstance(params, dict):
                             merged_params.update(params)
-
-                        # Check if this is a job-group reference
-                        expanded_jobs = self._expand_job_group(
-                            template_name, project_name, merged_params
-                        )
-
-                        if expanded_jobs:
-                            # This was a job-group, add all expanded jobs
-                            for expanded_template in expanded_jobs:
-                                job_def = JJBJobDefinition(
-                                    template_name=expanded_template,
-                                    project_name=project_name,
-                                    parameters=merged_params,
-                                )
-                                jjb_project.jobs.append(job_def)
-                        else:
-                            job_def = JJBJobDefinition(
-                                template_name=template_name,
-                                project_name=project_name,
-                                parameters=merged_params,
-                            )
-                            jjb_project.jobs.append(job_def)
+                        self._append_jobs(jjb_project, template_name, project_name, merged_params)
 
             return jjb_project
 
         except Exception as e:
             logger.warning(f"Error parsing project block: {e}")
             return None
+
+    def _append_jobs(
+        self,
+        jjb_project: JJBProject,
+        template_name: str,
+        project_name: str,
+        params: dict[str, Any],
+    ) -> None:
+        """Append job definitions for a template, expanding job-groups when present.
+
+        When ``template_name`` names a job-group it is expanded to its member
+        templates; otherwise the template is added as a single job.
+        """
+        expanded_jobs = self._expand_job_group(template_name, project_name, params)
+        templates = expanded_jobs if expanded_jobs else [template_name]
+        for template in templates:
+            jjb_project.jobs.append(
+                JJBJobDefinition(
+                    template_name=template,
+                    project_name=project_name,
+                    parameters=params,
+                )
+            )
 
     def _extract_job_names(self, projects: list[JJBProject]) -> list[str]:
         """Extract all job names from parsed projects."""
@@ -531,7 +509,6 @@ class JJBAttribution:
         """Expand a JJB name pattern with parameters."""
         job_names = []
 
-        # Handle stream expansion
         streams = params.get("stream", [])
         if streams:
             for stream_item in streams:
@@ -540,7 +517,6 @@ class JJBAttribution:
                     stream_vars: dict[str, Any] = {}
                 elif isinstance(stream_item, dict):
                     stream_name = list(stream_item.keys())[0]
-                    # Extract nested variables from the stream dictionary
                     stream_vars = (
                         stream_item[stream_name]
                         if isinstance(stream_item[stream_name], dict)
@@ -591,12 +567,10 @@ class JJBAttribution:
         """
         job_names = []
 
-        # Get common parameters
         mvn_version = params.get("mvn-version", "mvn36")
         java_version = params.get("java-version", "openjdk11")
         streams = params.get("stream", [{"master": {"branch": "master"}}])
 
-        # Handle stream variations
         stream_names = []
         if streams:
             for stream_item in streams:
@@ -620,7 +594,6 @@ class JJBAttribution:
             "github-maven-merge": f"{project_name}-maven-merge-{{stream}}-{mvn_version}-{java_version}",
         }
 
-        # Get pattern for this template
         pattern = patterns.get(template_name)
 
         if pattern:
@@ -660,33 +633,35 @@ class JJBAttribution:
             if yaml_file.name.startswith("global-"):
                 continue
 
-            try:
-                with open(yaml_file, encoding="utf-8") as f:
-                    data = yaml.safe_load(f)
-
-                if not isinstance(data, list):
-                    continue
-
-                for item in data:
-                    if isinstance(item, dict) and "project" in item:
-                        project_block = item["project"]
-                        gerrit_project = project_block.get("project")
-
-                        if not gerrit_project:
-                            continue
-
-                        jjb_project = self._parse_project_block(project_block)
-                        if jjb_project:
-                            if gerrit_project not in all_projects:
-                                all_projects[gerrit_project] = []
-                            all_projects[gerrit_project].append(jjb_project)
-
-            except Exception as e:
-                logger.debug(f"Error scanning {yaml_file}: {e}")
-                continue
+            self._scan_jjb_file(yaml_file, all_projects)
 
         logger.info(f"Found {len(all_projects)} Gerrit projects with JJB definitions")
         return all_projects
+
+    def _scan_jjb_file(self, yaml_file: Path, all_projects: dict[str, list[JJBProject]]) -> None:
+        """Parse one JJB YAML file and merge its projects into ``all_projects``."""
+        try:
+            with open(yaml_file, encoding="utf-8") as f:
+                data = yaml.safe_load(f)
+
+            if not isinstance(data, list):
+                return
+
+            for item in data:
+                if not (isinstance(item, dict) and "project" in item):
+                    continue
+
+                project_block = item["project"]
+                gerrit_project = project_block.get("project")
+                if not gerrit_project:
+                    continue
+
+                jjb_project = self._parse_project_block(project_block)
+                if jjb_project:
+                    all_projects.setdefault(gerrit_project, []).append(jjb_project)
+
+        except Exception as e:
+            logger.debug(f"Error scanning {yaml_file}: {e}")
 
     def get_project_summary(self) -> dict[str, int]:
         """

@@ -80,6 +80,7 @@ class JenkinsAPIClient(BaseAPIClient):
         self.host = host
         self.timeout = timeout
         self.allow_http_fallback = allow_http_fallback
+        # aislop-ignore-next-line hardcoded-url -- scheme prefix on dynamic host, not a fixed endpoint
         self.base_url = f"https://{host}"
         self.api_base_path: str | None = None  # Will be discovered
         self._jobs_cache: dict[str, Any] = {}  # Cache for all jobs data
@@ -95,13 +96,11 @@ class JenkinsAPIClient(BaseAPIClient):
         if jjb_config and jjb_config.get("enabled", True):
             self._initialize_jjb_attribution(jjb_config, gerrit_host)
 
-        # Check for Jenkins authentication from environment
         import os
 
         jenkins_user = os.environ.get("JENKINS_USER")
         jenkins_token = os.environ.get("JENKINS_API_TOKEN")
 
-        # Create httpx client with optional authentication
         if jenkins_user and jenkins_token:
             self.logger.info(f"Jenkins authentication enabled for user: {jenkins_user}")
             self.client = httpx.Client(timeout=timeout, auth=(jenkins_user, jenkins_token))
@@ -135,7 +134,6 @@ class JenkinsAPIClient(BaseAPIClient):
         try:
             self.logger.debug("Initializing JJB Attribution...")
 
-            # Setup repository manager
             cache_dir = Path(config.get("cache_dir", "/tmp"))
             if JJBRepoManager is None:
                 return
@@ -169,13 +167,11 @@ class JenkinsAPIClient(BaseAPIClient):
             branch = config.get("branch", "master")
             ci_mgmt_path, global_jjb_path = repo_mgr.ensure_repos(ci_mgmt_url, branch)
 
-            # Initialize parser
             if JJBAttribution is None:
                 return
             self.jjb_attribution = JJBAttribution(ci_mgmt_path, global_jjb_path)
             self.jjb_attribution.load_templates()
 
-            # Get summary
             summary = self.jjb_attribution.get_project_summary()
             self.logger.info(
                 f"JJB Attribution enabled: {summary['gerrit_projects']} projects, "
@@ -194,6 +190,93 @@ class JenkinsAPIClient(BaseAPIClient):
         """Close the HTTP client."""
         if hasattr(self, "client"):
             self.client.close()
+
+    def _probe_api_patterns(self, api_patterns: list[str], *, via_http: bool = False) -> tuple[bool, bool]:
+        """Try each API pattern against the current base URL.
+
+        Records the first pattern that returns a valid jobs listing on
+        ``self.api_base_path``.
+
+        Returns:
+            Tuple of ``(found, ssl_error_occurred)`` where ``found`` is True
+            when a working pattern was recorded, and ``ssl_error_occurred``
+            indicates whether any attempt failed with a TLS/certificate error.
+        """
+        ssl_error_occurred = False
+        for pattern in api_patterns:
+            test_url = f"{self.base_url}{pattern}?tree=jobs[name]"
+            self.logger.debug(f"Testing Jenkins API path: {test_url}")
+
+            try:
+                response = self.client.get(test_url)
+            except httpx.ConnectError as e:
+                error_str = str(e).lower()
+                if "ssl" in error_str or "certificate" in error_str:
+                    ssl_error_occurred = True
+                    self.logger.debug(f"SSL error testing {pattern}: {e}")
+                else:
+                    self.logger.debug(f"Connection error testing {pattern}: {e}")
+                continue
+            except Exception as e:
+                self.logger.debug(f"Error testing {pattern}: {e}")
+                continue
+
+            if response.status_code != 200:
+                self.logger.debug(f"HTTP {response.status_code} for {pattern}")
+                continue
+
+            if self.stats:
+                self.stats.record_success("jenkins")
+
+            try:
+                data: dict[str, Any] = response.json()
+            except Exception as e:
+                self.logger.debug(f"Invalid JSON response from {pattern}: {e}")
+                continue
+
+            if "jobs" in data and isinstance(data["jobs"], list):
+                self.api_base_path = pattern
+                job_count = len(data["jobs"])
+                if via_http:
+                    self.logger.info(
+                        f"✅ HTTP fallback successful! Found working Jenkins API path: "
+                        f"{pattern} ({job_count} jobs)"
+                    )
+                else:
+                    self.logger.info(
+                        f"Found working Jenkins API path: {pattern} ({job_count} jobs)"
+                    )
+                return True, ssl_error_occurred
+
+        return False, ssl_error_occurred
+
+    def _switch_to_http_fallback(self) -> None:
+        """Reconfigure the client to talk to the host over plain HTTP.
+
+        Preserves Jenkins authentication credentials when they are present in
+        the environment.
+        """
+        self.logger.warning(f"HTTPS certificate validation failure [{self.host}]")
+        self.logger.warning(
+            "Project configuration permits HTTP fallback (allow_http_fallback=True)"
+        )
+
+        # Switch to HTTP (preserve authentication if present)
+        # aislop-ignore-next-line hardcoded-url -- scheme prefix on dynamic host, not a fixed endpoint
+        self.base_url = f"http://{self.host}"
+        import os
+
+        jenkins_user = os.environ.get("JENKINS_USER")
+        jenkins_token = os.environ.get("JENKINS_API_TOKEN")
+
+        # Close the existing HTTPS client before replacing it to avoid leaking
+        # open connections during API base-path discovery.
+        self.client.close()
+
+        if jenkins_user and jenkins_token:
+            self.client = httpx.Client(timeout=self.timeout, auth=(jenkins_user, jenkins_token))
+        else:
+            self.client = httpx.Client(timeout=self.timeout)
 
     def _discover_api_base_path(self):
         """
@@ -215,90 +298,16 @@ class JenkinsAPIClient(BaseAPIClient):
         self.logger.info(f"Discovering Jenkins API base path for {self.host}")
 
         # Try HTTPS first
-        ssl_error_occurred = False
-        for pattern in api_patterns:
-            try:
-                test_url = f"{self.base_url}{pattern}?tree=jobs[name]"
-                self.logger.debug(f"Testing Jenkins API path: {test_url}")
-
-                response = self.client.get(test_url)
-                if response.status_code == 200:
-                    if self.stats:
-                        self.stats.record_success("jenkins")
-                    try:
-                        data: dict[str, Any] = response.json()
-                        if "jobs" in data and isinstance(data["jobs"], list):
-                            self.api_base_path = pattern
-                            job_count = len(data["jobs"])
-                            self.logger.info(
-                                f"Found working Jenkins API path: {pattern} ({job_count} jobs)"
-                            )
-                            return
-                    except Exception as e:
-                        self.logger.debug(f"Invalid JSON response from {pattern}: {e}")
-                        continue
-                else:
-                    self.logger.debug(f"HTTP {response.status_code} for {pattern}")
-
-            except httpx.ConnectError as e:
-                error_str = str(e).lower()
-                if "ssl" in error_str or "certificate" in error_str:
-                    ssl_error_occurred = True
-                    self.logger.debug(f"SSL error testing {pattern}: {e}")
-                else:
-                    self.logger.debug(f"Connection error testing {pattern}: {e}")
-                continue
-            except Exception as e:
-                self.logger.debug(f"Error testing {pattern}: {e}")
-                continue
+        found, ssl_error_occurred = self._probe_api_patterns(api_patterns)
+        if found:
+            return
 
         # If HTTPS failed with SSL error and fallback is allowed, try HTTP
         if ssl_error_occurred and self.allow_http_fallback:
-            self.logger.warning(f"HTTPS certificate validation failure [{self.host}]")
-            self.logger.warning(
-                "Project configuration permits HTTP fallback (allow_http_fallback=True)"
-            )
-
-            # Switch to HTTP (preserve authentication if present)
-            self.base_url = f"http://{self.host}"
-            import os
-
-            jenkins_user = os.environ.get("JENKINS_USER")
-            jenkins_token = os.environ.get("JENKINS_API_TOKEN")
-
-            if jenkins_user and jenkins_token:
-                self.client = httpx.Client(timeout=self.timeout, auth=(jenkins_user, jenkins_token))
-            else:
-                self.client = httpx.Client(timeout=self.timeout)
-
-            for pattern in api_patterns:
-                try:
-                    test_url = f"{self.base_url}{pattern}?tree=jobs[name]"
-                    self.logger.debug(f"Testing Jenkins API path via HTTP: {test_url}")
-
-                    response = self.client.get(test_url)
-                    if response.status_code == 200:
-                        if self.stats:
-                            self.stats.record_success("jenkins")
-                        try:
-                            http_data = response.json()
-                            if "jobs" in http_data and isinstance(http_data["jobs"], list):
-                                self.api_base_path = pattern
-                                job_count = len(http_data["jobs"])
-                                self.logger.info(
-                                    f"✅ HTTP fallback successful! Found working Jenkins API path: "
-                                    f"{pattern} ({job_count} jobs)"
-                                )
-                                return
-                        except Exception as e:
-                            self.logger.debug(f"Invalid JSON response from {pattern}: {e}")
-                            continue
-                    else:
-                        self.logger.debug(f"HTTP {response.status_code} for {pattern}")
-
-                except Exception as e:
-                    self.logger.debug(f"Error testing {pattern} via HTTP: {e}")
-                    continue
+            self._switch_to_http_fallback()
+            found, _ = self._probe_api_patterns(api_patterns, via_http=True)
+            if found:
+                return
 
         # If no pattern worked, default to standard path
         self.api_base_path = "/api/json"
@@ -448,7 +457,6 @@ class JenkinsAPIClient(BaseAPIClient):
         except Exception as e:
             self.logger.warning(f"Fuzzy matching failed for {project_name}: {e}")
 
-        # Log summary of hybrid approach
         if all_jobs:
             sources = []
             if jjb_jobs:
@@ -477,7 +485,6 @@ class JenkinsAPIClient(BaseAPIClient):
         """
         self.logger.debug(f"Using JJB Attribution for project: {project_name}")
 
-        # Get expected job names from ci-management
         if self.jjb_attribution is None:
             self.logger.warning("JJB Attribution not available")
             return []
@@ -493,13 +500,11 @@ class JenkinsAPIClient(BaseAPIClient):
 
         self.logger.debug(f"JJB expects {len(resolved_jobs)} jobs for {project_name}")
 
-        # Get all Jenkins jobs
         all_jobs = self.get_all_jobs()
         if "jobs" not in all_jobs:
             self.logger.debug(f"No 'jobs' key found in Jenkins API response for {project_name}")
             return []
 
-        # Build a lookup map of available Jenkins jobs
         jenkins_jobs_map = {job.get("name", ""): job for job in all_jobs["jobs"]}
 
         # Match expected jobs against actual Jenkins jobs
@@ -514,7 +519,6 @@ class JenkinsAPIClient(BaseAPIClient):
 
             # Check if job exists in Jenkins
             if expected_job in jenkins_jobs_map:
-                # Get detailed job info
                 job_details = self.get_job_details(expected_job)
                 if job_details:
                     project_jobs.append(job_details)
@@ -586,7 +590,6 @@ class JenkinsAPIClient(BaseAPIClient):
             job_name = job.get("name", "")
             self.logger.debug(f"Processing Jenkins job: {job_name} (score: {score})")
 
-            # Get detailed job info
             job_details = self.get_job_details(job_name)
             if job_details:
                 project_jobs.append(job_details)
@@ -643,44 +646,32 @@ class JenkinsAPIClient(BaseAPIClient):
         score = 0
         match_type = None
 
-        # =================================================================
-        # PATTERN 1: Exact match (highest priority)
-        # =================================================================
+        # Pattern 1: exact match (highest priority).
         if job_name_lower == project_job_name_lower:
             match_type = "exact"
             score = 1000
 
-        # =================================================================
-        # PATTERN 2a: Prefix match - {project}-* (ONAP, ODL style)
-        # Example: aai-babel-maven-verify-master matches aai/babel
-        # =================================================================
+        # Pattern 2a: {project}-* prefix (ONAP, ODL style),
+        # e.g. aai-babel-maven-verify-master matches aai/babel.
         elif job_name_lower.startswith(project_job_name_lower + "-"):
             match_type = "prefix_hyphen"
             score = 500
 
-        # =================================================================
-        # PATTERN 2b: Prefix match - {project}_* (LF Broadband style)
-        # Example: bbsim_scale_test matches bbsim
-        # =================================================================
+        # Pattern 2b: {project}_* prefix (LF Broadband style),
+        # e.g. bbsim_scale_test matches bbsim.
         elif job_name_lower.startswith(project_job_name_lower + "_"):
             match_type = "prefix_underscore"
             score = 490
 
-        # =================================================================
-        # PATTERN 3: Suffix match with underscore - *_{project}
-        # Example: docker-publish_bbsim matches bbsim
-        # Example: maven-publish_aaa matches aaa
-        # Example: github-release_voltctl matches voltctl
-        # =================================================================
+        # Pattern 3: *_{project} suffix with underscore, e.g.
+        # docker-publish_bbsim matches bbsim, maven-publish_aaa matches aaa,
+        # github-release_voltctl matches voltctl.
         elif job_name_lower.endswith("_" + project_job_name_lower):
             match_type = "suffix_underscore"
             score = 450
 
-        # =================================================================
-        # PATTERN 4: Infix match - verify_{project}_* (LF Broadband verify)
-        # Example: verify_aaa_licensed matches aaa
-        # Example: verify_bbsim_unit-test matches bbsim
-        # =================================================================
+        # Pattern 4: verify_{project}_* infix (LF Broadband verify), e.g.
+        # verify_aaa_licensed matches aaa, verify_bbsim_unit-test matches bbsim.
         elif (
             job_name_lower.startswith("verify_" + project_job_name_lower + "_")
             or job_name_lower == "verify_" + project_job_name_lower
@@ -688,12 +679,8 @@ class JenkinsAPIClient(BaseAPIClient):
             match_type = "infix_verify"
             score = 400
 
-        # =================================================================
-        # PATTERN 5: Prefix with common job type prefixes
-        # Example: patchset-voltha-* matches voltha
-        # Example: periodic-voltha-* matches voltha
-        # Example: build-voltha-* matches voltha
-        # =================================================================
+        # Pattern 5: common job-type prefixes before {project}, e.g.
+        # patchset-voltha-*, periodic-voltha-*, build-voltha-* match voltha.
         elif any(
             job_name_lower.startswith(prefix + project_job_name_lower + "-")
             or job_name_lower == prefix + project_job_name_lower
@@ -702,15 +689,10 @@ class JenkinsAPIClient(BaseAPIClient):
             match_type = "prefixed_project"
             score = 380
 
-        # =================================================================
-        # PATTERN 6: Infix with underscore delimiters - *_{project}_*
-        # Example: build_berlin-community-pod-1-gpon_1T8GEM_DT_voltha_master matches voltha
-        # Example: verify_berlin-community-pod-1-gpon-adtran_Default_DT_voltha_master_dmi matches voltha
-        #
-        # IMPORTANT: Avoid false positives where the project appears as part
-        # of a parent-child pattern. Check that the prefix before the project
-        # doesn't look like a parent project name with hyphen separator.
-        # =================================================================
+        # Pattern 6: *_{project}_* infix with underscore delimiters, e.g.
+        # build_berlin-community-pod-1-gpon_1T8GEM_DT_voltha_master matches
+        # voltha. Guard against false positives where the project is really a
+        # child in a parent-child pattern (prefix ending in "-{project}").
         elif "_" + project_job_name_lower + "_" in job_name_lower:
             # Find where the project name appears in the job name
             infix_pos = job_name_lower.find("_" + project_job_name_lower + "_")
@@ -726,17 +708,12 @@ class JenkinsAPIClient(BaseAPIClient):
                 match_type = "infix_underscore"
                 score = 350
 
-        # =================================================================
-        # PATTERN 7: Infix with hyphen delimiters - *-{project}-*
-        # Example: patchset-voltha-2.14-multiple-olts matches voltha
-        # Example: periodic-voltha-dt-test-bbsim matches voltha
-        #
-        # IMPORTANT: Avoid false positives where the project appears as part
-        # of a parent-child prefix pattern (e.g., "sdc-tosca-verify" should
-        # NOT match standalone "tosca" because it's actually "sdc/tosca").
-        # We check if the prefix before the project name looks like a known
+        # Pattern 7: *-{project}-* infix with hyphen delimiters, e.g.
+        # patchset-voltha-2.14-multiple-olts matches voltha,
+        # periodic-voltha-dt-test-bbsim matches voltha. Guard against
+        # parent-child prefixes (e.g. "sdc-tosca-verify" must not match
+        # standalone "tosca") by requiring the prefix to look like a known
         # job-type prefix rather than a parent project name.
-        # =================================================================
         elif "-" + project_job_name_lower + "-" in job_name_lower:
             # Find where the project name appears in the job name
             infix_pos = job_name_lower.find("-" + project_job_name_lower + "-")
@@ -774,24 +751,17 @@ class JenkinsAPIClient(BaseAPIClient):
                 match_type = "infix_hyphen"
                 score = 300
 
-        # =================================================================
-        # PATTERN 8: Suffix match with hyphen - *-{project}
-        # Example: onos-app-release matches release (if release is a project)
-        # Example: docker-build-voltha matches voltha
-        # =================================================================
+        # Pattern 8: *-{project} suffix with hyphen, e.g.
+        # onos-app-release matches release (when release is a project),
+        # docker-build-voltha matches voltha.
         elif job_name_lower.endswith("-" + project_job_name_lower):
             match_type = "suffix_hyphen"
             score = 250
 
-        # =================================================================
-        # No match found
-        # =================================================================
         if match_type is None:
             return 0
 
-        # =================================================================
-        # Apply bonuses for more specific matches
-        # =================================================================
+        # Apply bonuses for more specific matches.
 
         # Bonus for longer/more specific project paths (child projects get priority)
         path_parts = project_name.count("/") + 1
@@ -830,7 +800,6 @@ class JenkinsAPIClient(BaseAPIClient):
             >>> print(details['status'])  # e.g., "success"
         """
         try:
-            # Extract base path without /api/json suffix for job URLs
             base_path = self.api_base_path.replace("/api/json", "") if self.api_base_path else ""
             url = f"{self.base_url}{base_path}/job/{job_name}/api/json"
             response = self.client.get(url)
@@ -838,7 +807,6 @@ class JenkinsAPIClient(BaseAPIClient):
             if response.status_code == 200:
                 job_data = response.json()
 
-                # Get last build info
                 last_build_info = self.get_last_build_info(job_name)
 
                 # Compute Jenkins job state from disabled field first
@@ -846,7 +814,6 @@ class JenkinsAPIClient(BaseAPIClient):
                 buildable = job_data.get("buildable", True)
                 state = self._compute_jenkins_job_state(disabled, buildable)
 
-                # Get original color from Jenkins
                 original_color = job_data.get("color", "")
 
                 # Compute standardized status from color field, considering state
@@ -860,7 +827,6 @@ class JenkinsAPIClient(BaseAPIClient):
                 else:
                     color = original_color
 
-                # Build standardized job data structure
                 job_url = job_data.get("url", "")
                 if not job_url and base_path:
                     # Fallback: construct URL if not provided by API
@@ -966,7 +932,6 @@ class JenkinsAPIClient(BaseAPIClient):
             Returns empty dict if no build exists or on error.
         """
         try:
-            # Extract base path without /api/json suffix for job URLs
             base_path = self.api_base_path.replace("/api/json", "") if self.api_base_path else ""
             url = f"{self.base_url}{base_path}/job/{job_name}/lastBuild/api/json?tree=result,duration,timestamp,building,number"
             response = self.client.get(url)

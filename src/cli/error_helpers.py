@@ -10,6 +10,10 @@ Helps migrate legacy errors to CLI error classes.
 Phase 9, Step 6: Enhanced Error Messages Integration
 """
 
+# This module formats and prints enhanced error messages to the terminal
+# (stderr); print() is the intended output sink here, not leftover debugging.
+# aislop-ignore-file python-print-debug -- intentional user-facing CLI output
+
 import builtins
 import sys
 import traceback

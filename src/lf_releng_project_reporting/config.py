@@ -112,7 +112,6 @@ def load_configuration(
     if default_config_name is None:
         default_config_name = "default.yaml"
 
-    # Load default configuration
     default_path = config_dir / default_config_name
     if not default_path.exists():
         logger.warning(f"Default configuration not found: {default_path}")
@@ -319,7 +318,8 @@ def apply_auto_derivation(config: dict[str, Any]) -> dict[str, Any]:
         Configuration with auto-derived values
     """
     # Get Gerrit host if available
-    gerrit_host = config.get("gerrit", {}).get("host", "")
+    gerrit_config = config.get("gerrit", {})
+    gerrit_host = gerrit_config.get("host", "")
 
     # Auto-set gerrit.enabled based on host presence
     if "gerrit" not in config:
@@ -327,10 +327,13 @@ def apply_auto_derivation(config: dict[str, Any]) -> dict[str, Any]:
 
     if gerrit_host:
         # Gerrit is available - ensure it's enabled
-        config["gerrit"]["enabled"] = config.get("gerrit", {}).get("enabled", True)
+        gerrit_config = config.get("gerrit", {})
+        config["gerrit"]["enabled"] = gerrit_config.get("enabled", True)
 
         # Auto-derive GitHub organization from Gerrit host for mirrored projects
-        if not config.get("extensions", {}).get("github_api", {}).get("github_org"):
+        extensions_config = config.get("extensions", {})
+        github_api_config = extensions_config.get("github_api", {})
+        if not github_api_config.get("github_org"):
             # Extract org name from gerrit.{org}.org pattern
             # Examples: gerrit.onap.org -> onap, gerrit.o-ran-sc.org -> o-ran-sc
             parts = gerrit_host.split(".")
@@ -361,9 +364,9 @@ def apply_auto_derivation(config: dict[str, Any]) -> dict[str, Any]:
         import os
 
         github_org_env = os.environ.get("GITHUB_ORG", "")
-        if github_org_env and not config.get("extensions", {}).get("github_api", {}).get(
-            "github_org"
-        ):
+        extensions_config = config.get("extensions", {})
+        github_api_config = extensions_config.get("github_api", {})
+        if github_org_env and not github_api_config.get("github_org"):
             logger.debug(f"Using GitHub org from environment: {github_org_env}")
             if "extensions" not in config:
                 config["extensions"] = {}

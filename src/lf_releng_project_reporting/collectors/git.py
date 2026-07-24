@@ -79,7 +79,6 @@ def parse_git_iso_date(date_str: str) -> datetime.datetime:
     # Replace first space with 'T' to separate date and time
     date_str = date_str.replace(" ", "T", 1)
 
-    # Handle timezone offset: convert "+0100" to "+01:00"
     if "+" in date_str or date_str.count("-") > 2:
         # Split at the timezone offset
         if "+" in date_str:
@@ -121,7 +120,8 @@ class GitDataCollector:
         self.logger = logger
         self.api_stats = api_stats
         self._domain_config: dict[str, Any] | None = None
-        self.cache_enabled = config.get("performance", {}).get("cache", False)
+        performance_config = config.get("performance", {})
+        self.cache_enabled = performance_config.get("cache", False)
         self.cache_dir = None
         self.repos_path: Path | None = None  # Will be set later for relative path calculation
         if self.cache_enabled:
@@ -129,75 +129,97 @@ class GitDataCollector:
             self.cache_dir.mkdir(exist_ok=True)
 
         # Initialize Gerrit API client if configured
-        self.gerrit_client = None
+        self.gerrit_client: GerritAPIClient | None = None
         self.gerrit_projects_cache: dict[
             str, dict[str, Any]
         ] = {}  # Cache for all Gerrit project data
         gerrit_config = self.config.get("gerrit", {})
 
         # Initialize Jenkins API client if configured
-        self.jenkins_client = None
+        self.jenkins_client: JenkinsAPIClient | None = None
         # Jenkins allocation context for thread-safe job tracking (Phase 7)
         # If not provided, create a new instance (each collector gets its own context)
         self.jenkins_allocation_context = jenkins_allocation_context or JenkinsAllocationContext()
         self._jenkins_initialized = False
 
-        # Check for Jenkins host from environment variable
         jenkins_host = os.environ.get("JENKINS_HOST")
         jenkins_config = self.config.get("jenkins", {})
 
-        if gerrit_config.get("enabled", False):
-            host = gerrit_config.get("host")
-            base_url = gerrit_config.get("base_url")
-            timeout = gerrit_config.get("timeout", 30.0)
+        self._init_gerrit_client(gerrit_config)
+        self._init_jenkins_client(jenkins_host, jenkins_config, gerrit_config)
 
-            if host:
-                try:
-                    self.gerrit_client = GerritAPIClient(
-                        host, base_url, timeout, stats=self.api_stats
-                    )
-                    self.logger.info(f"Initialized Gerrit API client for {host}")
-                    # Fetch all project data upfront
-                    self._fetch_all_gerrit_projects()
-                except Exception as e:
-                    self.logger.error(f"Failed to initialize Gerrit API client for {host}: {e}")
-                    # Re-raise to stop execution - Gerrit configuration is mandatory when enabled
-                    raise
-            else:
-                error_msg = "Gerrit is enabled in configuration but no host is specified"
-                self.logger.error(error_msg)
-                from lf_releng_project_reporting.exceptions import ConfigurationError
+    def _init_gerrit_client(self, gerrit_config: dict[str, Any]) -> None:
+        """Initialize the Gerrit API client when Gerrit is enabled.
 
-                raise ConfigurationError(error_msg)
+        Gerrit configuration is mandatory when enabled, so a missing host or a
+        client failure is raised rather than swallowed.
+        """
+        if not gerrit_config.get("enabled", False):
+            return
 
-        # Initialize Jenkins client
+        host = gerrit_config.get("host")
+        if not host:
+            error_msg = "Gerrit is enabled in configuration but no host is specified"
+            self.logger.error(error_msg)
+            from lf_releng_project_reporting.exceptions import ConfigurationError
+
+            raise ConfigurationError(error_msg)
+
+        base_url = gerrit_config.get("base_url")
+        timeout = gerrit_config.get("timeout", 30.0)
+        try:
+            self.gerrit_client = GerritAPIClient(host, base_url, timeout, stats=self.api_stats)
+            self.logger.info(f"Initialized Gerrit API client for {host}")
+            self._fetch_all_gerrit_projects()
+        except Exception as e:
+            self.logger.error(f"Failed to initialize Gerrit API client for {host}: {e}")
+            # Re-raise to stop execution - Gerrit configuration is mandatory when enabled
+            raise
+
+    def _resolve_jjb_config(self, jenkins_config: dict[str, Any]) -> Any:
+        """Resolve JJB attribution config from Jenkins or top-level configuration."""
+        jjb_config = jenkins_config.get("jjb_attribution")
+        if not jjb_config:
+            # Check top-level config for jjb_attribution (or legacy ci_management)
+            jjb_config = self.config.get("jjb_attribution") or self.config.get("ci_management")
+        return jjb_config
+
+    def _create_jenkins_client(
+        self, host: str, jenkins_config: dict[str, Any], gerrit_config: dict[str, Any]
+    ) -> JenkinsAPIClient:
+        """Build a JenkinsAPIClient for the given host from configuration."""
+        timeout = jenkins_config.get("timeout", 30.0)
+        jjb_config = self._resolve_jjb_config(jenkins_config)
+        gerrit_host = gerrit_config.get("host") if gerrit_config.get("enabled", False) else None
+        allow_http_fallback = jenkins_config.get("allow_http_fallback", False)
+        return JenkinsAPIClient(
+            host,
+            timeout,
+            stats=self.api_stats,
+            jjb_config=jjb_config,
+            gerrit_host=gerrit_host,
+            allow_http_fallback=allow_http_fallback,
+        )
+
+    def _init_jenkins_client(
+        self,
+        jenkins_host: str | None,
+        jenkins_config: dict[str, Any],
+        gerrit_config: dict[str, Any],
+    ) -> None:
+        """Initialize the Jenkins API client from the environment or config.
+
+        The ``JENKINS_HOST`` environment variable takes precedence over the
+        config-file host. Client initialization failures are logged and
+        re-raised. A config-enabled Jenkins with no host configured is logged
+        as an error and skipped (no client is created, no exception raised),
+        preserving the original behavior.
+        """
         if jenkins_host:
             # Environment variable takes precedence - enables Jenkins integration
-            timeout = jenkins_config.get("timeout", 30.0)
             try:
-                # Get JJB Attribution configuration if available
-                jjb_config = jenkins_config.get("jjb_attribution")
-                if not jjb_config:
-                    # Check top-level config for jjb_attribution (or legacy ci_management)
-                    jjb_config = self.config.get("jjb_attribution") or self.config.get(
-                        "ci_management"
-                    )
-
-                # Get Gerrit host for auto-deriving ci-management URL
-                gerrit_host = (
-                    gerrit_config.get("host") if gerrit_config.get("enabled", False) else None
-                )
-
-                # Get HTTP fallback setting
-                allow_http_fallback = jenkins_config.get("allow_http_fallback", False)
-
-                self.jenkins_client = JenkinsAPIClient(
-                    jenkins_host,
-                    timeout,
-                    stats=self.api_stats,
-                    jjb_config=jjb_config,
-                    gerrit_host=gerrit_host,
-                    allow_http_fallback=allow_http_fallback,
+                self.jenkins_client = self._create_jenkins_client(
+                    jenkins_host, jenkins_config, gerrit_config
                 )
                 self.logger.info(
                     f"Initialized Jenkins API client for {jenkins_host} (from environment)"
@@ -209,48 +231,27 @@ class GitDataCollector:
                     f"Failed to initialize Jenkins API client for {jenkins_host}: {e}"
                 )
                 self.jenkins_client = None
-                # Re-raise to stop execution - Jenkins configuration is mandatory when JENKINS_HOST is set
+                # Re-raise to stop execution - Jenkins is mandatory when JENKINS_HOST is set
                 raise
-        elif jenkins_config.get("enabled", False):
-            # Fallback to config file (for backward compatibility)
-            host = jenkins_config.get("host")
-            timeout = jenkins_config.get("timeout", 30.0)
+            return
 
-            if host:
-                try:
-                    # Get JJB Attribution configuration if available
-                    jjb_config = jenkins_config.get("jjb_attribution")
-                    if not jjb_config:
-                        # Check top-level config for jjb_attribution (or legacy ci_management)
-                        jjb_config = self.config.get("jjb_attribution") or self.config.get(
-                            "ci_management"
-                        )
+        if not jenkins_config.get("enabled", False):
+            return
 
-                    # Get Gerrit host for auto-deriving ci-management URL
-                    gerrit_host = (
-                        gerrit_config.get("host") if gerrit_config.get("enabled", False) else None
-                    )
+        # Fallback to config file (for backward compatibility)
+        host = jenkins_config.get("host")
+        if not host:
+            self.logger.error("Jenkins enabled but no host configured")
+            return
 
-                    # Get HTTP fallback setting
-                    allow_http_fallback = jenkins_config.get("allow_http_fallback", False)
-
-                    self.jenkins_client = JenkinsAPIClient(
-                        host,
-                        timeout,
-                        stats=self.api_stats,
-                        jjb_config=jjb_config,
-                        gerrit_host=gerrit_host,
-                        allow_http_fallback=allow_http_fallback,
-                    )
-                    self.logger.info(f"Initialized Jenkins API client for {host} (from config)")
-                    # Initialize cache for config-based Jenkins client too
-                    self._initialize_jenkins_cache()
-                except Exception as e:
-                    self.logger.error(f"Failed to initialize Jenkins API client for {host}: {e}")
-                    # Re-raise to stop execution - Jenkins configuration is mandatory when enabled
-                    raise
-            else:
-                self.logger.error("Jenkins enabled but no host configured")
+        try:
+            self.jenkins_client = self._create_jenkins_client(host, jenkins_config, gerrit_config)
+            self.logger.info(f"Initialized Jenkins API client for {host} (from config)")
+            self._initialize_jenkins_cache()
+        except Exception as e:
+            self.logger.error(f"Failed to initialize Jenkins API client for {host}: {e}")
+            # Re-raise to stop execution - Jenkins configuration is mandatory when enabled
+            raise
 
     def _initialize_jenkins_cache(self):
         """Initialize Jenkins jobs cache at startup for better performance."""
@@ -519,7 +520,6 @@ class GitDataCollector:
                 parts = output.split(",")
                 for part in parts:
                     if "insertion" in part:
-                        # Extract number before "insertion"
                         num_str = part.strip().split()[0]
                         try:
                             total_lines = int(num_str)
@@ -535,16 +535,14 @@ class GitDataCollector:
             self.logger.warning(f"Error counting total LOC for {repo_path.name}: {e}")
             return 0
 
-    def collect_repo_git_metrics(self, repo_path: Path) -> dict[str, Any]:
-        """
-        Extract Git metrics for a single repository across all time windows.
+    def _resolve_repository_identity(self, repo_path: Path) -> tuple[str, str, str, str]:
+        """Resolve the repository identifier and Gerrit/GitHub URL metadata.
 
-        Uses git log --numstat --date=iso --pretty=format for unified traversal.
-        Single pass filtering commits into all time windows.
-        Collects: timestamps, author name/email, added/removed lines.
-        Returns structured metrics or error descriptor.
+        Returns:
+            Tuple of ``(repo_identifier, gerrit_host, gerrit_url,
+            gerrit_path_prefix)``. GitHub-native projects derive the host from
+            the org directory name and build a github.com URL.
         """
-        # Check if Gerrit is enabled for this project
         gerrit_config = self.config.get("gerrit", {})
         gerrit_enabled = gerrit_config.get("enabled", False)
 
@@ -555,7 +553,6 @@ class GitDataCollector:
         else:
             repo_identifier = self._extract_gerrit_project(repo_path)
 
-        # Extract host/org information conditionally
         if gerrit_enabled:
             # Gerrit project - extract Gerrit-specific information
             gerrit_host = self._extract_gerrit_host(repo_path)
@@ -575,21 +572,28 @@ class GitDataCollector:
             gerrit_path_prefix = ""  # GitHub doesn't use path prefix
             self.logger.debug(f"Collecting Git metrics for GitHub repository: {repo_identifier}")
 
-        # Use repo_identifier for gerrit_project field (works for both types)
-        gerrit_project = repo_identifier
+        return repo_identifier, gerrit_host, gerrit_url, gerrit_path_prefix
 
-        # Initialize metrics structure with Gerrit-centric model
-        metrics: dict[str, Any] = {
+    def _init_repo_metrics(
+        self,
+        repo_path: Path,
+        gerrit_project: str,
+        gerrit_host: str,
+        gerrit_url: str,
+        gerrit_path_prefix: str,
+    ) -> dict[str, Any]:
+        """Build the empty per-repository metrics structure for all time windows."""
+        return {
             "repository": {
                 "gerrit_project": gerrit_project,  # PRIMARY identifier
                 "gerrit_host": gerrit_host,
                 "gerrit_url": gerrit_url,
-                "gerrit_path_prefix": gerrit_path_prefix,  # Discovered URL path (e.g., "/r", "/gerrit")
+                "gerrit_path_prefix": gerrit_path_prefix,  # Discovered URL path (e.g., "/r")
                 "local_path": str(repo_path),  # Secondary, for internal use
                 "last_commit_timestamp": None,
                 "days_since_last_commit": None,
                 "activity_status": "inactive",  # "current", "active", or "inactive"
-                "has_any_commits": False,  # Track if repo has ANY commits (regardless of time windows)
+                "has_any_commits": False,  # Track if repo has ANY commits
                 "total_commits_ever": 0,  # Total commits across all history
                 "total_loc": 0,  # Total lines of code in current repository HEAD (all-time)
                 "commit_counts": dict.fromkeys(self.time_windows, 0),
@@ -602,6 +606,51 @@ class GitDataCollector:
             "authors": {},  # email -> author metrics
             "errors": [],  # List[str]
         }
+
+    def _attach_jenkins_jobs(self, repo_data: dict[str, Any], gerrit_project: str) -> None:
+        """Attach enriched Jenkins job data to the repository metrics.
+
+        Each job is normalized to include a ``status`` field for consistent
+        downstream access.
+        """
+        jenkins_jobs = self._get_jenkins_jobs_for_repo(gerrit_project)
+
+        # Store computed status for each job for consistent access
+        enriched_jobs = []
+        for job in jenkins_jobs:
+            if isinstance(job, dict) and "status" in job:
+                enriched_jobs.append(job)
+            else:
+                # Fallback for jobs missing status (shouldn't happen with new structure)
+                enriched_job = dict(job) if isinstance(job, dict) else {"name": str(job)}
+                enriched_job["status"] = "unknown"
+                enriched_jobs.append(enriched_job)
+
+        repo_data["jenkins"] = {
+            "jobs": enriched_jobs,
+            "job_count": len(enriched_jobs),
+            "has_jobs": len(enriched_jobs) > 0,
+        }
+
+    def collect_repo_git_metrics(self, repo_path: Path) -> dict[str, Any]:
+        """
+        Extract Git metrics for a single repository across all time windows.
+
+        Uses git log --numstat --date=iso --pretty=format for unified traversal.
+        Single pass filtering commits into all time windows.
+        Collects: timestamps, author name/email, added/removed lines.
+        Returns structured metrics or error descriptor.
+        """
+        repo_identifier, gerrit_host, gerrit_url, gerrit_path_prefix = (
+            self._resolve_repository_identity(repo_path)
+        )
+
+        # Use repo_identifier for gerrit_project field (works for both types)
+        gerrit_project = repo_identifier
+
+        metrics = self._init_repo_metrics(
+            repo_path, gerrit_project, gerrit_host, gerrit_url, gerrit_path_prefix
+        )
 
         try:
             # Check if this is actually a git repository
@@ -618,7 +667,6 @@ class GitDataCollector:
                     self.logger.debug(f"Using cached metrics for {gerrit_project}")
                     return cached_metrics
 
-            # Get git log with numstat in a single command
             git_command = [
                 "git",
                 "log",
@@ -636,17 +684,14 @@ class GitDataCollector:
                 metrics["errors"].append(f"Git command failed: {output}")
                 return metrics
 
-            # Parse git log output
             commits_data = self._parse_git_log_output(output, gerrit_project)
 
-            # Update total commit count regardless of time windows
             metrics["repository"]["total_commits_ever"] = len(commits_data)
             metrics["repository"]["has_any_commits"] = len(commits_data) > 0
 
             # Count total lines of code in current repository HEAD
             metrics["repository"]["total_loc"] = self._count_total_loc(repo_path)
 
-            # Process commits into time windows
             for commit_data in commits_data:
                 self._update_commit_metrics(commit_data, metrics)
 
@@ -658,24 +703,8 @@ class GitDataCollector:
 
             # Add Jenkins job information if available
             if self.jenkins_client:
-                jenkins_jobs = self._get_jenkins_jobs_for_repo(gerrit_project)
+                self._attach_jenkins_jobs(repo_data, gerrit_project)
 
-                # Store computed status for each job for consistent access
-                enriched_jobs = []
-                for job in jenkins_jobs:
-                    if isinstance(job, dict) and "status" in job:
-                        enriched_jobs.append(job)
-                    else:
-                        # Fallback for jobs missing status (shouldn't happen with new structure)
-                        enriched_job = dict(job) if isinstance(job, dict) else {"name": str(job)}
-                        enriched_job["status"] = "unknown"
-                        enriched_jobs.append(enriched_job)
-
-                repo_data["jenkins"] = {
-                    "jobs": enriched_jobs,
-                    "job_count": len(enriched_jobs),
-                    "has_jobs": len(enriched_jobs) > 0,
-                }
             unique_contributors = repo_data["unique_contributors"]
             for window in self.time_windows:
                 contributor_set = unique_contributors[window]
@@ -775,7 +804,7 @@ class GitDataCollector:
 
     def validate_jenkins_job_allocation(self) -> list[str]:
         """Validate Jenkins job allocation and return any issues found."""
-        issues = []
+        issues: list[str] = []
 
         if not self.jenkins_client or not self._jenkins_initialized:
             return ["No Jenkins client available or not initialized for validation"]
@@ -883,7 +912,6 @@ class GitDataCollector:
                     issues.append("Suggestions for unallocated project jobs:")
                     issues.extend(suggestions)
 
-            # Log infrastructure jobs as informational
             if infrastructure_jobs:
                 infrastructure_jobs_list = sorted(infrastructure_jobs)
                 issues.append(
@@ -933,7 +961,6 @@ class GitDataCollector:
 
             if best_match and best_score > 0:
                 project_name, project_info = best_match
-                # Update orphaned jobs in context
                 orphaned = self.jenkins_allocation_context.get_orphaned_jobs()
                 orphaned[job_name] = {
                     "project_name": project_name,
@@ -1007,7 +1034,6 @@ class GitDataCollector:
         if full_domain in self._domain_config.get("preserve_full_domain", []):
             return full_domain
 
-        # Check for custom mappings
         custom_mappings = self._domain_config.get("custom_mappings", {})
         if full_domain in custom_mappings:
             return str(custom_mappings[full_domain])
@@ -1019,7 +1045,6 @@ class GitDataCollector:
         if len(parts) <= 2:
             return full_domain
 
-        # Return last two parts
         return ".".join(parts[-2:])
 
     def _load_domain_config(self) -> dict[str, Any]:
@@ -1056,13 +1081,12 @@ class GitDataCollector:
         - Handle malformed emails gracefully
         - Domain extraction for organization analysis
         """
-        # Clean and normalize inputs
         clean_name = name.strip() if name else "Unknown"
         clean_email = email.lower().strip() if email else ""
 
-        # Handle empty or malformed emails
         if not clean_email or "@" not in clean_email:
-            unknown_placeholder = self.config.get("data_quality", {}).get(
+            data_quality_config = self.config.get("data_quality", {})
+            unknown_placeholder = data_quality_config.get(
                 "unknown_email_placeholder", "unknown@unknown"
             )
             clean_email = unknown_placeholder
@@ -1074,7 +1098,6 @@ class GitDataCollector:
             "domain": "",
         }
 
-        # Extract username and domain from email
         if "@" in clean_email:
             # Always split on the LAST @ symbol to handle complex email addresses
             parts = clean_email.split("@")
@@ -1140,7 +1163,8 @@ class GitDataCollector:
                         filename = parts[2]
 
                         # Skip binary files if configured
-                        if self.config.get("data_quality", {}).get(
+                        data_quality_config = self.config.get("data_quality", {})
+                        if data_quality_config.get(
                             "skip_binary_changes", True
                         ) and (parts[0] == "-" or parts[1] == "-"):
                             continue
@@ -1174,7 +1198,6 @@ class GitDataCollector:
         )
         author_email = norm_email
 
-        # Create author info dict for compatibility
         author_info = {
             "name": norm_name,
             "email": norm_email,
@@ -1189,7 +1212,6 @@ class GitDataCollector:
         total_removed = sum(f["removed"] for f in commit["files_changed"])
         net_lines = total_added - total_removed
 
-        # Update repository metrics for each matching window
         for window in applicable_windows:
             metrics["repository"]["commit_counts"][window] += 1
             metrics["repository"]["loc_stats"][window]["added"] += total_added
@@ -1197,7 +1219,6 @@ class GitDataCollector:
             metrics["repository"]["loc_stats"][window]["net"] += net_lines
             metrics["repository"]["unique_contributors"][window].add(author_email)
 
-        # Update author metrics
         if author_email not in metrics["authors"]:
             metrics["authors"][author_email] = {
                 "name": author_info["name"],
@@ -1211,7 +1232,6 @@ class GitDataCollector:
                 "repositories": {window: set() for window in self.time_windows},
             }
 
-        # Update author metrics for each matching window
         author_metrics = metrics["authors"][author_email]
         for window in applicable_windows:
             author_metrics["commit_counts"][window] += 1
@@ -1246,12 +1266,9 @@ class GitDataCollector:
                     repo_metrics["days_since_last_commit"] = days_since
 
                     # Determine activity status using unified thresholds
-                    current_threshold = self.config.get("activity_thresholds", {}).get(
-                        "current_days", 365
-                    )
-                    active_threshold = self.config.get("activity_thresholds", {}).get(
-                        "active_days", 1095
-                    )
+                    activity_thresholds = self.config.get("activity_thresholds", {})
+                    current_threshold = activity_thresholds.get("current_days", 365)
+                    active_threshold = activity_thresholds.get("active_days", 1095)
 
                     has_recent_commits = any(
                         count > 0 for count in repo_metrics["commit_counts"].values()
@@ -1264,7 +1281,6 @@ class GitDataCollector:
                     else:
                         repo_metrics["activity_status"] = "inactive"
 
-                    # Log appropriate message based on activity
                     if any(count > 0 for count in repo_metrics["commit_counts"].values()):
                         self.logger.debug(
                             f"Repository {repo_name} has {repo_metrics['total_commits_ever']} commits ({sum(repo_metrics['commit_counts'].values())} recent)"
@@ -1351,14 +1367,14 @@ class GitDataCollector:
             with open(cache_path, encoding="utf-8") as f:
                 cached_data = json.load(f)
 
-            # Validate cache structure
             if not isinstance(cached_data, dict) or "repository" not in cached_data:
                 project_name = self._extract_gerrit_project(repo_path)
                 self.logger.warning(f"Invalid cache structure for {project_name}")
                 return None
 
             # Check if cache is compatible with current time windows
-            cached_windows = set(cached_data.get("repository", {}).get("commit_counts", {}).keys())
+            cached_repository = cached_data.get("repository", {})
+            cached_windows = set(cached_repository.get("commit_counts", {}).keys())
             current_windows = set(self.time_windows.keys())
 
             if cached_windows != current_windows:

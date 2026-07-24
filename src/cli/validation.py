@@ -10,6 +10,10 @@ before executing repository analysis.
 Phase 9: CLI & UX Improvements
 """
 
+# This module renders dry-run validation results to the terminal; print() is
+# the intended output sink here, not leftover debugging.
+# aislop-ignore-file python-print-debug -- intentional user-facing CLI output
+
 import logging
 import os
 import shutil
@@ -142,15 +146,13 @@ class DryRunValidator:
 
     def _validate_required_fields(self) -> ValidationResult:
         """Validate required configuration fields are present."""
-        required_fields = {
-            "project.name": lambda c: c.get("project", {}).get("name"),
-            "paths.repos": lambda c: c.get("paths", {}).get("repos"),
-            "output.dir": lambda c: c.get("output", {}).get("dir"),
-        }
+        required_fields = ["project.name", "paths.repos", "output.dir"]
 
         missing = []
-        for field_path, getter in required_fields.items():
-            if not getter(self.config):
+        for field_path in required_fields:
+            section, key = field_path.split(".", 1)
+            section_data = self.config.get(section, {})
+            if not section_data.get(key):
                 missing.append(field_path)
 
         if missing:
@@ -164,7 +166,8 @@ class DryRunValidator:
 
     def _validate_project_name(self) -> ValidationResult:
         """Validate project name is valid."""
-        project_name = self.config.get("project", {}).get("name", "")
+        project_config = self.config.get("project", {})
+        project_name = project_config.get("name", "")
 
         if not project_name:
             return ValidationResult(
@@ -195,7 +198,8 @@ class DryRunValidator:
 
     def _validate_repos_path(self) -> ValidationResult:
         """Validate repositories path exists and is accessible."""
-        repos_path = self.config.get("paths", {}).get("repos")
+        paths_config = self.config.get("paths", {})
+        repos_path = paths_config.get("repos")
 
         if not repos_path:
             return ValidationResult(
@@ -256,8 +260,10 @@ class DryRunValidator:
         api_config = self.config.get("api", {})
 
         # Check GitHub token
-        github_token = api_config.get("github", {}).get("token")
-        gerrit_auth = api_config.get("gerrit", {}).get("auth")
+        github_config = api_config.get("github", {})
+        gerrit_config = api_config.get("gerrit", {})
+        github_token = github_config.get("token")
+        gerrit_auth = gerrit_config.get("auth")
 
         warnings = []
 
@@ -300,12 +306,14 @@ class DryRunValidator:
         endpoints = []
 
         # GitHub API
-        github_url = api_config.get("github", {}).get("url", "https://api.github.com")
+        github_config = api_config.get("github", {})
+        github_url = github_config.get("url", "https://api.github.com")
         if github_url:
             endpoints.append(("GitHub", github_url))
 
         # Gerrit API
-        gerrit_url = api_config.get("gerrit", {}).get("url")
+        gerrit_config = api_config.get("gerrit", {})
+        gerrit_url = gerrit_config.get("url")
         if gerrit_url:
             endpoints.append(("Gerrit", gerrit_url))
 
@@ -331,7 +339,8 @@ class DryRunValidator:
 
     def _validate_output_directory(self) -> ValidationResult:
         """Validate output directory is writable."""
-        output_dir = self.config.get("output", {}).get("dir", "output")
+        output_config = self.config.get("output", {})
+        output_dir = output_config.get("dir", "output")
         path = Path(output_dir)
 
         # Create if doesn't exist
@@ -354,7 +363,8 @@ class DryRunValidator:
 
     def _validate_disk_space(self) -> ValidationResult:
         """Validate sufficient disk space available."""
-        output_dir = self.config.get("output", {}).get("dir", "output")
+        output_config = self.config.get("output", {})
+        output_dir = output_config.get("dir", "output")
         path = Path(output_dir)
 
         try:
@@ -381,10 +391,11 @@ class DryRunValidator:
 
     def _validate_cache_directory(self) -> ValidationResult:
         """Validate cache directory if caching is enabled."""
-        if not self.config.get("cache", {}).get("enabled", False):
+        cache_config = self.config.get("cache", {})
+        if not cache_config.get("enabled", False):
             return ValidationResult(True, "Caching disabled (skipped)", severity="info")
 
-        cache_dir = self.config.get("cache", {}).get("dir", ".cache/repo-metrics")
+        cache_dir = cache_config.get("dir", ".cache/repo-metrics")
         path = Path(cache_dir)
 
         try:

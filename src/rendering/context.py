@@ -12,6 +12,7 @@ Phase: 8 - Renderer Modernization (Fixed for actual data schema)
 """
 
 import logging
+from collections.abc import Callable
 from datetime import datetime
 from typing import Any
 
@@ -90,17 +91,14 @@ class RenderContext:
         """Build project metadata context."""
         project_name = self.data.get("project", "Repository Analysis")
 
-        # Handle both string and dict formats
         if isinstance(project_name, dict):
             project_name = project_name.get("name", "Repository Analysis")
 
-        # Check for generated_at in root or metadata
         generated_at = self.data.get("generated_at", "")
         if not generated_at:
             metadata = self.data.get("metadata", {})
             generated_at = metadata.get("generated_at", "")
 
-        # Format the generated_at timestamp
         generated_at_formatted = "Unknown"
         if generated_at:
             try:
@@ -109,7 +107,6 @@ class RenderContext:
             except (ValueError, AttributeError):
                 generated_at_formatted = str(generated_at)
 
-        # Check for report_version in metadata
         metadata = self.data.get("metadata", {})
         report_version = metadata.get("report_version", "")
 
@@ -117,7 +114,6 @@ class RenderContext:
         # Priority: gerrit.host exists -> "gerrit", otherwise -> "github"
         project_type = self._detect_project_type()
 
-        # Build terminology based on project type
         terminology = self._build_terminology(project_type)
 
         result = {
@@ -195,6 +191,7 @@ class RenderContext:
             # Examples:
             #   https://gerrit.onap.org/r/admin/repos/oom,general
             #   https://git.opendaylight.org/gerrit/admin/repos/releng/autorelease,general
+            # aislop-ignore-next-line hardcoded-url -- scheme prefix on dynamic host, not a fixed endpoint
             return f"https://{host}{path_prefix}/admin/repos/{project_name},general"
         else:  # github
             # GitHub repository URL format
@@ -291,12 +288,10 @@ class RenderContext:
         # Transform repository data for templates
         all_repos = []
         for repo in all_repos_raw:
-            # Get primary reporting window from summaries
             summaries = self.data.get("summaries", {})
             reporting_period = summaries.get("reporting_period", {})
             primary_window = reporting_period.get("window_name", "last_365")
 
-            # Get unique contributors from time window
             unique_contributors_dict = repo.get("unique_contributors", {})
             if isinstance(unique_contributors_dict, dict):
                 unique_contributors_value = unique_contributors_dict.get(primary_window, 0)
@@ -316,7 +311,6 @@ class RenderContext:
             # Get all-time LOC from total_loc field (added in schema v1.3.0)
             total_loc = repo.get("total_loc", 0)
 
-            # Extract last commit date
             last_commit_timestamp = repo.get("last_commit_timestamp", "")
             last_commit_date = "N/A"
             if last_commit_timestamp:
@@ -333,7 +327,6 @@ class RenderContext:
             status_emoji_map = {"current": "✅", "active": "☑️", "inactive": "🛑", "unknown": "🛑"}
             activity_status_emoji = status_emoji_map.get(activity_status_raw, "🛑")
 
-            # Build Gerrit admin URL
             gerrit_project_name = repo.get("gerrit_project", "Unknown")
             gerrit_host = repo.get("gerrit_host", "")
             gerrit_path_prefix = repo.get("gerrit_path_prefix", "")
@@ -344,6 +337,9 @@ class RenderContext:
             repo_url = self._build_repository_url(
                 gerrit_project_name, gerrit_host, gerrit_path_prefix, project_type
             )
+
+            jenkins_data = repo.get("jenkins", {})
+            jenkins_jobs_count = len(jenkins_data.get("jobs", []))
 
             transformed = {
                 "gerrit_project": gerrit_project_name,
@@ -357,7 +353,7 @@ class RenderContext:
                 "last_commit_date": last_commit_date,
                 "total_commits": repo.get("total_commits_ever", 0),
                 "unique_contributors": unique_contributors_value,
-                "jenkins_jobs_count": len(repo.get("jenkins", {}).get("jobs", [])),
+                "jenkins_jobs_count": jenkins_jobs_count,
                 "state": repo.get("state", "UNKNOWN"),
                 "total_lines_added": total_lines_added,
                 "total_lines_removed": total_lines_removed,
@@ -395,7 +391,6 @@ class RenderContext:
         top_commits_raw = summaries.get("top_contributors_commits", [])
         top_loc_raw = summaries.get("top_contributors_loc", [])
 
-        # Get primary reporting window from data
         reporting_period = summaries.get("reporting_period", {})
         primary_window = reporting_period.get("window_name", "last_365")
 
@@ -403,7 +398,6 @@ class RenderContext:
         # Contributors use time-windowed metrics (dicts with last_30, last_90, etc.)
         top_commits = []
         for contrib in top_commits_raw:
-            # Get commits from time windows
             commits_dict = contrib.get("commits", {})
             # Handle both dict (new format) and int (old format)
             if isinstance(commits_dict, dict):
@@ -411,7 +405,6 @@ class RenderContext:
             else:
                 total_commits = commits_dict if isinstance(commits_dict, int) else 0
 
-            # Get repository counts from repositories_touched
             repos_touched = contrib.get("repositories_touched", {})
 
             # Extract the count - repositories_touched values are sets stored as strings
@@ -469,7 +462,6 @@ class RenderContext:
 
         top_loc = []
         for contrib in top_loc_raw:
-            # Get LOC stats from time windows using primary window
             lines_added_dict = contrib.get("lines_added", {})
             lines_removed_dict = contrib.get("lines_removed", {})
             lines_net_dict = contrib.get("lines_net", {})
@@ -481,7 +473,6 @@ class RenderContext:
             # Calculate derived metrics
             delta_loc = total_lines_added + total_lines_removed
 
-            # Get commits for avg calculation
             commits_dict = contrib.get("commits", {})
             total_commits = commits_dict.get(primary_window, 0)
             avg_loc_per_commit = (net_lines / total_commits) if total_commits > 0 else 0
@@ -499,7 +490,8 @@ class RenderContext:
             top_loc.append(transformed)
 
         # Limit to top N (from config or default 30)
-        limit = self.config.get("output", {}).get("top_contributors_limit", 30)
+        output_config = self.config.get("output", {})
+        limit = output_config.get("top_contributors_limit", 30)
 
         return {
             "top_by_commits": top_commits[:limit],
@@ -516,7 +508,6 @@ class RenderContext:
 
         top_orgs_raw = summaries.get("top_organizations", [])
 
-        # Get primary reporting window from data
         reporting_period = summaries.get("reporting_period", {})
         primary_window = reporting_period.get("window_name", "last_365")
 
@@ -527,7 +518,6 @@ class RenderContext:
         for org in top_orgs_raw:
             domain = org.get("domain", "Unknown")
 
-            # Get commits from time windows using primary window
             commits_dict = org.get("commits", {})
             # Handle both dict (new format) and int (old format)
             if isinstance(commits_dict, dict):
@@ -535,10 +525,8 @@ class RenderContext:
             else:
                 total_commits = commits_dict if isinstance(commits_dict, int) else 0
 
-            # Get contributor count
             contributor_count = org.get("contributor_count", 0)
 
-            # Get repository counts from time windows
             repos_dict = org.get("repositories_count", {})
             # Handle both dict (new format) and int (old format)
             if isinstance(repos_dict, dict):
@@ -546,7 +534,6 @@ class RenderContext:
             else:
                 repos_count = repos_dict if isinstance(repos_dict, int) else 0
 
-            # Get LOC data from time windows
             lines_added_dict = org.get("lines_added", {})
             lines_removed_dict = org.get("lines_removed", {})
             lines_net_dict = org.get("lines_net", {})
@@ -588,7 +575,8 @@ class RenderContext:
             top_orgs.append(transformed)
 
         # Limit to top N
-        limit = self.config.get("output", {}).get("top_organizations_limit", 30)
+        output_config = self.config.get("output", {})
+        limit = output_config.get("top_organizations_limit", 30)
 
         return {
             "top": top_orgs[:limit],
@@ -610,7 +598,6 @@ class RenderContext:
                 "repositories_count": 0,
             }
 
-        # Extract unique features across all repos
         features_set = set()
         for repo in repositories:
             repo_features = repo.get("features", {})
@@ -618,12 +605,10 @@ class RenderContext:
 
         features_list = sorted(features_set)
 
-        # Build feature matrix
         matrix = []
         for repo in repositories:
             repo_features = repo.get("features", {})
 
-            # Extract project types
             project_types = repo_features.get("project_types", {})
             if isinstance(project_types, dict):
                 primary_type = project_types.get("primary_type")
@@ -634,7 +619,6 @@ class RenderContext:
 
             # Separate primary type from other types
             if primary_type and detected_types:
-                # Remove primary type from detected_types to get other types
                 other_types = [t for t in detected_types if t != primary_type]
             else:
                 other_types = []
@@ -655,9 +639,9 @@ class RenderContext:
             # Normalize feature names for template (strip has_ prefix)
             normalized_features = {}
             for feature in features_list:
-                # Get the feature value
                 if isinstance(repo_features.get(feature), dict):
-                    feature_value = repo_features.get(feature, {}).get("present", False)
+                    feature_entry = repo_features.get(feature, {})
+                    feature_value = feature_entry.get("present", False)
                 else:
                     feature_value = bool(repo_features.get(feature, False))
 
@@ -689,7 +673,6 @@ class RenderContext:
         """Build CI/CD workflows context."""
         repositories = self.data.get("repositories", [])
 
-        # Build repositories with CI/CD jobs grouped by project
         repos_with_cicd = []
         total_jenkins_jobs = 0
         total_github_workflows = 0
@@ -697,71 +680,12 @@ class RenderContext:
         for repo in repositories:
             gerrit_project = repo.get("gerrit_project", "Unknown")
 
-            # Get Jenkins jobs for this repo and flatten URL structure
             jenkins_data = repo.get("jenkins", {})
-            jenkins_jobs_raw = jenkins_data.get("jobs", [])
+            jenkins_jobs = self._flatten_jenkins_jobs(jenkins_data.get("jobs", []))
 
-            # Transform Jenkins jobs to flatten URL structure for template
-            jenkins_jobs = []
-            for job in jenkins_jobs_raw:
-                job_dict = {
-                    "name": job.get("name", "Unknown"),
-                    "status": job.get("status", "unknown"),
-                    "color": job.get("color", "notbuilt"),
-                    "state": job.get("state", "active"),
-                }
-                # Flatten nested URL structure: urls.job_page -> url
-                urls = job.get("urls", {})
-                if isinstance(urls, dict):
-                    job_dict["url"] = urls.get("job_page", "")
-                else:
-                    job_dict["url"] = job.get("url", "")
-                jenkins_jobs.append(job_dict)
-
-            # Get GitHub workflows for this repo from features.workflows
             features = repo.get("features", {})
             workflows_data = features.get("workflows", {})
-            workflow_files = workflows_data.get("files", [])
-
-            # Extract GitHub API data if available for runtime status
-            github_api_data = workflows_data.get("github_api_data", {})
-            github_workflows_api = github_api_data.get("workflows", [])
-
-            # Build github_workflows list with proper structure for template
-            github_workflows = []
-
-            # If we have GitHub API data with runtime status, use that
-            if github_workflows_api:
-                for gh_workflow in github_workflows_api:
-                    # Only include active workflows
-                    if gh_workflow.get("state") == "active":
-                        # Extract filename from path for display (matching production)
-                        workflow_path = gh_workflow.get("path", "")
-                        workflow_filename = (
-                            workflow_path.split("/")[-1] if workflow_path else "Unknown"
-                        )
-
-                        github_workflows.append(
-                            {
-                                "name": workflow_filename,  # Use filename instead of title
-                                "path": workflow_path,
-                                "state": gh_workflow.get("state", "active"),
-                                "status": gh_workflow.get("status", "unknown"),
-                                "url": gh_workflow.get("urls", {}).get("workflow_page", ""),
-                            }
-                        )
-            # Otherwise use the static workflow files data
-            elif workflow_files:
-                for workflow_file in workflow_files:
-                    github_workflows.append(
-                        {
-                            "name": workflow_file.get("name", "Unknown"),
-                            "path": workflow_file.get("name", ""),
-                            "state": "active",  # Assume active if found locally
-                            "status": "unknown",  # No runtime status available
-                            "url": "",  # No URL without GitHub API data
-                        }
-                    )
+            github_workflows = self._build_github_workflows(workflows_data)
 
             # Only include repos that have at least one job or workflow
             if jenkins_jobs or github_workflows:
@@ -779,23 +703,7 @@ class RenderContext:
                 total_github_workflows += len(github_workflows)
 
         # Collect all Jenkins jobs (flat list for status counts)
-        all_jobs = []
-        for repo in repositories:
-            jenkins_data = repo.get("jenkins", {})
-            jobs = jenkins_data.get("jobs", [])
-            repo_name = repo.get("gerrit_project", "Unknown")
-
-            for job in jobs:
-                jenkins_color = job.get("color", "notbuilt")
-                all_jobs.append(
-                    {
-                        "name": job.get("name", "Unknown"),
-                        "repo": repo_name,
-                        "status": job.get("status", "UNKNOWN"),
-                        "color": self._get_status_color(jenkins_color),
-                        "url": job.get("url", ""),
-                    }
-                )
+        all_jobs = self._collect_all_jenkins_jobs(repositories)
 
         # Count by status
         status_counts: dict[str, int] = {}
@@ -814,6 +722,98 @@ class RenderContext:
             "all": all_jobs,
             "total_count": len(all_jobs),
         }
+
+    def _flatten_jenkins_jobs(self, jenkins_jobs_raw: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        """Flatten Jenkins job records into the template-friendly shape.
+
+        Collapses the nested ``urls.job_page`` structure to a flat ``url``.
+        """
+        jenkins_jobs = []
+        for job in jenkins_jobs_raw:
+            job_dict = {
+                "name": job.get("name", "Unknown"),
+                "status": job.get("status", "unknown"),
+                "color": job.get("color", "notbuilt"),
+                "state": job.get("state", "active"),
+            }
+            # Flatten nested URL structure: urls.job_page -> url
+            urls = job.get("urls", {})
+            if isinstance(urls, dict):
+                job_dict["url"] = urls.get("job_page", "")
+            else:
+                job_dict["url"] = job.get("url", "")
+            jenkins_jobs.append(job_dict)
+        return jenkins_jobs
+
+    def _build_github_workflows(self, workflows_data: dict[str, Any]) -> list[dict[str, Any]]:
+        """Build the GitHub workflows list from API data or static files.
+
+        Prefers GitHub API data (with runtime status, active workflows only)
+        and falls back to the statically discovered workflow files.
+        """
+        workflow_files = workflows_data.get("files", [])
+
+        # Extract GitHub API data if available for runtime status
+        github_api_data = workflows_data.get("github_api_data", {})
+        github_workflows_api = github_api_data.get("workflows", [])
+
+        github_workflows: list[dict[str, Any]] = []
+
+        # If we have GitHub API data with runtime status, use that
+        if github_workflows_api:
+            for gh_workflow in github_workflows_api:
+                # Only include active workflows
+                if gh_workflow.get("state") != "active":
+                    continue
+                # Extract filename from path for display (matching production)
+                workflow_path = gh_workflow.get("path", "")
+                workflow_filename = workflow_path.split("/")[-1] if workflow_path else "Unknown"
+
+                gh_urls = gh_workflow.get("urls", {})
+                github_workflows.append(
+                    {
+                        "name": workflow_filename,  # Use filename instead of title
+                        "path": workflow_path,
+                        "state": gh_workflow.get("state", "active"),
+                        "status": gh_workflow.get("status", "unknown"),
+                        "url": gh_urls.get("workflow_page", ""),
+                    }
+                )
+        # Otherwise use the static workflow files data
+        elif workflow_files:
+            for workflow_file in workflow_files:
+                github_workflows.append(
+                    {
+                        "name": workflow_file.get("name", "Unknown"),
+                        "path": workflow_file.get("name", ""),
+                        "state": "active",  # Assume active if found locally
+                        "status": "unknown",  # No runtime status available
+                        "url": "",  # No URL without GitHub API data
+                    }
+                )
+
+        return github_workflows
+
+    def _collect_all_jenkins_jobs(self, repositories: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        """Collect a flat list of all Jenkins jobs across repositories."""
+        all_jobs = []
+        for repo in repositories:
+            jenkins_data = repo.get("jenkins", {})
+            jobs = jenkins_data.get("jobs", [])
+            repo_name = repo.get("gerrit_project", "Unknown")
+
+            for job in jobs:
+                jenkins_color = job.get("color", "notbuilt")
+                all_jobs.append(
+                    {
+                        "name": job.get("name", "Unknown"),
+                        "repo": repo_name,
+                        "status": job.get("status", "UNKNOWN"),
+                        "color": self._get_status_color(jenkins_color),
+                        "url": job.get("url", ""),
+                    }
+                )
+        return all_jobs
 
     def _build_orphaned_jobs_context(self) -> dict[str, Any]:
         """Build orphaned jobs context."""
@@ -867,7 +867,6 @@ class RenderContext:
                     }
                 )
 
-        # Build jobs list with computed status
         jobs_list = []
         for job_data in unallocated_job_details:
             job_name = job_data.get("name", "")
@@ -1006,7 +1005,6 @@ class RenderContext:
 
     def _build_config_context(self) -> dict[str, Any]:
         """Build configuration context."""
-        # Get project name from config
         project_config = self.config.get("project", "Repository Analysis")
         if isinstance(project_config, dict):
             project_name = project_config.get("name", "Repository Analysis")
@@ -1037,7 +1035,6 @@ class RenderContext:
             "info_yaml",
         ]
 
-        # Start with all sections enabled by default
         include_sections = dict.fromkeys(all_sections, True)
 
         # Check if output.include_sections is a dict (new style config)
@@ -1052,7 +1049,6 @@ class RenderContext:
                 if f"include_{section}" in output_config:
                     include_sections[section] = output_config[f"include_{section}"]
 
-        # Get html_tables config for DataTables support
         html_tables_config = self.config.get("html_tables", {})
         html_tables = {
             "sortable": html_tables_config.get("sortable", True),
@@ -1087,117 +1083,67 @@ class RenderContext:
         if toc_enabled is False:
             return {"sections": [], "has_sections": False}
 
+        include_sections = config["include_sections"]
+
+        # Ordered TOC section specs: (config key, title, anchor, presence check).
+        # A section is listed when its include flag is enabled and the presence
+        # check (evaluated lazily) reports content is available.
+        section_specs: list[tuple[str, str, str, Callable[[], bool]]] = [
+            ("summary", "Global Summary", "summary", lambda: True),
+            (
+                "repositories",
+                "Gerrit Projects",
+                "repositories",
+                lambda: self._build_repositories_context()["has_repositories"],
+            ),
+            (
+                "contributors",
+                "Top Contributors",
+                "contributors",
+                lambda: self._build_contributors_context()["has_contributors"],
+            ),
+            (
+                "organizations",
+                "Top Organizations",
+                "organizations",
+                lambda: self._build_organizations_context()["has_organizations"],
+            ),
+            (
+                "features",
+                "Repository Feature Matrix",
+                "features",
+                lambda: self._build_features_context()["has_features"],
+            ),
+            (
+                "workflows",
+                "Deployed CI/CD Jobs",
+                "workflows",
+                lambda: self._build_workflows_context()["has_workflows"],
+            ),
+            (
+                "orphaned_jobs",
+                "Orphaned Jenkins Jobs",
+                "orphaned-jobs",
+                lambda: self._build_orphaned_jobs_context()["has_orphaned_jobs"],
+            ),
+            (
+                "unattributed_jobs",
+                "Unattributed Jenkins Jobs",
+                "unattributed-jobs",
+                lambda: self._build_unattributed_jobs_context()["has_unattributed_jobs"],
+            ),
+            (
+                "time_windows",
+                "Time Windows",
+                "time-windows",
+                lambda: len(self._build_time_windows_context()) > 0,
+            ),
+        ]
+
         sections = []
-
-        # Summary (always included if enabled)
-        if config["include_sections"].get("summary", True):
-            sections.append(
-                {
-                    "title": "Global Summary",
-                    "anchor": "summary",
-                    "level": 1,
-                }
-            )
-
-        # Repositories (comes before contributors to match expected order)
-        repositories = self._build_repositories_context()
-        if (
-            config["include_sections"].get("repositories", True)
-            and repositories["has_repositories"]
-        ):
-            sections.append(
-                {
-                    "title": "Gerrit Projects",
-                    "anchor": "repositories",
-                    "level": 1,
-                }
-            )
-
-        # Contributors
-        contributors = self._build_contributors_context()
-        if (
-            config["include_sections"].get("contributors", True)
-            and contributors["has_contributors"]
-        ):
-            sections.append(
-                {
-                    "title": "Top Contributors",
-                    "anchor": "contributors",
-                    "level": 1,
-                }
-            )
-
-        # Organizations
-        organizations = self._build_organizations_context()
-        if (
-            config["include_sections"].get("organizations", True)
-            and organizations["has_organizations"]
-        ):
-            sections.append(
-                {
-                    "title": "Top Organizations",
-                    "anchor": "organizations",
-                    "level": 1,
-                }
-            )
-
-        # Features
-        features = self._build_features_context()
-        if config["include_sections"].get("features", True) and features["has_features"]:
-            sections.append(
-                {
-                    "title": "Repository Feature Matrix",
-                    "anchor": "features",
-                    "level": 1,
-                }
-            )
-
-        # Workflows (use "Deployed CI/CD Jobs" to match test expectations)
-        workflows = self._build_workflows_context()
-        if config["include_sections"].get("workflows", True) and workflows["has_workflows"]:
-            sections.append(
-                {
-                    "title": "Deployed CI/CD Jobs",
-                    "anchor": "workflows",
-                    "level": 1,
-                }
-            )
-
-        # Orphaned Jobs
-        orphaned = self._build_orphaned_jobs_context()
-        if config["include_sections"].get("orphaned_jobs", True) and orphaned["has_orphaned_jobs"]:
-            sections.append(
-                {
-                    "title": "Orphaned Jenkins Jobs",
-                    "anchor": "orphaned-jobs",
-                    "level": 1,
-                }
-            )
-
-        # Unattributed Jobs
-        unattributed = self._build_unattributed_jobs_context()
-        if (
-            config["include_sections"].get("unattributed_jobs", True)
-            and unattributed["has_unattributed_jobs"]
-        ):
-            sections.append(
-                {
-                    "title": "Unattributed Jenkins Jobs",
-                    "anchor": "unattributed-jobs",
-                    "level": 1,
-                }
-            )
-
-        # Time Windows
-        time_windows = self._build_time_windows_context()
-        if config["include_sections"].get("time_windows", True) and len(time_windows) > 0:
-            sections.append(
-                {
-                    "title": "Time Windows",
-                    "anchor": "time-windows",
-                    "level": 1,
-                }
-            )
+        for config_key, title, anchor, is_present in section_specs:
+            if include_sections.get(config_key, True) and is_present():
+                sections.append({"title": title, "anchor": anchor, "level": 1})
 
         return {
             "sections": sections,

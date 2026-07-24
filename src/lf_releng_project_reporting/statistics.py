@@ -217,7 +217,6 @@ class APIStatistics:
                         f.write("**Info-master repository:** ✅ Fetched successfully\n\n")
                     return
 
-                # Write statistics table
                 f.write(
                     "| Service | Total Calls | Success | Errors | Exceptions | Success Rate |\n"
                 )

@@ -204,13 +204,24 @@ def analyze_json_data(json_file):
     with open(json_file, encoding="utf-8") as f:
         data = json.load(f)
 
+    est_tech = _report_est_tech_org(data)
+    if est_tech is None:
+        return
+
+    repositories = data.get("repositories", [])
+    _report_repository_sample(repositories)
+    _check_duplicate_counting(repositories, est_tech)
+
+
+def _report_est_tech_org(data):
+    """Print est.tech organization and author details; return the org or None."""
     # Find est.tech organization
     organizations = data.get("organizations", [])
     est_tech = next((o for o in organizations if o.get("domain") == "est.tech"), None)
 
     if not est_tech:
         print("❌ est.tech not found in JSON data!")
-        return
+        return None
 
     print("\nOrganization Data:")
     print(f"  Domain: {est_tech.get('domain')}")
@@ -231,9 +242,12 @@ def analyze_json_data(json_file):
 
     if est_tech_authors:
         print("\nSample of top 5 authors by commits (last_365):")
-        sorted_authors = sorted(
-            est_tech_authors, key=lambda a: a.get("commits", {}).get("last_365", 0), reverse=True
-        )[:5]
+
+        def _last_365(a):
+            commits = a.get("commits", {})
+            return commits.get("last_365", 0)
+
+        sorted_authors = sorted(est_tech_authors, key=_last_365, reverse=True)[:5]
 
         for i, author in enumerate(sorted_authors, 1):
             name = author.get("name", "Unknown")
@@ -247,8 +261,11 @@ def analyze_json_data(json_file):
             print(f"     Lines added: {lines_added}")
             print(f"     Lines removed: {lines_removed}")
 
-    # Check repositories
-    repositories = data.get("repositories", [])
+    return est_tech
+
+
+def _report_repository_sample(repositories):
+    """Print a sample of repositories that have est.tech contributors."""
     print(f"\n\n📦 Total repositories: {len(repositories)}")
 
     # Sample some repositories and their metrics
@@ -271,7 +288,9 @@ def analyze_json_data(json_file):
             f"  - {repo_info['name']}: {repo_info['est_tech_count']}/{repo_info['total_authors']} authors from est.tech"
         )
 
-    # Check for duplicate counting
+
+def _check_duplicate_counting(repositories, est_tech):
+    """Compare summed per-repo est.tech metrics against organization totals."""
     print("\n\n🔎 Checking for duplicate counting issues...")
 
     # Sum up est.tech contributions from all repositories
@@ -283,9 +302,12 @@ def analyze_json_data(json_file):
         for author in repo.get("authors", []):
             if author.get("domain") == "est.tech":
                 # Use last_365 window for comparison
-                total_commits_from_repos += author.get("commits", {}).get("last_365", 0)
-                total_added_from_repos += author.get("lines_added", {}).get("last_365", 0)
-                total_removed_from_repos += author.get("lines_removed", {}).get("last_365", 0)
+                commits_data = author.get("commits", {})
+                total_commits_from_repos += commits_data.get("last_365", 0)
+                added_data = author.get("lines_added", {})
+                total_added_from_repos += added_data.get("last_365", 0)
+                removed_data = author.get("lines_removed", {})
+                total_removed_from_repos += removed_data.get("last_365", 0)
 
     print("\nSumming est.tech metrics from repository.authors:")
     print(f"  Commits: {total_commits_from_repos:,}")
@@ -293,9 +315,12 @@ def analyze_json_data(json_file):
     print(f"  Lines removed: {total_removed_from_repos:,}")
 
     # Compare with organization totals
-    org_commits = est_tech.get("commits", {}).get("last_365", 0)
-    org_added = est_tech.get("lines_added", {}).get("last_365", 0)
-    org_removed = est_tech.get("lines_removed", {}).get("last_365", 0)
+    org_commits_data = est_tech.get("commits", {})
+    org_commits = org_commits_data.get("last_365", 0)
+    org_added_data = est_tech.get("lines_added", {})
+    org_added = org_added_data.get("last_365", 0)
+    org_removed_data = est_tech.get("lines_removed", {})
+    org_removed = org_removed_data.get("last_365", 0)
 
     print("\nOrganization totals (last_365):")
     print(f"  Commits: {org_commits:,}")

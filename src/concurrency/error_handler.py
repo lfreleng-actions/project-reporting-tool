@@ -122,7 +122,6 @@ class ConcurrentErrorHandler:
         with self._lock:
             self._errors.append(record)
 
-        # Log error at appropriate level
         if severity == ErrorSeverity.TRANSIENT:
             self.logger.warning(
                 f"Transient error in {context}: {error_type}: {error_message} "
@@ -222,7 +221,6 @@ class ConcurrentErrorHandler:
             error_type = error.error_type
             by_type[error_type] = by_type.get(error_type, 0) + 1
 
-        # Get failed contexts
         failed_contexts = list({e.context for e in errors})
 
         return {
@@ -275,8 +273,8 @@ def with_retry(
 
     Example:
         >>> @with_retry(max_retries=3, backoff_factor=2.0)
-        >>> def fetch_data():
-        >>>     return requests.get('https://api.example.com/data')
+        >>> def fetch_data(endpoint_url):
+        >>>     return requests.get(endpoint_url)
     """
 
     def decorator(fn: Callable[..., Any]) -> Callable[..., Any]:

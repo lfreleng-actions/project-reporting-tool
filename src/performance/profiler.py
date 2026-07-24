@@ -151,7 +151,6 @@ class OperationTimer:
         """Start timing and memory tracking."""
         self.start_time = time.perf_counter()
 
-        # Get current memory usage
         try:
             process = psutil.Process()
             self.memory_start = process.memory_info().rss
@@ -167,7 +166,6 @@ class OperationTimer:
         if self.start_time is not None:
             self.duration = self.end_time - self.start_time
 
-        # Get final memory usage
         try:
             process = psutil.Process()
             mem_end = process.memory_info().rss

@@ -55,7 +55,6 @@ class TemplateRenderer:
         self.template_dir = template_dir
         self.theme = theme
 
-        # Create Jinja2 environment
         self.env = jinja2.Environment(
             loader=jinja2.FileSystemLoader(str(template_dir)),
             autoescape=jinja2.select_autoescape(["html", "xml"]),
@@ -161,10 +160,9 @@ class ModernReportRenderer:
                 f"Ensure templates are installed correctly."
             )
 
-        # Get theme from config
-        theme = config.get("render", {}).get("theme", "default")
+        render = config.get("render", {})
+        theme = render.get("theme", "default")
 
-        # Initialize template renderer
         self.template_renderer = TemplateRenderer(template_dir, theme)
 
         self.logger.info(f"Initialized ModernReportRenderer with theme: {theme}")
@@ -181,10 +179,8 @@ class ModernReportRenderer:
         """
         self.logger.info("Rendering Markdown report using templates")
 
-        # Build context
         context = RenderContext(data, self.config).build()
 
-        # Render main template
         try:
             markdown = self.template_renderer.render("markdown/base.md.j2", context)
             self.logger.info("Markdown rendering complete")
@@ -205,10 +201,8 @@ class ModernReportRenderer:
         """
         self.logger.info("Rendering HTML report using templates")
 
-        # Build context
         context = RenderContext(data, self.config).build()
 
-        # Render main template
         try:
             html = self.template_renderer.render("html/base.html.j2", context)
             self.logger.info("HTML rendering complete")
@@ -320,5 +314,6 @@ class ModernReportRenderer:
             Path to theme CSS file
         """
         theme_dir = Path(__file__).parent.parent / "themes"
-        theme_name = self.config.get("render", {}).get("theme", "default")
+        render = self.config.get("render", {})
+        theme_name = render.get("theme", "default")
         return theme_dir / f"{theme_name}.css"

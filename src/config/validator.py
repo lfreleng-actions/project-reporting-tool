@@ -24,8 +24,14 @@ Example:
     ...         print(f"WARNING: {warning.message}")
 """
 
+# The print_validation_result helper renders configuration validation output to
+# the terminal (stderr); print() is the intended output sink here, not leftover
+# debugging.
+# aislop-ignore-file python-print-debug -- intentional user-facing CLI output
+
 import importlib.util
 import json
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
@@ -36,6 +42,54 @@ from cli.errors import ConfigurationError
 
 
 HAS_JSONSCHEMA = importlib.util.find_spec("jsonschema") is not None
+
+
+def _extract_quoted(message: str) -> str:
+    """Return the first single-quoted token in a schema error message.
+
+    Falls back to the raw message when it contains no quoted token, so a
+    differently phrased jsonschema error cannot raise IndexError.
+    """
+    parts = message.split("'")
+    return parts[1] if len(parts) >= 3 else message
+
+
+def _format_required_error(e: Any) -> str:
+    return f"Missing required field: '{_extract_quoted(e.message)}'"
+
+
+def _format_type_error(e: Any) -> str:
+    return f"Invalid type: expected {e.validator_value}, got {type(e.instance).__name__}"
+
+
+def _format_enum_error(e: Any) -> str:
+    valid_values = ", ".join(f"'{v}'" for v in e.validator_value)
+    return f"Invalid value. Must be one of: {valid_values}"
+
+
+def _format_minimum_error(e: Any) -> str:
+    return f"Value {e.instance} is below minimum {e.validator_value}"
+
+
+def _format_maximum_error(e: Any) -> str:
+    return f"Value {e.instance} exceeds maximum {e.validator_value}"
+
+
+def _format_pattern_error(e: Any) -> str:
+    return f"Value does not match required pattern: {e.validator_value}"
+
+
+# Table-driven formatting for JSON Schema validation errors, keyed by the
+# jsonschema validator that produced the error. Any validator absent from this
+# table falls back to the raw error message.
+_SCHEMA_ERROR_FORMATTERS: dict[str, Callable[[Any], str]] = {
+    "required": _format_required_error,
+    "type": _format_type_error,
+    "enum": _format_enum_error,
+    "minimum": _format_minimum_error,
+    "maximum": _format_maximum_error,
+    "pattern": _format_pattern_error,
+}
 
 
 class ValidationLevel(Enum):
@@ -247,30 +301,15 @@ class ConfigValidator:
 
     def _format_schema_error(self, error: Any) -> str:
         """Format JSON schema error message."""
-        # Simplify common error messages
-        if error.validator == "required":
-            missing = error.message.split("'")[1]
-            return f"Missing required field: '{missing}'"
-        elif error.validator == "type":
-            expected = error.validator_value
-            actual = type(error.instance).__name__
-            return f"Invalid type: expected {expected}, got {actual}"
-        elif error.validator == "enum":
-            valid_values = ", ".join(f"'{v}'" for v in error.validator_value)
-            return f"Invalid value. Must be one of: {valid_values}"
-        elif error.validator == "minimum":
-            return f"Value {error.instance} is below minimum {error.validator_value}"
-        elif error.validator == "maximum":
-            return f"Value {error.instance} exceeds maximum {error.validator_value}"
-        elif error.validator == "pattern":
-            return f"Value does not match required pattern: {error.validator_value}"
-        else:
-            return str(error.message)
+        formatter = _SCHEMA_ERROR_FORMATTERS.get(error.validator)
+        if formatter is not None:
+            return formatter(error)
+        return str(error.message)
 
     def _get_schema_error_suggestion(self, error: Any) -> str | None:
         """Get helpful suggestion for schema error."""
         if error.validator == "required":
-            missing = error.message.split("'")[1]
+            missing = _extract_quoted(error.message)
             if missing == "schema_version":
                 return "Add 'schema_version: \"1.2.0\"' to your configuration"
             elif missing == "project":
@@ -278,7 +317,7 @@ class ConfigValidator:
         elif error.validator == "additionalProperties":
             # Find which property is not allowed
             if hasattr(error, "message") and "'" in error.message:
-                extra_prop = error.message.split("'")[1]
+                extra_prop = _extract_quoted(error.message)
                 return f"Remove '{extra_prop}' or check for typos in property name"
 
         return None
@@ -325,7 +364,8 @@ class ConfigValidator:
             )
 
         # GitHub API validation
-        github = config.get("extensions", {}).get("github_api", {})
+        extensions = config.get("extensions", {})
+        github = extensions.get("github_api", {})
         if github.get("enabled") and not github.get("token"):
             result.add_warning(
                 message="GitHub API is enabled but no token specified",
@@ -383,8 +423,8 @@ class ConfigValidator:
     def _validate_security(self, config: dict[str, Any], result: ValidationResult) -> None:
         """Check for potential security issues."""
 
-        # Check for hardcoded tokens
-        github = config.get("extensions", {}).get("github_api", {})
+        extensions = config.get("extensions", {})
+        github = extensions.get("github_api", {})
         if github.get("token") and len(github.get("token", "")) > 10:
             result.add_warning(
                 message="GitHub token appears to be hardcoded in configuration",
@@ -393,7 +433,6 @@ class ConfigValidator:
                 suggestion="Use environment variable GITHUB_TOKEN instead (or specify --github-token-env for custom variable)",
             )
 
-        # Check privacy settings
         privacy = config.get("privacy", {})
         if not privacy.get("mask_emails") and not privacy.get("anonymize_authors"):
             result.add_info(
@@ -417,7 +456,6 @@ class ConfigValidator:
                 suggestion="Consider using 4-16 workers for optimal performance",
             )
 
-        # Check HTML table settings for large datasets
         html = config.get("html_tables", {})
         entries_per_page = html.get("entries_per_page", 20)
 

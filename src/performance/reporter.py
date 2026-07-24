@@ -25,8 +25,10 @@ Example:
 
 import json
 import logging
+import operator
 import time
 from collections import defaultdict, deque
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
@@ -35,6 +37,17 @@ from typing import Any
 
 
 logger = logging.getLogger(__name__)
+
+
+# Comparison operators supported by AlertRule, mapped to their implementations
+# so rule evaluation is table-driven rather than a branch per operator.
+_ALERT_COMPARISONS: dict[str, Callable[[float, float], bool]] = {
+    ">": operator.gt,
+    "<": operator.lt,
+    ">=": operator.ge,
+    "<=": operator.le,
+    "==": operator.eq,
+}
 
 
 class MetricType(Enum):
@@ -137,18 +150,8 @@ class AlertRule:
 
     def evaluate(self, value: float) -> Alert | None:
         """Evaluate rule against value."""
-        triggered = False
-
-        if self.comparison == ">":
-            triggered = value > self.threshold
-        elif self.comparison == "<":
-            triggered = value < self.threshold
-        elif self.comparison == ">=":
-            triggered = value >= self.threshold
-        elif self.comparison == "<=":
-            triggered = value <= self.threshold
-        elif self.comparison == "==":
-            triggered = value == self.threshold
+        compare = _ALERT_COMPARISONS.get(self.comparison)
+        triggered = compare(value, self.threshold) if compare is not None else False
 
         if triggered:
             message = self.message_template.format(
@@ -356,7 +359,6 @@ class MetricsVisualizer:
         min_val = min(values)
         range_val = max_val - min_val if max_val != min_val else 1
 
-        # Create bars
         for i, value in enumerate(values):
             normalized = (value - min_val) / range_val
             bar_length = int(normalized * (width - 20))

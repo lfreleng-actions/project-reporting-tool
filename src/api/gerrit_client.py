@@ -105,6 +105,7 @@ class GerritAPIDiscovery:
 
         # Test each potential path
         for path in test_paths:
+            # aislop-ignore-next-line hardcoded-url -- scheme prefix on dynamic host, not a fixed endpoint
             base_url = f"https://{host}{path}"
             logging.debug(f"Testing API endpoint: {base_url}")
 
@@ -128,6 +129,7 @@ class GerritAPIDiscovery:
             Redirect path if found, None otherwise
         """
         try:
+            # aislop-ignore-next-line hardcoded-url -- scheme prefix on dynamic host, not a fixed endpoint
             response = self.client.get(f"https://{host}", follow_redirects=False)
             if response.status_code in (301, 302, 303, 307, 308):
                 location = response.headers.get("location")
@@ -247,7 +249,9 @@ class GerritURLBuilder:
         Create a URL builder from a base URL string.
 
         Args:
-            base_url: Full base URL (e.g., "https://gerrit.onap.org/r")
+            base_url: Full base URL including scheme, host, and optional
+                path prefix (for example, a Gerrit server root with a "/r"
+                prefix)
 
         Returns:
             GerritURLBuilder configured from the URL
@@ -314,8 +318,10 @@ class GerritURLBuilder:
     def base_url(self) -> str:
         """Get the base URL (without trailing slash)."""
         if self.path_prefix:
+            # aislop-ignore-next-line hardcoded-url -- scheme prefix on dynamic host, not a fixed endpoint
             return f"https://{self.host}{self.path_prefix}"
         else:
+            # aislop-ignore-next-line hardcoded-url -- scheme prefix on dynamic host, not a fixed endpoint
             return f"https://{self.host}"
 
     def __repr__(self) -> str:

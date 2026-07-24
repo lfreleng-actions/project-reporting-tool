@@ -63,7 +63,6 @@ class RepositoryMetrics:
 
     def __post_init__(self) -> None:
         """Validate repository metrics after initialization."""
-        # Validate required fields
         if not self.gerrit_project:
             raise ValueError("gerrit_project cannot be empty")
         if not self.gerrit_host:
@@ -73,14 +72,12 @@ class RepositoryMetrics:
         if not self.local_path:
             raise ValueError("local_path cannot be empty")
 
-        # Validate activity status
         valid_statuses = {"current", "active", "inactive"}
         if self.activity_status not in valid_statuses:
             raise ValueError(
                 f"activity_status must be one of {valid_statuses}, got '{self.activity_status}'"
             )
 
-        # Validate non-negative counts
         if self.total_commits_ever < 0:
             raise ValueError(
                 f"total_commits_ever must be non-negative, got {self.total_commits_ever}"
@@ -91,7 +88,6 @@ class RepositoryMetrics:
                 f"days_since_last_commit must be non-negative, got {self.days_since_last_commit}"
             )
 
-        # Validate commit counts are non-negative
         for window, count in self.commit_counts.items():
             if count < 0:
                 raise ValueError(f"commit_counts['{window}'] must be non-negative, got {count}")
@@ -113,7 +109,6 @@ class RepositoryMetrics:
                     f"added ({added}) - removed ({removed}) = {expected_net}"
                 )
 
-        # Validate unique contributors are non-negative
         for window, count in self.unique_contributors.items():
             if count < 0:
                 raise ValueError(

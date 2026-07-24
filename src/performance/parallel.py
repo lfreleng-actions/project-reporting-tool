@@ -452,14 +452,12 @@ class ParallelRepositoryProcessor:
         if not repositories:
             return AggregatedResults(total=0)
 
-        # Initialize aggregator
         aggregator = ResultAggregator(total_items=len(repositories))
 
         # Track overall operation
         if self.profiler:
             self.profiler.memory_snapshot("before_parallel_processing")
 
-        # Create worker pool
         with WorkerPool(
             max_workers=self.config.max_workers,
             worker_type=self.config.worker_type,

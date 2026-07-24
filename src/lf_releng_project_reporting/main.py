@@ -20,6 +20,7 @@ from typing import Any
 # surfaced with a friendly error at startup rather than crashing deep
 # inside lf_releng_project_reporting.config when it imports yaml.
 try:
+    # aislop-ignore-next-line unused-import -- deliberate PyYAML importability check
     import yaml as _yaml  # noqa: F401
 except ImportError:
     print(
@@ -307,6 +308,112 @@ def write_config_to_step_summary(config: dict[str, Any], project: str) -> None:
         logger.warning("Could not write config to step summary: %s", e)
 
 
+def _prepare_run_config(args, config: dict[str, Any]) -> logging.Logger:
+    """Resolve the GitHub org, inject runtime config, and set up logging.
+
+    Returns the configured logger. Mutates ``config`` in place with the derived
+    GitHub organization, version metadata, token env name, and log level.
+    """
+    # Determine GitHub organization once - centralized
+    github_org, github_org_source = determine_github_org(args.repos_path)
+
+    if github_org:
+        # Store in config for all components to use
+        config["github"] = github_org
+        config["_github_org_source"] = github_org_source
+
+        # Store in API stats for reporting
+        api_stats.set_github_org(github_org, github_org_source)
+
+        if github_org_source == "auto_derived":
+            print(
+                f"ℹ️  Derived GitHub organization '{github_org}' from repository path",
+                file=sys.stderr,
+            )
+        elif github_org_source == "environment_variable":
+            print(f"ℹ️  GitHub organization '{github_org}' from PROJECTS_JSON", file=sys.stderr)
+
+    # Inject script and schema versions into config for reporter
+    config["_script_version"] = __version__
+    config["_schema_version"] = SCHEMA_VERSION
+
+    # Store GitHub token environment variable name in config
+    github_token_env = getattr(args, "github_token_env", "GITHUB_TOKEN")
+    config["_github_token_env"] = github_token_env
+
+    # Override log level if specified
+    if hasattr(args, "log_level") and args.log_level:
+        config.setdefault("logging", {})["level"] = args.log_level
+    elif hasattr(args, "verbose") and args.verbose:
+        config.setdefault("logging", {})["level"] = "DEBUG"
+
+    log_config = config.get("logging", {})
+    logger = setup_logging(
+        level=log_config.get("level", "INFO"),
+        include_timestamps=log_config.get("include_timestamps", True),
+    )
+
+    logger.info(f"Repository Reporting System v{__version__}")
+    logger.info(f"Project: {args.project}")
+    logger.info(f"Configuration digest: {compute_config_digest(config)[:12]}...")
+    logger.debug(f"Using GitHub token from environment variable: {github_token_env}")
+
+    return logger
+
+
+def _write_report_outputs(
+    reporter: RepositoryReporter,
+    report_data: dict[str, Any],
+    config: dict[str, Any],
+    args,
+    project_output_dir,
+    logger: logging.Logger,
+) -> None:
+    """Write JSON/Markdown/HTML reports, save config, and print the summary."""
+    json_path = project_output_dir / "report_raw.json"
+    md_path = project_output_dir / "report.md"
+    html_path = project_output_dir / "report.html"
+    config_path = project_output_dir / "config_resolved.json"
+
+    import json
+
+    logger.info(f"Writing JSON report to {json_path}")
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(report_data, f, indent=2, ensure_ascii=False, default=str)
+
+    # Generate Markdown report using modern template system
+    logger.info(f"Generating Markdown report to {md_path}")
+    reporter.renderer.render_markdown_report(report_data, md_path)
+
+    # Generate HTML report using modern template system (unless disabled)
+    if not (hasattr(args, "no_html") and args.no_html):
+        logger.info(f"Converting to HTML report at {html_path}")
+        reporter.renderer.render_html_report(report_data, html_path)
+
+    save_resolved_config(config, config_path)
+
+    # Create ZIP bundle (unless disabled)
+    if not (hasattr(args, "no_zip") and args.no_zip):
+        create_report_bundle(project_output_dir, args.project, logger)
+
+    repo_count = len(report_data["repositories"])
+    error_count = len(report_data["errors"])
+
+    print("\n✅ Report generation completed successfully!")
+    print(f"   - Analyzed: {repo_count} repositories")
+    print(f"   - Errors: {error_count}")
+    print(f"   - Output directory: {project_output_dir}")
+
+    if error_count > 0:
+        print(f"   - Check {json_path} for error details")
+
+    api_stats_output = api_stats.format_console_output()
+    if api_stats_output:
+        print(api_stats_output)
+
+    api_stats.write_to_step_summary()
+
+
 def main(args=None) -> int:
     """
     Main entry point for report generation.
@@ -333,49 +440,8 @@ def main(args=None) -> int:
             traceback.print_exc()
             return 1
 
-        # Determine GitHub organization once - centralized
-        github_org, github_org_source = determine_github_org(args.repos_path)
-
-        if github_org:
-            # Store in config for all components to use
-            config["github"] = github_org
-            config["_github_org_source"] = github_org_source
-
-            # Store in API stats for reporting
-            api_stats.set_github_org(github_org, github_org_source)
-
-            if github_org_source == "auto_derived":
-                print(
-                    f"ℹ️  Derived GitHub organization '{github_org}' from repository path",
-                    file=sys.stderr,
-                )
-            elif github_org_source == "environment_variable":
-                print(f"ℹ️  GitHub organization '{github_org}' from PROJECTS_JSON", file=sys.stderr)
-
-        # Inject script and schema versions into config for reporter
-        config["_script_version"] = __version__
-        config["_schema_version"] = SCHEMA_VERSION
-
-        # Store GitHub token environment variable name in config
-        github_token_env = getattr(args, "github_token_env", "GITHUB_TOKEN")
-        config["_github_token_env"] = github_token_env
-
-        # Override log level if specified
-        if hasattr(args, "log_level") and args.log_level:
-            config.setdefault("logging", {})["level"] = args.log_level
-        elif hasattr(args, "verbose") and args.verbose:
-            config.setdefault("logging", {})["level"] = "DEBUG"
-
-        log_config = config.get("logging", {})
-        logger = setup_logging(
-            level=log_config.get("level", "INFO"),
-            include_timestamps=log_config.get("include_timestamps", True),
-        )
-
-        logger.info(f"Repository Reporting System v{__version__}")
-        logger.info(f"Project: {args.project}")
-        logger.info(f"Configuration digest: {compute_config_digest(config)[:12]}...")
-        logger.debug(f"Using GitHub token from environment variable: {github_token_env}")
+        # Determine GitHub organization and finalize runtime configuration
+        logger = _prepare_run_config(args, config)
 
         write_config_to_step_summary(config, args.project)
 
@@ -399,48 +465,7 @@ def main(args=None) -> int:
         report_data = reporter.analyze_repositories(args.repos_path)
 
         # Generate outputs
-        json_path = project_output_dir / "report_raw.json"
-        md_path = project_output_dir / "report.md"
-        html_path = project_output_dir / "report.html"
-        config_path = project_output_dir / "config_resolved.json"
-
-        import json
-
-        logger.info(f"Writing JSON report to {json_path}")
-        with open(json_path, "w", encoding="utf-8") as f:
-            json.dump(report_data, f, indent=2, ensure_ascii=False, default=str)
-
-        # Generate Markdown report using modern template system
-        logger.info(f"Generating Markdown report to {md_path}")
-        reporter.renderer.render_markdown_report(report_data, md_path)
-
-        # Generate HTML report using modern template system (unless disabled)
-        if not (hasattr(args, "no_html") and args.no_html):
-            logger.info(f"Converting to HTML report at {html_path}")
-            reporter.renderer.render_html_report(report_data, html_path)
-
-        save_resolved_config(config, config_path)
-
-        # Create ZIP bundle (unless disabled)
-        if not (hasattr(args, "no_zip") and args.no_zip):
-            create_report_bundle(project_output_dir, args.project, logger)
-
-        repo_count = len(report_data["repositories"])
-        error_count = len(report_data["errors"])
-
-        print("\n✅ Report generation completed successfully!")
-        print(f"   - Analyzed: {repo_count} repositories")
-        print(f"   - Errors: {error_count}")
-        print(f"   - Output directory: {project_output_dir}")
-
-        if error_count > 0:
-            print(f"   - Check {json_path} for error details")
-
-        api_stats_output = api_stats.format_console_output()
-        if api_stats_output:
-            print(api_stats_output)
-
-        api_stats.write_to_step_summary()
+        _write_report_outputs(reporter, report_data, config, args, project_output_dir, logger)
 
         return 0
 

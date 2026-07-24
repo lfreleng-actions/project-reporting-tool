@@ -39,7 +39,6 @@ class CommitterMatcher:
         self.name_match_enabled = self.config.get("name_match_enabled", True)
         self.case_sensitive = self.config.get("case_sensitive", False)
 
-        # Build normalization patterns
         self._build_normalization_patterns()
 
     def _build_normalization_patterns(self) -> None:
@@ -186,7 +185,6 @@ class CommitterMatcher:
         if not committer_parts:
             return None
 
-        # Extract first and last name
         committer_first = committer_parts[0] if len(committer_parts) > 0 else ""
         committer_last = committer_parts[-1] if len(committer_parts) > 0 else ""
 

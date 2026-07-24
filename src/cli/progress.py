@@ -10,6 +10,10 @@ Supports both tqdm-based progress bars and simple text-based indicators.
 Phase 9: CLI & UX Improvements
 """
 
+# This module renders progress indicators and status messages to the terminal
+# (stderr); print() is the intended output sink here, not leftover debugging.
+# aislop-ignore-file python-print-debug -- intentional user-facing CLI output
+
 import sys
 import time
 from collections.abc import Iterator

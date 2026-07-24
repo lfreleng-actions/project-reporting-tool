@@ -86,53 +86,77 @@ def test_job_group_expansion():
     fully_resolved_projects = 0
 
     for project, description in test_projects:
-        jobs = jjb.parse_project_jobs(project)
-        resolved = [j for j in jobs if "{" not in j]
-        unresolved = [j for j in jobs if "{" in j]
-
-        if not jobs:
-            print(f"⚠️  {project:40s} - No JJB definition found")
+        result = _report_project_expansion(jjb, project, description)
+        if result is None:
             continue
-
+        num_jobs, num_resolved, fully_resolved = result
         total_projects += 1
-        total_jobs += len(jobs)
-        total_resolved += len(resolved)
-
-        percentage = (len(resolved) / len(jobs) * 100) if jobs else 0
-
-        if percentage == 100:
-            status = "✅"
+        total_jobs += num_jobs
+        total_resolved += num_resolved
+        if fully_resolved:
             fully_resolved_projects += 1
-        elif percentage >= 80:
-            status = "⚠️ "
-        else:
-            status = "❌"
 
-        print(f"{status} {project:40s} {len(resolved):3d}/{len(jobs):3d} ({percentage:5.1f}%)")
-        print(f"    {description}")
+    return _print_expansion_summary(
+        total_projects, total_jobs, total_resolved, fully_resolved_projects
+    )
 
-        # Show sample resolved jobs
-        if resolved:
-            samples = resolved[:3]
-            for sample in samples:
-                print(f"      ✓ {sample}")
-            if len(resolved) > 3:
-                print(f"      ... and {len(resolved) - 3} more")
 
-        # Show unresolved (if any)
-        if unresolved:
-            samples = unresolved[:2]
-            for sample in samples:
-                print(f"      ✗ {sample}")
-            if len(unresolved) > 2:
-                print(f"      ... and {len(unresolved) - 2} more unresolved")
+def _report_project_expansion(jjb, project, description):
+    """Report job-group expansion for one project.
 
-        print()
+    Returns ``(num_jobs, num_resolved, fully_resolved)`` or None when the
+    project has no JJB definition.
+    """
+    jobs = jjb.parse_project_jobs(project)
+    resolved = [j for j in jobs if "{" not in j]
+    unresolved = [j for j in jobs if "{" in j]
 
-    # Final summary
+    if not jobs:
+        print(f"⚠️  {project:40s} - No JJB definition found")
+        return None
+
+    percentage = (len(resolved) / len(jobs) * 100) if jobs else 0
+
+    if percentage == 100:
+        status = "✅"
+    elif percentage >= 80:
+        status = "⚠️ "
+    else:
+        status = "❌"
+
+    print(f"{status} {project:40s} {len(resolved):3d}/{len(jobs):3d} ({percentage:5.1f}%)")
+    print(f"    {description}")
+
+    # Show sample resolved jobs
+    if resolved:
+        samples = resolved[:3]
+        for sample in samples:
+            print(f"      ✓ {sample}")
+        if len(resolved) > 3:
+            print(f"      ... and {len(resolved) - 3} more")
+
+    # Show unresolved (if any)
+    if unresolved:
+        samples = unresolved[:2]
+        for sample in samples:
+            print(f"      ✗ {sample}")
+        if len(unresolved) > 2:
+            print(f"      ... and {len(unresolved) - 2} more unresolved")
+
+    print()
+
+    return len(jobs), len(resolved), percentage == 100
+
+
+def _print_expansion_summary(total_projects, total_jobs, total_resolved, fully_resolved_projects):
+    """Print the final validation summary and return the process exit code."""
     print("=" * 80)
     print("Summary:")
     print("=" * 80)
+    if not total_projects or not total_jobs:
+        print("❌ VALIDATION FAILED - No JJB job definitions were found")
+        print(f"   Projects tested: {total_projects}, jobs found: {total_jobs}")
+        return 1
     print(f"Projects tested: {total_projects}")
     print(
         f"Fully resolved projects: {fully_resolved_projects} ({fully_resolved_projects / total_projects * 100:.1f}%)"
@@ -159,10 +183,10 @@ def test_job_group_expansion():
         print("✅ VALIDATION PASSED - Job-group expansion is working well!")
         print(f"   Achievement: {success_rate:.1f}% job resolution rate")
         return 0
-    else:
-        print("⚠️  VALIDATION WARNING - Job resolution rate below target")
-        print(f"   Current: {success_rate:.1f}%, Target: 85%+")
-        return 1
+
+    print("⚠️  VALIDATION WARNING - Job resolution rate below target")
+    print(f"   Current: {success_rate:.1f}%, Target: 85%+")
+    return 1
 
 
 if __name__ == "__main__":

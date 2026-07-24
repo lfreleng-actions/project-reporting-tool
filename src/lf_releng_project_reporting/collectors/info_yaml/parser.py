@@ -54,7 +54,6 @@ class INFOYamlParser:
             ProjectInfo object if parsing succeeds, None otherwise
         """
         try:
-            # Validate file exists and is readable
             if not yaml_file.exists():
                 self.logger.warning(f"INFO.yaml file does not exist: {yaml_file}")
                 return None
@@ -63,7 +62,6 @@ class INFOYamlParser:
                 self.logger.warning(f"Path is not a file: {yaml_file}")
                 return None
 
-            # Load YAML content
             with open(yaml_file, encoding="utf-8") as f:
                 data = yaml.safe_load(f)
 
@@ -71,7 +69,6 @@ class INFOYamlParser:
                 self.logger.warning(f"Empty or invalid YAML file: {yaml_file}")
                 return None
 
-            # Extract project information
             project_info = self._extract_project_info(yaml_file, data)
             return project_info
 
@@ -108,7 +105,6 @@ class INFOYamlParser:
         yaml_files = list(directory.rglob("INFO.yaml"))
         self.logger.info(f"Found {len(yaml_files)} INFO.yaml files")
 
-        # Parse each file
         for yaml_file in yaml_files:
             project_info = self.parse_file(yaml_file)
             if project_info:
@@ -129,7 +125,6 @@ class INFOYamlParser:
             ProjectInfo object or None if extraction fails
         """
         try:
-            # Extract relative path from info-master root
             relative_path = yaml_file.relative_to(self.info_master_path)
             path_parts = relative_path.parts
 
@@ -146,24 +141,18 @@ class INFOYamlParser:
             # Full path includes the gerrit server
             full_path = str(relative_path.parent)
 
-            # Extract project metadata
             project_name = data.get("project", "Unknown")
             creation_date = data.get("project_creation_date", "Unknown")
             lifecycle_state = data.get("lifecycle_state", "Unknown")
 
-            # Extract project lead
             project_lead = self._extract_person(data.get("project_lead"))
 
-            # Extract committers
             committers = self._extract_committers(data.get("committers", []))
 
-            # Extract issue tracking
             issue_tracking = self._extract_issue_tracking(data.get("issue_tracking", {}))
 
-            # Extract repositories
             repositories = self._extract_repositories(data.get("repositories", []))
 
-            # Create ProjectInfo object
             project_info = ProjectInfo(
                 project_name=project_name,
                 gerrit_server=gerrit_server,
@@ -201,7 +190,6 @@ class INFOYamlParser:
             return None
 
         try:
-            # Extract fields with defaults
             name = person_data.get("name", "Unknown")
             email = person_data.get("email", "")
             company = person_data.get("company", "")
@@ -242,7 +230,6 @@ class INFOYamlParser:
                 continue
 
             try:
-                # Extract fields with defaults
                 name = committer_data.get("name", "Unknown")
                 email = committer_data.get("email", "")
                 company = committer_data.get("company", "")

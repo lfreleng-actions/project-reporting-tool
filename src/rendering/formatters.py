@@ -226,7 +226,6 @@ def slugify(text: str) -> str:
     # Remove non-alphanumeric characters (except hyphens)
     text = re.sub(r"[^a-z0-9-]", "", text)
 
-    # Remove duplicate hyphens
     text = re.sub(r"-+", "-", text)
 
     # Strip leading/trailing hyphens
