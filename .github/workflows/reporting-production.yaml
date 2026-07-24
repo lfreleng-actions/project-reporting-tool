@@ -8,6 +8,14 @@ name: "📊 Production Reports"
 on:
   workflow_dispatch:
     inputs:
+      projects:
+        description: >-
+          Projects to run (comma/space separated slugs; empty = all
+          active projects). Use this to selectively re-run reports,
+          e.g. "onap" or "onap, o-ran-sc".
+        required: false
+        type: string
+        default: ''
       debug:
         description: 'Enable debug output'
         required: false
@@ -255,28 +263,67 @@ jobs:
         shell: bash
         env:
           ACTIVE_PROJECTS_VAR: ${{ vars.ACTIVE_PROJECTS }}
+          SELECTED_PROJECTS: ${{ inputs.projects }}
+        # yamllint disable rule:line-length
         run: |
-          # Build matrix from ACTIVE_PROJECTS variable
-          # This job does NOT access any secrets
+          # Build matrix from ACTIVE_PROJECTS variable, optionally filtered
+          # by the workflow_dispatch "projects" input so a single report (or
+          # a subset) can be re-run on demand. This job does NOT access any
+          # secrets.
           active_projects="${ACTIVE_PROJECTS_VAR}"
+          selected="${SELECTED_PROJECTS}"
 
           if [ -z "$active_projects" ]; then
             echo "::error::ACTIVE_PROJECTS variable is not set"
             exit 1
           fi
 
-          matrix=$(echo "{\"slug\": $active_projects}" | jq -c .)
-          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+          # Normalise the requested slugs: accept comma and/or whitespace
+          # separation, lower-case for case-insensitive matching, drop
+          # blank entries. Done entirely in jq to avoid shell word-splitting.
+          requested=$(jq -nc --arg s "$selected" \
+            '[$s | ascii_downcase | splits("[,[:space:]]+")] | map(select(length > 0))')
 
-          project_count=$(echo "$active_projects" | jq '. | length')
+          if [ "$(echo "$requested" | jq 'length')" -eq 0 ]; then
+            # No filter supplied (scheduled run or empty input): run all.
+            filtered="$active_projects"
+            echo "No project filter supplied; running all active projects"
+          else
+            echo "Requested project slug(s): $(echo "$requested" | jq -r 'join(", ")')"
+
+            # Reject any requested slug that is not an active project.
+            invalid=$(jq -nc --argjson active "$active_projects" \
+              --argjson req "$requested" \
+              '($active | map(ascii_downcase)) as $a
+               | [$req[] | . as $r | select(($a | index($r)) == null)]')
+            if [ "$(echo "$invalid" | jq 'length')" -ne 0 ]; then
+              echo "::error::Unknown project slug(s): $(echo "$invalid" | jq -r 'join(", ")')"
+              echo "::error::Available slugs: $(echo "$active_projects" | jq -r 'join(", ")')"
+              exit 1
+            fi
+
+            # Keep the canonical slug spelling/order from ACTIVE_PROJECTS.
+            filtered=$(echo "$active_projects" | jq -c --argjson req "$requested" \
+              '[.[] | select((ascii_downcase) as $s | ($req | index($s)) != null)]')
+          fi
+
+          project_count=$(echo "$filtered" | jq '. | length')
+          if [ "$project_count" -eq 0 ]; then
+            echo "::error::No projects selected to run"
+            exit 1
+          fi
+
+          matrix=$(echo "{\"slug\": $filtered}" | jq -c .)
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
 
           {
             echo "### Projects to Process"
             echo ""
             echo "**Total projects:** $project_count"
             echo ""
-            echo "$active_projects" | jq -r '.[] | "- \(.)"'
+            echo "$filtered" | jq -r '.[] | "- \(.)"'
           } >> "$GITHUB_STEP_SUMMARY"
+        # yamllint enable rule:line-length
 
   analyze:
     name: "${{ matrix.slug }}"
