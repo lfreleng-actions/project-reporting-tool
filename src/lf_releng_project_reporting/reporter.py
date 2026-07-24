@@ -121,9 +121,10 @@ class RepositoryReporter:
         Main analysis workflow.
 
         Coordinates all phases of repository analysis:
-        1. Clone info-master for additional context
-        2. Initialize report data structure
-        3. Discover all repositories
+        1. Discover all repositories (fails fast if none are found, before
+           any network work, unless ``allow_empty`` is set)
+        2. Clone info-master for additional context
+        3. Initialize report data structure
         4. Analyze repositories in parallel
         5. Aggregate data across repositories
         6. Generate Jenkins allocation summary
@@ -166,8 +167,9 @@ class RepositoryReporter:
                 f"No repositories found to analyze under '{repos_path_abs}'. "
                 "This usually indicates an upstream clone failure (for example, "
                 "a transient Gerrit discovery/clone problem). Re-run the clone "
-                "and report generation, or pass allow_empty=True if an empty "
-                "result is expected."
+                "and report generation, or explicitly allow an empty result "
+                "(pass --allow-empty on the CLI, or allow_empty=True via the "
+                "Python API)."
             )
 
         # Clone info-master repository for additional context
@@ -349,7 +351,9 @@ class RepositoryReporter:
             for state, count in orphaned_summary["by_state"].items():
                 self.logger.info(f"  - {count} jobs for {state} projects")
 
-    def generate_reports(self, repos_path: Path, output_dir: Path) -> dict[str, Path]:
+    def generate_reports(
+        self, repos_path: Path, output_dir: Path, allow_empty: bool = False
+    ) -> dict[str, Path]:
         """
         Generate complete reports (JSON, Markdown, HTML, ZIP).
 
@@ -365,15 +369,22 @@ class RepositoryReporter:
         Args:
             repos_path: Path to directory containing repositories
             output_dir: Path to output directory for generated reports
+            allow_empty: Forwarded to :meth:`analyze_repositories`. When
+                ``False`` (the default), a hard error is raised if no
+                repositories are discovered under ``repos_path``.
 
         Returns:
             Dictionary mapping output type to file path for all generated files
+
+        Raises:
+            NoRepositoriesError: If no repositories are discovered and
+                ``allow_empty`` is ``False``.
         """
         # Ensure output directory exists
         output_dir.mkdir(parents=True, exist_ok=True)
 
         # Analyze repositories
-        report_data = self.analyze_repositories(repos_path)
+        report_data = self.analyze_repositories(repos_path, allow_empty=allow_empty)
 
         project = self.config["project"]
         json_path = output_dir / "report_raw.json"

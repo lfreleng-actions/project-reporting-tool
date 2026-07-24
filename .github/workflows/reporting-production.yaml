@@ -462,10 +462,15 @@ jobs:
           count_local_repos() {
             # Count git repositories present on disk under the given path.
             # This mirrors what the report tool consumes: it discovers
-            # repositories by the presence of .git directories.
+            # repositories via any ".git" entry (a directory for normal
+            # clones, or a file for worktree/submodule-style checkouts), so
+            # match by name rather than restricting to directories.
+            # Prune matched ".git" entries so find does not descend into
+            # their (potentially large) object/refs stores while counting.
             path="$1"
             if [ -d "$path" ]; then
-              find "$path" -type d -name '.git' 2>/dev/null | wc -l | tr -d ' '
+              find "$path" -name '.git' -prune -print 2>/dev/null \
+                | wc -l | tr -d ' '
             else
               echo 0
             fi

@@ -13,7 +13,7 @@ This module provides a rich, user-friendly command-line interface with:
 """
 
 import sys
-from enum import Enum
+from enum import Enum, StrEnum
 from pathlib import Path
 from typing import Annotated
 
@@ -34,7 +34,7 @@ app = typer.Typer(
 console = Console()
 
 
-class OutputFormat(str, Enum):
+class OutputFormat(StrEnum):
     """Output format options."""
 
     JSON = "json"
@@ -43,7 +43,7 @@ class OutputFormat(str, Enum):
     ALL = "all"
 
 
-class InitTemplate(str, Enum):
+class InitTemplate(StrEnum):
     """Configuration template options."""
 
     MINIMAL = "minimal"
