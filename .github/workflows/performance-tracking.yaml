@@ -50,11 +50,13 @@ jobs:
         # yamllint disable-line rule:line-length
         uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990  # v8.3.2
 
-      - name: Set up Python 3.11
+      - name: Set up Python
         # yamllint disable-line rule:line-length
         uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1  # v6.3.0
         with:
-          python-version: '3.11'
+          # Single source of truth: read the interpreter from
+          # .python-version so setup-python and `uv sync` never disagree.
+          python-version-file: '.python-version'
 
       - name: Install dependencies
         run: uv sync --all-extras
@@ -291,11 +293,13 @@ jobs:
         # yamllint disable-line rule:line-length
         uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990  # v8.3.2
 
-      - name: Set up Python 3.11
+      - name: Set up Python
         # yamllint disable-line rule:line-length
         uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1  # v6.3.0
         with:
-          python-version: '3.11'
+          # Single source of truth: read the interpreter from
+          # .python-version so setup-python and `uv sync` never disagree.
+          python-version-file: '.python-version'
 
       - name: Install dependencies
         run: uv sync --all-extras

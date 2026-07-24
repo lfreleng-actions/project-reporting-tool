@@ -46,6 +46,10 @@ keywords = [
     "linux-foundation",
     "committers",
 ]
+# Minimum supported interpreter. When bumping this floor (or the trove
+# classifiers above), also update `.python-version` to the latest
+# supported release. The scripts/check-python-version.py pre-commit
+# hook fails if `.python-version` no longer satisfies this constraint.
 requires-python = ">=3.11"
 dependencies = [
     "httpx>=0.28.1",
