@@ -181,6 +181,15 @@ For more information, see docs/CLI_REFERENCE.md
         help="Enable caching of git metrics to speed up subsequent runs",
     )
     behavior.add_argument(
+        "--allow-empty",
+        action="store_true",
+        help=(
+            "Allow report generation when no repositories are found. By "
+            "default an empty repositories directory is treated as an error, "
+            "since it usually indicates an upstream clone failure."
+        ),
+    )
+    behavior.add_argument(
         "--workers",
         type=int,
         metavar="N",

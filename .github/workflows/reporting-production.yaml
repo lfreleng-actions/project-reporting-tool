@@ -8,6 +8,14 @@ name: "📊 Production Reports"
 on:
   workflow_dispatch:
     inputs:
+      projects:
+        description: >-
+          Projects to run (comma/space separated slugs; empty = all
+          active projects). Use this to selectively re-run reports,
+          e.g. "onap" or "onap, o-ran-sc".
+        required: false
+        type: string
+        default: ''
       debug:
         description: 'Enable debug output'
         required: false
@@ -255,28 +263,67 @@ jobs:
         shell: bash
         env:
           ACTIVE_PROJECTS_VAR: ${{ vars.ACTIVE_PROJECTS }}
+          SELECTED_PROJECTS: ${{ inputs.projects }}
+        # yamllint disable rule:line-length
         run: |
-          # Build matrix from ACTIVE_PROJECTS variable
-          # This job does NOT access any secrets
+          # Build matrix from ACTIVE_PROJECTS variable, optionally filtered
+          # by the workflow_dispatch "projects" input so a single report (or
+          # a subset) can be re-run on demand. This job does NOT access any
+          # secrets.
           active_projects="${ACTIVE_PROJECTS_VAR}"
+          selected="${SELECTED_PROJECTS}"
 
           if [ -z "$active_projects" ]; then
             echo "::error::ACTIVE_PROJECTS variable is not set"
             exit 1
           fi
 
-          matrix=$(echo "{\"slug\": $active_projects}" | jq -c .)
-          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+          # Normalise the requested slugs: accept comma and/or whitespace
+          # separation, lower-case for case-insensitive matching, drop
+          # blank entries. Done entirely in jq to avoid shell word-splitting.
+          requested=$(jq -nc --arg s "$selected" \
+            '[$s | ascii_downcase | splits("[,[:space:]]+")] | map(select(length > 0))')
 
-          project_count=$(echo "$active_projects" | jq '. | length')
+          if [ "$(echo "$requested" | jq 'length')" -eq 0 ]; then
+            # No filter supplied (scheduled run or empty input): run all.
+            filtered="$active_projects"
+            echo "No project filter supplied; running all active projects"
+          else
+            echo "Requested project slug(s): $(echo "$requested" | jq -r 'join(", ")')"
+
+            # Reject any requested slug that is not an active project.
+            invalid=$(jq -nc --argjson active "$active_projects" \
+              --argjson req "$requested" \
+              '($active | map(ascii_downcase)) as $a
+               | [$req[] | . as $r | select(($a | index($r)) == null)]')
+            if [ "$(echo "$invalid" | jq 'length')" -ne 0 ]; then
+              echo "::error::Unknown project slug(s): $(echo "$invalid" | jq -r 'join(", ")')"
+              echo "::error::Available slugs: $(echo "$active_projects" | jq -r 'join(", ")')"
+              exit 1
+            fi
+
+            # Keep the canonical slug spelling/order from ACTIVE_PROJECTS.
+            filtered=$(echo "$active_projects" | jq -c --argjson req "$requested" \
+              '[.[] | select((ascii_downcase) as $s | ($req | index($s)) != null)]')
+          fi
+
+          project_count=$(echo "$filtered" | jq '. | length')
+          if [ "$project_count" -eq 0 ]; then
+            echo "::error::No projects selected to run"
+            exit 1
+          fi
+
+          matrix=$(echo "{\"slug\": $filtered}" | jq -c .)
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
 
           {
             echo "### Projects to Process"
             echo ""
             echo "**Total projects:** $project_count"
             echo ""
-            echo "$active_projects" | jq -r '.[] | "- \(.)"'
+            echo "$filtered" | jq -r '.[] | "- \(.)"'
           } >> "$GITHUB_STEP_SUMMARY"
+        # yamllint enable rule:line-length
 
   analyze:
     name: "${{ matrix.slug }}"
@@ -397,27 +444,70 @@ jobs:
           CFG_PROJECT: ${{ steps.config.outputs.project }}
           GERRIT_OUTCOME: ${{ steps.clone-gerrit.outcome }}
           GITHUB_OUTCOME: ${{ steps.clone-github.outcome }}
+          GERRIT_SUCCESS: ${{ steps.clone-gerrit.outputs.success-count }}
+          GERRIT_TOTAL: ${{ steps.clone-gerrit.outputs.total-count }}
+          GITHUB_SUCCESS: ${{ steps.clone-github.outputs.success-count }}
+          GITHUB_TOTAL: ${{ steps.clone-github.outputs.total-count }}
         # yamllint disable rule:line-length
         run: |
-          # Determine which clone step ran and check its outcome
+          # Validate BOTH the clone step outcome AND that it actually
+          # produced repositories. A "success" outcome with zero cloned
+          # repositories indicates a transient discovery/clone failure (for
+          # example, Gerrit under heavy bot/scraper load, or a base-URL
+          # discovery fallback to a wrong path). Treat that as a gating
+          # failure so the job can simply be re-run, rather than continuing
+          # to generate an empty report that would overwrite good data on
+          # GitHub Pages.
+
+          count_local_repos() {
+            # Count git repositories present on disk under the given path.
+            # This mirrors what the report tool consumes: it discovers
+            # repositories via any ".git" entry (a directory for normal
+            # clones, or a file for worktree/submodule-style checkouts), so
+            # match by name rather than restricting to directories.
+            # Prune matched ".git" entries so find does not descend into
+            # their (potentially large) object/refs stores while counting.
+            path="$1"
+            if [ -d "$path" ]; then
+              find "$path" -name '.git' -prune -print 2>/dev/null \
+                | wc -l | tr -d ' '
+            else
+              echo 0
+            fi
+          }
+
           if [ -n "${CFG_GERRIT}" ]; then
             # Gerrit project
             if [ "${GERRIT_OUTCOME}" != "success" ]; then
-              echo "::error::Failed to clone Gerrit repositories for ${CFG_PROJECT}"
-              echo "::error::Gerrit server may be unavailable or decommissioned"
+              echo "::error::Failed to clone Gerrit repositories for ${CFG_PROJECT} (outcome: ${GERRIT_OUTCOME})"
+              echo "::error::Gerrit server may be unavailable or under heavy load; re-run this job to retry"
               exit 1
-            else
-              echo "✅ Successfully cloned Gerrit repositories"
             fi
+            on_disk="$(count_local_repos "./${CFG_GERRIT}")"
+            echo "ℹ️ Gerrit clone counts: success=${GERRIT_SUCCESS:-0} total=${GERRIT_TOTAL:-0} on_disk=${on_disk}"
+            if [ "${on_disk:-0}" -eq 0 ]; then
+              echo "::error::Clone reported success but produced 0 repositories for ${CFG_PROJECT}"
+              echo "::error::This usually indicates a transient Gerrit discovery/clone failure."
+              echo "::error::Re-run this job to retry; refusing to generate a report from empty data."
+              exit 1
+            fi
+            echo "✅ Successfully cloned Gerrit repositories (${on_disk} on disk)"
           elif [ -n "${CFG_GITHUB}" ]; then
             # GitHub-only project
             if [ "${GITHUB_OUTCOME}" != "success" ]; then
-              echo "::error::Failed to clone GitHub repositories for ${CFG_PROJECT}"
-              echo "::error::GitHub organization may be unavailable or inaccessible"
+              echo "::error::Failed to clone GitHub repositories for ${CFG_PROJECT} (outcome: ${GITHUB_OUTCOME})"
+              echo "::error::GitHub organization may be unavailable or inaccessible; re-run this job to retry"
               exit 1
-            else
-              echo "✅ Successfully cloned GitHub repositories"
             fi
+            on_disk="$(count_local_repos "./github.com/${CFG_GITHUB}")"
+            echo "ℹ️ GitHub clone counts: success=${GITHUB_SUCCESS:-0} total=${GITHUB_TOTAL:-0} on_disk=${on_disk}"
+            if [ "${on_disk:-0}" -eq 0 ]; then
+              echo "::error::Clone reported success but produced 0 repositories for ${CFG_PROJECT}"
+              echo "::error::This usually indicates a transient GitHub discovery/clone failure."
+              echo "::error::Re-run this job to retry; refusing to generate a report from empty data."
+              exit 1
+            fi
+            echo "✅ Successfully cloned GitHub repositories (${on_disk} on disk)"
           else
             echo "::error::Project has neither gerrit nor github configured"
             exit 1

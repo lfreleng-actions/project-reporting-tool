@@ -247,27 +247,61 @@ jobs:
         env:
           MATRIX_GERRIT: ${{ matrix.gerrit }}
           MATRIX_GITHUB: ${{ matrix.github }}
+          MATRIX_PROJECT: ${{ matrix.project }}
+          GERRIT_OUTCOME: ${{ steps.clone-gerrit.outcome }}
+          GITHUB_OUTCOME: ${{ steps.clone-github.outcome }}
+        # yamllint disable rule:line-length
         run: |
-          # Determine which clone step ran and check its outcome
+          # Determine which clone step ran, record the repos path for later
+          # steps, and fail fast when the clone produced no repositories. A
+          # "success" outcome with zero repositories on disk indicates a
+          # transient discovery/clone failure; fail here so the preview job
+          # can be re-run instead of rendering an empty report.
+          count_local_repos() {
+            # Mirror the report tool's discovery: it finds repositories via
+            # any ".git" entry (a directory for normal clones, or a file for
+            # worktree/submodule-style checkouts), so match by name rather
+            # than restricting to directories. Prune matched ".git" entries
+            # so find does not descend into their object/refs stores.
+            path="$1"
+            if [ -d "$path" ]; then
+              find "$path" -name '.git' -prune -print 2>/dev/null \
+                | wc -l | tr -d ' '
+            else
+              echo 0
+            fi
+          }
+
           if [ -n "${MATRIX_GERRIT}" ]; then
             # Gerrit project
             clone_path="./${MATRIX_GERRIT}"
             echo "REPOS_PATH=$clone_path" >> "$GITHUB_ENV"
+            clone_outcome="${GERRIT_OUTCOME}"
           elif [ -n "${MATRIX_GITHUB}" ]; then
             # GitHub-only project
             clone_path="./github.com/${MATRIX_GITHUB}"
             echo "REPOS_PATH=$clone_path" >> "$GITHUB_ENV"
+            clone_outcome="${GITHUB_OUTCOME}"
           else
             echo "::error::No repository source configured"
             exit 1
           fi
 
-          if [ -d "$clone_path" ]; then
-            repo_count=$(find "$clone_path" -maxdepth 1 -type d | wc -l)
-            echo "✅ Clone path exists: $clone_path ($repo_count items)"
-          else
-            echo "::warning::Clone path does not exist: $clone_path"
+          if [ -n "$clone_outcome" ] && [ "$clone_outcome" != "success" ]; then
+            echo "::error::Failed to clone repositories for ${MATRIX_PROJECT} (outcome: $clone_outcome)"
+            echo "::error::Source may be unavailable or under heavy load; re-run this job to retry"
+            exit 1
           fi
+
+          on_disk="$(count_local_repos "$clone_path")"
+          echo "ℹ️ Clone path: $clone_path (${on_disk} repositories on disk)"
+          if [ "${on_disk:-0}" -eq 0 ]; then
+            echo "::error::Clone produced 0 repositories for ${MATRIX_PROJECT}"
+            echo "::error::This usually indicates a transient discovery/clone failure; re-run this job to retry."
+            exit 1
+          fi
+          echo "✅ Clone produced ${on_disk} repositories"
+        # yamllint enable rule:line-length
 
       - name: "Clone info-master repository"
         shell: bash

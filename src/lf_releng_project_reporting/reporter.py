@@ -31,6 +31,7 @@ from typing import Any, cast
 from lf_releng_project_reporting.aggregators import DataAggregator
 from lf_releng_project_reporting.collectors import GitDataCollector, INFOYamlCollector
 from lf_releng_project_reporting.config import save_resolved_config
+from lf_releng_project_reporting.exceptions import NoRepositoriesError
 from lf_releng_project_reporting.features import FeatureRegistry
 from rendering.renderer import ModernReportRenderer
 from util.git import safe_git_command
@@ -115,23 +116,33 @@ class RepositoryReporter:
             self.info_master_temp_dir = None
             return None
 
-    def analyze_repositories(self, repos_path: Path) -> dict[str, Any]:
+    def analyze_repositories(self, repos_path: Path, allow_empty: bool = False) -> dict[str, Any]:
         """
         Main analysis workflow.
 
         Coordinates all phases of repository analysis:
-        1. Clone info-master for additional context
-        2. Initialize report data structure
-        3. Discover all repositories
+        1. Discover all repositories (fails fast if none are found, before
+           any network work, unless ``allow_empty`` is set)
+        2. Clone info-master for additional context
+        3. Initialize report data structure
         4. Analyze repositories in parallel
         5. Aggregate data across repositories
         6. Generate Jenkins allocation summary
 
         Args:
             repos_path: Path to directory containing repositories to analyze
+            allow_empty: When ``False`` (the default), a hard error is raised
+                if no repositories are discovered under ``repos_path``. This
+                guards against generating an empty, misleading report when an
+                upstream clone step failed transiently. Set to ``True`` only
+                when an empty result is genuinely acceptable.
 
         Returns:
             Complete report data dictionary with all analysis results
+
+        Raises:
+            NoRepositoriesError: If no repositories are discovered and
+                ``allow_empty`` is ``False``.
         """
         # Resolve to absolute path for consistent handling
         repos_path_abs = repos_path.resolve()
@@ -141,6 +152,25 @@ class RepositoryReporter:
         # This is used to filter INFO.yaml data to only the relevant server
         gerrit_server = self._determine_gerrit_server(repos_path_abs)
         self.logger.info(f"Detected Gerrit server: {gerrit_server}")
+
+        # Discover repositories up front and fail fast when the working
+        # directory is empty. An empty result almost always means an upstream
+        # clone step produced no repositories (for example, a transient Gerrit
+        # discovery/clone failure). Continuing would generate an empty report
+        # that could overwrite previously good output, so raise a retryable
+        # error before doing any further (network) work, unless the caller
+        # explicitly opts in via allow_empty.
+        repo_dirs = self._discover_repositories(repos_path_abs)
+        self.logger.info(f"Found {len(repo_dirs)} repositories to analyze")
+        if not repo_dirs and not allow_empty:
+            raise NoRepositoriesError(
+                f"No repositories found to analyze under '{repos_path_abs}'. "
+                "This usually indicates an upstream clone failure (for example, "
+                "a transient Gerrit discovery/clone problem). Re-run the clone "
+                "and report generation, or explicitly allow an empty result "
+                "(pass --allow-empty on the CLI, or allow_empty=True via the "
+                "Python API)."
+            )
 
         # Clone info-master repository for additional context
         # This is cloned to a temporary directory to avoid it appearing in the report
@@ -161,10 +191,6 @@ class RepositoryReporter:
 
         # Update git collector with repos_path for relative path calculation
         self.git_collector.repos_path = repos_path_abs
-
-        # Find all repository directories
-        repo_dirs = self._discover_repositories(repos_path_abs)
-        self.logger.info(f"Found {len(repo_dirs)} repositories to analyze")
 
         # Analyze repositories (with concurrency)
         repo_metrics = self._analyze_repositories_parallel(repo_dirs)
@@ -325,7 +351,9 @@ class RepositoryReporter:
             for state, count in orphaned_summary["by_state"].items():
                 self.logger.info(f"  - {count} jobs for {state} projects")
 
-    def generate_reports(self, repos_path: Path, output_dir: Path) -> dict[str, Path]:
+    def generate_reports(
+        self, repos_path: Path, output_dir: Path, allow_empty: bool = False
+    ) -> dict[str, Path]:
         """
         Generate complete reports (JSON, Markdown, HTML, ZIP).
 
@@ -341,15 +369,22 @@ class RepositoryReporter:
         Args:
             repos_path: Path to directory containing repositories
             output_dir: Path to output directory for generated reports
+            allow_empty: Forwarded to :meth:`analyze_repositories`. When
+                ``False`` (the default), a hard error is raised if no
+                repositories are discovered under ``repos_path``.
 
         Returns:
             Dictionary mapping output type to file path for all generated files
+
+        Raises:
+            NoRepositoriesError: If no repositories are discovered and
+                ``allow_empty`` is ``False``.
         """
         # Ensure output directory exists
         output_dir.mkdir(parents=True, exist_ok=True)
 
         # Analyze repositories
-        report_data = self.analyze_repositories(repos_path)
+        report_data = self.analyze_repositories(repos_path, allow_empty=allow_empty)
 
         project = self.config["project"]
         json_path = output_dir / "report_raw.json"

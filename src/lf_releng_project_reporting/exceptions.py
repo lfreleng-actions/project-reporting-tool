@@ -69,6 +69,19 @@ class RepositoryError(ReportingToolError):
     pass
 
 
+class NoRepositoriesError(ReportingToolError):
+    """Raised when no repositories are found to analyze.
+
+    This typically indicates that an upstream clone step produced an empty
+    working directory (for example, a transient Gerrit discovery/clone
+    failure). Generating a report from zero repositories yields empty,
+    misleading output, so this is treated as a hard error that callers
+    (and CI jobs) can retry.
+    """
+
+    pass
+
+
 class CollectionError(ReportingToolError):
     """Raised when data collection fails."""
 

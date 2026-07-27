@@ -13,7 +13,7 @@ This module provides a rich, user-friendly command-line interface with:
 """
 
 import sys
-from enum import Enum
+from enum import Enum, StrEnum
 from pathlib import Path
 from typing import Annotated
 
@@ -34,7 +34,7 @@ app = typer.Typer(
 console = Console()
 
 
-class OutputFormat(str, Enum):
+class OutputFormat(StrEnum):
     """Output format options."""
 
     JSON = "json"
@@ -43,7 +43,7 @@ class OutputFormat(str, Enum):
     ALL = "all"
 
 
-class InitTemplate(str, Enum):
+class InitTemplate(StrEnum):
     """Configuration template options."""
 
     MINIMAL = "minimal"
@@ -193,6 +193,16 @@ def generate(
             rich_help_panel="Validation",
         ),
     ] = False,
+    allow_empty: Annotated[
+        bool,
+        typer.Option(
+            "--allow-empty",
+            help="Allow report generation when no repositories are found "
+            "(default: fail, since an empty result usually means an upstream "
+            "clone failure)",
+            rich_help_panel="Validation",
+        ),
+    ] = False,
     # Version
     _version: Annotated[
         bool | None,
@@ -265,6 +275,7 @@ def generate(
         validate_only=dry_run,
         log_level=None,
         github_token_env=github_token_env,
+        allow_empty=allow_empty,
     )
 
     # Set log level based on verbosity
