@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-07-28 07:50:20 UTC
+**Generated:** 2026-07-29 07:53:29 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -30,7 +30,7 @@
 | Inactive Repositories | 3 | 50.0% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 22.8K | - |
-| Total Lines of Code | 323.2K | - |
+| Total Lines of Code | 320.4K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -41,7 +41,7 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 156 | 1172 | +188548 | 324888 | +44 | 4 |
+| 1 | cisco.com | 156 | 1169 | +186761 | 323125 | +43 | 4 |
 | 2 | gmail.com | 116 | 325 | +23972 | 36445 | +35 | 4 |
 | 3 | icloud.com | 2 | 181 | +51182 | 127060 | -136 | 3 |
 | 4 | netgate.com | 17 | 84 | +6382 | 7651 | +60 | 1 |
@@ -60,33 +60,33 @@ The data presented in the table below covers the past 365 days.
 | 17 | graphiant.com | 5 | 3 | +20 | 30 | +3 | 1 |
 | 18 | hotmail.se | 1 | 3 | +1083 | 1431 | +245 | 1 |
 | 19 | meter.com | 4 | 3 | +51 | 89 | +4 | 2 |
-| 20 | chinatelecom.cn | 4 | 2 | +18 | 32 | +2 | 1 |
-| 21 | imc.com | 1 | 2 | +14 | 14 | +7 | 1 |
-| 22 | ipng.ch | 1 | 2 | +545 | 610 | +240 | 1 |
-| 23 | mts.ru | 2 | 2 | +36 | 46 | +13 | 1 |
-| 24 | pantheon.tech | 31 | 2 | +474 | 584 | +182 | 2 |
-| 25 | sina.com | 1 | 2 | +7 | 18 | -2 | 1 |
-| 26 | yandex-team.ru | 4 | 2 | +30 | 35 | +12 | 1 |
-| 27 | 163.com | 8 | 1 | +8 | 16 | 0 | 1 |
-| 28 | 46labs.com | 2 | 1 | +321 | 321 | +321 | 1 |
-| 29 | andrews-macbook-pro.local | 1 | 1 | +1 | 2 | 0 | 1 |
-| 30 | arm.com | 17 | 1 | +43 | 45 | +41 | 2 |
+| 20 | 46labs.com | 2 | 2 | +382 | 432 | +166 | 1 |
+| 21 | chinatelecom.cn | 4 | 2 | +18 | 32 | +2 | 1 |
+| 22 | ericsson.com | 8 | 2 | +150 | 166 | +67 | 1 |
+| 23 | imc.com | 1 | 2 | +14 | 14 | +7 | 1 |
+| 24 | ipng.ch | 1 | 2 | +545 | 610 | +240 | 1 |
+| 25 | mts.ru | 2 | 2 | +36 | 46 | +13 | 1 |
+| 26 | pantheon.tech | 31 | 2 | +474 | 584 | +182 | 2 |
+| 27 | sina.com | 1 | 2 | +7 | 18 | -2 | 1 |
+| 28 | yandex-team.ru | 4 | 2 | +30 | 35 | +12 | 1 |
+| 29 | 163.com | 8 | 1 | +8 | 16 | 0 | 1 |
+| 30 | andrews-macbook-pro.local | 1 | 1 | +1 | 2 | 0 | 1 |
 
 ---
 ## 👥 Top Contributors
 
 The data presented in the table below covers the past 365 days.
 
-**Contributors Found:** 655
+**Contributors Found:** 656
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Florin Coras | 274 | +39490 | 53548 | +92 | 2 | cisco.com |
-| 2 | Matus Fabian | 258 | +32602 | 46727 | +71 | 2 | cisco.com |
+| 1 | Florin Coras | 274 | +39544 | 53656 | +92 | 2 | cisco.com |
+| 2 | Matus Fabian | 254 | +30673 | 44767 | +65 | 2 | cisco.com |
 | 3 | Dave Wallace | 235 | +15429 | 22038 | +37 | 4 | gmail.com |
 | 4 | Peter Mikus | 179 | +51163 | 127035 | -138 | 3 | icloud.com |
 | 5 | Damjan Marion | 157 | +50062 | 124435 | -154 | 1 | cisco.com |
-| 6 | Tibor Frank | 112 | +8776 | 15644 | +17 | 2 | cisco.com |
+| 6 | Tibor Frank | 111 | +8774 | 15640 | +17 | 2 | cisco.com |
 | 7 | Adrian Villin | 81 | +12014 | 18981 | +62 | 1 | cisco.com |
 | 8 | Vratko Polak | 76 | +17895 | 32390 | +44 | 3 | cisco.com |
 | 9 | Benoît Ganne | 55 | +3092 | 4640 | +28 | 1 | cisco.com |
@@ -95,8 +95,8 @@ The data presented in the table below covers the past 365 days.
 | 12 | Hadi Rayan Al-Sandid | 30 | +4311 | 4712 | +130 | 1 | cisco.com |
 | 13 | Maxime Peim | 18 | +2712 | 5146 | +15 | 1 | gmail.com |
 | 14 | Mohammed Hawari | 18 | +16236 | 17443 | +834 | 1 | hawari.fr |
-| 15 | Damjan Marion | 17 | +1123 | 1554 | +40 | 1 | gmail.com |
-| 16 | Samuel Benko | 17 | +2756 | 3102 | +141 | 1 | cisco.com |
+| 15 | Samuel Benko | 18 | +2773 | 3122 | +134 | 1 | cisco.com |
+| 16 | Damjan Marion | 17 | +1123 | 1554 | +40 | 1 | gmail.com |
 | 17 | Semir Sionek | 17 | +1102 | 1395 | +47 | 1 | cisco.com |
 | 18 | Mohsin KAZMI | 16 | +2762 | 2982 | +158 | 2 | cisco.com |
 | 19 | Rob Shearman | 16 | +821 | 925 | +44 | 1 | gmail.com |
@@ -117,12 +117,12 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 16134 | +214276 | 88 | 0 | 2026-07-27 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6532 | +76204 | 6 | 0 | 2026-07-27 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2621 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 37 | +5142 | 2 | 14 | 2026-07-14 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2096 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3618 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 16139 | +212558 | 90 | 0 | 2026-07-28 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6532 | +76202 | 6 | 1 | 2026-07-27 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2622 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 37 | +5142 | 2 | 15 | 2026-07-14 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2097 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3619 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
