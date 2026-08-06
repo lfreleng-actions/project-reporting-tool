@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-08-05 07:51:29 UTC
+**Generated:** 2026-08-06 07:51:20 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -30,7 +30,7 @@
 | Inactive Repositories | 3 | 50.0% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 22.8K | - |
-| Total Lines of Code | 324.0K | - |
+| Total Lines of Code | 324.2K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -41,7 +41,7 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 157 | 1174 | +187299 | 324330 | +42 | 4 |
+| 1 | cisco.com | 157 | 1174 | +187380 | 324411 | +42 | 4 |
 | 2 | gmail.com | 116 | 324 | +23925 | 36396 | +35 | 4 |
 | 3 | icloud.com | 2 | 182 | +56574 | 133523 | -111 | 3 |
 | 4 | netgate.com | 17 | 85 | +6393 | 7663 | +60 | 1 |
@@ -81,14 +81,14 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Florin Coras | 276 | +39738 | 53893 | +92 | 2 | cisco.com |
-| 2 | Matus Fabian | 250 | +30353 | 44460 | +64 | 2 | cisco.com |
+| 1 | Florin Coras | 278 | +39882 | 54041 | +92 | 2 | cisco.com |
+| 2 | Matus Fabian | 249 | +30364 | 44475 | +65 | 2 | cisco.com |
 | 3 | Dave Wallace | 235 | +15429 | 22038 | +37 | 4 | gmail.com |
 | 4 | Peter Mikus | 180 | +56555 | 133498 | -113 | 3 | icloud.com |
 | 5 | Damjan Marion | 157 | +50062 | 124435 | -154 | 1 | cisco.com |
 | 6 | Tibor Frank | 111 | +8774 | 15640 | +17 | 2 | cisco.com |
 | 7 | Adrian Villin | 80 | +11819 | 18714 | +61 | 1 | cisco.com |
-| 8 | Vratko Polak | 80 | +18186 | 33035 | +41 | 3 | cisco.com |
+| 8 | Vratko Polak | 79 | +18112 | 32953 | +41 | 3 | cisco.com |
 | 9 | Benoît Ganne | 58 | +3126 | 4695 | +26 | 1 | cisco.com |
 | 10 | Klement Sekera | 48 | +2925 | 3615 | +46 | 1 | netgate.com |
 | 11 | Jerome Tollet | 35 | +7741 | 9043 | +183 | 1 | cisco.com |
@@ -117,12 +117,12 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 16166 | +212807 | 92 | 43 | 2026-06-22 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6540 | +81885 | 6 | 21 | 2026-07-15 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2629 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 37 | +5142 | 2 | 22 | 2026-07-14 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2104 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3626 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 16169 | +212962 | 92 | 2 | 2026-08-04 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6540 | +81811 | 6 | 22 | 2026-07-15 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2630 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 37 | +5142 | 2 | 23 | 2026-07-14 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2105 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3627 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
