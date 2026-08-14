@@ -12,6 +12,73 @@ set -euo pipefail
 REPORT_DIR="${1:-.}"
 ENVIRONMENT="${2:-production}"
 
+# Reports regenerate daily. A report older than this many days means
+# the project's most recent run produced nothing, leaving the previous
+# run's output in place. Without a marker that stale output presents
+# itself as current.
+STALE_THRESHOLD_DAYS="${STALE_THRESHOLD_DAYS:-2}"
+
+# Guard the override: a non-numeric value would abort the whole script
+# at the -ge comparison below (set -e), taking index generation with
+# it. A bad threshold must not cost us the index page.
+if ! [[ "$STALE_THRESHOLD_DAYS" =~ ^[0-9]+$ ]]; then
+  echo "⚠️  Ignoring invalid STALE_THRESHOLD_DAYS='${STALE_THRESHOLD_DAYS}', using 2"
+  STALE_THRESHOLD_DAYS=2
+fi
+
+# Escape HTML metacharacters before interpolating a value into the
+# generated markup. Project names legitimately contain ampersands
+# ("R&D"), which would otherwise emit a broken entity, and this keeps
+# metadata from being able to inject markup into the published index.
+#
+# Deliberately uses sed rather than ${var//pat/repl}: bash 5.2 enables
+# patsub_replacement by default, under which an unescaped & in the
+# replacement expands to the matched text, so "${s//</&lt;}" yields
+# "<lt;" on the runners but "&lt;" on older bash. sed's & has the same
+# meaning but is escaped explicitly below, giving one behaviour
+# everywhere. Ampersand is substituted first so that it cannot
+# re-escape the entities introduced by the later expressions.
+html_escape() {
+  printf '%s' "$1" | sed \
+    -e 's/&/\&amp;/g' \
+    -e 's/</\&lt;/g' \
+    -e 's/>/\&gt;/g' \
+    -e 's/"/\&quot;/g'
+}
+
+# Convert an ISO-8601 UTC timestamp to epoch seconds. Tries GNU date
+# (CI runners) then BSD date (local macOS development).
+iso_to_epoch() {
+  local ts="$1"
+  date -u -d "$ts" +%s 2>/dev/null \
+    || date -u -j -f "%Y-%m-%dT%H:%M:%SZ" "$ts" +%s 2>/dev/null \
+    || return 1
+}
+
+# Format an ISO-8601 timestamp for display, in UTC to match the label.
+# Same GNU-then-BSD handling as above; falls back to the raw string so
+# an unexpected format still renders something.
+format_timestamp() {
+  local ts="$1"
+  date -u -d "$ts" "+%Y-%m-%d %H:%M UTC" 2>/dev/null \
+    || date -u -j -f "%Y-%m-%dT%H:%M:%SZ" "$ts" "+%Y-%m-%d %H:%M UTC" 2>/dev/null \
+    || echo "$ts"
+}
+
+# Whole days between an ISO-8601 timestamp and now.
+# Emits nothing when the timestamp is absent or cannot be parsed, so
+# that an unreadable date is never mistaken for a fresh report.
+report_age_days() {
+  local ts="$1"
+  local generated_epoch now_epoch
+  if [ "$ts" = "N/A" ]; then
+    return 0
+  fi
+  generated_epoch=$(iso_to_epoch "$ts") || return 0
+  now_epoch=$(date -u +%s)
+  echo $(( (now_epoch - generated_epoch) / 86400 ))
+}
+
 echo "📄 Generating index page for: $REPORT_DIR"
 
 # Get repository name from environment or extract from URL
@@ -62,7 +129,7 @@ if [ "$REPORT_DIR" = "." ]; then
       generated_at="N/A"
     fi
 
-    REPORTS+=("$project_slug|$project_name|$generated_at")
+    REPORTS+=("$project_slug|$project_name|$generated_at|$(report_age_days "$generated_at")")
   done < <(find . -maxdepth 2 -name "report.html" -print0)
 elif [ -d "$REPORT_DIR" ]; then
   # Subdirectory (like previews/6): find all reports under it
@@ -80,7 +147,7 @@ elif [ -d "$REPORT_DIR" ]; then
       generated_at="N/A"
     fi
 
-    REPORTS+=("$project_slug|$project_name|$generated_at")
+    REPORTS+=("$project_slug|$project_name|$generated_at|$(report_age_days "$generated_at")")
   done < <(find "$REPORT_DIR" -name "report.html" -print0)
 fi
 
@@ -211,6 +278,30 @@ cat > "$INDEX_FILE" <<'HTMLEOF'
       transform: translateY(-4px);
       box-shadow: 0 8px 16px rgba(102, 126, 234, 0.2);
       border-color: #667eea;
+    }
+
+    .report-card.stale {
+      border-color: #d69e2e;
+      background: #fffaf0;
+    }
+
+    .stale-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #975a16;
+      background: #faf089;
+      border-radius: 4px;
+      padding: 0.1rem 0.4rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+
+    .stale-note {
+      font-size: 0.8rem;
+      line-height: 1.4;
+      color: #975a16;
+      margin-bottom: 1rem;
     }
 
     .report-name {
@@ -360,27 +451,51 @@ else
   REPORTS_HTML='<div class="reports-grid">'
 
   for report_entry in "${REPORTS[@]}"; do
-    IFS='|' read -r slug name timestamp <<< "$report_entry"
+    IFS='|' read -r slug name timestamp age_days <<< "$report_entry"
 
-    # Format timestamp for display
+    # Format timestamp for display. The label claims UTC, so force the
+    # conversion to UTC rather than relying on the runner's timezone.
     if [ "$timestamp" = "N/A" ]; then
       display_time="N/A"
     else
-      display_time=$(date -d "$timestamp" "+%Y-%m-%d %H:%M UTC" 2>/dev/null || echo "$timestamp")
+      display_time=$(format_timestamp "$timestamp")
     fi
 
+    # Flag reports whose most recent run produced no output. The
+    # previous run's report survives on the branch and would otherwise
+    # present itself as current.
+    card_class="report-card"
+    stale_badge=""
+    stale_note=""
+    if [ -n "$age_days" ] && [ "$age_days" -ge "$STALE_THRESHOLD_DAYS" ]; then
+      if [ "$age_days" -eq 1 ]; then
+        day_label="day"
+      else
+        day_label="days"
+      fi
+      card_class="report-card stale"
+      stale_badge=" <span class=\"stale-badge\">⚠️ STALE</span>"
+      stale_note="<div class=\"stale-note\">⚠️ Generated ${age_days} ${day_label} ago. Recent runs produced no report for this project, so the data below is out of date.</div>"
+    fi
+
+    # Escape every metadata-derived value before it reaches the markup.
+    name_esc=$(html_escape "$name")
+    slug_esc=$(html_escape "$slug")
+    display_time_esc=$(html_escape "$display_time")
+
     REPORTS_HTML+="
-        <div class=\"report-card\">
-          <div class=\"report-name\">$name</div>
+        <div class=\"$card_class\">
+          <div class=\"report-name\">$name_esc$stale_badge</div>
           <div class=\"report-info\">
-            <div>🔖 Slug: <code>$slug</code></div>
-            <div>📅 Generated: $display_time</div>
+            <div>🔖 Slug: <code>$slug_esc</code></div>
+            <div>📅 Generated: $display_time_esc</div>
           </div>
+          $stale_note
           <div class=\"report-links\">
-            <a href=\"$BASE_PATH/$slug/report.html\" class=\"btn btn-primary\">
+            <a href=\"$BASE_PATH/$slug_esc/report.html\" class=\"btn btn-primary\">
               📊 View Report
             </a>
-            <a href=\"$BASE_PATH/$slug/report_raw.json\" class=\"btn btn-secondary\">
+            <a href=\"$BASE_PATH/$slug_esc/report_raw.json\" class=\"btn btn-secondary\">
               📄 JSON
             </a>
           </div>
