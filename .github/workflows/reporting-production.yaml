@@ -1382,17 +1382,26 @@ jobs:
           RUN_ID: ${{ github.run_id }}
         # yamllint disable rule:line-length
         run: |
-          # Query the GitHub API for matrix job results
+          # Query the GitHub API for matrix job results.
+          # Matrix legs are named after the project slug, so the regex
+          # below isolates them from the pipeline jobs (which all carry
+          # capitals and spaces, e.g. "Publish GitHub Pages").
           echo "Checking matrix job results..."
 
-          FAILED_PROJECTS=$(gh api \
+          ALL_PROJECTS=$(gh api \
             "/repos/${REPO}/actions/runs/${RUN_ID}/jobs" \
             --paginate \
-            --jq '.jobs[] | select(.conclusion != "success" and .conclusion != null and .conclusion != "skipped" and (.name | test("^[a-z][a-z0-9-]*$"))) | .name' \
+            --jq '.jobs[] | select(.name | test("^[a-z][a-z0-9-]*$")) | "\(.name)\t\(.conclusion // "pending")"' \
             | sort)
 
+          FAILED_PROJECTS=$(echo "$ALL_PROJECTS" \
+            | awk -F'\t' '$2 != "success" && $2 != "skipped" && $2 != "pending" {print $1}')
+
+          TOTAL_COUNT=$(echo "$ALL_PROJECTS" | grep -c . || true)
+          FAILED_COUNT=$(echo "$FAILED_PROJECTS" | grep -c . || true)
+
           if [ -n "$FAILED_PROJECTS" ]; then
-            echo "Failed projects:"
+            echo "Projects without a report (${FAILED_COUNT} of ${TOTAL_COUNT}):"
             while IFS= read -r P; do
               [ -z "$P" ] && continue
               echo "  - ${P}"
@@ -1401,6 +1410,17 @@ jobs:
             echo "Could not determine specific failed projects"
             FAILED_PROJECTS="(check workflow run for details)"
           fi
+
+          # Annotate the Analyze stage so readers can tell a single
+          # missing project apart from a wholesale matrix collapse.
+          # Worded as "no report" rather than "failed" because the
+          # filter above deliberately counts cancelled and timed-out
+          # legs too: those produce no report either.
+          detail=""
+          if [ "$FAILED_COUNT" -gt 0 ] && [ "$TOTAL_COUNT" -gt 0 ]; then
+            detail=" (no report from ${FAILED_COUNT} of ${TOTAL_COUNT} projects)"
+          fi
+          echo "detail=${detail}" >> "$GITHUB_OUTPUT"
 
           # Join project names into single line for YAML safety
           ESCAPED_PROJECTS=$(echo "$FAILED_PROJECTS" | paste -sd ',' - | sed 's/,/, /g')
@@ -1447,17 +1467,24 @@ jobs:
               - type: "section"
                 text:
                   type: "mrkdwn"
-                  text: "*Failed projects:*\n```${{ steps.failed-projects.outputs.list || 'N/A (no matrix project failures detected)' }}```"
+                  text: "*Projects with no report this run:*\n```${{ steps.failed-projects.outputs.list || 'N/A (no matrix project failures detected)' }}```"
               - type: "section"
+                text:
+                  type: "mrkdwn"
+                  text: "*Pipeline stages* _(workflow-wide, not per-project)_"
                 fields:
                   - type: "mrkdwn"
                     text: "*Validate:* ${{ steps.workflow-status.outputs.validate_result }}"
                   - type: "mrkdwn"
-                    text: "*Analyze:* ${{ steps.workflow-status.outputs.analyze_result }}"
+                    text: "*Analyze:* ${{ steps.workflow-status.outputs.analyze_result }}${{ steps.failed-projects.outputs.detail }}"
                   - type: "mrkdwn"
                     text: "*Publish:* ${{ steps.workflow-status.outputs.publish_result }}"
                   - type: "mrkdwn"
                     text: "*Artifact Transfer:* ${{ steps.workflow-status.outputs.copy_result }}"
+              - type: "context"
+                elements:
+                  - type: "mrkdwn"
+                    text: "Publish and Artifact Transfer cover the projects that did produce reports; they succeed even when an individual project fails."
               - type: "context"
                 elements:
                   - type: "mrkdwn"
