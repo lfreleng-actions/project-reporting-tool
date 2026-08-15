@@ -115,6 +115,30 @@
       border-color: #667eea;
     }
 
+    .report-card.stale {
+      border-color: #d69e2e;
+      background: #fffaf0;
+    }
+
+    .stale-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #975a16;
+      background: #faf089;
+      border-radius: 4px;
+      padding: 0.1rem 0.4rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+
+    .stale-note {
+      font-size: 0.8rem;
+      line-height: 1.4;
+      color: #975a16;
+      margin-bottom: 1rem;
+    }
+
     .report-name {
       font-size: 1.25rem;
       font-weight: 600;
@@ -212,7 +236,7 @@
       <div class="meta">
         <div class="meta-item">
           <span class="meta-icon">🕐</span>
-          <span>Generated: 2026-08-14 07:36 UTC</span>
+          <span>Generated: 2026-08-15 07:22 UTC</span>
         </div>
         <div class="meta-item">
           <span class="meta-icon">🏢</span>
@@ -233,41 +257,60 @@
 
 <div class="reports-grid">
         <div class="report-card">
-          <div class="report-name">FDio</div>
+          <div class="report-name">AGL</div>
           <div class="report-info">
-            <div>🔖 Slug: <code>fdio</code></div>
-            <div>📅 Generated: 2026-08-14 07:28 UTC</div>
+            <div>🔖 Slug: <code>agl</code></div>
+            <div>📅 Generated: 2026-08-15 07:09 UTC</div>
           </div>
+          
           <div class="report-links">
-            <a href="/project-reporting-tool/fdio/report.html" class="btn btn-primary">
+            <a href="/project-reporting-tool/agl/report.html" class="btn btn-primary">
               📊 View Report
             </a>
-            <a href="/project-reporting-tool/fdio/report_raw.json" class="btn btn-secondary">
+            <a href="/project-reporting-tool/agl/report_raw.json" class="btn btn-secondary">
+              📄 JSON
+            </a>
+          </div>
+        </div>
+        <div class="report-card stale">
+          <div class="report-name">LF Broadband <span class="stale-badge">⚠️ STALE</span></div>
+          <div class="report-info">
+            <div>🔖 Slug: <code>lfbroadband</code></div>
+            <div>📅 Generated: 2026-08-07 07:27 UTC</div>
+          </div>
+          <div class="stale-note">⚠️ Generated 7 days ago. Recent runs produced no report for this project, so the data below is out of date.</div>
+          <div class="report-links">
+            <a href="/project-reporting-tool/lfbroadband/report.html" class="btn btn-primary">
+              📊 View Report
+            </a>
+            <a href="/project-reporting-tool/lfbroadband/report_raw.json" class="btn btn-secondary">
               📄 JSON
             </a>
           </div>
         </div>
         <div class="report-card">
-          <div class="report-name">O-RAN-SC</div>
+          <div class="report-name">ONAP</div>
           <div class="report-info">
-            <div>🔖 Slug: <code>oran</code></div>
-            <div>📅 Generated: 2026-08-14 07:28 UTC</div>
+            <div>🔖 Slug: <code>onap</code></div>
+            <div>📅 Generated: 2026-08-15 07:09 UTC</div>
           </div>
+          
           <div class="report-links">
-            <a href="/project-reporting-tool/oran/report.html" class="btn btn-primary">
+            <a href="/project-reporting-tool/onap/report.html" class="btn btn-primary">
               📊 View Report
             </a>
-            <a href="/project-reporting-tool/oran/report_raw.json" class="btn btn-secondary">
+            <a href="/project-reporting-tool/onap/report_raw.json" class="btn btn-secondary">
               📄 JSON
             </a>
           </div>
         </div>
-        <div class="report-card">
-          <div class="report-name">Aether</div>
+        <div class="report-card stale">
+          <div class="report-name">Aether <span class="stale-badge">⚠️ STALE</span></div>
           <div class="report-info">
             <div>🔖 Slug: <code>aether</code></div>
             <div>📅 Generated: 2026-03-03 07:36 UTC</div>
           </div>
+          <div class="stale-note">⚠️ Generated 164 days ago. Recent runs produced no report for this project, so the data below is out of date.</div>
           <div class="report-links">
             <a href="/project-reporting-tool/aether/report.html" class="btn btn-primary">
               📊 View Report
@@ -278,11 +321,44 @@
           </div>
         </div>
         <div class="report-card">
-          <div class="report-name">OPNFV</div>
+          <div class="report-name">FDio</div>
+          <div class="report-info">
+            <div>🔖 Slug: <code>fdio</code></div>
+            <div>📅 Generated: 2026-08-15 07:09 UTC</div>
+          </div>
+          
+          <div class="report-links">
+            <a href="/project-reporting-tool/fdio/report.html" class="btn btn-primary">
+              📊 View Report
+            </a>
+            <a href="/project-reporting-tool/fdio/report_raw.json" class="btn btn-secondary">
+              📄 JSON
+            </a>
+          </div>
+        </div>
+        <div class="report-card">
+          <div class="report-name">Opendaylight</div>
+          <div class="report-info">
+            <div>🔖 Slug: <code>odl</code></div>
+            <div>📅 Generated: 2026-08-15 07:09 UTC</div>
+          </div>
+          
+          <div class="report-links">
+            <a href="/project-reporting-tool/odl/report.html" class="btn btn-primary">
+              📊 View Report
+            </a>
+            <a href="/project-reporting-tool/odl/report_raw.json" class="btn btn-secondary">
+              📄 JSON
+            </a>
+          </div>
+        </div>
+        <div class="report-card stale">
+          <div class="report-name">OPNFV <span class="stale-badge">⚠️ STALE</span></div>
           <div class="report-info">
             <div>🔖 Slug: <code>opnfv</code></div>
             <div>📅 Generated: 2026-02-01 07:31 UTC</div>
           </div>
+          <div class="stale-note">⚠️ Generated 194 days ago. Recent runs produced no report for this project, so the data below is out of date.</div>
           <div class="report-links">
             <a href="/project-reporting-tool/opnfv/report.html" class="btn btn-primary">
               📊 View Report
@@ -296,8 +372,9 @@
           <div class="report-name">Linux Foundation</div>
           <div class="report-info">
             <div>🔖 Slug: <code>lfit</code></div>
-            <div>📅 Generated: 2026-08-14 07:28 UTC</div>
+            <div>📅 Generated: 2026-08-15 07:09 UTC</div>
           </div>
+          
           <div class="report-links">
             <a href="/project-reporting-tool/lfit/report.html" class="btn btn-primary">
               📊 View Report
@@ -308,61 +385,17 @@
           </div>
         </div>
         <div class="report-card">
-          <div class="report-name">LF Broadband</div>
+          <div class="report-name">O-RAN-SC</div>
           <div class="report-info">
-            <div>🔖 Slug: <code>lfbroadband</code></div>
-            <div>📅 Generated: 2026-08-07 07:27 UTC</div>
+            <div>🔖 Slug: <code>oran</code></div>
+            <div>📅 Generated: 2026-08-15 07:09 UTC</div>
           </div>
+          
           <div class="report-links">
-            <a href="/project-reporting-tool/lfbroadband/report.html" class="btn btn-primary">
+            <a href="/project-reporting-tool/oran/report.html" class="btn btn-primary">
               📊 View Report
             </a>
-            <a href="/project-reporting-tool/lfbroadband/report_raw.json" class="btn btn-secondary">
-              📄 JSON
-            </a>
-          </div>
-        </div>
-        <div class="report-card">
-          <div class="report-name">AGL</div>
-          <div class="report-info">
-            <div>🔖 Slug: <code>agl</code></div>
-            <div>📅 Generated: 2026-08-14 07:28 UTC</div>
-          </div>
-          <div class="report-links">
-            <a href="/project-reporting-tool/agl/report.html" class="btn btn-primary">
-              📊 View Report
-            </a>
-            <a href="/project-reporting-tool/agl/report_raw.json" class="btn btn-secondary">
-              📄 JSON
-            </a>
-          </div>
-        </div>
-        <div class="report-card">
-          <div class="report-name">ONAP</div>
-          <div class="report-info">
-            <div>🔖 Slug: <code>onap</code></div>
-            <div>📅 Generated: 2026-08-14 07:28 UTC</div>
-          </div>
-          <div class="report-links">
-            <a href="/project-reporting-tool/onap/report.html" class="btn btn-primary">
-              📊 View Report
-            </a>
-            <a href="/project-reporting-tool/onap/report_raw.json" class="btn btn-secondary">
-              📄 JSON
-            </a>
-          </div>
-        </div>
-        <div class="report-card">
-          <div class="report-name">Opendaylight</div>
-          <div class="report-info">
-            <div>🔖 Slug: <code>odl</code></div>
-            <div>📅 Generated: 2026-08-14 07:28 UTC</div>
-          </div>
-          <div class="report-links">
-            <a href="/project-reporting-tool/odl/report.html" class="btn btn-primary">
-              📊 View Report
-            </a>
-            <a href="/project-reporting-tool/odl/report_raw.json" class="btn btn-secondary">
+            <a href="/project-reporting-tool/oran/report_raw.json" class="btn btn-secondary">
               📄 JSON
             </a>
           </div>
