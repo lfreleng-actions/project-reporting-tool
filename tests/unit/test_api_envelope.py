@@ -253,20 +253,19 @@ class TestBaseAPIClient:
         mock_stats = MagicMock()
         client = BaseAPIClient(stats=mock_stats)
 
-        if hasattr(client, "_record_error"):
-            client._record_error("api_name", 500)
-            # Verify stats tracking (implementation may vary)
-            assert True
+        client._record_error("api_name", 500)
+
+        # The error is forwarded verbatim to the statistics tracker
+        mock_stats.record_error.assert_called_once_with("api_name", 500)
 
     def test_base_client_close(self):
         """Test close method."""
         client = BaseAPIClient()
 
-        # Should not raise exception
-        if hasattr(client, "close"):
-            client.close()
-
-        assert True
+        # The base implementation owns no resources, so close() returns nothing
+        # and stays safe to call more than once.
+        assert client.close() is None
+        assert client.close() is None
 
 
 # LegacyAPIAdapter tests removed in Phase 14

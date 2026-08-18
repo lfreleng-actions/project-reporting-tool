@@ -141,8 +141,9 @@ class TestHybridExecutorContextManager:
         with executor:
             pass
 
-        # Pools should be shutdown (can't directly test, but no errors)
-        assert True  # If we got here, shutdown succeeded
+        # The thread pool is shut down, so it refuses any further work
+        with pytest.raises(RuntimeError):
+            executor._thread_pool.submit(lambda: None)
 
     def test_submit_without_context_raises_error(self):
         """Test submitting task without starting executor raises error."""
