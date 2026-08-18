@@ -1,21 +1,13 @@
-#!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0
-# SPDX-FileCopyrightText: 2025 The Linux Foundation
+# SPDX-FileCopyrightText: 2026 The Linux Foundation
 
-"""
-Configuration Wizard - Interactive Setup for Repository Reports
+"""Interactive wizard that walks the user through building a configuration."""
 
-This module provides an interactive configuration wizard that helps users
-create valid configuration files for their first report generation.
-
-Features:
-- Interactive prompts for all configuration options
-- Template-based configuration generation
-- Validation during setup
-- Smart defaults based on environment
-- Example configurations for common use cases
-- Pre-flight checks before saving
-"""
+# The wizard is a terminal conversation: print() is the intended output sink
+# here, not leftover debugging. The wizard was previously one module whose
+# __main__ block exempted it from this rule, so the exemption is now stated
+# explicitly.
+# aislop-ignore-file python-print-debug -- intentional user-facing CLI output
 
 import os
 from pathlib import Path
@@ -23,231 +15,16 @@ from typing import Any
 
 import yaml
 
-
-# =============================================================================
-# CONFIGURATION TEMPLATES
-# =============================================================================
-
-MINIMAL_TEMPLATE = {
-    "project": "",
-    "time_windows": {
-        "reporting_window_days": 365,
-        "recent_activity_days": 90,
-        "active_contributor_days": 90,
-    },
-    "output": {
-        "directory": "output",
-        "formats": ["json", "md", "html"],
-    },
-}
-
-STANDARD_TEMPLATE = {
-    "project": "",
-    "time_windows": {
-        "reporting_window_days": 365,
-        "recent_activity_days": 90,
-        "active_contributor_days": 90,
-        "abandoned_days": 180,
-    },
-    "output": {
-        "directory": "output",
-        "formats": ["json", "md", "html"],
-        "create_bundle": True,
-    },
-    "api": {
-        "github": {
-            "enabled": True,
-            "timeout": 30,
-            "max_retries": 3,
-        }
-    },
-    "features": {
-        "ci_cd": {
-            "github_actions": {"enabled": True},
-            "jenkins": {"enabled": True},
-        },
-        "security": {
-            "dependabot": {"enabled": True},
-        },
-        "documentation": {
-            "readthedocs": {"enabled": True},
-        },
-    },
-}
-
-FULL_TEMPLATE = {
-    "project": "",
-    "time_windows": {
-        "reporting_window_days": 365,
-        "recent_activity_days": 90,
-        "active_contributor_days": 90,
-        "abandoned_days": 180,
-        "new_contributor_days": 90,
-    },
-    "output": {
-        "directory": "output",
-        "formats": ["json", "md", "html"],
-        "create_bundle": True,
-        "bundle_name": "{project}-{date}",
-    },
-    "api": {
-        "github": {
-            "enabled": True,
-            "token_env": "GITHUB_TOKEN",
-            "timeout": 30,
-            "max_retries": 3,
-            "rate_limit_wait": True,
-        },
-        "gerrit": {
-            "enabled": False,
-            "base_url": "",
-            "timeout": 30,
-        },
-        "jenkins": {
-            "enabled": False,
-            "base_url": "",
-            "timeout": 30,
-        },
-    },
-    "features": {
-        "ci_cd": {
-            "github_actions": {"enabled": True},
-            "jenkins": {"enabled": True},
-            "travis": {"enabled": True},
-        },
-        "build_package": {
-            "maven": {"enabled": True},
-            "npm": {"enabled": True},
-            "pip": {"enabled": True},
-        },
-        "code_quality": {
-            "sonarqube": {"enabled": True},
-            "codecov": {"enabled": True},
-        },
-        "security": {
-            "dependabot": {"enabled": True},
-            "snyk": {"enabled": True},
-        },
-        "documentation": {
-            "readthedocs": {"enabled": True},
-            "github_pages": {"enabled": True},
-        },
-    },
-    "performance": {
-        "concurrency": {
-            "enabled": True,
-            "max_workers": 4,
-        },
-        "cache": {
-            "enabled": True,
-            "directory": ".cache",
-            "ttl_hours": 24,
-        },
-    },
-}
-
-
-# =============================================================================
-# WIZARD HELPERS
-# =============================================================================
-
-
-def prompt(question: str, default: str | None = None) -> str:
-    """
-    Prompt user for input with optional default.
-
-    Args:
-        question: Question to ask
-        default: Default value if user presses Enter
-
-    Returns:
-        User's answer or default
-    """
-    prompt_text = f"{question} [{default}]: " if default else f"{question}: "
-
-    answer = input(prompt_text).strip()
-    return answer if answer else (default or "")
-
-
-def confirm(question: str, default: bool = True) -> bool:
-    """
-    Ask yes/no question.
-
-    Args:
-        question: Question to ask
-        default: Default answer
-
-    Returns:
-        True for yes, False for no
-    """
-    default_str = "Y/n" if default else "y/N"
-    answer = input(f"{question} [{default_str}]: ").strip().lower()
-
-    if not answer:
-        return default
-
-    return answer in ("y", "yes", "true", "1")
-
-
-def select_option(question: str, options: list[tuple[str, str]], default: int = 0) -> str:
-    """
-    Present multiple choice selection.
-
-    Args:
-        question: Question to ask
-        options: List of (value, description) tuples
-        default: Index of default option
-
-    Returns:
-        Selected value
-    """
-    print(f"\n{question}")
-    for i, (_value, description) in enumerate(options, 1):
-        marker = "→" if i - 1 == default else " "
-        print(f"  {marker} {i}. {description}")
-
-    while True:
-        answer = input(f"\nSelect [1-{len(options)}] or press Enter for default: ").strip()
-
-        if not answer:
-            return options[default][0]
-
-        try:
-            idx = int(answer) - 1
-            if 0 <= idx < len(options):
-                return options[idx][0]
-            else:
-                print(f"Please enter a number between 1 and {len(options)}")
-        except ValueError:
-            print(f"Please enter a number between 1 and {len(options)}")
-            continue
-
-
-def print_section(title: str) -> None:
-    """Print a section header."""
-    print(f"\n{'─' * 70}")
-    print(f"  {title}")
-    print(f"{'─' * 70}\n")
-
-
-def print_success(message: str) -> None:
-    """Print success message."""
-    print(f"✅ {message}")
-
-
-def print_warning(message: str) -> None:
-    """Print warning message."""
-    print(f"⚠️  {message}")
-
-
-def print_error(message: str) -> None:
-    """Print error message."""
-    print(f"❌ {message}")
-
-
-def print_info(message: str) -> None:
-    """Print info message."""
-    print(f"ℹ️  {message}")
+from .models import FULL_TEMPLATE, MINIMAL_TEMPLATE, STANDARD_TEMPLATE
+from .prompts import (
+    confirm,
+    print_info,
+    print_section,
+    print_success,
+    print_warning,
+    prompt,
+    select_option,
+)
 
 
 # =============================================================================
@@ -611,77 +388,3 @@ class ConfigurationWizard:
         print("\n" + "=" * 70)
         print("  ✅ Configuration wizard complete!")
         print("=" * 70 + "\n")
-
-
-# =============================================================================
-# PUBLIC API
-# =============================================================================
-
-
-def run_wizard(output_path: str | None = None) -> str:
-    """
-    Run the interactive configuration wizard.
-
-    Args:
-        output_path: Optional path to save configuration
-
-    Returns:
-        Path to created configuration file
-    """
-    wizard = ConfigurationWizard()
-    return wizard.run(output_path)
-
-
-def create_config_from_template(
-    project: str,
-    template: str = "standard",
-    output_path: str | None = None,
-) -> str:
-    """
-    Create configuration file from template without interactive prompts.
-
-    Args:
-        project: Project name
-        template: Template type (minimal, standard, full)
-        output_path: Optional path to save configuration
-
-    Returns:
-        Path to created configuration file
-    """
-    # Select template
-    if template == "minimal":
-        config = MINIMAL_TEMPLATE.copy()
-    elif template == "standard":
-        config = STANDARD_TEMPLATE.copy()
-    elif template == "full":
-        config = FULL_TEMPLATE.copy()
-    else:
-        raise ValueError(f"Unknown template: {template}")
-
-    # Set project name
-    config["project"] = project
-
-    # Determine output path
-    if not output_path:
-        output_path = f"config/{project}.yaml"
-
-    # Create parent directory if needed
-    config_path = Path(output_path)
-    config_path.parent.mkdir(parents=True, exist_ok=True)
-
-    # Save configuration
-    with open(config_path, "w") as f:
-        yaml.dump(
-            config,
-            f,
-            default_flow_style=False,
-            sort_keys=False,
-            indent=2,
-        )
-
-    return str(config_path)
-
-
-if __name__ == "__main__":
-    """Run wizard when executed directly."""
-    run_wizard()
