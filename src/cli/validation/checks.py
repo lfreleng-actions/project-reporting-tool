@@ -1,20 +1,8 @@
 # SPDX-License-Identifier: Apache-2.0
-# SPDX-FileCopyrightText: 2025 The Linux Foundation
+# SPDX-FileCopyrightText: 2026 The Linux Foundation
 
-"""
-Dry Run Validation Module
+"""Individual pre-flight checks for configuration, APIs, filesystem and system."""
 
-Comprehensive pre-flight checks for validating configuration and system state
-before executing repository analysis.
-
-Phase 9: CLI & UX Improvements
-"""
-
-# This module renders dry-run validation results to the terminal; print() is
-# the intended output sink here, not leftover debugging.
-# aislop-ignore-file python-print-debug -- intentional user-facing CLI output
-
-import logging
 import os
 import shutil
 import socket
@@ -23,104 +11,18 @@ import urllib.request
 from pathlib import Path
 from typing import Any
 
-from .errors import (
+from ..errors import (
     PermissionError,
 )
+from .models import ValidationResult
 
 
-class ValidationResult:
-    """
-    Result of a validation check.
+class _ValidationChecks:
+    """Pre-flight checks mixed into DryRunValidator."""
 
-    Attributes:
-        passed: Whether the validation passed
-        message: Description of the result
-        suggestion: Optional suggestion for fixing failures
-        severity: 'error', 'warning', or 'info'
-    """
-
-    def __init__(
-        self, passed: bool, message: str, suggestion: str | None = None, severity: str = "error"
-    ):
-        """Initialize validation result."""
-        self.passed = passed
-        self.message = message
-        self.suggestion = suggestion
-        self.severity = severity
-
-    def __repr__(self) -> str:
-        """String representation."""
-        status = "✓" if self.passed else "✗"
-        return f"{status} {self.message}"
-
-
-class DryRunValidator:
-    """
-    Comprehensive validation for dry run mode.
-
-    Performs pre-flight checks including:
-    - Configuration schema and semantic validation
-    - API connectivity and credentials
-    - Filesystem permissions and disk space
-    - Required tools and dependencies
-
-    Example:
-        >>> validator = DryRunValidator(config, logger)
-        >>> success, results = validator.validate_all()
-        >>> if not success:
-        ...     validator.print_results(results)
-    """
-
-    def __init__(self, config: dict[str, Any], logger: logging.Logger | None = None):
-        """
-        Initialize validator.
-
-        Args:
-            config: Configuration dictionary
-            logger: Optional logger instance
-        """
-        self.config = config
-        self.logger = logger or logging.getLogger(__name__)
-
-    def validate_all(self, skip_network: bool = False) -> tuple[bool, list[ValidationResult]]:
-        """
-        Run all validation checks.
-
-        Args:
-            skip_network: Skip network connectivity checks
-
-        Returns:
-            Tuple of (success: bool, results: list[ValidationResult])
-        """
-        results = []
-
-        # Configuration validation
-        results.append(self._validate_config_structure())
-        results.append(self._validate_required_fields())
-        results.append(self._validate_project_name())
-        results.append(self._validate_repos_path())
-
-        # API validation
-        results.append(self._validate_api_credentials())
-
-        if not skip_network:
-            results.append(self._validate_network_connectivity())
-            results.append(self._validate_api_endpoints())
-
-        # Filesystem validation
-        results.append(self._validate_output_directory())
-        results.append(self._validate_disk_space())
-        results.append(self._validate_cache_directory())
-
-        # System validation
-        results.append(self._validate_git_available())
-        results.append(self._validate_python_version())
-
-        # Determine overall success
-        has_errors = any(not r.passed and r.severity == "error" for r in results)
-        success = not has_errors
-
-        return success, results
+    # Supplied by DryRunValidator.__init__; declared here so type checkers can
+    # resolve the attribute that these mixed-in checks read.
+    config: dict[str, Any]
 
     def _validate_config_structure(self) -> ValidationResult:
         """Validate configuration has required structure."""
@@ -444,110 +346,3 @@ class DryRunValidator:
             )
 
         return ValidationResult(True, f"Python version: {version_str}")
-
-    def print_results(self, results: list[ValidationResult]) -> None:
-        """
-        Print validation results in formatted output.
-
-        Args:
-            results: List of validation results
-        """
-        print("\n" + "=" * 70)
-        print("🔍 DRY RUN VALIDATION RESULTS")
-        print("=" * 70 + "\n")
-
-        # Group by severity
-        errors = [r for r in results if not r.passed and r.severity == "error"]
-        warnings = [r for r in results if r.severity == "warning"]
-        successes = [r for r in results if r.passed and r.severity != "warning"]
-        info = [r for r in results if r.severity == "info"]
-
-        # Print errors
-        if errors:
-            print("❌ ERRORS:")
-            for result in errors:
-                print(f"  {result}")
-                if result.suggestion:
-                    print(f"     💡 {result.suggestion}")
-            print()
-
-        # Print warnings
-        if warnings:
-            print("⚠️  WARNINGS:")
-            for result in warnings:
-                print(f"  {result}")
-                if result.suggestion:
-                    print(f"     💡 {result.suggestion}")
-            print()
-
-        # Print successes
-        if successes:
-            print("✅ PASSED:")
-            for result in successes:
-                print(f"  {result}")
-            print()
-
-        # Print info
-        if info:
-            for result in info:
-                print(f"ℹ️  {result}")
-
-        # Summary
-        print("-" * 70)
-        total = len(results)
-        passed = len([r for r in results if r.passed])
-        failed = len(errors)
-        warned = len(warnings)
-
-        print(f"Total checks: {total}")
-        print(f"Passed: {passed}")
-        if failed:
-            print(f"Failed: {failed}")
-        if warned:
-            print(f"Warnings: {warned}")
-
-        print("=" * 70)
-
-        if errors:
-            print("\n❌ Validation FAILED - fix errors before running")
-        elif warnings:
-            print("\n⚠️  Validation passed with WARNINGS - review before running")
-        else:
-            print("\n✅ All validations PASSED - ready to run!")
-
-        print()
-
-
-def dry_run(
-    config: dict[str, Any], logger: logging.Logger | None = None, skip_network: bool = False
-) -> int:
-    """
-    Execute dry run validation.
-
-    Validates configuration and system state without executing analysis.
-
-    Args:
-        config: Configuration dictionary
-        logger: Optional logger instance
-        skip_network: Skip network connectivity checks
-
-    Returns:
-        Exit code (0 for success, 1 for failure)
-
-    Example:
-        >>> config = load_config('config.yaml')
-        >>> exit_code = dry_run(config)
-        >>> sys.exit(exit_code)
-    """
-    validator = DryRunValidator(config, logger)
-    success, results = validator.validate_all(skip_network=skip_network)
-    validator.print_results(results)
-
-    return 0 if success else 1
-
-
-__all__ = [
-    "ValidationResult",
-    "DryRunValidator",
-    "dry_run",
-]
