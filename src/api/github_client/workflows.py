@@ -1,87 +1,29 @@
 # SPDX-License-Identifier: Apache-2.0
-# SPDX-FileCopyrightText: 2025 The Linux Foundation
+# SPDX-FileCopyrightText: 2026 The Linux Foundation
 
 """
-GitHub API Client
+GitHub Actions workflow queries.
 
-Client for interacting with GitHub API to fetch workflow run status,
-repository information, and other GitHub-related data.
-
-Extracted from generate_reports.py as part of Phase 2 refactoring.
-Enhanced with standardized error handling and response envelopes.
+Repository workflow listing, workflow-run status retrieval and the
+aggregated per-repository workflow summary.
 """
 
-import logging
 import os
-from typing import Any
+from typing import TYPE_CHECKING, Any
+
+from ..base_client import BaseAPIClient
+from .status import GitHubStatusMixin
 
 
-try:
+if TYPE_CHECKING:
     import httpx
-except ImportError:
-    from cli.errors import ConfigurationError
-
-    raise ConfigurationError(
-        "httpx package is required for GitHub API client",
-        suggestion="Install with: pip install httpx",
-    ) from None
-
-from .base_client import (
-    BaseAPIClient,
-)
 
 
-class GitHubAPIClient(BaseAPIClient):
-    """
-    Client for interacting with GitHub API to fetch workflow run status.
+class GitHubWorkflowsMixin(GitHubStatusMixin, BaseAPIClient):
+    """Workflow listing and run-status queries against the GitHub API."""
 
-    Provides methods to:
-    - List workflows for a repository
-    - Get workflow run status
-    - Get comprehensive workflow status summaries
-
-    Uses standardized response envelope pattern for consistent error handling.
-    """
-
-    def __init__(
-        self,
-        token: str,
-        timeout: float = 30.0,
-        stats: Any | None = None,
-        use_envelope: bool = False,
-    ):
-        """
-        Initialize GitHub API client with token.
-
-        Args:
-            token: GitHub Personal Access Token
-            timeout: Request timeout in seconds
-            stats: Statistics tracker object
-            use_envelope: If True, use new envelope pattern; if False, use legacy dicts
-        """
-        super().__init__(timeout=timeout, stats=stats)
-
-        self.token = token
-        self.base_url = "https://api.github.com"
-        self.use_envelope = use_envelope
-
-        self.client = httpx.Client(
-            base_url=self.base_url,
-            timeout=httpx.Timeout(timeout, connect=10.0),
-            headers={
-                "Authorization": f"Bearer {token}",
-                "Accept": "application/vnd.github+json",
-                "X-GitHub-Api-Version": "2022-11-28",
-                "User-Agent": "repository-reports/1.0.0",
-            },
-        )
-
-        self.logger = logging.getLogger(__name__)
-
-    def close(self):
-        """Close the httpx client and clean up resources."""
-        if hasattr(self, "client"):
-            self.client.close()
+    # Assigned by GitHubAPIClient.__init__; declared here for type checking.
+    client: "httpx.Client"
 
     def _write_to_step_summary(self, message: str) -> None:
         """
@@ -367,92 +309,3 @@ class GitHubAPIClient(BaseAPIClient):
             "github_owner": owner,
             "github_repo": repo,
         }
-
-    def _compute_workflow_color_from_runtime_status(self, status: str) -> str:
-        """
-        Convert runtime workflow status to color for consistency with Jenkins jobs.
-
-        Args:
-            status: Runtime workflow status ("success", "failure", "building", etc.)
-
-        Returns:
-            Color string compatible with Jenkins color scheme
-        """
-        if not status:
-            return "grey"
-
-        status_lower = status.lower()
-
-        # Map runtime statuses to colors (matching Jenkins scheme)
-        status_color_map = {
-            "success": "blue",
-            "failure": "red",
-            "building": "blue_anime",
-            "in_progress": "blue_anime",
-            "cancelled": "grey",
-            "skipped": "grey",
-            "unknown": "grey",
-            "error": "red",
-            "no_runs": "grey",
-        }
-
-        return status_color_map.get(status_lower, "grey")
-
-    def _compute_workflow_status(self, conclusion: str, run_status: str) -> str:
-        """
-        Convert GitHub workflow conclusion and run status to standardized status.
-
-        GitHub conclusions: success, failure, neutral, cancelled, skipped,
-                          timed_out, action_required
-        GitHub run statuses: queued, in_progress, completed
-
-        Args:
-            conclusion: GitHub workflow conclusion
-            run_status: GitHub workflow run status
-
-        Returns:
-            Standardized status string
-        """
-        if not conclusion and not run_status:
-            return "unknown"
-
-        if run_status in ("queued", "in_progress"):
-            return "building"
-
-        if run_status == "completed":
-            conclusion_map = {
-                "success": "success",
-                "failure": "failure",
-                "neutral": "success",
-                "cancelled": "cancelled",
-                "skipped": "skipped",
-                "timed_out": "failure",
-                "action_required": "failure",
-            }
-            return conclusion_map.get(conclusion, "unknown")
-
-        return "unknown"
-
-    def _compute_workflow_color_from_state(self, state: str) -> str:
-        """
-        Convert GitHub workflow state to color for consistency with Jenkins jobs.
-
-        Args:
-            state: GitHub workflow state ("active", "disabled", etc.)
-
-        Returns:
-            Color string compatible with Jenkins color scheme
-        """
-        if not state:
-            return "grey"
-
-        state_lower = state.lower()
-
-        # Map workflow states to colors
-        state_color_map = {
-            "active": "blue",
-            "disabled": "grey",
-            "deleted": "red",
-        }
-
-        return state_color_map.get(state_lower, "grey")
