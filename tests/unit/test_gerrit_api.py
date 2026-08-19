@@ -752,7 +752,7 @@ class TestLoggingBehavior:
 
     def test_logs_discovery_attempts(self):
         """Test that discovery attempts are logged."""
-        with patch("httpx.Client"), patch("logging.debug"):
+        with patch("httpx.Client"), patch("logging.debug") as mock_debug:
             discovery = GerritAPIDiscovery()
             discovery.client.get = MagicMock(return_value=create_mock_response(404))
 
@@ -760,23 +760,19 @@ class TestLoggingBehavior:
                 discovery.discover_base_url("gerrit.example.org")
 
             discovery.close()
-            # Logging may or may not be called
-            assert True
+            mock_debug.assert_any_call("Starting API discovery for host: gerrit.example.org")
 
     def test_logs_api_errors(self, gerrit_client):
         """Test that API errors are logged."""
-        if not hasattr(gerrit_client, "get_projects"):
-            pytest.skip("Method not implemented")
-
         mock_response = create_mock_response(500, text="Server error")
         gerrit_client.client.get = MagicMock(return_value=mock_response)
 
-        with patch.object(gerrit_client, "logger", MagicMock()):
-            with contextlib.suppress(Exception):
-                gerrit_client.get_projects()
+        with patch.object(gerrit_client, "logger", MagicMock()) as mock_logger:
+            gerrit_client.get_all_projects()
 
-            # Logger may be used
-            assert True
+            mock_logger.error.assert_called_once_with(
+                "❌ Error: Gerrit API query returned error code: 500"
+            )
 
 
 # Pytest markers for categorization

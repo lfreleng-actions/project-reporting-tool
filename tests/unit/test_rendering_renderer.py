@@ -739,9 +739,6 @@ class TestRendererErrorHandling:
         with pytest.raises((TypeError, AttributeError, ValueError)):
             renderer.render_markdown(invalid_data)
 
-        # Should log error
-        assert True  # May not reach logger if fails earlier
-
 
 # ============================================================================
 # Edge Cases

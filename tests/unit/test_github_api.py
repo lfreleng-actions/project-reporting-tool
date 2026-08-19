@@ -311,8 +311,8 @@ class TestErrorHandling:
         """Test that errors are properly recorded in stats."""
         github_client._record_error("github", 500)
 
-        # Verify stats tracking was called
-        assert True  # Stats implementation may vary
+        # The error is forwarded verbatim to the statistics tracker
+        mock_stats.record_error.assert_called_once_with("github", 500)
 
     def test_multiple_retries_on_server_error(self, github_client):
         """Test retry behavior on server errors."""
@@ -461,22 +461,23 @@ class TestLoggingBehavior:
         mock_response = create_mock_response(500, text="Server error")
         github_client.client.get = MagicMock(return_value=mock_response)
 
-        with patch.object(github_client, "_record_error"):
+        with (
+            patch.object(github_client, "_record_error"),
+            patch.object(github_client, "logger", MagicMock()) as mock_logger,
+        ):
             github_client.get_repository_workflows("owner", "repo")
 
-        # Test passes if no exception is raised
-        assert True
+        assert "500" in mock_logger.warning.call_args[0][0]
 
     def test_logs_successful_requests(self, github_client):
         """Test logging of successful requests."""
         mock_response = create_mock_response(200, json_data={"workflows": []})
         github_client.client.get = MagicMock(return_value=mock_response)
 
-        with patch.object(github_client.logger, "debug"):
+        with patch.object(github_client.logger, "debug") as mock_debug:
             github_client.get_repository_workflows("owner", "repo")
 
-        # Debug logging may or may not be implemented
-        assert True  # Just verify no exceptions
+        assert "/repos/owner/repo/actions/workflows" in mock_debug.call_args[0][0]
 
 
 class TestIntegrationScenarios:

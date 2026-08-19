@@ -1,210 +1,27 @@
 # SPDX-License-Identifier: Apache-2.0
-# SPDX-FileCopyrightText: 2025 The Linux Foundation
+# SPDX-FileCopyrightText: 2026 The Linux Foundation
 
-"""Configuration validation module for repository reporting system.
+"""Core configuration validator.
 
-This module provides comprehensive validation of configuration files using
-JSON Schema, with detailed error reporting and backwards compatibility checking.
-
-Features:
-- JSON Schema-based validation
-- Semantic validation (e.g., threshold ordering)
-- Detailed error messages with suggestions
-- Configuration warnings for deprecated/risky settings
-- Schema version compatibility checking
-
-Example:
-    >>> from src.config.validator import ConfigValidator
-    >>> validator = ConfigValidator()
-    >>> result = validator.validate(config)
-    >>> if not result.is_valid:
-    ...     for error in result.errors:
-    ...         print(f"ERROR: {error.message}")
-    ...     for warning in result.warnings:
-    ...         print(f"WARNING: {warning.message}")
+Holds ConfigValidator, which loads the bundled JSON schema and applies the
+schema, semantic, compatibility, security and performance validation passes
+to a configuration dictionary, plus the validate_config_file front door that
+reads a YAML configuration from disk and runs it through the validator.
 """
-
-# The print_validation_result helper renders configuration validation output to
-# the terminal (stderr); print() is the intended output sink here, not leftover
-# debugging.
-# aislop-ignore-file python-print-debug -- intentional user-facing CLI output
 
 import importlib.util
 import json
-from collections.abc import Callable
-from dataclasses import dataclass, field
-from enum import Enum
 from pathlib import Path
 from typing import Any
 
 from cli.error_helpers import wrap_config_error, wrap_file_error
 from cli.errors import ConfigurationError
 
+from .results import ValidationCategory, ValidationResult
+from .schema_errors import _SCHEMA_ERROR_FORMATTERS, _extract_quoted
+
 
 HAS_JSONSCHEMA = importlib.util.find_spec("jsonschema") is not None
-
-
-def _extract_quoted(message: str) -> str:
-    """Return the first single-quoted token in a schema error message.
-
-    Falls back to the raw message when it contains no quoted token, so a
-    differently phrased jsonschema error cannot raise IndexError.
-    """
-    parts = message.split("'")
-    return parts[1] if len(parts) >= 3 else message
-
-
-def _format_required_error(e: Any) -> str:
-    return f"Missing required field: '{_extract_quoted(e.message)}'"
-
-
-def _format_type_error(e: Any) -> str:
-    return f"Invalid type: expected {e.validator_value}, got {type(e.instance).__name__}"
-
-
-def _format_enum_error(e: Any) -> str:
-    valid_values = ", ".join(f"'{v}'" for v in e.validator_value)
-    return f"Invalid value. Must be one of: {valid_values}"
-
-
-def _format_minimum_error(e: Any) -> str:
-    return f"Value {e.instance} is below minimum {e.validator_value}"
-
-
-def _format_maximum_error(e: Any) -> str:
-    return f"Value {e.instance} exceeds maximum {e.validator_value}"
-
-
-def _format_pattern_error(e: Any) -> str:
-    return f"Value does not match required pattern: {e.validator_value}"
-
-
-# Table-driven formatting for JSON Schema validation errors, keyed by the
-# jsonschema validator that produced the error. Any validator absent from this
-# table falls back to the raw error message.
-_SCHEMA_ERROR_FORMATTERS: dict[str, Callable[[Any], str]] = {
-    "required": _format_required_error,
-    "type": _format_type_error,
-    "enum": _format_enum_error,
-    "minimum": _format_minimum_error,
-    "maximum": _format_maximum_error,
-    "pattern": _format_pattern_error,
-}
-
-
-class ValidationLevel(Enum):
-    """Severity level for validation issues."""
-
-    ERROR = "error"
-    WARNING = "warning"
-    INFO = "info"
-
-
-class ValidationCategory(Enum):
-    """Category of validation issue."""
-
-    SCHEMA = "schema"  # JSON schema violation
-    SEMANTIC = "semantic"  # Logical inconsistency
-    COMPATIBILITY = "compatibility"  # Version/compatibility issue
-    SECURITY = "security"  # Security concern
-    PERFORMANCE = "performance"  # Performance impact
-    DEPRECATED = "deprecated"  # Deprecated setting
-
-
-@dataclass
-class ValidationIssue:
-    """Represents a single validation issue."""
-
-    level: ValidationLevel
-    category: ValidationCategory
-    message: str
-    path: str = ""
-    suggestion: str | None = None
-
-    def __str__(self) -> str:
-        """Format issue for display."""
-        parts = [f"[{self.level.value.upper()}]"]
-        if self.path:
-            parts.append(f"at '{self.path}':")
-        parts.append(self.message)
-        if self.suggestion:
-            parts.append(f"\n  Suggestion: {self.suggestion}")
-        return " ".join(parts)
-
-
-@dataclass
-class ValidationResult:
-    """Result of configuration validation."""
-
-    is_valid: bool
-    errors: list[ValidationIssue] = field(default_factory=list)
-    warnings: list[ValidationIssue] = field(default_factory=list)
-    infos: list[ValidationIssue] = field(default_factory=list)
-
-    @property
-    def has_warnings(self) -> bool:
-        """Check if there are any warnings."""
-        return len(self.warnings) > 0
-
-    @property
-    def has_errors(self) -> bool:
-        """Check if there are any errors."""
-        return len(self.errors) > 0
-
-    def add_error(
-        self,
-        message: str,
-        category: ValidationCategory = ValidationCategory.SCHEMA,
-        path: str = "",
-        suggestion: str | None = None,
-    ) -> None:
-        """Add an error to the result."""
-        self.errors.append(
-            ValidationIssue(
-                level=ValidationLevel.ERROR,
-                category=category,
-                message=message,
-                path=path,
-                suggestion=suggestion,
-            )
-        )
-        self.is_valid = False
-
-    def add_warning(
-        self,
-        message: str,
-        category: ValidationCategory = ValidationCategory.SEMANTIC,
-        path: str = "",
-        suggestion: str | None = None,
-    ) -> None:
-        """Add a warning to the result."""
-        self.warnings.append(
-            ValidationIssue(
-                level=ValidationLevel.WARNING,
-                category=category,
-                message=message,
-                path=path,
-                suggestion=suggestion,
-            )
-        )
-
-    def add_info(
-        self,
-        message: str,
-        category: ValidationCategory = ValidationCategory.COMPATIBILITY,
-        path: str = "",
-        suggestion: str | None = None,
-    ) -> None:
-        """Add an info message to the result."""
-        self.infos.append(
-            ValidationIssue(
-                level=ValidationLevel.INFO,
-                category=category,
-                message=message,
-                path=path,
-                suggestion=suggestion,
-            )
-        )
 
 
 class ConfigValidator:
@@ -229,7 +46,9 @@ class ConfigValidator:
         from jsonschema import Draft7Validator as _Draft7Validator
 
         if schema_path is None:
-            schema_path = Path(__file__).parent / "schema.json"
+            # schema.json lives in the parent `config` package directory, one
+            # level above this module now that `validator` is a package.
+            schema_path = Path(__file__).parent.parent / "schema.json"
 
         self.schema_path = schema_path
         self.schema = self._load_schema()
@@ -507,31 +326,3 @@ def validate_config_file(config_path: Path) -> ValidationResult:
     validator = ConfigValidator()
     result = validator.validate(config)
     return result
-
-
-def print_validation_result(result: ValidationResult, verbose: bool = False) -> None:
-    """Print validation result in a user-friendly format.
-
-    Args:
-        result: Validation result to print
-        verbose: If True, include info messages
-    """
-    import sys
-
-    if result.has_errors:
-        print("❌ Configuration validation FAILED\n", file=sys.stderr)
-        print(f"Found {len(result.errors)} error(s):\n", file=sys.stderr)
-        for error in result.errors:
-            print(f"  {error}\n", file=sys.stderr)
-    else:
-        print("✅ Configuration validation PASSED\n", file=sys.stderr)
-
-    if result.has_warnings:
-        print(f"⚠️  Found {len(result.warnings)} warning(s):\n", file=sys.stderr)
-        for warning in result.warnings:
-            print(f"  {warning}\n", file=sys.stderr)
-
-    if verbose and result.infos:
-        print(f"ℹ️  Information ({len(result.infos)}):\n", file=sys.stderr)
-        for info in result.infos:
-            print(f"  {info}\n", file=sys.stderr)

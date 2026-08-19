@@ -11,6 +11,7 @@ Phase 14: Test Reliability - Phase 3 - Test Isolation
 """
 
 import os
+import sys
 from unittest.mock import Mock, patch
 
 import pytest
@@ -184,7 +185,7 @@ class TestOrderIndependence:
         """Test that runs first alphabetically."""
         # Set some state
         self.test_value = "a"
-        assert True
+        assert self.test_value == "a"
 
     def test_z_last_alphabetically(self):
         """Test that runs last alphabetically."""
@@ -194,7 +195,7 @@ class TestOrderIndependence:
     def test_m_middle_alphabetically(self):
         """Test that runs in the middle alphabetically."""
         # Should be independent
-        assert True
+        assert not hasattr(self, "test_value")
 
 
 class TestStatefulOperations:
@@ -264,12 +265,12 @@ class TestPatchIsolation:
     def test_patch_with_decorator_first(self):
         """First test using patch decorator."""
         # Test runs without decorator - patches in setup don't affect this
-        assert True
+        assert not isinstance(os.path.exists, Mock)
 
     def test_patch_with_decorator_second(self):
         """Second test to verify no lingering patches."""
         # Should be clean
-        assert True
+        assert not isinstance(os.path.exists, Mock)
 
 
 class TestExceptionIsolation:
@@ -282,13 +283,13 @@ class TestExceptionIsolation:
         except ValueError:
             pass  # Handled
 
-        # Test continues normally
-        assert True
+        # Test continues normally: the handled exception left no active context
+        assert sys.exc_info() == (None, None, None)
 
     def test_no_exception_second(self):
         """Second test should not be affected by previous exception."""
-        # Should run normally
-        assert True
+        # Should run normally, with no exception leaked from the previous test
+        assert sys.exc_info() == (None, None, None)
 
 
 class TestConcurrentStateIsolation:
@@ -319,10 +320,10 @@ class TestConcurrentStateIsolation:
 class TestIsolationValidation:
     """Meta-tests to validate isolation mechanisms."""
 
-    def test_auto_reset_fixture_exists(self):
+    def test_auto_reset_fixture_exists(self, request):
         """Verify auto-reset fixture is configured."""
-        # If we got here, fixtures are working
-        assert True
+        # The conftest fixture is autouse, so it applies to this test as well
+        assert "auto_reset_global_state" in request.fixturenames
 
     def test_can_import_isolation_utilities(self):
         """Verify isolation utilities are available."""
@@ -333,21 +334,27 @@ class TestIsolationValidation:
 
     def test_reset_global_state_is_idempotent(self):
         """Test that reset_global_state can be called multiple times."""
+        from cli.metrics import get_metrics_collector
+
+        get_metrics_collector().record_api_call("GitHub", 0.5, cached=False, failed=False)
+
         reset_global_state()
         reset_global_state()
         reset_global_state()
 
-        # Should not raise any errors
-        assert True
+        # Repeated resets stay safe and leave the collector empty
+        assert not get_metrics_collector()._api_stats
 
     def test_ensure_clean_environment_is_idempotent(self):
         """Test that ensure_clean_environment can be called multiple times."""
+        os.environ["GITHUB_TOKEN"] = "token-set-by-this-test"
+
         ensure_clean_environment()
         ensure_clean_environment()
         ensure_clean_environment()
 
-        # Should not raise any errors
-        assert True
+        # Repeated cleans stay safe and leave the variable removed
+        assert "GITHUB_TOKEN" not in os.environ
 
 
 class TestRealWorldIsolationScenarios:
