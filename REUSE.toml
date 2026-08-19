@@ -16,3 +16,10 @@ precedence = "aggregate"
 SPDX-FileCopyrightText = "2025 The Linux Foundation"
 SPDX-License-Identifier = "Apache-2.0"
 SPDX-FileComment = "JSON configuration files (JSON format doesn't support comments)"
+
+[[annotations]]
+path = ["**/__pycache__/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 The Linux Foundation"
+SPDX-License-Identifier = "Apache-2.0"
+SPDX-FileComment = "Python bytecode caches: git-ignored build artefacts that REUSE still scans when they sit inside a directory git does not yet track"
