@@ -59,7 +59,7 @@ class TestProgressIndicator(unittest.TestCase):
         output = stderr.getvalue()
         self.assertEqual(output, "")
 
-    @patch("cli.progress.TQDM_AVAILABLE", False)
+    @patch("cli.progress.bars.TQDM_AVAILABLE", False)
     def test_context_manager_without_tqdm(self):
         """Test context manager without tqdm (simple mode)."""
         stderr = io.StringIO()
@@ -72,8 +72,8 @@ class TestProgressIndicator(unittest.TestCase):
         # Should show progress updates
         self.assertTrue(len(output) > 0)
 
-    @patch("cli.progress.TQDM_AVAILABLE", True)
-    @patch("cli.progress.tqdm")
+    @patch("cli.progress.bars.TQDM_AVAILABLE", True)
+    @patch("cli.progress.bars.tqdm")
     def test_context_manager_with_tqdm(self, mock_tqdm_class):
         """Test context manager with tqdm available."""
         mock_tqdm = MagicMock()
@@ -115,8 +115,8 @@ class TestProgressIndicator(unittest.TestCase):
         progress.set_description("Updated")
         self.assertEqual(progress.desc, "Updated")
 
-    @patch("cli.progress.TQDM_AVAILABLE", True)
-    @patch("cli.progress.tqdm")
+    @patch("cli.progress.bars.TQDM_AVAILABLE", True)
+    @patch("cli.progress.bars.tqdm")
     def test_set_description_with_tqdm(self, mock_tqdm_class):
         """Test set_description updates tqdm."""
         mock_tqdm = MagicMock()
@@ -127,8 +127,8 @@ class TestProgressIndicator(unittest.TestCase):
 
         mock_tqdm.set_description.assert_called_with("Updated")
 
-    @patch("cli.progress.TQDM_AVAILABLE", True)
-    @patch("cli.progress.tqdm")
+    @patch("cli.progress.bars.TQDM_AVAILABLE", True)
+    @patch("cli.progress.bars.tqdm")
     def test_write_with_tqdm(self, mock_tqdm_class):
         """Test write method with tqdm."""
         mock_tqdm = MagicMock()
@@ -310,7 +310,7 @@ class TestOperationFeedback(unittest.TestCase):
 class TestProgressBarContextManager(unittest.TestCase):
     """Test progress_bar context manager."""
 
-    @patch("cli.progress.TQDM_AVAILABLE", False)
+    @patch("cli.progress.bars.TQDM_AVAILABLE", False)
     def test_with_manual_total(self):
         """Test progress_bar with manual total."""
         stderr = io.StringIO()
@@ -427,7 +427,7 @@ class TestTqdmAvailability(unittest.TestCase):
 class TestProgressIntegration(unittest.TestCase):
     """Integration tests for progress indicators."""
 
-    @patch("cli.progress.TQDM_AVAILABLE", False)
+    @patch("cli.progress.bars.TQDM_AVAILABLE", False)
     def test_sequential_progress(self):
         """Test progress with sequential operations."""
         items = list(range(10))
