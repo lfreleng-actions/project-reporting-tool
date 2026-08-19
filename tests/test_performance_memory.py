@@ -417,7 +417,7 @@ class TestMemoryMonitor:
         # Mock high memory usage
         with (
             patch.object(monitor, "get_current_memory", return_value=100.0),
-            patch("performance.memory.logger") as mock_logger,
+            patch("performance.memory.monitor.logger") as mock_logger,
         ):
             monitor.snapshot("high_memory_op")
 
