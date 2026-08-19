@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-08-18 07:14:59 UTC
+**Generated:** 2026-08-19 07:15:03 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -30,7 +30,7 @@
 | Inactive Repositories | 3 | 50.0% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 22.9K | - |
-| Total Lines of Code | 314.5K | - |
+| Total Lines of Code | 315.1K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -41,8 +41,8 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 157 | 1180 | +199171 | 345700 | +44 | 4 |
-| 2 | gmail.com | 116 | 325 | +23928 | 36404 | +35 | 4 |
+| 1 | cisco.com | 157 | 1180 | +199330 | 345992 | +44 | 4 |
+| 2 | gmail.com | 117 | 326 | +24129 | 36619 | +35 | 4 |
 | 3 | icloud.com | 2 | 184 | +56472 | 133495 | -111 | 3 |
 | 4 | netgate.com | 17 | 85 | +6393 | 7663 | +60 | 1 |
 | 5 | hawari.fr | 1 | 18 | +16236 | 17443 | +834 | 1 |
@@ -67,27 +67,27 @@ The data presented in the table below covers the past 365 days.
 | 24 | ipng.ch | 1 | 2 | +545 | 610 | +240 | 1 |
 | 25 | pantheon.tech | 31 | 2 | +474 | 584 | +182 | 2 |
 | 26 | sina.com | 1 | 2 | +7 | 18 | -2 | 1 |
-| 27 | yandex-team.ru | 4 | 2 | +30 | 35 | +12 | 1 |
-| 28 | 163.com | 8 | 1 | +8 | 16 | 0 | 1 |
-| 29 | andrews-macbook-pro.local | 1 | 1 | +1 | 2 | 0 | 1 |
-| 30 | arm.com | 17 | 1 | +43 | 45 | +41 | 2 |
+| 27 | 163.com | 8 | 1 | +8 | 16 | 0 | 1 |
+| 28 | andrews-macbook-pro.local | 1 | 1 | +1 | 2 | 0 | 1 |
+| 29 | arm.com | 17 | 1 | +43 | 45 | +41 | 2 |
+| 30 | mcconnachie.ca | 1 | 1 | +1 | 2 | 0 | 1 |
 
 ---
 ## 👥 Top Contributors
 
 The data presented in the table below covers the past 365 days.
 
-**Contributors Found:** 658
+**Contributors Found:** 659
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Florin Coras | 289 | +44748 | 60735 | +99 | 2 | cisco.com |
-| 2 | Matus Fabian | 247 | +30308 | 44367 | +65 | 2 | cisco.com |
-| 3 | Dave Wallace | 236 | +15432 | 22046 | +37 | 4 | gmail.com |
+| 1 | Florin Coras | 288 | +44829 | 60889 | +99 | 2 | cisco.com |
+| 2 | Matus Fabian | 247 | +30323 | 44393 | +65 | 2 | cisco.com |
+| 3 | Dave Wallace | 237 | +15434 | 22048 | +37 | 4 | gmail.com |
 | 4 | Peter Mikus | 182 | +56453 | 133470 | -112 | 3 | icloud.com |
 | 5 | Damjan Marion | 157 | +50062 | 124435 | -154 | 1 | cisco.com |
 | 6 | Tibor Frank | 109 | +8619 | 15483 | +16 | 2 | cisco.com |
-| 7 | Vratko Polak | 83 | +25185 | 47815 | +30 | 3 | cisco.com |
+| 7 | Vratko Polak | 84 | +25233 | 47911 | +30 | 3 | cisco.com |
 | 8 | Adrian Villin | 75 | +11692 | 18497 | +65 | 1 | cisco.com |
 | 9 | Benoît Ganne | 57 | +3262 | 4853 | +29 | 1 | cisco.com |
 | 10 | Klement Sekera | 48 | +2925 | 3615 | +46 | 1 | netgate.com |
@@ -99,8 +99,8 @@ The data presented in the table below covers the past 365 days.
 | 16 | Damjan Marion | 17 | +1123 | 1554 | +40 | 1 | gmail.com |
 | 17 | Mohsin KAZMI | 16 | +2762 | 2982 | +158 | 2 | cisco.com |
 | 18 | Rob Shearman | 16 | +821 | 925 | +44 | 1 | gmail.com |
-| 19 | Semir Sionek | 15 | +1036 | 1325 | +49 | 1 | cisco.com |
-| 20 | dependabot[bot] | 15 | +18 | 36 | 0 | 1 | github.com |
+| 19 | dependabot[bot] | 15 | +18 | 36 | 0 | 1 | github.com |
+| 20 | Semir Sionek | 14 | +1035 | 1323 | +53 | 1 | cisco.com |
 | 21 | Aritra Basu | 13 | +1814 | 1956 | +128 | 1 | cisco.com |
 | 22 | Yoann Desmouceaux | 13 | +175 | 243 | +8 | 1 | cisco.com |
 | 23 | Matthew Smith | 11 | +291 | 460 | +11 | 1 | netgate.com |
@@ -110,19 +110,19 @@ The data presented in the table below covers the past 365 days.
 | 27 | Ivan Shvedunov | 8 | +1596 | 1737 | +181 | 1 | netgate.com |
 | 28 | Alexander Skorichenko | 7 | +774 | 900 | +92 | 1 | netgate.com |
 | 29 | Andrew Yourtchenko | 7 | +2031 | 2036 | +289 | 1 | gmail.com |
-| 30 | Monendra Singh Kushwaha | 6 | +123 | 141 | +17 | 1 | marvell.com |
+| 30 | Ivan Ivanets | 6 | +3116 | 4317 | +319 | 2 | cisco.com |
 
 ---
 ## 📊 Repositories
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 16199 | +216628 | 91 | 0 | 2026-08-17 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6548 | +88627 | 6 | 0 | 2026-08-18 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2642 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 37 | +5142 | 2 | 35 | 2026-07-14 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2117 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3639 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 16205 | +216915 | 91 | 1 | 2026-08-17 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6550 | +88691 | 6 | 0 | 2026-08-18 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2643 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 37 | +5142 | 2 | 36 | 2026-07-14 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2118 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3640 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
@@ -131,8 +131,8 @@ The data presented in the table below covers the past 365 days.
 
 | Gerrit Project | Primary Type | Other Types | Dependabot | Pre-commit | ReadTheDocs | .gitreview | G2G | Status |
 |----------------|--------------|-------------|------------|------------|-------------|------------|-----|--------|
-| test_injector | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | main_test | Shell |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| test_injector | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | vppsb | C | JavaScript, Shell, HTML, CSS, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | .github | Shell | Python, HCL | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ |
 | csit | Robot Framework | Python, Shell, SCSS, HTML, HCL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
