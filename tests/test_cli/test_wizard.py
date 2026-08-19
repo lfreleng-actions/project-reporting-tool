@@ -210,11 +210,17 @@ class TestCreateConfigFromTemplate:
         assert config["project"] == "test-project"
         assert "performance" in config
 
-    def test_create_config_auto_path(self, tmp_path):
+    def test_create_config_auto_path(self, tmp_path, monkeypatch):
         """Test creating config with automatic path."""
-        with patch("pathlib.Path.cwd", return_value=tmp_path):
-            result = create_config_from_template("test-project", "minimal")
-            assert "config/test-project.yaml" in result
+        # The default path is relative, so the working directory has to move:
+        # patching Path.cwd() would not redirect the write, and the file would
+        # land in the checkout it was run from.
+        monkeypatch.chdir(tmp_path)
+
+        result = create_config_from_template("test-project", "minimal")
+
+        assert "config/test-project.yaml" in result
+        assert (tmp_path / "config" / "test-project.yaml").exists()
 
     def test_create_config_creates_directories(self, tmp_path):
         """Test that config creation creates parent directories."""
