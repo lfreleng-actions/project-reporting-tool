@@ -59,10 +59,10 @@ class TestRenderContextDataExtraction:
         assert summary["active_count"] == 0
         assert summary["inactive_count"] == 1
 
-        # Should calculate LOC from loc_stats across all time windows
-        assert summary["total_lines_added"] > 0
-        assert summary["total_lines_removed"] > 0
-        assert summary["net_lines"] > 0
+        # Should calculate LOC from the configured, non-overlapping reporting window.
+        assert summary["total_lines_added"] == 50000
+        assert summary["total_lines_removed"] == 20000
+        assert summary["net_lines"] == 30000
 
     def test_extracts_repositories_with_correct_structure(
         self, realistic_report_data, minimal_config
@@ -414,21 +414,17 @@ class TestRenderContextEdgeCases:
     def test_calculates_loc_correctly_with_multiple_time_windows(
         self, realistic_report_data, minimal_config
     ):
-        """Verify LOC is summed across all time windows correctly."""
+        """Verify overlapping LOC windows are not summed together."""
         context = RenderContext(realistic_report_data, minimal_config)
         result = context.build()
 
         summary = result["summary"]
 
-        # Should sum LOC from all time windows in loc_stats
-        # repo1: last_30 (5000 added) + last_90 (12000) + last_365 (50000) + last_3_years (150000) = 217000
-        # repo2: last_30 (0) + last_90 (0) + last_365 (0) + last_3_years (1000) = 1000
-        # Total = 218000
-        # But we should only count each window once, not sum duplicates!
-        # Actually, the logic sums ALL windows, which is wrong for overlapping windows
-        # But at least it should be > 0 and consistent
-        assert summary["total_lines_added"] > 0
-        assert summary["total_lines_removed"] > 0
+        # The report uses last_365. The shorter and longer windows overlap with
+        # it, so only repo1's last_365 values belong in the summary.
+        assert summary["total_lines_added"] == 50000
+        assert summary["total_lines_removed"] == 20000
+        assert summary["net_lines"] == 30000
 
 
 class TestRenderContextDataIntegrity:
