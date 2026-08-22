@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-08-21 07:16:37 UTC
+**Generated:** 2026-08-22 07:12:08 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -30,7 +30,7 @@
 | Inactive Repositories | 3 | 50.0% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 22.9K | - |
-| Total Lines of Code | 70.0K | - |
+| Total Lines of Code | 66.4K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -41,21 +41,21 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 157 | 1177 | +197802 | 344137 | +43 | 4 |
-| 2 | gmail.com | 117 | 327 | +24194 | 36716 | +35 | 4 |
-| 3 | icloud.com | 2 | 186 | +59753 | 139396 | -106 | 3 |
+| 1 | cisco.com | 157 | 1181 | +196238 | 342142 | +42 | 4 |
+| 2 | gmail.com | 118 | 329 | +24657 | 37559 | +35 | 4 |
+| 3 | icloud.com | 2 | 187 | +59753 | 142037 | -120 | 3 |
 | 4 | netgate.com | 17 | 85 | +6393 | 7663 | +60 | 1 |
 | 5 | hawari.fr | 1 | 18 | +16236 | 17443 | +834 | 1 |
 | 6 | github.com | 2 | 15 | +18 | 36 | 0 | 2 |
 | 7 | ipng.nl | 1 | 10 | +2851 | 3200 | +250 | 1 |
 | 8 | barachs.net | 2 | 9 | +533 | 588 | +53 | 1 |
-| 9 | marvell.com | 16 | 8 | +191 | 211 | +21 | 2 |
-| 10 | labn.net | 4 | 6 | +468 | 641 | +49 | 1 |
-| 11 | linuxfoundation.org | 5 | 6 | +172 | 204 | +23 | 6 |
-| 12 | meter.com | 5 | 6 | +70 | 124 | +2 | 2 |
-| 13 | qq.com | 5 | 6 | +507 | 596 | +69 | 1 |
-| 14 | employees.org | 1 | 4 | +389 | 466 | +78 | 1 |
-| 15 | intel.com | 55 | 4 | +14 | 25 | 0 | 3 |
+| 9 | marvell.com | 16 | 7 | +162 | 180 | +20 | 2 |
+| 10 | intel.com | 55 | 6 | +104 | 130 | +13 | 3 |
+| 11 | labn.net | 4 | 6 | +468 | 641 | +49 | 1 |
+| 12 | linuxfoundation.org | 5 | 6 | +172 | 204 | +23 | 6 |
+| 13 | meter.com | 5 | 6 | +70 | 124 | +2 | 2 |
+| 14 | qq.com | 5 | 6 | +507 | 596 | +69 | 1 |
+| 15 | employees.org | 1 | 4 | +389 | 466 | +78 | 1 |
 | 16 | travelping.com | 4 | 4 | +109 | 158 | +15 | 1 |
 | 17 | googlemail.com | 1 | 3 | +84 | 85 | +27 | 1 |
 | 18 | graphiant.com | 5 | 3 | +20 | 30 | +3 | 1 |
@@ -77,14 +77,14 @@ The data presented in the table below covers the past 365 days.
 
 The data presented in the table below covers the past 365 days.
 
-**Contributors Found:** 659
+**Contributors Found:** 660
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Florin Coras | 286 | +44615 | 60616 | +100 | 2 | cisco.com |
-| 2 | Matus Fabian | 246 | +29026 | 42872 | +61 | 2 | cisco.com |
-| 3 | Dave Wallace | 237 | +15434 | 22048 | +37 | 4 | gmail.com |
-| 4 | Peter Mikus | 184 | +59734 | 139371 | -108 | 3 | icloud.com |
+| 1 | Florin Coras | 287 | +44744 | 60883 | +99 | 2 | cisco.com |
+| 2 | Matus Fabian | 247 | +29029 | 42878 | +61 | 2 | cisco.com |
+| 3 | Dave Wallace | 238 | +15887 | 22881 | +37 | 4 | gmail.com |
+| 4 | Peter Mikus | 185 | +59734 | 142012 | -121 | 3 | icloud.com |
 | 5 | Damjan Marion | 157 | +50062 | 124435 | -154 | 1 | cisco.com |
 | 6 | Tibor Frank | 109 | +8619 | 15483 | +16 | 2 | cisco.com |
 | 7 | Vratko Polak | 84 | +25233 | 47911 | +30 | 3 | cisco.com |
@@ -99,10 +99,10 @@ The data presented in the table below covers the past 365 days.
 | 16 | Damjan Marion | 17 | +1123 | 1554 | +40 | 1 | gmail.com |
 | 17 | Mohsin KAZMI | 16 | +2762 | 2982 | +158 | 2 | cisco.com |
 | 18 | Rob Shearman | 16 | +821 | 925 | +44 | 1 | gmail.com |
-| 19 | dependabot[bot] | 15 | +18 | 36 | 0 | 1 | github.com |
-| 20 | Aritra Basu | 14 | +1819 | 1976 | +118 | 1 | cisco.com |
-| 21 | Semir Sionek | 13 | +658 | 864 | +34 | 1 | cisco.com |
-| 22 | Yoann Desmouceaux | 13 | +175 | 243 | +8 | 1 | cisco.com |
+| 19 | Aritra Basu | 15 | +1820 | 1986 | +110 | 1 | cisco.com |
+| 20 | Yoann Desmouceaux | 15 | +309 | 417 | +13 | 1 | cisco.com |
+| 21 | dependabot[bot] | 15 | +18 | 36 | 0 | 1 | github.com |
+| 22 | Semir Sionek | 13 | +658 | 864 | +34 | 1 | cisco.com |
 | 23 | Matthew Smith | 11 | +291 | 460 | +11 | 1 | netgate.com |
 | 24 | Pim van Pelt | 10 | +2851 | 3200 | +250 | 1 | ipng.nl |
 | 25 | Steven | 10 | +283 | 364 | +20 | 3 | cisco.com |
@@ -110,19 +110,19 @@ The data presented in the table below covers the past 365 days.
 | 27 | Ivan Shvedunov | 8 | +1596 | 1737 | +181 | 1 | netgate.com |
 | 28 | Alexander Skorichenko | 7 | +774 | 900 | +92 | 1 | netgate.com |
 | 29 | Andrew Yourtchenko | 7 | +2031 | 2036 | +289 | 1 | gmail.com |
-| 30 | Ivan Ivanets | 6 | +3116 | 4317 | +319 | 2 | cisco.com |
+| 30 | Nathan Skrzypczak | 6 | +518 | 3022 | -331 | 1 | gmail.com |
 
 ---
 ## 📊 Repositories
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 16210 | +215452 | 92 | 1 | 2026-08-19 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6551 | +89296 | 6 | 1 | 2026-08-19 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2645 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 38 | +7818 | 2 | 1 | 2026-08-19 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2120 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3642 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 16220 | +214412 | 93 | 0 | 2026-08-21 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6552 | +89296 | 6 | 0 | 2026-08-21 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2646 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 38 | +7818 | 2 | 2 | 2026-08-19 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2121 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3643 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
@@ -131,8 +131,8 @@ The data presented in the table below covers the past 365 days.
 
 | Gerrit Project | Primary Type | Other Types | Dependabot | Pre-commit | ReadTheDocs | .gitreview | G2G | Status |
 |----------------|--------------|-------------|------------|------------|-------------|------------|-----|--------|
-| test_injector | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | main_test | Shell |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| test_injector | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | vppsb | C | JavaScript, Shell, HTML, CSS, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | .github | HCL | Python, Shell | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ |
 | csit | Robot Framework | Python, Shell, SCSS, HTML, HCL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
