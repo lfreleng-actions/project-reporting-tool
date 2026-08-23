@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-08-22 07:12:08 UTC
+**Generated:** 2026-08-23 07:12:52 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -30,7 +30,7 @@
 | Inactive Repositories | 3 | 50.0% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 22.9K | - |
-| Total Lines of Code | 66.4K | - |
+| Total Lines of Code | 66.1K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -41,7 +41,7 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 157 | 1181 | +196238 | 342142 | +42 | 4 |
+| 1 | cisco.com | 157 | 1180 | +196055 | 342059 | +42 | 4 |
 | 2 | gmail.com | 118 | 329 | +24657 | 37559 | +35 | 4 |
 | 3 | icloud.com | 2 | 187 | +59753 | 142037 | -120 | 3 |
 | 4 | netgate.com | 17 | 85 | +6393 | 7663 | +60 | 1 |
@@ -81,14 +81,14 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Florin Coras | 287 | +44744 | 60883 | +99 | 2 | cisco.com |
-| 2 | Matus Fabian | 247 | +29029 | 42878 | +61 | 2 | cisco.com |
+| 1 | Florin Coras | 288 | +44976 | 61369 | +99 | 2 | cisco.com |
+| 2 | Matus Fabian | 246 | +29022 | 42869 | +61 | 2 | cisco.com |
 | 3 | Dave Wallace | 238 | +15887 | 22881 | +37 | 4 | gmail.com |
 | 4 | Peter Mikus | 185 | +59734 | 142012 | -121 | 3 | icloud.com |
 | 5 | Damjan Marion | 157 | +50062 | 124435 | -154 | 1 | cisco.com |
 | 6 | Tibor Frank | 109 | +8619 | 15483 | +16 | 2 | cisco.com |
 | 7 | Vratko Polak | 84 | +25233 | 47911 | +30 | 3 | cisco.com |
-| 8 | Adrian Villin | 74 | +11504 | 18261 | +64 | 1 | cisco.com |
+| 8 | Adrian Villin | 73 | +11096 | 17701 | +61 | 1 | cisco.com |
 | 9 | Benoît Ganne | 56 | +3257 | 4846 | +29 | 1 | cisco.com |
 | 10 | Klement Sekera | 48 | +2925 | 3615 | +46 | 1 | netgate.com |
 | 11 | Jerome Tollet | 36 | +7745 | 9048 | +178 | 1 | cisco.com |
@@ -117,12 +117,12 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 16220 | +214412 | 93 | 0 | 2026-08-21 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6552 | +89296 | 6 | 0 | 2026-08-21 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2646 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 38 | +7818 | 2 | 2 | 2026-08-19 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2121 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3643 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 16222 | +214229 | 93 | 1 | 2026-08-22 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6552 | +89296 | 6 | 1 | 2026-08-21 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2647 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 38 | +7818 | 2 | 3 | 2026-08-19 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2122 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3644 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
@@ -131,8 +131,8 @@ The data presented in the table below covers the past 365 days.
 
 | Gerrit Project | Primary Type | Other Types | Dependabot | Pre-commit | ReadTheDocs | .gitreview | G2G | Status |
 |----------------|--------------|-------------|------------|------------|-------------|------------|-----|--------|
-| main_test | Shell |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | test_injector | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
+| main_test | Shell |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | vppsb | C | JavaScript, Shell, HTML, CSS, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | .github | HCL | Python, Shell | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ |
 | csit | Robot Framework | Python, Shell, SCSS, HTML, HCL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
