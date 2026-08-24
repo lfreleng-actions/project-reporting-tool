@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-08-23 07:12:52 UTC
+**Generated:** 2026-08-24 07:22:23 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -41,8 +41,8 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 157 | 1180 | +196055 | 342059 | +42 | 4 |
-| 2 | gmail.com | 118 | 329 | +24657 | 37559 | +35 | 4 |
+| 1 | cisco.com | 157 | 1184 | +196298 | 342524 | +42 | 4 |
+| 2 | gmail.com | 118 | 328 | +24622 | 37513 | +35 | 4 |
 | 3 | icloud.com | 2 | 187 | +59753 | 142037 | -120 | 3 |
 | 4 | netgate.com | 17 | 85 | +6393 | 7663 | +60 | 1 |
 | 5 | hawari.fr | 1 | 18 | +16236 | 17443 | +834 | 1 |
@@ -81,7 +81,7 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Florin Coras | 288 | +44976 | 61369 | +99 | 2 | cisco.com |
+| 1 | Florin Coras | 291 | +45213 | 61827 | +98 | 2 | cisco.com |
 | 2 | Matus Fabian | 246 | +29022 | 42869 | +61 | 2 | cisco.com |
 | 3 | Dave Wallace | 238 | +15887 | 22881 | +37 | 4 | gmail.com |
 | 4 | Peter Mikus | 185 | +59734 | 142012 | -121 | 3 | icloud.com |
@@ -97,9 +97,9 @@ The data presented in the table below covers the past 365 days.
 | 14 | Mohammed Hawari | 18 | +16236 | 17443 | +834 | 1 | hawari.fr |
 | 15 | Samuel Benko | 18 | +2773 | 3122 | +134 | 1 | cisco.com |
 | 16 | Damjan Marion | 17 | +1123 | 1554 | +40 | 1 | gmail.com |
-| 17 | Mohsin KAZMI | 16 | +2762 | 2982 | +158 | 2 | cisco.com |
-| 18 | Rob Shearman | 16 | +821 | 925 | +44 | 1 | gmail.com |
-| 19 | Aritra Basu | 15 | +1820 | 1986 | +110 | 1 | cisco.com |
+| 17 | Aritra Basu | 16 | +1826 | 1993 | +103 | 1 | cisco.com |
+| 18 | Mohsin KAZMI | 16 | +2762 | 2982 | +158 | 2 | cisco.com |
+| 19 | Rob Shearman | 16 | +821 | 925 | +44 | 1 | gmail.com |
 | 20 | Yoann Desmouceaux | 15 | +309 | 417 | +13 | 1 | cisco.com |
 | 21 | dependabot[bot] | 15 | +18 | 36 | 0 | 1 | github.com |
 | 22 | Semir Sionek | 13 | +658 | 864 | +34 | 1 | cisco.com |
@@ -117,12 +117,12 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 16222 | +214229 | 93 | 1 | 2026-08-22 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6552 | +89296 | 6 | 1 | 2026-08-21 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2647 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 38 | +7818 | 2 | 3 | 2026-08-19 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2122 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3644 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 16226 | +214437 | 92 | 12 | 2026-08-11 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6552 | +89296 | 6 | 2 | 2026-08-21 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2648 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 38 | +7818 | 2 | 4 | 2026-08-19 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2123 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3645 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
@@ -131,8 +131,8 @@ The data presented in the table below covers the past 365 days.
 
 | Gerrit Project | Primary Type | Other Types | Dependabot | Pre-commit | ReadTheDocs | .gitreview | G2G | Status |
 |----------------|--------------|-------------|------------|------------|-------------|------------|-----|--------|
-| test_injector | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | main_test | Shell |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
+| test_injector | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
 | vppsb | C | JavaScript, Shell, HTML, CSS, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | .github | HCL | Python, Shell | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ |
 | csit | Robot Framework | Python, Shell, SCSS, HTML, HCL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
