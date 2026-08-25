@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-08-24 07:22:23 UTC
+**Generated:** 2026-08-25 07:17:00 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -30,7 +30,7 @@
 | Inactive Repositories | 3 | 50.0% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 22.9K | - |
-| Total Lines of Code | 66.1K | - |
+| Total Lines of Code | 67.0K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -41,9 +41,9 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 157 | 1184 | +196298 | 342524 | +42 | 4 |
-| 2 | gmail.com | 118 | 328 | +24622 | 37513 | +35 | 4 |
-| 3 | icloud.com | 2 | 187 | +59753 | 142037 | -120 | 3 |
+| 1 | cisco.com | 158 | 1191 | +196614 | 343031 | +42 | 4 |
+| 2 | gmail.com | 118 | 329 | +24717 | 37619 | +35 | 4 |
+| 3 | icloud.com | 2 | 192 | +60460 | 142765 | -113 | 3 |
 | 4 | netgate.com | 17 | 85 | +6393 | 7663 | +60 | 1 |
 | 5 | hawari.fr | 1 | 18 | +16236 | 17443 | +834 | 1 |
 | 6 | github.com | 2 | 15 | +18 | 36 | 0 | 2 |
@@ -77,21 +77,21 @@ The data presented in the table below covers the past 365 days.
 
 The data presented in the table below covers the past 365 days.
 
-**Contributors Found:** 660
+**Contributors Found:** 661
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Florin Coras | 291 | +45213 | 61827 | +98 | 2 | cisco.com |
-| 2 | Matus Fabian | 246 | +29022 | 42869 | +61 | 2 | cisco.com |
+| 1 | Florin Coras | 297 | +45466 | 62271 | +96 | 2 | cisco.com |
+| 2 | Matus Fabian | 245 | +29079 | 42917 | +62 | 2 | cisco.com |
 | 3 | Dave Wallace | 238 | +15887 | 22881 | +37 | 4 | gmail.com |
-| 4 | Peter Mikus | 185 | +59734 | 142012 | -121 | 3 | icloud.com |
+| 4 | Peter Mikus | 190 | +60441 | 142740 | -115 | 3 | icloud.com |
 | 5 | Damjan Marion | 157 | +50062 | 124435 | -154 | 1 | cisco.com |
 | 6 | Tibor Frank | 109 | +8619 | 15483 | +16 | 2 | cisco.com |
 | 7 | Vratko Polak | 84 | +25233 | 47911 | +30 | 3 | cisco.com |
 | 8 | Adrian Villin | 73 | +11096 | 17701 | +61 | 1 | cisco.com |
 | 9 | Benoît Ganne | 56 | +3257 | 4846 | +29 | 1 | cisco.com |
 | 10 | Klement Sekera | 48 | +2925 | 3615 | +46 | 1 | netgate.com |
-| 11 | Jerome Tollet | 36 | +7745 | 9048 | +178 | 1 | cisco.com |
+| 11 | Jerome Tollet | 37 | +7748 | 9054 | +174 | 1 | cisco.com |
 | 12 | Hadi Rayan Al-Sandid | 32 | +5010 | 5525 | +140 | 1 | cisco.com |
 | 13 | Maxime Peim | 18 | +2712 | 5146 | +15 | 1 | gmail.com |
 | 14 | Mohammed Hawari | 18 | +16236 | 17443 | +834 | 1 | hawari.fr |
@@ -117,12 +117,12 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 16226 | +214437 | 92 | 12 | 2026-08-11 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6552 | +89296 | 6 | 2 | 2026-08-21 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2648 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 38 | +7818 | 2 | 4 | 2026-08-19 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2123 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3645 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 16236 | +214848 | 94 | 1 | 2026-08-23 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6557 | +90003 | 6 | 0 | 2026-08-24 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2649 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 38 | +7818 | 2 | 5 | 2026-08-19 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2124 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3646 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
@@ -131,8 +131,8 @@ The data presented in the table below covers the past 365 days.
 
 | Gerrit Project | Primary Type | Other Types | Dependabot | Pre-commit | ReadTheDocs | .gitreview | G2G | Status |
 |----------------|--------------|-------------|------------|------------|-------------|------------|-----|--------|
-| main_test | Shell |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | test_injector | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | 🛑 |
+| main_test | Shell |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | vppsb | C | JavaScript, Shell, HTML, CSS, Lua | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | .github | HCL | Python, Shell | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ |
 | csit | Robot Framework | Python, Shell, SCSS, HTML, HCL | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
