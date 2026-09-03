@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-09-02 07:05:49 UTC
+**Generated:** 2026-09-03 07:03:57 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -30,7 +30,7 @@
 | Inactive Repositories | 3 | 50.0% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 23.0K | - |
-| Total Lines of Code | 68.8K | - |
+| Total Lines of Code | 61.3K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -41,9 +41,9 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 159 | 1213 | +197862 | 344481 | +42 | 4 |
-| 2 | gmail.com | 118 | 338 | +24935 | 37872 | +35 | 4 |
-| 3 | icloud.com | 2 | 200 | +61684 | 144578 | -106 | 3 |
+| 1 | cisco.com | 159 | 1220 | +186969 | 330514 | +35 | 4 |
+| 2 | gmail.com | 118 | 341 | +24962 | 37917 | +35 | 4 |
+| 3 | icloud.com | 2 | 212 | +62224 | 145351 | -98 | 3 |
 | 4 | netgate.com | 17 | 86 | +6397 | 7671 | +59 | 1 |
 | 5 | hawari.fr | 1 | 18 | +16236 | 17443 | +834 | 1 |
 | 6 | github.com | 2 | 15 | +18 | 36 | 0 | 2 |
@@ -81,20 +81,20 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Florin Coras | 297 | +46108 | 62872 | +98 | 2 | cisco.com |
-| 2 | Matus Fabian | 254 | +29190 | 43107 | +60 | 2 | cisco.com |
-| 3 | Dave Wallace | 248 | +16111 | 23141 | +36 | 4 | gmail.com |
-| 4 | Peter Mikus | 198 | +61665 | 144553 | -107 | 3 | icloud.com |
+| 1 | Florin Coras | 298 | +46119 | 62895 | +98 | 2 | cisco.com |
+| 2 | Matus Fabian | 253 | +28780 | 42697 | +58 | 2 | cisco.com |
+| 3 | Dave Wallace | 251 | +16138 | 23186 | +36 | 4 | gmail.com |
+| 4 | Peter Mikus | 210 | +62205 | 145326 | -99 | 3 | icloud.com |
 | 5 | Damjan Marion | 157 | +50062 | 124435 | -154 | 1 | cisco.com |
-| 6 | Tibor Frank | 110 | +8623 | 15487 | +15 | 2 | cisco.com |
-| 7 | Vratko Polak | 86 | +25244 | 47933 | +29 | 3 | cisco.com |
+| 6 | Tibor Frank | 111 | +8632 | 15485 | +16 | 2 | cisco.com |
+| 7 | Vratko Polak | 85 | +14377 | 33926 | -60 | 3 | cisco.com |
 | 8 | Adrian Villin | 72 | +11081 | 17677 | +62 | 1 | cisco.com |
 | 9 | Benoît Ganne | 56 | +3257 | 4846 | +29 | 1 | cisco.com |
 | 10 | Klement Sekera | 48 | +2925 | 3615 | +46 | 1 | netgate.com |
-| 11 | Jerome Tollet | 42 | +7809 | 9122 | +154 | 1 | cisco.com |
-| 12 | Hadi Rayan Al-Sandid | 32 | +5010 | 5525 | +140 | 1 | cisco.com |
+| 11 | Jerome Tollet | 47 | +7886 | 9260 | +138 | 1 | cisco.com |
+| 12 | Hadi Rayan Al-Sandid | 33 | +5285 | 5800 | +144 | 1 | cisco.com |
 | 13 | Samuel Benko | 22 | +3055 | 3484 | +119 | 1 | cisco.com |
-| 14 | Aritra Basu | 18 | +1914 | 2092 | +96 | 1 | cisco.com |
+| 14 | Aritra Basu | 19 | +1926 | 2108 | +91 | 1 | cisco.com |
 | 15 | Maxime Peim | 18 | +2712 | 5146 | +15 | 1 | gmail.com |
 | 16 | Mohammed Hawari | 18 | +16236 | 17443 | +834 | 1 | hawari.fr |
 | 17 | Damjan Marion | 17 | +1123 | 1554 | +40 | 1 | gmail.com |
@@ -117,12 +117,12 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 16275 | +216210 | 92 | 0 | 2026-09-02 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6569 | +91300 | 7 | 5 | 2026-08-28 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2657 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 39 | +7864 | 2 | 14 | 2026-08-18 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2132 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3654 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 16287 | +216217 | 92 | 2 | 2026-08-31 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6574 | +80483 | 7 | 0 | 2026-09-03 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2658 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 49 | +8348 | 2 | 0 | 2026-09-03 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2133 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3655 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
@@ -141,11 +141,11 @@ The data presented in the table below covers the past 365 days.
 ---
 ## 🏁 Deployed CI/CD Jobs
 
-**Total GitHub workflows:** 39
+**Total GitHub workflows:** 43
 
 | Gerrit Project | GitHub Workflows | Workflow Count |
 |----------------|-------------------|----------------|
-| .github | gerrit-required-verify-non-voting.yaml<br>gerrit-verify.yaml<br>gha-dispatcher.yaml<br>update-graph | 4 |
+| .github | gerrit-required-verify-non-voting.yaml<br>gerrit-verify.yaml<br>gha-dispatcher.yaml<br>terraform-nomad-alertmanager.yaml<br>terraform-nomad-gha-dispatcher.yaml<br>terraform-nomad-prometheus.yaml<br>terraform-nomad-pyspark-etl.yaml<br>update-graph | 8 |
 | csit | csit-cdash-version.yml<br>csit-dpdk-perf-mrr-weekly.yml<br>csit-perf-report.yml<br>csit-trex-perf-ndrpdr-weekly.yml<br>csit-vpp-perf-hoststack-daily.yml<br>csit-vpp-perf-mrr-daily.yml<br>csit-vpp-perf-mrr-weekly.yml<br>csit-vpp-perf-ndrpdr-weekly.yml<br>csit-vpp-perf-soak-weekly.yml<br>dependabot-updates<br>gerrit-comment-handler.yaml<br>gerrit-verify.yaml<br>github2gerrit.yaml<br>update-graph<br>vpp-csit-bisect.yml | 15 |
 | vpp | dependabot-updates<br>gerrit-comment-handler.yml<br>gerrit-merge.yml<br>gerrit-verify.yml<br>github2gerrit.yaml<br>periodic-vpp-coverity.yml<br>periodic-vpp-verify-cov.yml<br>periodic-vpp-verify-dpdk-rdma-ver.yml<br>periodic-vpp-verify-hst.yml<br>update-graph<br>vpp-csit-verify-api.yml<br>vpp-merge-docs.yml<br>vpp-merge-maketest.yml<br>vpp-verify-arm-drivers.yml<br>vpp-verify-checkstyle.yml<br>vpp-verify-docs.yml<br>vpp-verify-gcc.yml<br>vpp-verify-hst-u2204.yml<br>vpp-verify-hst.yml<br>vpp-verify-maketest.yml | 20 |
 
