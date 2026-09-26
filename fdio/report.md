@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-09-25 07:07:17 UTC
+**Generated:** 2026-09-26 07:03:39 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -41,9 +41,9 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 159 | 1251 | +189152 | 319799 | +46 | 4 |
+| 1 | cisco.com | 159 | 1250 | +188636 | 318533 | +46 | 4 |
 | 2 | gmail.com | 118 | 351 | +28644 | 41678 | +44 | 4 |
-| 3 | icloud.com | 2 | 217 | +61831 | 145082 | -98 | 3 |
+| 3 | icloud.com | 2 | 215 | +61541 | 144758 | -100 | 3 |
 | 4 | netgate.com | 17 | 89 | +7144 | 8567 | +64 | 1 |
 | 5 | hawari.fr | 1 | 18 | +16236 | 17443 | +834 | 1 |
 | 6 | pm.me | 1 | 18 | +366 | 499 | +12 | 1 |
@@ -81,20 +81,20 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Florin Coras | 322 | +53788 | 71598 | +111 | 2 | cisco.com |
+| 1 | Florin Coras | 324 | +54269 | 72113 | +112 | 2 | cisco.com |
 | 2 | Dave Wallace | 249 | +16109 | 23143 | +36 | 4 | gmail.com |
-| 3 | Matus Fabian | 242 | +28333 | 42185 | +59 | 2 | cisco.com |
-| 4 | Peter Mikus | 215 | +61812 | 145057 | -99 | 3 | icloud.com |
-| 5 | Damjan Marion | 147 | +49586 | 123795 | -167 | 1 | cisco.com |
-| 6 | Tibor Frank | 109 | +4524 | 7427 | +14 | 2 | cisco.com |
+| 3 | Matus Fabian | 240 | +27291 | 40321 | +59 | 2 | cisco.com |
+| 4 | Peter Mikus | 213 | +61522 | 144733 | -101 | 3 | icloud.com |
+| 5 | Damjan Marion | 145 | +49576 | 123781 | -169 | 1 | cisco.com |
+| 6 | Tibor Frank | 108 | +4522 | 7423 | +15 | 2 | cisco.com |
 | 7 | Vratko Polak | 86 | +13582 | 22641 | +52 | 3 | cisco.com |
 | 8 | Adrian Villin | 66 | +7686 | 13119 | +34 | 1 | cisco.com |
-| 9 | Jerome Tollet | 59 | +10497 | 13476 | +127 | 1 | cisco.com |
+| 9 | Jerome Tollet | 60 | +10542 | 13562 | +125 | 1 | cisco.com |
 | 10 | Benoît Ganne | 57 | +3258 | 4847 | +29 | 1 | cisco.com |
 | 11 | Klement Sekera | 52 | +3678 | 4541 | +54 | 1 | netgate.com |
 | 12 | Aritra Basu | 37 | +2395 | 2903 | +51 | 1 | cisco.com |
 | 13 | Hadi Rayan Al-Sandid | 33 | +5285 | 5800 | +144 | 1 | cisco.com |
-| 14 | Samuel Benko | 30 | +4087 | 4653 | +117 | 1 | cisco.com |
+| 14 | Samuel Benko | 31 | +4099 | 4668 | +113 | 1 | cisco.com |
 | 15 | Maxime Peim | 23 | +6473 | 9028 | +170 | 1 | gmail.com |
 | 16 | Matus Fabian | 18 | +366 | 499 | +12 | 1 | pm.me |
 | 17 | Mohammed Hawari | 18 | +16236 | 17443 | +834 | 1 | hawari.fr |
@@ -117,12 +117,12 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 16410 | +228465 | 92 | 0 | 2026-09-24 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6603 | +75182 | 7 | 0 | 2026-09-25 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2680 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 49 | +8348 | 2 | 22 | 2026-09-03 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2155 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3677 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 16416 | +227951 | 92 | 0 | 2026-09-25 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6603 | +74890 | 7 | 1 | 2026-09-25 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2681 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 49 | +8348 | 2 | 23 | 2026-09-03 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2156 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3678 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
