@@ -1,6 +1,6 @@
 # 📊 Gerrit Project Analysis Report: Opendaylight
 
-**Generated:** 2026-10-10 07:08:15 UTC
+**Generated:** 2026-10-11 07:09:51 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -43,7 +43,7 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | pantheon.tech | 69 | 4227 | +274763 | 473625 | +17 | 23 |
+| 1 | pantheon.tech | 69 | 4225 | +275043 | 474208 | +17 | 23 |
 | 2 | linuxfoundation.org | 15 | 993 | +27502 | 43198 | +11 | 27 |
 | 3 | github.com | 5 | 632 | +1327 | 2654 | 0 | 21 |
 | 4 | opendaylight.org | 10 | 234 | +16632 | 33106 | 0 | 19 |
@@ -83,7 +83,7 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Robert Varga | 3576 | +187249 | 353174 | +5 | 23 | pantheon.tech |
+| 1 | Robert Varga | 3574 | +187529 | 353757 | +5 | 23 | pantheon.tech |
 | 2 | Anil Belur | 965 | +27497 | 43186 | +12 | 26 | linuxfoundation.org |
 | 3 | dependabot[bot] | 632 | +1327 | 2654 | 0 | 21 | github.com |
 | 4 | Ivan Hrasko | 238 | +9676 | 15294 | +17 | 16 | pantheon.tech |
@@ -119,33 +119,33 @@ The data presented in the table below covers the past 365 days.
 
 | Gerrit Project | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [releng/autorelease](https://git.opendaylight.org/gerrit/admin/repos/releng/autorelease,general) | 28644 | +757 | 9 | 0 | 2026-10-10 | ✅ |
-| [yangtools](https://git.opendaylight.org/gerrit/admin/repos/yangtools,general) | 11673 | +136073 | 8 | 3 | 2026-10-07 | ✅ |
-| [docs](https://git.opendaylight.org/gerrit/admin/repos/docs,general) | 10961 | +1179 | 8 | 3 | 2026-10-06 | ✅ |
-| [controller](https://git.opendaylight.org/gerrit/admin/repos/controller,general) | 10789 | +13984 | 9 | 3 | 2026-10-07 | ✅ |
-| [releng/builder](https://git.opendaylight.org/gerrit/admin/repos/releng/builder,general) | 10699 | +8219 | 11 | 2 | 2026-10-08 | ✅ |
-| [netconf](https://git.opendaylight.org/gerrit/admin/repos/netconf,general) | 7237 | +42971 | 12 | 3 | 2026-10-07 | ✅ |
-| [mdsal](https://git.opendaylight.org/gerrit/admin/repos/mdsal,general) | 6061 | +9062 | 7 | 3 | 2026-10-07 | ✅ |
-| [bgpcep](https://git.opendaylight.org/gerrit/admin/repos/bgpcep,general) | 4837 | +48746 | 13 | 3 | 2026-10-07 | ✅ |
-| [openflowplugin](https://git.opendaylight.org/gerrit/admin/repos/openflowplugin,general) | 4238 | +4933 | 5 | 3 | 2026-10-07 | ✅ |
-| [integration/test](https://git.opendaylight.org/gerrit/admin/repos/integration/test,general) | 3596 | +96 | 4 | 226 | 2026-02-25 | ☑️ |
-| [odlparent](https://git.opendaylight.org/gerrit/admin/repos/odlparent,general) | 3312 | +7754 | 7 | 3 | 2026-10-07 | ✅ |
-| [ovsdb](https://git.opendaylight.org/gerrit/admin/repos/ovsdb,general) | 3022 | +5794 | 5 | 3 | 2026-10-07 | ✅ |
-| [transportpce](https://git.opendaylight.org/gerrit/admin/repos/transportpce,general) | 2195 | +86022 | 12 | 46 | 2026-08-24 | ✅ |
-| [aaa](https://git.opendaylight.org/gerrit/admin/repos/aaa,general) | 1816 | +7917 | 9 | 1 | 2026-10-08 | ✅ |
-| [lispflowmapping](https://git.opendaylight.org/gerrit/admin/repos/lispflowmapping,general) | 1327 | +4025 | 6 | 0 | 2026-10-10 | ✅ |
-| [infrautils](https://git.opendaylight.org/gerrit/admin/repos/infrautils,general) | 1042 | +2444 | 5 | 3 | 2026-10-07 | ✅ |
-| [integration/distribution](https://git.opendaylight.org/gerrit/admin/repos/integration/distribution,general) | 915 | +647 | 7 | 1 | 2026-10-09 | ✅ |
-| [gnmi](https://git.opendaylight.org/gerrit/admin/repos/gnmi,general) | 702 | +9541 | 12 | 1 | 2026-10-08 | ✅ |
-| [l2switch](https://git.opendaylight.org/gerrit/admin/repos/l2switch,general) | 573 | +3981 | 5 | 3 | 2026-10-07 | ✅ |
-| [ietf](https://git.opendaylight.org/gerrit/admin/repos/ietf,general) | 564 | +10599 | 6 | 3 | 2026-10-07 | ✅ |
-| [integration/packaging](https://git.opendaylight.org/gerrit/admin/repos/integration/packaging,general) | 507 | 0 | 0 | 1737 | 2022-01-06 | 🛑 |
-| [jsonrpc](https://git.opendaylight.org/gerrit/admin/repos/jsonrpc,general) | 410 | +1537 | 7 | 0 | 2026-10-10 | ✅ |
-| [daexim](https://git.opendaylight.org/gerrit/admin/repos/daexim,general) | 327 | +920 | 5 | 0 | 2026-10-10 | ✅ |
-| [transportpce/models](https://git.opendaylight.org/gerrit/admin/repos/transportpce/models,general) | 105 | +129475 | 4 | 24 | 2026-09-15 | ✅ |
-| [.github](https://git.opendaylight.org/gerrit/admin/repos/.github,general) | 13 | +21 | 3 | 11 | 2026-09-28 | ✅ |
-| [zzz-test-release](https://git.opendaylight.org/gerrit/admin/repos/zzz-test-release,general) | 4 | 0 | 0 | 2786 | 2019-02-22 | 🛑 |
-| [ieft](https://git.opendaylight.org/gerrit/admin/repos/ieft,general) | 1 | 0 | 0 | 403 | 2025-09-01 | ☑️ |
+| [releng/autorelease](https://git.opendaylight.org/gerrit/admin/repos/releng/autorelease,general) | 28644 | +757 | 9 | 1 | 2026-10-10 | ✅ |
+| [yangtools](https://git.opendaylight.org/gerrit/admin/repos/yangtools,general) | 11675 | +136378 | 8 | 0 | 2026-10-10 | ✅ |
+| [docs](https://git.opendaylight.org/gerrit/admin/repos/docs,general) | 10961 | +1168 | 8 | 4 | 2026-10-06 | ✅ |
+| [controller](https://git.opendaylight.org/gerrit/admin/repos/controller,general) | 10789 | +13984 | 9 | 4 | 2026-10-07 | ✅ |
+| [releng/builder](https://git.opendaylight.org/gerrit/admin/repos/releng/builder,general) | 10699 | +8219 | 11 | 3 | 2026-10-08 | ✅ |
+| [netconf](https://git.opendaylight.org/gerrit/admin/repos/netconf,general) | 7237 | +42959 | 12 | 4 | 2026-10-07 | ✅ |
+| [mdsal](https://git.opendaylight.org/gerrit/admin/repos/mdsal,general) | 6061 | +9062 | 7 | 4 | 2026-10-07 | ✅ |
+| [bgpcep](https://git.opendaylight.org/gerrit/admin/repos/bgpcep,general) | 4837 | +48746 | 13 | 4 | 2026-10-07 | ✅ |
+| [openflowplugin](https://git.opendaylight.org/gerrit/admin/repos/openflowplugin,general) | 4238 | +4933 | 5 | 4 | 2026-10-07 | ✅ |
+| [integration/test](https://git.opendaylight.org/gerrit/admin/repos/integration/test,general) | 3596 | +96 | 4 | 227 | 2026-02-25 | ☑️ |
+| [odlparent](https://git.opendaylight.org/gerrit/admin/repos/odlparent,general) | 3312 | +7752 | 7 | 4 | 2026-10-07 | ✅ |
+| [ovsdb](https://git.opendaylight.org/gerrit/admin/repos/ovsdb,general) | 3022 | +5794 | 5 | 4 | 2026-10-07 | ✅ |
+| [transportpce](https://git.opendaylight.org/gerrit/admin/repos/transportpce,general) | 2195 | +86022 | 12 | 47 | 2026-08-24 | ✅ |
+| [aaa](https://git.opendaylight.org/gerrit/admin/repos/aaa,general) | 1816 | +7917 | 9 | 2 | 2026-10-08 | ✅ |
+| [lispflowmapping](https://git.opendaylight.org/gerrit/admin/repos/lispflowmapping,general) | 1327 | +4025 | 6 | 1 | 2026-10-10 | ✅ |
+| [infrautils](https://git.opendaylight.org/gerrit/admin/repos/infrautils,general) | 1042 | +2444 | 5 | 4 | 2026-10-07 | ✅ |
+| [integration/distribution](https://git.opendaylight.org/gerrit/admin/repos/integration/distribution,general) | 915 | +647 | 7 | 2 | 2026-10-09 | ✅ |
+| [gnmi](https://git.opendaylight.org/gerrit/admin/repos/gnmi,general) | 702 | +9541 | 12 | 2 | 2026-10-08 | ✅ |
+| [l2switch](https://git.opendaylight.org/gerrit/admin/repos/l2switch,general) | 573 | +3981 | 5 | 4 | 2026-10-07 | ✅ |
+| [ietf](https://git.opendaylight.org/gerrit/admin/repos/ietf,general) | 564 | +10599 | 6 | 4 | 2026-10-07 | ✅ |
+| [integration/packaging](https://git.opendaylight.org/gerrit/admin/repos/integration/packaging,general) | 507 | 0 | 0 | 1738 | 2022-01-06 | 🛑 |
+| [jsonrpc](https://git.opendaylight.org/gerrit/admin/repos/jsonrpc,general) | 410 | +1537 | 7 | 1 | 2026-10-10 | ✅ |
+| [daexim](https://git.opendaylight.org/gerrit/admin/repos/daexim,general) | 327 | +920 | 5 | 1 | 2026-10-10 | ✅ |
+| [transportpce/models](https://git.opendaylight.org/gerrit/admin/repos/transportpce/models,general) | 105 | +129475 | 4 | 25 | 2026-09-15 | ✅ |
+| [.github](https://git.opendaylight.org/gerrit/admin/repos/.github,general) | 13 | +21 | 3 | 12 | 2026-09-28 | ✅ |
+| [zzz-test-release](https://git.opendaylight.org/gerrit/admin/repos/zzz-test-release,general) | 4 | 0 | 0 | 2787 | 2019-02-22 | 🛑 |
+| [ieft](https://git.opendaylight.org/gerrit/admin/repos/ieft,general) | 1 | 0 | 0 | 404 | 2025-09-01 | ☑️ |
 
 **Total:** 27 repositories
 
@@ -154,33 +154,33 @@ The data presented in the table below covers the past 365 days.
 
 | Gerrit Project | Primary Type | Other Types | Dependabot | Pre-commit | ReadTheDocs | .gitreview | G2G | Status |
 |----------------|--------------|-------------|------------|------------|-------------|------------|-----|--------|
-| integration/packaging | Shell | Python, Smarty | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
-| integration/test | Robot Framework | Python, Shell | ❌ | ✅ | ✅ | ✅ | ❌ | ☑️ |
 | .github | N/A |  | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ |
+| integration/packaging | Shell | Python, Smarty | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
 | releng/autorelease | Python | Java/Maven, Shell | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
-| transportpce/models | Python | Java/Maven | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ |
 | integration/distribution | Shell | Java/Maven, Python | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| transportpce/models | Python | Java/Maven | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ |
+| releng/builder | Shell | Python, HCL | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| daexim | Java/Maven | Python | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | ieft | N/A |  | ❌ | ❌ | ❌ | ❌ | ❌ | ☑️ |
 | docs | Shell | Python, HTML, CSS | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | aaa | Java/Maven | Python, CSS | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| releng/builder | Shell | Python, HCL | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| daexim | Java/Maven | Python | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | gnmi | Java/Maven | Python, Shell | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| integration/test | Robot Framework | Python, Shell | ❌ | ✅ | ✅ | ✅ | ❌ | ☑️ |
 | infrautils | Java/Maven | Python | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| ietf | Java/Maven |  | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | l2switch | Java/Maven | Python | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ |
 | jsonrpc | Java/Maven | Python | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | lispflowmapping | Java/Maven | Python, Shell, HTML, CSS | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | controller | Java/Maven | Python, Shell | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| ietf | Java/Maven |  | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | odlparent | Java/Maven | Python, Shell | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | zzz-test-release | Python | Java/Maven | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
-| bgpcep | Java/Maven | Python, Shell | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | mdsal | Java/Maven | Python | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| netconf | Java/Maven | JavaScript, Python, Shell, HTML, CSS | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| transportpce | Java/Maven | Python, Shell, PLpgSQL | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | ovsdb | Java/Maven | Python, Dockerfile, Shell | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| yangtools | Java/Maven | Python, Groovy | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| transportpce | Java/Maven | Python, Shell, PLpgSQL | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | openflowplugin | Java/Maven | Python, Shell | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| bgpcep | Java/Maven | Python, Shell | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| netconf | Java/Maven | JavaScript, Python, Shell, HTML, CSS | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| yangtools | Java/Maven | Python, Groovy | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 ---
 ## 🏁 Deployed CI/CD Jobs
@@ -232,24 +232,24 @@ These Jenkins jobs are matched to archived or read-only Gerrit projects:
 
 | Job Name | Matched Project | State | Match Score |
 |----------|----------------|-------|-------------|
-| integration-update-csit-tests-manganese | integration | READ_ONLY | 550% |
 | integration-multipatch-test-chromium | integration | READ_ONLY | 550% |
-| integration-sanity-test-vanadium | integration | READ_ONLY | 550% |
-| integration-update-csit-tests-chromium | integration | READ_ONLY | 550% |
-| integration-sanity-test-chromium | integration | READ_ONLY | 550% |
-| integration-info-yaml-verify | integration | READ_ONLY | 550% |
-| integration-merge-dashboard | integration | READ_ONLY | 550% |
-| integration-update-csit-tests-vanadium | integration | READ_ONLY | 550% |
-| integration-patch-test-vanadium | integration | READ_ONLY | 550% |
-| integration-multipatch-test-vanadium | integration | READ_ONLY | 550% |
 | integration-patch-test-chromium | integration | READ_ONLY | 550% |
-| integration-update-csit-tests-titanium | integration | READ_ONLY | 550% |
-| integration-multipatch-test-titanium | integration | READ_ONLY | 550% |
-| integration-multipatch-test-manganese | integration | READ_ONLY | 550% |
-| integration-patch-test-titanium | integration | READ_ONLY | 550% |
-| integration-patch-test-manganese | integration | READ_ONLY | 550% |
-| integration-sanity-test-manganese | integration | READ_ONLY | 550% |
 | integration-sanity-test-titanium | integration | READ_ONLY | 550% |
+| integration-multipatch-test-vanadium | integration | READ_ONLY | 550% |
+| integration-update-csit-tests-manganese | integration | READ_ONLY | 550% |
+| integration-sanity-test-vanadium | integration | READ_ONLY | 550% |
+| integration-patch-test-vanadium | integration | READ_ONLY | 550% |
+| integration-patch-test-titanium | integration | READ_ONLY | 550% |
+| integration-update-csit-tests-titanium | integration | READ_ONLY | 550% |
+| integration-sanity-test-chromium | integration | READ_ONLY | 550% |
+| integration-patch-test-manganese | integration | READ_ONLY | 550% |
+| integration-multipatch-test-manganese | integration | READ_ONLY | 550% |
+| integration-multipatch-test-titanium | integration | READ_ONLY | 550% |
+| integration-sanity-test-manganese | integration | READ_ONLY | 550% |
+| integration-info-yaml-verify | integration | READ_ONLY | 550% |
+| integration-update-csit-tests-vanadium | integration | READ_ONLY | 550% |
+| integration-update-csit-tests-chromium | integration | READ_ONLY | 550% |
+| integration-merge-dashboard | integration | READ_ONLY | 550% |
 
 **Total Orphaned Jobs:** 18
 
@@ -342,7 +342,7 @@ These jobs could not be matched to any active or archived repository. They may b
 | distribution-sanity-manganese | Success | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-sanity-manganese/) |
 | distribution-sanity-titanium | Success | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-sanity-titanium/) |
 | distribution-sanity-vanadium | Success | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-sanity-vanadium/) |
-| distribution-sonar | Failed | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-sonar/) |
+| distribution-sonar | Success | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-sonar/) |
 | distribution-verify-managed-chromium | Success | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-verify-managed-chromium/) |
 | distribution-verify-managed-manganese | Success | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-verify-managed-manganese/) |
 | distribution-verify-managed-titanium | Success | [View Job](https://jenkins.opendaylight.org/releng/job/distribution-verify-managed-titanium/) |

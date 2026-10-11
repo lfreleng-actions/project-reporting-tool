@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-10-10 07:07:56 UTC
+**Generated:** 2026-10-11 07:09:30 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -30,7 +30,7 @@
 | Inactive Repositories | 3 | 50.0% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 23.2K | - |
-| Total Lines of Code | 66.1K | - |
+| Total Lines of Code | 66.0K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -41,7 +41,7 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 160 | 1248 | +186546 | 316019 | +45 | 4 |
+| 1 | cisco.com | 160 | 1244 | +186457 | 315888 | +45 | 4 |
 | 2 | gmail.com | 119 | 349 | +28714 | 41483 | +45 | 4 |
 | 3 | icloud.com | 2 | 216 | +26620 | 74165 | -96 | 3 |
 | 4 | netgate.com | 17 | 91 | +7210 | 8624 | +63 | 1 |
@@ -50,7 +50,7 @@ The data presented in the table below covers the past 365 days.
 | 7 | marvell.com | 16 | 13 | +578 | 659 | +38 | 2 |
 | 8 | ipng.nl | 1 | 12 | +2910 | 3270 | +212 | 1 |
 | 9 | barachs.net | 2 | 9 | +533 | 588 | +53 | 1 |
-| 10 | hawari.fr | 1 | 9 | +1129 | 1301 | +106 | 1 |
+| 10 | hawari.fr | 1 | 8 | +1116 | 1287 | +118 | 1 |
 | 11 | intel.com | 56 | 7 | +116 | 143 | +12 | 3 |
 | 12 | labn.net | 4 | 7 | +481 | 655 | +43 | 1 |
 | 13 | qq.com | 5 | 7 | +515 | 607 | +60 | 1 |
@@ -81,11 +81,11 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Florin Coras | 319 | +54487 | 72033 | +115 | 2 | cisco.com |
+| 1 | Florin Coras | 317 | +54447 | 71990 | +116 | 2 | cisco.com |
 | 2 | Dave Wallace | 248 | +16386 | 23253 | +38 | 4 | gmail.com |
 | 3 | Matus Fabian | 235 | +25052 | 37892 | +51 | 2 | cisco.com |
 | 4 | Peter Mikus | 214 | +26601 | 74140 | -97 | 3 | icloud.com |
-| 5 | Damjan Marion | 137 | +45169 | 119267 | -211 | 1 | cisco.com |
+| 5 | Damjan Marion | 135 | +45120 | 119179 | -214 | 1 | cisco.com |
 | 6 | Tibor Frank | 106 | +4589 | 7570 | +15 | 2 | cisco.com |
 | 7 | Vratko Polak | 93 | +19181 | 28784 | +102 | 3 | cisco.com |
 | 8 | Jerome Tollet | 70 | +10837 | 13970 | +110 | 1 | cisco.com |
@@ -107,7 +107,7 @@ The data presented in the table below covers the past 365 days.
 | 24 | Monendra Singh Kushwaha | 10 | +291 | 370 | +21 | 1 | marvell.com |
 | 25 | Steven | 10 | +283 | 364 | +20 | 3 | cisco.com |
 | 26 | Dave Barach | 9 | +533 | 588 | +53 | 1 | barachs.net |
-| 27 | Mohammed Hawari | 9 | +1129 | 1301 | +106 | 1 | hawari.fr |
+| 27 | Mohammed Hawari | 8 | +1116 | 1287 | +118 | 1 | hawari.fr |
 | 28 | Mohsin KAZMI | 8 | +1434 | 1510 | +169 | 2 | cisco.com |
 | 29 | Alexander Skorichenko | 7 | +774 | 900 | +92 | 1 | netgate.com |
 | 30 | Andrew Yourtchenko | 7 | +2031 | 2036 | +289 | 1 | gmail.com |
@@ -117,12 +117,12 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 16470 | +205228 | 95 | 12 | 2026-09-27 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6618 | +44318 | 7 | 0 | 2026-10-09 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2695 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 60 | +9671 | 3 | 1 | 2026-10-08 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2170 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3692 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 16471 | +205126 | 95 | 1 | 2026-10-09 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6618 | +44318 | 7 | 1 | 2026-10-09 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2696 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 60 | +9671 | 3 | 2 | 2026-10-08 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2171 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3693 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
