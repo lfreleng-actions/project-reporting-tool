@@ -21,9 +21,10 @@ from typing import Any
 try:
     # aislop-ignore-next-line unused-import -- deliberate PyYAML importability check
     import yaml as _yaml  # noqa: F401
-except ImportError:
+except ImportError as exc:
     print(
-        "ERROR: PyYAML is required. Install with: pip install 'PyYAML>=6.0.3' "
+        f"ERROR: PyYAML is required ({exc}). "
+        "Install with: pip install 'PyYAML>=6.0.3' "
         "(see the project's pyproject.toml for the authoritative version pin).",
         file=sys.stderr,
     )
