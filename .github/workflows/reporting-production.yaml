@@ -735,7 +735,7 @@ jobs:
       - name: "Upload raw data artifacts"
         if: always()
         # yamllint disable-line rule:line-length
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           name: raw-data-${{ matrix.slug }}
           path: ./temp-raw-data-${{ matrix.slug }}/
@@ -746,7 +746,7 @@ jobs:
       - name: "Upload report artifacts"
         if: always()
         # yamllint disable-line rule:line-length
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           name: reports-${{ matrix.slug }}
           path: ./reports/${{ steps.config.outputs.project }}/
@@ -757,7 +757,7 @@ jobs:
       - name: "Upload clone manifest"
         if: always()
         # yamllint disable-line rule:line-length
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           name: clone-manifest-${{ matrix.slug }}
           # yamllint disable-line rule:line-length
@@ -792,7 +792,7 @@ jobs:
       - name: "Upload clone log"
         if: always()
         # yamllint disable-line rule:line-length
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           name: clone-log-${{ matrix.slug }}
           path: ${{ steps.log-path.outputs.path }}
