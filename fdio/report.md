@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-10-18 07:03:31 UTC
+**Generated:** 2026-10-19 07:20:26 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -30,7 +30,7 @@
 | Inactive Repositories | 3 | 50.0% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 23.3K | - |
-| Total Lines of Code | 65.8K | - |
+| Total Lines of Code | 65.9K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -41,7 +41,7 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 160 | 1255 | +186853 | 317417 | +44 | 4 |
+| 1 | cisco.com | 160 | 1255 | +186707 | 317046 | +44 | 4 |
 | 2 | gmail.com | 120 | 355 | +29167 | 42045 | +45 | 4 |
 | 3 | icloud.com | 2 | 217 | +26578 | 74280 | -97 | 3 |
 | 4 | netgate.com | 17 | 93 | +7344 | 8763 | +63 | 1 |
@@ -81,12 +81,12 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Florin Coras | 318 | +56282 | 75046 | +117 | 2 | cisco.com |
+| 1 | Florin Coras | 317 | +56280 | 75042 | +118 | 2 | cisco.com |
 | 2 | Dave Wallace | 248 | +16386 | 23253 | +38 | 4 | gmail.com |
-| 3 | Matus Fabian | 233 | +23127 | 35898 | +44 | 2 | cisco.com |
+| 3 | Matus Fabian | 232 | +22950 | 35465 | +44 | 2 | cisco.com |
 | 4 | Peter Mikus | 215 | +26559 | 74255 | -98 | 3 | icloud.com |
 | 5 | Damjan Marion | 135 | +45117 | 119057 | -213 | 1 | cisco.com |
-| 6 | Tibor Frank | 108 | +4620 | 7631 | +14 | 2 | cisco.com |
+| 6 | Tibor Frank | 110 | +4653 | 7697 | +14 | 2 | cisco.com |
 | 7 | Vratko Polak | 93 | +19185 | 28785 | +103 | 3 | cisco.com |
 | 8 | Jerome Tollet | 70 | +10837 | 13970 | +110 | 1 | cisco.com |
 | 9 | Adrian Villin | 61 | +7427 | 12618 | +36 | 1 | cisco.com |
@@ -117,12 +117,12 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 16514 | +206520 | 95 | 1 | 2026-10-16 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6625 | +44311 | 7 | 1 | 2026-10-16 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2703 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 61 | +9673 | 3 | 7 | 2026-10-10 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2178 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3700 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 16514 | +206341 | 95 | 3 | 2026-10-16 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6627 | +44344 | 7 | 0 | 2026-10-19 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2704 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 61 | +9673 | 3 | 8 | 2026-10-10 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2179 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3701 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
@@ -141,12 +141,12 @@ The data presented in the table below covers the past 365 days.
 ---
 ## 🏁 Deployed CI/CD Jobs
 
-**Total GitHub workflows:** 45
+**Total GitHub workflows:** 50
 
 | Gerrit Project | GitHub Workflows | Workflow Count |
 |----------------|-------------------|----------------|
 | .github | csit-executor-sut-inner.yaml<br>csit-executor-sut.yaml<br>csit-executor-tg.yaml<br>gerrit-required-verify-non-voting.yaml<br>gerrit-verify.yaml<br>gha-dispatcher.yaml<br>terraform-nomad-alertmanager.yaml<br>terraform-nomad-gha-dispatcher.yaml<br>terraform-nomad-hfr-dispatcher.yaml<br>terraform-nomad-prometheus.yaml<br>terraform-nomad-pyspark-etl.yaml<br>update-graph | 12 |
-| csit | csit-cdash-version.yml<br>csit-perf-report.yml<br>csit-vpp-perf-mrr-daily.yml<br>csit-vpp-perf-mrr-weekly.yml<br>dependabot-updates<br>gerrit-comment-handler.yaml<br>gerrit-verify.yaml<br>github2gerrit.yaml<br>update-graph<br>vpp-csit-bisect.yml | 10 |
+| csit | csit-cdash-version.yml<br>csit-dpdk-perf-mrr-weekly.yml<br>csit-perf-report.yml<br>csit-trex-perf-ndrpdr-weekly.yml<br>csit-vpp-perf-hoststack-daily.yml<br>csit-vpp-perf-mrr-daily.yml<br>csit-vpp-perf-mrr-weekly.yml<br>csit-vpp-perf-ndrpdr-weekly.yml<br>csit-vpp-perf-soak-weekly.yml<br>dependabot-updates<br>gerrit-comment-handler.yaml<br>gerrit-verify.yaml<br>github2gerrit.yaml<br>update-graph<br>vpp-csit-bisect.yml | 15 |
 | vpp | dependabot-updates<br>gerrit-comment-handler.yml<br>gerrit-merge.yml<br>gerrit-verify.yml<br>github2gerrit.yaml<br>periodic-vpp-coverity.yml<br>periodic-vpp-verify-asan-hst.yml<br>periodic-vpp-verify-asan-maketest.yml<br>periodic-vpp-verify-cov.yml<br>periodic-vpp-verify-dpdk-rdma-ver.yml<br>periodic-vpp-verify-hst.yml<br>pr-verify.yml<br>update-graph<br>vpp-csit-verify-api.yml<br>vpp-merge-docs.yml<br>vpp-merge-maketest.yml<br>vpp-verify-arm-drivers.yml<br>vpp-verify-checkstyle.yml<br>vpp-verify-docs.yml<br>vpp-verify-gcc.yml<br>vpp-verify-hst-u2204.yml<br>vpp-verify-hst.yml<br>vpp-verify-maketest.yml | 23 |
 
 **Total:** 3 repositories with CI/CD jobs
