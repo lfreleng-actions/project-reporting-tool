@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: FDio
 
-**Generated:** 2026-10-22 07:10:42 UTC
+**Generated:** 2026-10-23 07:09:35 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -30,7 +30,7 @@
 | Inactive Repositories | 3 | 50.0% |
 | No Apparent Commits | 0 | 0.0% |
 | Total Commits | 23.3K | - |
-| Total Lines of Code | 65.9K | - |
+| Total Lines of Code | 66.7K | - |
 
 ---
 ## 🏢 Top Organizations
@@ -41,11 +41,11 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Organization | Contributors | Commits | LOC | Δ LOC | Avg LOC/Commit | Unique Repositories |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | cisco.com | 160 | 1256 | +185974 | 316236 | +44 | 4 |
-| 2 | gmail.com | 122 | 359 | +29207 | 42091 | +45 | 4 |
+| 1 | cisco.com | 160 | 1261 | +186650 | 317128 | +44 | 4 |
+| 2 | gmail.com | 122 | 359 | +29586 | 42492 | +46 | 4 |
 | 3 | icloud.com | 2 | 217 | +26578 | 74280 | -97 | 3 |
 | 4 | netgate.com | 17 | 93 | +7344 | 8763 | +63 | 1 |
-| 5 | pm.me | 1 | 40 | +1396 | 1732 | +26 | 2 |
+| 5 | pm.me | 1 | 43 | +1588 | 2050 | +26 | 2 |
 | 6 | github.com | 2 | 15 | +18 | 36 | 0 | 2 |
 | 7 | marvell.com | 16 | 13 | +578 | 659 | +38 | 2 |
 | 8 | ipng.nl | 1 | 12 | +2910 | 3270 | +212 | 1 |
@@ -81,20 +81,20 @@ The data presented in the table below covers the past 365 days.
 
 | Rank | Contributor | Commits | LOC | Δ LOC | Avg LOC/Commit | Repositories | Organization |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Florin Coras | 315 | +56289 | 75021 | +119 | 2 | cisco.com |
+| 1 | Florin Coras | 311 | +56439 | 75219 | +121 | 2 | cisco.com |
 | 2 | Dave Wallace | 249 | +16386 | 23253 | +38 | 4 | gmail.com |
 | 3 | Matus Fabian | 231 | +22817 | 35271 | +44 | 2 | cisco.com |
 | 4 | Peter Mikus | 215 | +26559 | 74255 | -98 | 3 | icloud.com |
-| 5 | Damjan Marion | 135 | +44023 | 117963 | -221 | 1 | cisco.com |
+| 5 | Damjan Marion | 140 | +44483 | 118498 | -210 | 1 | cisco.com |
 | 6 | Tibor Frank | 108 | +4626 | 7651 | +14 | 2 | cisco.com |
 | 7 | Vratko Polak | 93 | +19185 | 28785 | +103 | 3 | cisco.com |
-| 8 | Jerome Tollet | 71 | +11033 | 14166 | +111 | 1 | cisco.com |
-| 9 | Adrian Villin | 61 | +7427 | 12618 | +36 | 1 | cisco.com |
+| 8 | Jerome Tollet | 72 | +11035 | 14170 | +109 | 1 | cisco.com |
+| 9 | Adrian Villin | 60 | +7421 | 12595 | +37 | 1 | cisco.com |
 | 10 | Benoît Ganne | 56 | +2878 | 4146 | +28 | 1 | cisco.com |
 | 11 | Klement Sekera | 52 | +3678 | 4541 | +54 | 1 | netgate.com |
 | 12 | Aritra Basu | 49 | +2540 | 3119 | +40 | 1 | cisco.com |
-| 13 | Samuel Benko | 41 | +4590 | 5211 | +96 | 1 | cisco.com |
-| 14 | Matus Fabian | 40 | +1396 | 1732 | +26 | 2 | pm.me |
+| 13 | Samuel Benko | 45 | +4660 | 5389 | +87 | 1 | cisco.com |
+| 14 | Matus Fabian | 43 | +1588 | 2050 | +26 | 2 | pm.me |
 | 15 | Hadi Rayan Al-Sandid | 38 | +5606 | 6177 | +132 | 1 | cisco.com |
 | 16 | Maxime Peim | 23 | +6574 | 9148 | +173 | 1 | gmail.com |
 | 17 | Yoann Desmouceaux | 17 | +325 | 442 | +12 | 1 | cisco.com |
@@ -117,12 +117,12 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [vpp](https://github.com/gerrit.fd.io/vpp) | 16532 | +205765 | 96 | 59 | 2026-08-23 | ✅ |
-| [csit](https://github.com/gerrit.fd.io/csit) | 6627 | +44317 | 7 | 3 | 2026-10-19 | ✅ |
-| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2707 | 2019-05-24 | 🛑 |
-| [.github](https://github.com/gerrit.fd.io/.github) | 67 | +10167 | 6 | 0 | 2026-10-21 | ✅ |
-| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2182 | 2020-10-30 | 🛑 |
-| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3704 | 2016-08-30 | 🛑 |
+| [vpp](https://github.com/gerrit.fd.io/vpp) | 16547 | +207012 | 96 | 1 | 2026-10-21 | ✅ |
+| [csit](https://github.com/gerrit.fd.io/csit) | 6627 | +44317 | 7 | 4 | 2026-10-19 | ✅ |
+| [vppsb](https://github.com/gerrit.fd.io/vppsb) | 88 | 0 | 0 | 2708 | 2019-05-24 | 🛑 |
+| [.github](https://github.com/gerrit.fd.io/.github) | 67 | +10167 | 6 | 1 | 2026-10-21 | ✅ |
+| [main_test](https://github.com/gerrit.fd.io/main_test) | 8 | 0 | 0 | 2183 | 2020-10-30 | 🛑 |
+| [test_injector](https://github.com/gerrit.fd.io/test_injector) | 1 | 0 | 0 | 3705 | 2016-08-30 | 🛑 |
 
 **Total:** 6 repositories
 
@@ -160,7 +160,7 @@ This report shows project information from INFO.yaml files, including lifecycle 
 
 | Project | Creation Date | Lifecycle State | Project Lead | Committers |
 |---------|---------------|-----------------|--------------|------------|
-| <span style="color: red;" title="⚠️ Broken project issue-tracker link: Connection failed (after 3 attempts)">.github</span> | 2024-03-07 | Incubation | <span style="color: gray;" title="Unknown activity status">Vanessa Valderrama</span> | <span style="color: green;" title="✅ Current - commits within last 365 days">Andrew Grimberg</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Anil Anil Belur</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Eric Ball</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Jessica Wagantall</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Kevin Sandi</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Matt Watkins</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Dave Wallace</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Ed Warnicke</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Peter Mikus</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Vratko Polak</span> |
+| <span style="color: red;" title="⚠️ Broken project issue-tracker link: Connection failed (after 3 attempts)">.github</span> | 2024-03-07 | Incubation | <span style="color: gray;" title="Unknown activity status">Vanessa Valderrama</span> | <span style="color: green;" title="✅ Current - commits within last 365 days">Andrew Grimberg</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Anil Anil Belur</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Eric Ball</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Kevin Sandi</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Matt Watkins</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Dave Wallace</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Ed Warnicke</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Peter Mikus</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Vratko Polak</span> |
 | <a href="https://support.linuxfoundation.org" target="_blank">ci-management</a> | 2015-11-19 | Incubation | <span style="color: gray;" title="Unknown activity status">Andrew Grimberg</span> | <span style="color: gray;" title="Unknown activity status">Dave Wallace</span><br><span style="color: gray;" title="Unknown activity status">Ed Warnicke</span><br><span style="color: gray;" title="Unknown activity status">Peter Mikus</span><br><span style="color: gray;" title="Unknown activity status">Vanessa Rene Valderrama</span><br><span style="color: gray;" title="Unknown activity status">Vratko Polak</span><br><span style="color: gray;" title="Unknown activity status">Eric Ball</span> |
 | <span style="color: red;" title="⚠️ Broken project issue-tracker link: Connection failed (after 3 attempts)">cicn</span> | 2017-02-02 | Incubation | <span style="color: gray;" title="Unknown activity status">Luca Muscariello</span> | <span style="color: gray;" title="Unknown activity status">Alberto Compagno</span><br><span style="color: gray;" title="Unknown activity status">Jim Gibson</span><br><span style="color: gray;" title="Unknown activity status">Jordan Augé</span><br><span style="color: gray;" title="Unknown activity status">Mauro Sardara</span><br><span style="color: gray;" title="Unknown activity status"> Michele Papalini</span><br><span style="color: gray;" title="Unknown activity status"> Angelo Mantellini</span> |
 | <span style="color: red;" title="⚠️ Broken project issue-tracker link: Connection failed (after 3 attempts)">csit</span> | 2016-01-05 | Incubation | <span style="color: gray;" title="Unknown activity status">Maciek Konstantynowicz</span> | <span style="color: green;" title="✅ Current - commits within last 365 days">Dave Wallace</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Juraj Linkeš</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Peter Mikus</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Tibor Frank</span><br><span style="color: green;" title="✅ Current - commits within last 365 days">Vratko Polak</span> |
