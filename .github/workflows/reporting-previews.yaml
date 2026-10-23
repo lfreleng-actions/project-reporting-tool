@@ -208,7 +208,7 @@ jobs:
       - name: "Clone Gerrit repos for ${{ matrix.project }}"
         if: matrix.gerrit != '' && matrix.gerrit != null
         # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/gerrit-clone-action@e06b6bf5570c6a6f2a28f6b790a1968f8c7a8308  # v2.3.1
+        uses: lfreleng-actions/gerrit-clone-action@b3ba3cdcdc460b33a6569aca9e2d5bca9e0c6122  # v2.4.2
         id: clone-gerrit
         with:
           host: ${{ matrix.gerrit }}
@@ -227,7 +227,7 @@ jobs:
           (matrix.gerrit == '' || matrix.gerrit == null) &&
           matrix.github != '' && matrix.github != null
         # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/gerrit-clone-action@e06b6bf5570c6a6f2a28f6b790a1968f8c7a8308  # v2.3.1
+        uses: lfreleng-actions/gerrit-clone-action@b3ba3cdcdc460b33a6569aca9e2d5bca9e0c6122  # v2.4.2
         id: clone-github
         env:
           GITHUB_TOKEN: ${{ secrets.CLASSIC_READ_ONLY_PAT_TOKEN }}
