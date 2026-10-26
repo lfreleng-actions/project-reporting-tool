@@ -153,6 +153,9 @@ jobs:
             benchmark-results.json
             benchmark-histogram.svg
             performance-report.md
+          # upload-artifact skips dot-prefixed paths, even when named
+          # explicitly, so .benchmarks/ needs hidden files enabled.
+          include-hidden-files: true
           retention-days: 90
 
       - name: Upload historical data
@@ -163,6 +166,7 @@ jobs:
         with:
           name: benchmark-history
           path: .benchmarks/
+          include-hidden-files: true  # .benchmarks/ is dot-prefixed
           retention-days: 90
 
       - name: Check performance thresholds
