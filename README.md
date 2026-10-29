@@ -19,13 +19,13 @@ jobs, GitHub CI/CD workflows, and development practices across repositories.
 ## ⚡ Quick Start
 
 ```bash
-# Install
-pip install .
-
-# Generate your first report
-lf-releng-project-reporting generate \
+# Run without installing
+uvx lf-releng-project-reporting generate \
   --project my-project \
   --repos-path ./repos
+
+# Or install as a tool, then run lf-releng-project-reporting directly
+uv tool install lf-releng-project-reporting
 ```
 
 ---
@@ -87,23 +87,23 @@ lf-releng-project-reporting generate \
 # Install UV
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
+# Run the published package without installing
+uvx lf-releng-project-reporting --help
+
+# Or install it as a tool
+uv tool install lf-releng-project-reporting
+```
+
+### Developing from a checkout
+
+```bash
 # Install dependencies
 uv sync
 
 # Run the tool
-uv run lf-releng-project-reporting generate --project my-project --repos-path ./repos
-```
-
-### Using pip
-
-```bash
-# Install from source
-pip install .
-
-# Run the tool
 # Note: repos-path should match the directory created by gerrit-clone-action
 # which defaults to the Gerrit server hostname (e.g., ./gerrit.o-ran-sc.org)
-lf-releng-project-reporting generate --project O-RAN-SC --repos-path ./gerrit.o-ran-sc.org
+uv run lf-releng-project-reporting generate --project O-RAN-SC --repos-path ./gerrit.o-ran-sc.org
 ```
 
 **→ [Detailed Setup Instructions](SETUP.md)**
