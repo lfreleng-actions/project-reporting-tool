@@ -96,7 +96,6 @@ version-file = "src/lf_releng_project_reporting/_version.py"
 [tool.hatch.build.targets.sdist]
 include = [
     "/src",
-    "/config",
     "/examples",
     "/docs",
     "/tests",
@@ -120,6 +119,10 @@ exclude = [
     "/configuration",
 ]
 
+# Ship the default template, but not the project-specific files beside it
+[tool.hatch.build.targets.sdist.force-include]
+"configuration/default.yaml" = "configuration/default.yaml"
+
 [tool.hatch.build.targets.wheel]
 packages = [
     "src/lf_releng_project_reporting",
@@ -135,13 +138,14 @@ packages = [
     "src/util",
 ]
 include = [
-    "/config/**/*",
     "/src/templates/**/*",
     "/src/themes/**/*",
 ]
 
+[tool.hatch.build.targets.wheel.force-include]
+"configuration/default.yaml" = "lf_releng_project_reporting/templates/default.yaml"
+
 [tool.hatch.build.targets.wheel.shared-data]
-"config" = "share/lf-releng-project-reporting/config"
 "examples" = "share/lf-releng-project-reporting/examples"
 "docs" = "share/lf-releng-project-reporting/docs"
 
