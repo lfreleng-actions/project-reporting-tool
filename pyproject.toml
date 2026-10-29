@@ -65,7 +65,9 @@ dependencies = [
 dev = [
     "types-PyYAML>=6.0.12.20250915",
     "mypy>=1.18.2",
-    "pytest>=9.0.1",
+    # pytest 9.2 removed Node._nodeid, which pytest-benchmark 5.3.0 still
+    # reads; lift the cap once a pytest-benchmark release supports 9.2.
+    "pytest>=9.0.1,<9.2",
     "pytest-cov>=7.0.0",
     "pytest-benchmark[histogram]>=5.2.3",
     "hypothesis>=6.148.2",
@@ -155,7 +157,9 @@ include = [
 dev = [
     "types-PyYAML>=6.0.12.20250915",
     "mypy>=1.18.2",
-    "pytest>=9.0.1",
+    # pytest 9.2 removed Node._nodeid, which pytest-benchmark 5.3.0 still
+    # reads; lift the cap once a pytest-benchmark release supports 9.2.
+    "pytest>=9.0.1,<9.2",
     "pytest-cov>=7.0.0",
     "pytest-benchmark[histogram]>=5.2.3",
     "hypothesis>=6.148.2",
