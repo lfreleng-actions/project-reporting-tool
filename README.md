@@ -16,6 +16,26 @@ jobs, GitHub CI/CD workflows, and development practices across repositories.
 
 <https://lfreleng-actions.github.io/project-reporting-tool/>
 
+### 🗄️ Report Data and Retention
+
+The daily `📊 Production Reports` workflow
+(`.github/workflows/reporting-production.yaml`) keeps its outputs in
+two places:
+
+- **GitHub Pages** (`gh-pages` branch): the latest `report.html`,
+  `report.md`, `report_raw.json` and `metadata.json` per project. Each
+  run overwrites the previous files.
+- **Workflow run artifacts**: `raw-data-<slug>`, `reports-<slug>`,
+  `clone-manifest-<slug>` and `clone-log-<slug>`, kept for 90 days,
+  after which GitHub deletes them.
+
+To fetch data from an earlier run within those 90 days, download the
+artifacts from that workflow run in the **Actions** tab, or use
+[`.github/scripts/download-artifacts.sh`](.github/scripts/download-artifacts.sh).
+The workflow no longer copies outputs into the
+`lfreleng-actions/project-reporting-artifacts` repository, so that
+repository receives no new daily folders.
+
 ## ⚡ Quick Start
 
 ```bash

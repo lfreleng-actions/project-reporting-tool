@@ -364,8 +364,8 @@ schedule:
 6. **Grey workflow status in reports**: Check your GitHub token environment variable
    (`GITHUB_TOKEN` by default, or `CLASSIC_READ_ONLY_PAT_TOKEN` for CI) exists
    and is a Classic PAT with required scopes: `repo` and `actions:read`
-7. **Report publishing failures**: Check `GERRIT_REPORTS_PAT_TOKEN` exists and has
-   Contents: Read and write permissions for `lfreleng-actions/project-reporting-artifacts`
+7. **Report publishing failures**: Check the `publish` job logs; it pushes to the
+   `gh-pages` branch with the built-in `GITHUB_TOKEN`
 
 ### Debugging
 
