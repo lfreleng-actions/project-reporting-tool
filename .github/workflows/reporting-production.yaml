@@ -21,11 +21,6 @@ on:
         required: false
         type: boolean
         default: false
-      skip_artifact_transfer:
-        description: 'Skip JSON artifact transfer'
-        required: false
-        type: boolean
-        default: true
       skip_pages_update:
         description: 'Skip GitHub Pages update'
         required: false
@@ -109,8 +104,6 @@ jobs:
         env:
           CLASSIC_READ_ONLY_PAT_TOKEN: >-
             ${{ secrets.CLASSIC_READ_ONLY_PAT_TOKEN }}
-          GERRIT_REPORTS_PAT_TOKEN: >-
-            ${{ secrets.GERRIT_REPORTS_PAT_TOKEN }}
           LF_GERRIT_INFO_MASTER_SSH_KEY: >-
             ${{ secrets.LF_GERRIT_INFO_MASTER_SSH_KEY }}
         # yamllint disable rule:line-length
@@ -144,22 +137,6 @@ jobs:
             fi
           fi
 
-          # Check GERRIT_REPORTS_PAT_TOKEN
-          if [ -z "$GERRIT_REPORTS_PAT_TOKEN" ]; then
-            echo "::error::GERRIT_REPORTS_PAT_TOKEN secret is not set"
-            echo "❌ GERRIT_REPORTS_PAT_TOKEN: MISSING"
-            validation_failed=true
-          else
-            gerrit_token_sha1=$(compute_sha1 "$GERRIT_REPORTS_PAT_TOKEN")
-            if [ "$gerrit_token_sha1" = "$EMPTY_SHA1" ]; then
-              echo "::error::GERRIT_REPORTS_PAT_TOKEN is empty"
-              echo "❌ GERRIT_REPORTS_PAT_TOKEN: EMPTY"
-              validation_failed=true
-            else
-              echo "✅ GERRIT_REPORTS_PAT_TOKEN: $gerrit_token_sha1"
-            fi
-          fi
-
           # Check LF_GERRIT_INFO_MASTER_SSH_KEY (warning only)
           if [ -z "$LF_GERRIT_INFO_MASTER_SSH_KEY" ]; then
             echo "::warning::LF_GERRIT_INFO_MASTER_SSH_KEY secret not set"
@@ -182,12 +159,6 @@ jobs:
               echo "- ✅ **CLASSIC_READ_ONLY_PAT_TOKEN:** \`${token_sha1}\`"
             else
               echo "- ❌ **CLASSIC_READ_ONLY_PAT_TOKEN:** MISSING or EMPTY"
-            fi
-
-            if [ -n "$GERRIT_REPORTS_PAT_TOKEN" ] && [ "${gerrit_token_sha1:-$EMPTY_SHA1}" != "$EMPTY_SHA1" ]; then
-              echo "- ✅ **GERRIT_REPORTS_PAT_TOKEN:** \`${gerrit_token_sha1}\`"
-            else
-              echo "- ❌ **GERRIT_REPORTS_PAT_TOKEN:** MISSING or EMPTY"
             fi
 
             if [ -n "$LF_GERRIT_INFO_MASTER_SSH_KEY" ] && [ "${ssh_key_sha1:-$EMPTY_SHA1}" != "$EMPTY_SHA1" ]; then
@@ -730,8 +701,8 @@ jobs:
       # failure should still mark the matrix entry as failed so the
       # summary job can surface the affected project in the Slack
       # notification. Resilience for the rest of the run is provided
-      # by the broadened guards on the publish and
-      # copy-to-artifacts-repo jobs (`needs.analyze.result != 'skipped'`).
+      # by the broadened guard on the publish job
+      # (`needs.analyze.result != 'skipped'`).
       - name: "Upload raw data artifacts"
         if: always()
         # yamllint disable-line rule:line-length
@@ -816,6 +787,14 @@ jobs:
       pages: write  # Required to deploy to GitHub Pages
       id-token: write  # Required for Pages deployment authentication
     timeout-minutes: 20
+    outputs:
+      # Report artifacts found for this run; empty when the job did
+      # not reach the count. Lets the summary tell a run that produced
+      # no reports from one whose publishing failed.
+      report_count: ${{ steps.check-reports.outputs.count }}
+      # Outcome of the tolerated artifact download; a zero count only
+      # shows that no reports exist when the download succeeded.
+      download_outcome: ${{ steps.download-reports.outcome }}
     steps:
       # Harden the runner
       # yamllint disable-line rule:line-length
@@ -850,6 +829,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Download all report artifacts"
+        id: download-reports
         # yamllint disable-line rule:line-length
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333  # v8.0.2
         with:
@@ -1025,175 +1005,6 @@ jobs:
           echo "::error::No report artifacts were available to publish"
           exit 1
 
-  copy-to-artifacts-repo:
-    name: "Transfer/Copy Artifacts"
-    needs: [validate-secrets, build-matrix, analyze]
-    # Run if validation succeeded and analyze was not entirely skipped.
-    # Mirrors the publish job: a single transient matrix failure or a
-    # matrix entry that never started must not prevent us from
-    # transferring artifacts we did successfully gather.
-    # yamllint disable-line rule:line-length
-    if: always() && needs.validate-secrets.result == 'success' && needs.analyze.result != 'skipped' && (github.event_name != 'workflow_dispatch' || inputs.skip_artifact_transfer == false)
-    runs-on: ubuntu-latest
-    environment: production
-    permissions:
-      contents: read
-    timeout-minutes: 15
-    steps:
-      # Harden the runner
-      # yamllint disable-line rule:line-length
-      - uses: step-security/harden-runner@ccd8616d44fd3846e67624a50d5aad6d37bf2d25  # v2.22.1
-        with:
-          egress-policy: "audit"
-
-      - name: "Checkout repository for scripts"
-        # yamllint disable-line rule:line-length
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-        with:
-          persist-credentials: false
-
-      - name: "Download all artifacts"
-        # yamllint disable-line rule:line-length
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333  # v8.0.2
-        with:
-          path: ./downloaded-artifacts
-          merge-multiple: false
-        continue-on-error: true
-
-      - name: "Check for available artifacts"
-        id: check-artifacts
-        shell: bash
-        run: |
-          if [ -d "./downloaded-artifacts" ]; then
-            artifact_count=$(find ./downloaded-artifacts -mindepth 1 \
-              -maxdepth 1 -type d | wc -l)
-            echo "count=$artifact_count" >> "$GITHUB_OUTPUT"
-            echo "📦 Found $artifact_count artifact(s)"
-            if [ "$artifact_count" -eq 0 ]; then
-              echo "::warning::No artifacts found to transfer"
-            fi
-          else
-            echo "count=0" >> "$GITHUB_OUTPUT"
-            echo "::warning::No downloaded-artifacts directory found"
-          fi
-
-      - name: "Generate date folder name"
-        id: date
-        shell: bash
-        env:
-          # Single source of truth for the run's date. The timestamp
-          # captured by validate-secrets at the start of the original
-          # workflow run is preserved across `Re-run failed jobs`,
-          # whereas `date -u` on the runner would yield the wall-clock
-          # date of the re-run. Anchoring the artifact folder to the
-          # original run date keeps re-runs idempotent: they refresh
-          # the original day's folder in project-reporting-artifacts
-          # rather than overwriting a later day's contents.
-          RUN_TIMESTAMP: ${{ needs.validate-secrets.outputs.run_timestamp }}
-        run: |
-          # run_timestamp is YYYY-MM-DDTHH:MM:SSZ; strip the time part.
-          DATE_FOLDER="${RUN_TIMESTAMP%%T*}"
-          if [ -z "$DATE_FOLDER" ] || \
-             ! printf '%s' "$DATE_FOLDER" | \
-             grep -Eq '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'; then
-            echo "::warning::run_timestamp missing or malformed" \
-              "('$RUN_TIMESTAMP'); falling back to current UTC date"
-            DATE_FOLDER=$(date -u +%Y-%m-%d)
-          fi
-          echo "folder=${DATE_FOLDER}" >> "$GITHUB_OUTPUT"
-          echo "Date folder: ${DATE_FOLDER}"
-
-      - name: "Debug: Show downloaded artifacts"
-        if: steps.check-artifacts.outputs.count != '0'
-        shell: bash
-        run: |
-          echo "=== Downloaded artifacts structure ==="
-          if [ -d "./downloaded-artifacts" ]; then
-            find ./downloaded-artifacts -maxdepth 2 -type d | sort
-            echo ""
-            echo "=== Total artifact count ==="
-            find ./downloaded-artifacts -mindepth 1 -maxdepth 1 -type d | wc -l
-            echo ""
-            echo "=== Total file count ==="
-            find ./downloaded-artifacts -type f | wc -l
-          else
-            echo "ERROR: ./downloaded-artifacts directory does not exist!"
-            exit 1
-          fi
-
-      - name: "Copy artifacts to project-reporting-artifacts repository"
-        if: steps.check-artifacts.outputs.count != '0'
-        shell: bash
-        env:
-          GERRIT_REPORTS_PAT_TOKEN: ${{ secrets.GERRIT_REPORTS_PAT_TOKEN }}
-          DATE_FOLDER: ${{ steps.date.outputs.folder }}
-          RUN_ID: ${{ github.run_id }}
-        run: |
-          chmod +x .github/scripts/copy-artifacts-simple.sh
-          .github/scripts/copy-artifacts-simple.sh \
-            "${DATE_FOLDER}" \
-            "${RUN_ID}" \
-            "./downloaded-artifacts" \
-            "$GERRIT_REPORTS_PAT_TOKEN"
-
-      - name: "Generate job summary"
-        if: always()
-        shell: bash
-        env:
-          ARTIFACTS_TOTAL: ${{ steps.check-artifacts.outputs.count }}
-          DATE_FOLDER: ${{ steps.date.outputs.folder }}
-          RUN_ID: ${{ github.run_id }}
-        # yamllint disable rule:line-length
-        run: |
-          artifact_count="${ARTIFACTS_TOTAL}"
-
-          # Determine actual status based on artifact count
-          if [ "$artifact_count" -eq 0 ] 2>/dev/null || [ -z "$artifact_count" ]; then
-            status="failure"
-            status_emoji="❌"
-          else
-            status="success"
-            status_emoji="✅"
-          fi
-
-          {
-            echo "## 📦 Artifacts Transferred"
-            echo ""
-            echo "**Date Folder:** ${DATE_FOLDER}"
-            echo "**Workflow Run:** ${RUN_ID}"
-            echo "**Target Repository:** lfreleng-actions/project-reporting-artifacts"
-            echo "**Status:** ${status_emoji} ${status}"
-            echo "**Artifacts Found:** ${artifact_count:-0}"
-            echo ""
-
-            # Only show repository link if artifacts were actually transferred
-            if [ "$artifact_count" -gt 0 ] 2>/dev/null; then
-              echo "### 🔗 View in Repository"
-              echo ""
-              echo "https://github.com/lfreleng-actions/project-reporting-artifacts/tree/main/data/artifacts/${DATE_FOLDER}"
-              echo ""
-            else
-              echo "### ⚠️ No Artifacts Transferred"
-              echo ""
-              echo "No artifacts were available to transfer to the target repository."
-              echo "This occurs when all matrix analysis jobs fail."
-              echo ""
-              echo "**Troubleshooting:**"
-              echo "- Check the **Analyze** job logs for errors"
-              echo "- Verify the PROJECTS_JSON secret is properly base64-encoded"
-              echo "- Ensure Gerrit/GitHub servers are accessible"
-              echo ""
-            fi
-          } >> "$GITHUB_STEP_SUMMARY"
-        # yamllint enable rule:line-length
-
-      - name: "Fail job if no artifacts were transferred"
-        if: steps.check-artifacts.outputs.count == '0'
-        shell: bash
-        run: |
-          echo "::error::No artifacts were available to transfer"
-          exit 1
-
   summary:
     name: "Workflow Summary"
     needs:
@@ -1201,7 +1012,6 @@ jobs:
       - build-matrix
       - analyze
       - publish
-      - copy-to-artifacts-repo
     if: always()
     runs-on: ubuntu-latest
     environment: production
@@ -1225,7 +1035,8 @@ jobs:
           RESULT_VALIDATE: ${{ needs.validate-secrets.result }}
           RESULT_ANALYZE: ${{ needs.analyze.result }}
           RESULT_PUBLISH: ${{ needs.publish.result }}
-          RESULT_COPY: ${{ needs.copy-to-artifacts-repo.result }}
+          REPORT_COUNT: ${{ needs.publish.outputs.report_count }}
+          DOWNLOAD_OUTCOME: ${{ needs.publish.outputs.download_outcome }}
           RESULT_MATRIX: ${{ needs.build-matrix.result }}
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ github.event.repository.name }}
@@ -1245,7 +1056,6 @@ jobs:
           validate_result="${RESULT_VALIDATE}"
           analyze_result="${RESULT_ANALYZE}"
           publish_result="${RESULT_PUBLISH}"
-          copy_result="${RESULT_COPY}"
           matrix_result="${RESULT_MATRIX}"
 
           # Check if any job had a non-success outcome
@@ -1257,7 +1067,6 @@ jobs:
           if is_bad "$validate_result" || \
              is_bad "$analyze_result" || \
              is_bad "$publish_result" || \
-             is_bad "$copy_result" || \
              is_bad "$matrix_result"; then
             workflow_failed="true"
           fi
@@ -1267,7 +1076,6 @@ jobs:
             echo "validate_result=${validate_result}"
             echo "analyze_result=${analyze_result}"
             echo "publish_result=${publish_result}"
-            echo "copy_result=${copy_result}"
             echo "matrix_result=${matrix_result}"
           } >> "$GITHUB_OUTPUT"
 
@@ -1285,9 +1093,6 @@ jobs:
           fi
           if is_bad "$publish_result"; then
             failed_stages="${failed_stages}• Pages Publishing\n"
-          fi
-          if is_bad "$copy_result"; then
-            failed_stages="${failed_stages}• Artifact Transfer\n"
           fi
 
           # Output as single line (\n stays literal for Slack mrkdwn)
@@ -1315,16 +1120,21 @@ jobs:
               "${analyze_result}")"
             echo "- **Publish:** $(result_emoji \
               "${publish_result}")"
-            echo "- **Copy:** $(result_emoji \
-              "${copy_result}")"
             echo ""
 
-            # Note about failures - partial vs complete failure
+            # Note about failures - partial vs complete failure.
+            # Only a report count of zero from a successful download
+            # shows that no project produced a report; a publish or
+            # download failure alone does not.
             if [ "${analyze_result}" = "failure" ]; then
-              # Check if publish also failed (indicates complete failure)
-              if [ "${publish_result}" = "failure" ] && \
-                 [ "${copy_result}" = "failure" ]
-              then
+              if [ "${publish_result}" = "success" ]; then
+                echo "### ⚠️ Partial Matrix Failure"
+                echo ""
+                echo "Some project analysis jobs failed, but reports from"
+                echo "successful jobs were still published."
+                echo ""
+              elif [ "${REPORT_COUNT}" = "0" ] && \
+                   [ "${DOWNLOAD_OUTCOME}" = "success" ]; then
                 echo "### ❌ Complete Matrix Failure"
                 echo ""
                 echo "All project analysis jobs failed." \
@@ -1338,10 +1148,17 @@ jobs:
                 echo "- Check for network connectivity issues"
                 echo ""
               else
-                echo "### ⚠️ Partial Matrix Failure"
+                echo "### ⚠️ Matrix Failure, Reports Not Published"
                 echo ""
-                echo "Some project analysis jobs failed, but reports from"
-                echo "successful jobs were still published."
+                echo "Some or all project analysis jobs failed, and" \
+                  "GitHub Pages publishing did not succeed" \
+                  "(${publish_result})."
+                if [ "${DOWNLOAD_OUTCOME}" = "failure" ]; then
+                  echo "Downloading the report artifacts failed, so" \
+                    "this run cannot tell how many reports were generated."
+                fi
+                echo "Any reports from successful jobs remain available as" \
+                  "\`reports-*\` workflow artifacts on this run."
                 echo ""
               fi
             fi
@@ -1479,12 +1296,10 @@ jobs:
                     text: "*Analyze:* ${{ steps.workflow-status.outputs.analyze_result }}${{ steps.failed-projects.outputs.detail }}"
                   - type: "mrkdwn"
                     text: "*Publish:* ${{ steps.workflow-status.outputs.publish_result }}"
-                  - type: "mrkdwn"
-                    text: "*Artifact Transfer:* ${{ steps.workflow-status.outputs.copy_result }}"
               - type: "context"
                 elements:
                   - type: "mrkdwn"
-                    text: "Publish and Artifact Transfer cover the projects that did produce reports; they succeed even when an individual project fails."
+                    text: "Publish covers the projects that did produce reports; it succeeds even when an individual project fails."
               - type: "context"
                 elements:
                   - type: "mrkdwn"

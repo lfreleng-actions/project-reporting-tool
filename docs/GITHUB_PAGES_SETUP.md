@@ -200,9 +200,9 @@ trigger a notification — successful runs stay silent.
 The Slack message includes:
 
 - Which pipeline stages failed (Secrets Validation, Matrix
-  Build, Project Analysis, Pages Publishing, Artifact Transfer)
+  Build, Project Analysis, Pages Publishing)
 - Which specific projects failed in the analysis matrix
-- Status of each job (validate/analyze/publish/copy)
+- Status of each job (validate/analyze/publish)
 - Direct link to the workflow run
 
 ---

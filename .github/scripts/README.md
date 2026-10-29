@@ -54,81 +54,6 @@ Generates HTML index pages for GitHub Pages.
 
 ---
 
-### `copy-artifacts-simple.sh`
-
-Copies report artifacts to the project-reporting-artifacts repository for long-term storage and analytics.
-
-**Usage:**
-
-```bash
-./copy-artifacts-simple.sh <date-folder> <workflow-run-id> <artifacts-dir> <token>
-```bash
-
-**Arguments:**
-
-- `date-folder`: Date in YYYY-MM-DD format (e.g., `2025-01-20`)
-- `workflow-run-id`: GitHub workflow run ID
-- `artifacts-dir`: Directory containing downloaded artifacts
-- `token`: GitHub PAT token for authentication (from `GERRIT_REPORTS_PAT_TOKEN` secret)
-
-**What it does:**
-
-1. Validates inputs and date format
-2. Clones the target project-reporting-artifacts repository
-3. Creates date-based folder structure: `data/artifacts/YYYY-MM-DD/`
-4. Copies report artifacts and raw JSON data for each project
-5. Checks if target folder already exists:
-   - **Manual workflow dispatch**: Skips upload if folder exists (prevents overwriting)
-   - **Scheduled CRON run**: Overwrites existing data
-6. Generates a README with metadata for the date folder
-7. Commits and pushes changes to the remote repository
-
-**Example:**
-
-```bash
-# Copy artifacts for today's date
-export GERRIT_REPORTS_PAT_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-./copy-artifacts-simple.sh \
-  "2025-01-20" \
-  "123456789" \
-  "./downloaded-artifacts" \
-  "$GERRIT_REPORTS_PAT_TOKEN"
-```bash
-
-**Output Structure:**
-
-```text
-project-reporting-artifacts/
-└── data/
-    └── artifacts/
-        └── 2025-01-20/
-            ├── README.md                    # Metadata and summary
-            ├── reports-onap/
-            │   ├── report.html
-            │   ├── report.md
-            │   ├── report_raw.json
-            │   ├── config_resolved.json
-            │   └── metadata.json
-            └── reports-odl/
-                └── ...
-```
-
-**Use Cases:**
-
-- Long-term artifact storage for analytics
-- Tracking report changes over time
-- Historical data preservation
-- Automated daily backups from CRON schedule
-
-**Workflow Integration:**
-
-This script is automatically called by the `copy-to-artifacts-repo` job in the `reporting-production.yaml` workflow when:
-
-- CRON schedule triggers the workflow (daily at 7:00 AM UTC)
-- Workflow is manually dispatched (but skips if folder already exists)
-
----
-
 ### `download-artifacts.sh`
 
 Downloads workflow run artifacts for meta-reporting and historical analysis.
@@ -304,7 +229,6 @@ apk add --no-cache bash jq curl git findutils coreutils unzip
 - Rotate tokens on a schedule
 - Use fine-grained tokens when possible
 - Limit token scope to required permissions
-- **GERRIT_REPORTS_PAT_TOKEN**: Required for `copy-artifacts-simple.sh` - must have write access to target repository
 
 ### Script Safety
 
