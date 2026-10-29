@@ -7,7 +7,17 @@
 
 ## Overview
 
-This directory contains project-specific configuration files for the reporting tool.
+This is the reporting tool's single configuration directory and the
+default value of `--config-dir`. It holds:
+
+- `default.yaml`: the base configuration merged under every project,
+  and the template to copy when creating a project configuration
+- `organizational_domains.yaml`: email domain extraction rules
+- One file per project, such as `onap.yaml`
+
+The built wheel ships `default.yaml` inside the package as
+`lf_releng_project_reporting/templates/default.yaml`, so an installed
+copy can recover it with `importlib.resources`.
 
 ## File Naming Convention
 

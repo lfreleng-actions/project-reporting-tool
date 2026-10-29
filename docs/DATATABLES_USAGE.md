@@ -99,7 +99,7 @@ parameters:
 
 ## Configuration
 
-DataTables behavior is controlled in `config/default.yaml`:
+DataTables behavior is controlled in `configuration/default.yaml`:
 
 ```yaml
 html_tables:

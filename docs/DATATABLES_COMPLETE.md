@@ -124,7 +124,7 @@ pre-commit run --all-files
 
 ## Configuration
 
-Default settings in `config/default.yaml`:
+Default settings in `configuration/default.yaml`:
 
 ```yaml
 html_tables:

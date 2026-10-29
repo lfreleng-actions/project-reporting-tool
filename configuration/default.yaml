@@ -69,6 +69,11 @@ time_windows:
   last_3_years:
     days: 1095
 
+# Primary reporting window for rankings and leaderboards
+# Must reference a time window defined above
+# Default: last_365 (365 days)
+primary_reporting_window: last_365
+
 # =============================================================================
 # Activity Thresholds
 # =============================================================================

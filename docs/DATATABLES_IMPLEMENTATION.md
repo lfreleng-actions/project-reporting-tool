@@ -146,7 +146,7 @@ Created integration tests verifying:
 
 ## Configuration
 
-DataTables is configured in `config/default.yaml`:
+DataTables is configured in `configuration/default.yaml`:
 
 ```yaml
 html_tables:
@@ -162,7 +162,7 @@ html_tables:
 
 ```text
 ┌─────────────────────────────────────────────┐
-│ config/default.yaml                         │
+│ configuration/default.yaml                  │
 │ - html_tables configuration                 │
 └─────────────────────────────────────────────┘
                     ↓

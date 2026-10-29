@@ -119,7 +119,7 @@ reports generated after this implementation.
 
 ## Configuration
 
-Default settings in `config/default.yaml`:
+Default settings in `configuration/default.yaml`:
 
 ```yaml
 html_tables:
