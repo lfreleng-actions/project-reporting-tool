@@ -374,11 +374,11 @@ schedule:
 3. Download and examine the generated artifacts
 4. Test the reporting tool locally:
    ```bash
-   # Install the tool
-   pip install -e .
+   # Install dependencies from the checkout
+   uv sync
 
    # Run a test report
-   lf-releng-project-reporting generate \
+   uv run lf-releng-project-reporting generate \
      --project test-project \
      --repos-path ./test-repos \
      --dry-run
