@@ -333,13 +333,13 @@ Caching:
 
 ```
 
-Configuration file path [config/acme-tools.yaml]:
+Configuration file path [configuration/acme-tools.yaml]:
 
 ```text
 
 Path recommendations:
 
-- Default: `config/{project}.yaml` (recommended)
+- Default: `configuration/{project}.yaml` (recommended)
 - Custom: Any path you prefer
 - Directories created automatically
 
@@ -352,14 +352,14 @@ The wizard shows you what to do next:
 ```
 
 1. Review your configuration:
-   cat config/acme-tools.yaml
+   cat configuration/acme-tools.yaml
 
 2. Validate your setup:
-   lf-releng-project-reporting generate --config config/acme-tools.yaml --dry-run
+   lf-releng-project-reporting generate --config configuration/acme-tools.yaml --dry-run
 
 3. Generate your first report:
    lf-releng-project-reporting generate --project acme-tools \
-     --config config/acme-tools.yaml \
+     --config configuration/acme-tools.yaml \
      --repos-path /path/to/repositories
 
 ```text
@@ -404,7 +404,7 @@ Automatically created paths:
 
 ```bash
 # Default path (if not specified)
-config/my-project.yaml
+configuration/my-project.yaml
 
 # Custom path
 custom/path/config.yaml
@@ -423,7 +423,7 @@ from cli.wizard import create_config_from_template
 config_path = create_config_from_template(
     project="my-project",
     template="standard",
-    output_path="config/my-project.yaml"
+    output_path="configuration/my-project.yaml"
 )
 
 print(f"Configuration created: {config_path}")
@@ -449,14 +449,14 @@ lf-releng-project-reporting init
 # - Enable all features
 
 # Step 2: Review generated config
-cat config/acme-tools.yaml
+cat configuration/acme-tools.yaml
 
 # Step 3: Validate
-lf-releng-project-reporting generate --config config/acme-tools.yaml --dry-run
+lf-releng-project-reporting generate --config configuration/acme-tools.yaml --dry-run
 
 # Step 4: Generate report
 lf-releng-project-reporting generate --project acme-tools \
-  --config config/acme-tools.yaml \
+  --config configuration/acme-tools.yaml \
   --repos-path /workspace/repos
 ```
 
@@ -561,11 +561,11 @@ jobs:
 for project in api-gateway user-service data-processor; do
   lf-releng-project-reporting init --template standard \
     --project "$project" \
-    --config-output "config/${project}.yaml"
+    --config-output "configuration/${project}.yaml"
 done
 
 # Generate reports for all
-for config in config/*.yaml; do
+for config in configuration/*.yaml; do
   project=$(basename "$config" .yaml)
   lf-releng-project-reporting generate --project "$project" \
     --config "$config" \
@@ -633,14 +633,14 @@ Solution:
 
 ```bash
 # Option 1: Edit the YAML file directly
-vim config/my-project.yaml
+vim configuration/my-project.yaml
 
 # Option 2: Re-run the wizard
-lf-releng-project-reporting init --config-output config/my-project.yaml
+lf-releng-project-reporting init --config-output configuration/my-project.yaml
 # (overwrites existing file)
 
 # Option 3: Create new config with different name
-lf-releng-project-reporting init --config-output config/my-project-v2.yaml
+lf-releng-project-reporting init --config-output configuration/my-project-v2.yaml
 ```
 
 ---
@@ -651,7 +651,7 @@ Solution:
 
 ```bash
 # Use dry-run mode
-lf-releng-project-reporting generate --config config/my-project.yaml --dry-run
+lf-releng-project-reporting generate --config configuration/my-project.yaml --dry-run
 
 # Shows validation results:
 # ✓ Configuration valid
@@ -669,20 +669,20 @@ lf-releng-project-reporting generate --config config/my-project.yaml --dry-run
 1. **Review the configuration file**
 
    ```bash
-   cat config/my-project.yaml
+   cat configuration/my-project.yaml
    ```
 
 2. **Validate your setup**
 
    ```bash
-   lf-releng-project-reporting generate --config config/my-project.yaml --dry-run
+   lf-releng-project-reporting generate --config configuration/my-project.yaml --dry-run
    ```
 
 3. **Generate your first report**
 
    ```bash
    lf-releng-project-reporting generate --project my-project \
-     --config config/my-project.yaml \
+     --config configuration/my-project.yaml \
      --repos-path /path/to/repos
    ```
 
@@ -754,7 +754,7 @@ Required:
   --init-template TYPE    Template: minimal, standard, or full
 
 Optional:
-  --config-output PATH    Output path (default: config/{project}.yaml)
+  --config-output PATH    Output path (default: configuration/{project}.yaml)
 ```text
 
 ---
@@ -1266,7 +1266,7 @@ lf-releng-project-reporting generate --project my-project --repos-path ./repos
 #### Option 2: Configuration File
 
 ```yaml
-# config/my-project.yaml
+# configuration/my-project.yaml
 github_api:
   enabled: true
   token: ghp_your_token_here  # Not recommended for version control
@@ -1277,7 +1277,7 @@ github_api:
 #### Option 3: Separate Secrets File
 
 ```yaml
-# config/my-project.yaml
+# configuration/my-project.yaml
 github_api:
   enabled: true
   token_file: ~/.secrets/github-token.txt

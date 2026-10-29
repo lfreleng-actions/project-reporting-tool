@@ -53,7 +53,7 @@ open output/my-first-project_report.html
 
 What just happened?
 
-1. ✅ Created configuration file: `config/my-first-project.yaml`
+1. ✅ Created configuration file: `configuration/my-first-project.yaml`
 2. ✅ Analyzed repositories in `./repos`
 3. ✅ Generated HTML report in `output/`
 
@@ -130,11 +130,11 @@ Configure analysis time windows? [Y/n]: Y
 Enable caching for faster re-runs? [Y/n]: Y
 Number of parallel workers [auto]: 16
 
-✅ Configuration created: config/production-reports.yaml
+✅ Configuration created: configuration/production-reports.yaml
 
 Next steps:
 
-  1. Review: cat config/production-reports.yaml
+  1. Review: cat configuration/production-reports.yaml
   2. Validate: lf-releng-project-reporting generate --project production-reports --repos-path /data/production/repos --dry-run
   3. Generate: lf-releng-project-reporting generate --project production-reports --repos-path /data/production/repos
 
@@ -318,7 +318,7 @@ git clone https://github.com/org/repo2.git
 
 # Create configuration
 cd ~/project-reports
-cp config/template.config.example config/template.config
+cp configuration/template.config.example configuration/template.config
 
 # Generate report
 lf-releng-project-reporting generate \
@@ -813,7 +813,7 @@ Generate report for specific time periods:
 
 ```bash
 # Custom configuration with specific dates
-cat > config/quarterly.config << EOF
+cat > configuration/quarterly.config << EOF
 project: quarterly-report
 repositories_path: /data/repos
 
@@ -1030,7 +1030,7 @@ Test different configurations:
 #!/bin/bash
 # test-configs.sh
 
-CONFIGS=("config/prod.config" "config/dev.config" "config/test.config")
+CONFIGS=("configuration/prod.config" "configuration/dev.config" "configuration/test.config")
 
 for config in "${CONFIGS[@]}"; do
   echo "Testing configuration: $config"
@@ -1110,7 +1110,7 @@ for project in "${PROJECTS[@]}"; do
   lf-releng-project-reporting init \
     --init-template standard \
     --project "$project" \
-    --config-output "config/${project}.yaml"
+    --config-output "configuration/${project}.yaml"
 
   # Validate
   lf-releng-project-reporting generate \
@@ -1329,7 +1329,7 @@ lf-releng-project-reporting generate \
 ### Example 2: Custom INFO.yaml Configuration
 
 ```yaml
-# config/onap.yaml
+# configuration/onap.yaml
 info_yaml:
   enabled: true
   source:
@@ -1355,7 +1355,7 @@ info_yaml:
 
 ```bash
 # Use custom config
-lf-releng-project-reporting generate --project onap --config config/onap.yaml
+lf-releng-project-reporting generate --project onap --config configuration/onap.yaml
 ```
 
 ### Example 3: Performance-Optimized INFO.yaml
@@ -1439,7 +1439,7 @@ info_yaml:
 git clone https://gerrit.linuxfoundation.org/infra/releng/info-master /data/info-master
 
 # Fast subsequent runs (uses local copy)
-lf-releng-project-reporting generate --project onap --config config/local.yaml
+lf-releng-project-reporting generate --project onap --config configuration/local.yaml
 ```
 
 ### Example 6: INFO.yaml with CI/CD
@@ -1463,7 +1463,7 @@ jobs:
           lf-releng-project-reporting generate \
             --project onap \
             --repos-path ./repos \
-            --config config/onap.yaml \
+            --config configuration/onap.yaml \
             --cache \
             --workers 8
         env:
@@ -1504,11 +1504,11 @@ Look for:
 # Focus on specific lifecycle states
 lf-releng-project-reporting generate \
   --project foundation \
-  --config config/active-only.yaml
+  --config configuration/active-only.yaml
 ```
 
 ```yaml
-# config/active-only.yaml
+# configuration/active-only.yaml
 info_yaml:
   filters:
     exclude_archived: true
@@ -1528,7 +1528,7 @@ info_yaml:
 lf-releng-project-reporting generate --project test --dry-run
 
 # Check configuration
-cat config/test.yaml | grep -A 10 "info_yaml:"
+cat configuration/test.yaml | grep -A 10 "info_yaml:"
 ```
 
 #### Issue: Slow URL validation

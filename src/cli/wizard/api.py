@@ -61,7 +61,7 @@ def create_config_from_template(
 
     # Determine output path
     if not output_path:
-        output_path = f"config/{project}.yaml"
+        output_path = f"configuration/{project}.yaml"
 
     # Create parent directory if needed
     config_path = Path(output_path)

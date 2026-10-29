@@ -207,7 +207,7 @@ Notes:
 ---
 
 > **Note:** Configuration wizard (`init`) and feature listing (`list-features`) commands are not yet implemented.
-> - To create configuration: Copy `/config/default.yaml` to `/configuration/<project>.yaml` and customize
+> - To create configuration: Copy `configuration/default.yaml` to `configuration/<project>.yaml` and customize
 > - Features are automatically detected during report generation (see generated reports for detected features)
 
 ---

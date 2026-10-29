@@ -296,7 +296,8 @@ def generate(
 
 
 # Note: init command removed - not yet implemented
-# Users should manually copy from /config/default.yaml to /configuration/
+# Users should manually copy configuration/default.yaml to
+# configuration/<project>.yaml
 
 
 # Note: list-features command removed - not yet implemented
