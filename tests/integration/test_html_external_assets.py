@@ -49,7 +49,6 @@ def external_assets(realistic_report_data):
     return collector.assets
 
 
-@pytest.mark.xfail(strict=True, reason="CDN includes are not pinned yet")
 def test_html_report_pins_external_assets(external_assets):
     """Every third-party asset names an exact release, never @latest."""
     assert external_assets, "Expected the DataTables CDN includes in the report"
@@ -58,7 +57,6 @@ def test_html_report_pins_external_assets(external_assets):
         assert PINNED_VERSION.search(asset["url"]), f"Unpinned version in {asset['url']}"
 
 
-@pytest.mark.xfail(strict=True, reason="CDN includes lack Subresource Integrity")
 def test_html_report_external_assets_have_integrity(external_assets):
     """Every third-party asset carries an SRI hash and a CORS mode."""
     assert external_assets

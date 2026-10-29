@@ -25,6 +25,7 @@ except ImportError:
         "(see the project's pyproject.toml for the authoritative version pin)."
     ) from None
 
+from .assets import get_template_globals
 from .context import RenderContext
 from .formatters import get_template_filters
 
@@ -65,6 +66,7 @@ class TemplateRenderer:
 
         # Register custom filters
         self._register_filters()
+        self.env.globals.update(get_template_globals())
 
     def _register_filters(self):
         """Register custom Jinja2 filters from formatters module."""
