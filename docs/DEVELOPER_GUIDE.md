@@ -83,7 +83,10 @@ lf-releng-project-reporting/
     │   │   ├── gerrit_client/
     │   │   └── jenkins_client/
     │   ├── reporter.py          # ⭐ Main orchestrator
-    │   ├── config.py
+    │   ├── config/              # Loading, merging, validation
+    │   │   ├── loading.py
+    │   │   ├── schema.json
+    │   │   └── validator/
     │   ├── collectors/
     │   │   └── git.py
     │   ├── aggregators/

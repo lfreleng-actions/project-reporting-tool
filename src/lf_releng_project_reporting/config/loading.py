@@ -21,7 +21,7 @@ from typing import Any
 
 import yaml
 
-from .exceptions import ConfigurationError
+from ..exceptions import ConfigurationError
 
 
 logger = logging.getLogger(__name__)

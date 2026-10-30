@@ -26,7 +26,7 @@ This package provides robust configuration validation using JSON Schema with add
 ### Basic Validation
 
 ```python
-from config import validate_config_file, print_validation_result
+from lf_releng_project_reporting.config import validate_config_file, print_validation_result
 from pathlib import Path
 
 # Validate a configuration file
@@ -47,7 +47,7 @@ else:
 ### Programmatic Validation
 
 ```python
-from config import ConfigValidator
+from lf_releng_project_reporting.config import ConfigValidator
 
 # Create validator
 validator = ConfigValidator()
@@ -78,7 +78,7 @@ if result.has_warnings:
 ### Command Line Validation
 
 ```python
-from config import validate_config_file, print_validation_result
+from lf_releng_project_reporting.config import validate_config_file, print_validation_result
 import sys
 
 result = validate_config_file(Path("config/template.config"))
@@ -325,7 +325,7 @@ class ValidationIssue:
 ### Validate on Startup
 
 ```python
-from config import validate_config_file
+from lf_releng_project_reporting.config import validate_config_file
 
 def load_configuration(config_path: Path) -> Dict[str, Any]:
     """Load and validate configuration."""
@@ -359,7 +359,7 @@ if args.validate_only:
 ```python
 # Graceful degradation for missing jsonschema
 try:
-    from config import ConfigValidator
+    from lf_releng_project_reporting.config import ConfigValidator
     validator = ConfigValidator()
     result = validator.validate(config)
     if not result.is_valid:
@@ -375,7 +375,7 @@ except ImportError:
 
 ```python
 from pathlib import Path
-from config import ConfigValidator
+from lf_releng_project_reporting.config import ConfigValidator
 
 # Use custom schema
 validator = ConfigValidator(
@@ -397,7 +397,7 @@ pytest tests/test_config_validation.py -v
 pytest tests/test_config_validation.py::test_semantic_validation -v
 
 # Check test coverage
-pytest tests/test_config_validation.py --cov=src.config --cov-report=html
+pytest tests/test_config_validation.py --cov=lf_releng_project_reporting.config --cov-report=html
 ```text
 
 ## Dependencies
@@ -483,7 +483,7 @@ def load_configuration(config_path):
 ### After (Schema Validation)
 
 ```python
-from config import validate_config_file
+from lf_releng_project_reporting.config import validate_config_file
 
 def load_configuration(config_path):
     # Single validation call
@@ -516,7 +516,7 @@ For issues or questions:
 
 1. Check this README
 2. Review test examples in `tests/test_config_validation.py`
-3. Check the JSON schema at `src/config/schema.json`
+3. Check the JSON schema at `src/lf_releng_project_reporting/config/schema.json`
 4. File an issue with validation output
 
 ## License

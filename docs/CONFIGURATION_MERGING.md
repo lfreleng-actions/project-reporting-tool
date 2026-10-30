@@ -432,8 +432,8 @@ The merging logic is implemented in `src/lf_releng_project_reporting/config.py`:
 
 Configuration is validated against JSON schema after merging:
 
-- Schema: `config/schema.json`
-- Validator: `src/config/validator.py`
+- Schema: `src/lf_releng_project_reporting/config/schema.json`
+- Validator: `src/lf_releng_project_reporting/config/validator/`
 
 This ensures merged configurations are always valid.
 

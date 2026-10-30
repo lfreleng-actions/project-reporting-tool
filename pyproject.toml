@@ -129,7 +129,6 @@ exclude = [
 packages = [
     "src/lf_releng_project_reporting",
     "src/cli",
-    "src/config",
     "src/rendering",
 ]
 include = [
@@ -214,7 +213,6 @@ data_file = "${TEMP-/tmp}/.coverage.project-reporting-tool"
 source = [
     "lf_releng_project_reporting",
     "cli",
-    "config",
     "rendering",
 ]
 branch = true

@@ -15,7 +15,7 @@ from typing import Any
 import pytest
 import yaml
 
-from config import (
+from lf_releng_project_reporting.config import (
     ConfigValidator,
     ValidationCategory,
     ValidationIssue,
@@ -585,7 +585,13 @@ def test_errors_prevent_semantic_validation(
 def test_validator_with_custom_schema():
     """Test validator with custom schema path."""
     # Use the default schema
-    schema_path = Path(__file__).parent.parent / "src" / "config" / "schema.json"
+    schema_path = (
+        Path(__file__).parent.parent
+        / "src"
+        / "lf_releng_project_reporting"
+        / "config"
+        / "schema.json"
+    )
     validator = ConfigValidator(schema_path=schema_path)
 
     assert validator.schema_path == schema_path

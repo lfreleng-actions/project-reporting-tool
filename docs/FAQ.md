@@ -632,11 +632,11 @@ Or use the CLI module directly:
 
 ```python
 from cli import parse_arguments, validate_arguments
-from config import load_config
+from lf_releng_project_reporting.config import load_configuration
 
 args = parse_arguments(['--project', 'test', '--repos-path', './repos'])
 validate_arguments(args)
-config = load_config(args)
+config = load_configuration(args.project, args.config_dir)
 # ... proceed with report generation
 ```text
 
