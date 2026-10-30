@@ -18,7 +18,7 @@ from unittest.mock import Mock, patch
 import httpx
 import pytest
 
-from api.gerrit_client import (
+from lf_releng_project_reporting.api.gerrit_client import (
     GerritAPIClient,
     GerritAPIDiscovery,
 )

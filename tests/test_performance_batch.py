@@ -15,7 +15,7 @@ This module tests all aspects of batch processing including:
 
 import time
 
-from performance.batch import (
+from lf_releng_project_reporting.performance.batch import (
     APIRequest,
     BatchProcessor,
     BatchResult,

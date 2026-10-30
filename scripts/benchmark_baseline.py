@@ -34,7 +34,7 @@ from typing import Any
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from performance import PerformanceProfiler, ProfileReport
+from lf_releng_project_reporting.performance import PerformanceProfiler, ProfileReport
 
 
 def setup_test_repositories(count: int, temp_dir: str) -> list[str]:

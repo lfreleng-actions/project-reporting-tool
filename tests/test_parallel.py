@@ -18,7 +18,7 @@ import time
 
 import pytest
 
-from performance import (
+from lf_releng_project_reporting.performance import (
     AggregatedResults,
     ParallelRepositoryProcessor,
     PerformanceProfiler,

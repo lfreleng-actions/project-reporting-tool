@@ -25,7 +25,7 @@ from pathlib import Path
 
 import pytest
 
-from performance.cache import (
+from lf_releng_project_reporting.performance.cache import (
     AnalysisResultCache,
     APIResponseCache,
     CacheEntry,

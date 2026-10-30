@@ -114,7 +114,7 @@ Example:
 @pytest.mark.smoke
 def test_basic_import():
     """Verify core modules can be imported."""
-    from performance.cache import CacheManager
+    from lf_releng_project_reporting.performance.cache import CacheManager
     assert CacheManager is not None
 
 @pytest.mark.smoke
@@ -468,7 +468,7 @@ This module tests all aspects of cache operations including:
 """
 
 import pytest
-from performance.cache import CacheManager, CacheKey
+from lf_releng_project_reporting.performance.cache import CacheManager, CacheKey
 
 # Mark all tests in this file as unit tests
 pytestmark = pytest.mark.unit
@@ -577,7 +577,7 @@ from unittest.mock import Mock, patch, MagicMock
 def test_with_mocked_dependency(mocker):
     """Test using mocked external dependency."""
     # Mock the external API call
-    mock_api = mocker.patch('src.api.github_client.GitHubClient')
+    mock_api = mocker.patch('lf_releng_project_reporting.api.github_client.GitHubClient')
     mock_api.return_value.get_repository.return_value = {
         "name": "test-repo"
     }

@@ -31,8 +31,8 @@ except ImportError:
     HTTPX_AVAILABLE = False
 
 if HTTPX_AVAILABLE:
-    from api.base_client import APIResponse, ErrorType
-    from api.github_client import GitHubAPIClient
+    from lf_releng_project_reporting.api.base_client import APIResponse, ErrorType
+    from lf_releng_project_reporting.api.github_client import GitHubAPIClient
 
 
 # Skip all tests if httpx is not available

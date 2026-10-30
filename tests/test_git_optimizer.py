@@ -21,7 +21,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from performance import (
+from lf_releng_project_reporting.performance import (
     CloneStrategy,
     GitConfig,
     GitOperationResult,
@@ -470,7 +470,7 @@ class TestIntegrationScenarios:
     @patch("subprocess.run")
     def test_clone_with_profiler(self, mock_run):
         """Test clone with profiler integration."""
-        from performance import PerformanceProfiler
+        from lf_releng_project_reporting.performance import PerformanceProfiler
 
         mock_run.return_value = MagicMock(returncode=0, stdout="Cloned", stderr="")
 

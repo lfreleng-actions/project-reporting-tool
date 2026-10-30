@@ -16,7 +16,7 @@ Classes:
     CacheKey: Cache key generation
 
 Example:
-    >>> from src.performance.cache import CacheManager
+    >>> from lf_releng_project_reporting.performance.cache import CacheManager
     >>> cache = CacheManager(cache_dir=".cache", ttl=3600)
     >>> cache.set("repo:owner/name:metadata", metadata)
     >>> cached = cache.get("repo:owner/name:metadata")

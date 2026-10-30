@@ -161,7 +161,7 @@ def test_gerrit_api_endpoints_with_discovered_prefix():
 
     This tests the actual API discovery mechanism that our code uses.
     """
-    from api.gerrit_client import GerritAPIDiscovery
+    from lf_releng_project_reporting.api.gerrit_client import GerritAPIDiscovery
 
     test_cases = [
         ("gerrit.onap.org", "/r"),
@@ -200,7 +200,7 @@ def test_gerrit_projects_api_responds():
     This is a more comprehensive test that actually tries to query
     the projects API to ensure our URLs are completely correct.
     """
-    from api.gerrit_client import GerritAPIClient
+    from lf_releng_project_reporting.api.gerrit_client import GerritAPIClient
 
     test_cases = [
         ("gerrit.onap.org", "oom"),

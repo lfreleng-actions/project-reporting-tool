@@ -23,9 +23,9 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from api.gerrit_client import GerritAPIClient
-from api.github_client import GitHubAPIClient
-from api.jenkins_client import JenkinsAPIClient
+from lf_releng_project_reporting.api.gerrit_client import GerritAPIClient
+from lf_releng_project_reporting.api.github_client import GitHubAPIClient
+from lf_releng_project_reporting.api.jenkins_client import JenkinsAPIClient
 from lf_releng_project_reporting.collectors.git import GitDataCollector
 from lf_releng_project_reporting.features.registry import FeatureRegistry
 from lf_releng_project_reporting.main import APIStatistics

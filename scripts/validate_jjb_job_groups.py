@@ -24,7 +24,7 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from jjb_attribution import JJBAttribution, JJBRepoManager
+from lf_releng_project_reporting.jjb_attribution import JJBAttribution, JJBRepoManager
 
 
 def test_job_group_expansion():

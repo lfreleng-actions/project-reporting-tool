@@ -17,7 +17,7 @@ The FeatureRegistry provides a plugin-style architecture for feature detection:
 - Code quality tools
 """
 
-from api.github_client import GitHubAPIClient
+from lf_releng_project_reporting.api.github_client import GitHubAPIClient
 
 from .registry import FeatureRegistry
 

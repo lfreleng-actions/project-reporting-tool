@@ -19,7 +19,7 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from api.jenkins_client import JenkinsAPIClient
+from lf_releng_project_reporting.api.jenkins_client import JenkinsAPIClient
 
 
 # ============================================================================
