@@ -73,7 +73,7 @@ Follow the prompts:
 lf-releng-project-reporting init --project my-project --template standard
 ```
 
-This creates `config/my-project.yaml` with sensible defaults.
+This creates `configuration/my-project.yaml` with sensible defaults.
 
 ### Step 3: Generate Your First Report
 
@@ -170,7 +170,7 @@ lf-releng-project-reporting generate \
 
 ## ⚙️ Basic Configuration
 
-Your `config/my-project.yaml` controls report generation:
+Your `configuration/my-project.yaml` controls report generation:
 
 ```yaml
 # Minimal configuration
@@ -195,7 +195,7 @@ time_windows:
 ### Add GitHub API Integration
 
 ```yaml
-# config/my-project.yaml
+# configuration/my-project.yaml
 github_api:
   enabled: true
   token: ghp_your_token_here  # Or use environment variable
@@ -210,7 +210,7 @@ lf-releng-project-reporting generate --project my-project --repos-path ./repos
 ### Enable INFO.yaml Reports
 
 ```yaml
-# config/my-project.yaml
+# configuration/my-project.yaml
 info_yaml:
   enabled: true
   source:
@@ -221,7 +221,7 @@ info_yaml:
 ### Optimize Performance
 
 ```yaml
-# config/my-project.yaml
+# configuration/my-project.yaml
 performance:
   parallel_processing:
     enabled: true

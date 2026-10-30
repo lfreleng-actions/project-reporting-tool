@@ -152,13 +152,13 @@ lf-releng-project-reporting generate --project test --repos-path ./repos --quiet
 **A:** The default location is:
 
 ```text
-./config/{project}.yaml
+./configuration/{project}.yaml
 ```
 
 For example, if `--project my-project`, the file should be:
 
 ```text
-./config/my-project.yaml
+./configuration/my-project.yaml
 ```
 
 You can customize the directory with:
@@ -203,7 +203,7 @@ Common overrides:
 
 1. **Command-line arguments** (e.g., `--workers 8`)
 2. **Configuration overrides** (e.g., `--config-override workers=8`)
-3. **Configuration file** (e.g., `config/my-project.yaml`)
+3. **Configuration file** (e.g., `configuration/my-project.yaml`)
 4. **Environment variables** (e.g., `GITHUB_TOKEN`)
 5. **Built-in defaults**
 
@@ -237,7 +237,7 @@ This shows the final merged configuration after all overrides are applied.
 **A:** Yes! Use `--config-override` to customize per-project:
 
 ```bash
-# Shared config at config/shared.yaml
+# Shared config at configuration/shared.yaml
 lf-releng-project-reporting generate \
   --project project-a \
   --repos-path ./repos-a \
@@ -254,7 +254,7 @@ lf-releng-project-reporting generate \
 Or create project-specific configs that inherit from a base:
 
 ```yaml
-# config/base.yaml
+# configuration/base.yaml
 _extends: ./shared.yaml
 project: my-project
 ```
@@ -590,7 +590,7 @@ Option 4: Check file naming
 ```bash
 # File must match project name
 # If --project my-project, file should be:
-./config/my-project.yaml  # NOT .yml, NOT My-Project.yaml
+./configuration/my-project.yaml  # NOT .yml, NOT My-Project.yaml
 ```text
 
 ---
@@ -732,7 +732,7 @@ Skip ZIP archive:
 **A:** Currently, filtering is done in the configuration file:
 
 ```yaml
-# config/my-project.yaml
+# configuration/my-project.yaml
 repositories:
   include:
     - "repo-*"           # Include all repos starting with "repo-"

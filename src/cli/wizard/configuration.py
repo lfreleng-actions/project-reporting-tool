@@ -342,7 +342,7 @@ class ConfigurationWizard:
 
         # Determine output path
         if not output_path:
-            default_path = f"config/{self.config['project']}.yaml"
+            default_path = f"configuration/{self.config['project']}.yaml"
             output_path = prompt("Configuration file path", default_path)
 
         # Create parent directory if needed

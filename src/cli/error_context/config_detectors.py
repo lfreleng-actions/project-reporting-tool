@@ -16,17 +16,21 @@ def detect_missing_config() -> ErrorContext:
     return ErrorContext(
         error_type="Configuration Error",
         message="Configuration file not found",
-        context={"expected_location": "config/template.yaml", "current_directory": os.getcwd()},
+        context={
+            "expected_location": "configuration/default.yaml",
+            "current_directory": os.getcwd(),
+        },
         recovery_hints=[
-            "Copy config.example.yaml to config.yaml",
-            "Edit config.yaml with your project settings",
+            "Copy configuration/default.yaml to configuration/<project>.yaml",
+            "Edit configuration/<project>.yaml with your project settings",
             "Or specify a custom config with --config-dir /path/to/config",
         ],
         examples=[
-            "cp config.example.yaml config.yaml",
-            "python generate_reports.py --config-dir /custom/path",
+            "cp configuration/default.yaml configuration/my-project.yaml",
+            "lf-releng-project-reporting generate --project my-project "
+            "--repos-path ./repos --config-dir /custom/path",
         ],
-        doc_links=["docs/configuration.md", "docs/quick-start.md#configuration"],
+        doc_links=["docs/CONFIGURATION.md", "docs/GETTING_STARTED.md"],
     )
 
 

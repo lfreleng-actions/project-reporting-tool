@@ -96,7 +96,7 @@ For more information, see docs/CLI_REFERENCE.md
         metavar="PATH",
         help="""
         Configuration directory containing YAML config files.
-        Default: ./config
+        Default: ./configuration
         Example: --config-dir /etc/repo-reports/config
         """,
     )
@@ -214,7 +214,7 @@ For more information, see docs/CLI_REFERENCE.md
         metavar="PATH",
         help="""
         Output path for configuration file (used with --init or --init-template).
-        Default: config/{project}.yaml
+        Default: configuration/{project}.yaml
         Example: --config-output custom-config.yaml
         """,
     )

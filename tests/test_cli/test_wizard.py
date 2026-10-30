@@ -219,8 +219,8 @@ class TestCreateConfigFromTemplate:
 
         result = create_config_from_template("test-project", "minimal")
 
-        assert "config/test-project.yaml" in result
-        assert (tmp_path / "config" / "test-project.yaml").exists()
+        assert "configuration/test-project.yaml" in result
+        assert (tmp_path / "configuration" / "test-project.yaml").exists()
 
     def test_create_config_creates_directories(self, tmp_path):
         """Test that config creation creates parent directories."""
@@ -432,7 +432,7 @@ class TestRunWizard:
         """Test run_wizard without explicit path."""
         mock_wizard = MagicMock()
         mock_wizard_class.return_value = mock_wizard
-        mock_wizard.run.return_value = "config/default.yaml"
+        mock_wizard.run.return_value = "configuration/my-project.yaml"
 
         run_wizard()
 

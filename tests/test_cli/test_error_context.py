@@ -149,7 +149,8 @@ class TestDetectMissingConfig:
         assert ctx.error_type == "Configuration Error"
         assert "not found" in ctx.message.lower()
         assert len(ctx.recovery_hints) > 0
-        assert any("config.example.yaml" in hint for hint in ctx.recovery_hints)
+        assert ctx.context["expected_location"] == "configuration/default.yaml"
+        assert any("configuration/default.yaml" in hint for hint in ctx.recovery_hints)
         assert len(ctx.examples) > 0
         assert len(ctx.doc_links) > 0
 
