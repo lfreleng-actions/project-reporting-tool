@@ -16,7 +16,7 @@ This module tests:
 import threading
 import time
 
-from concurrency.jenkins_allocation import JenkinsAllocationContext
+from lf_releng_project_reporting.concurrency.jenkins_allocation import JenkinsAllocationContext
 
 
 class TestJenkinsAllocationContextBasics:

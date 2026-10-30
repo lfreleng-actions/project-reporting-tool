@@ -10,7 +10,7 @@ including concurrent access scenarios and isolation between instances.
 
 import threading
 
-from concurrency.jenkins_allocation import JenkinsAllocationContext
+from lf_releng_project_reporting.concurrency.jenkins_allocation import JenkinsAllocationContext
 
 
 class TestJenkinsAllocationContextBasics:
