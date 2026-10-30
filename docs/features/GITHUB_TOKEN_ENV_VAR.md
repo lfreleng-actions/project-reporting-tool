@@ -107,7 +107,6 @@ Keep existing secret name and specify `--github-token-env CLASSIC_READ_ONLY_PAT_
 
 - [Complete Guide](../GITHUB_TOKEN_ENV.md) - Detailed configuration and troubleshooting
 - [Setup Guide](../../SETUP.md) - General setup instructions
-- [Changelog](../CHANGELOG_GITHUB_TOKEN_ENV.md) - Complete change details
 
 ## Benefits
 
