@@ -532,7 +532,7 @@ PYTHONPATH=. pytest --cov=src.your_module --cov-report=term-missing
 
 ```python
 import pytest
-from performance.cache import CacheManager, CacheKey
+from lf_releng_project_reporting.performance.cache import CacheManager, CacheKey
 
 @pytest.mark.unit
 def test_cache_basic_operations(temp_cache_dir):

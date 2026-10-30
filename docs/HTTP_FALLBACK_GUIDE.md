@@ -127,7 +127,7 @@ This will show:
 Test with Python:
 
 ```python
-from api.jenkins_client import JenkinsAPIClient
+from lf_releng_project_reporting.api.jenkins_client import JenkinsAPIClient
 
 # Without fallback (will fail if SSL broken)
 client = JenkinsAPIClient('jenkins.example.org', allow_http_fallback=False)

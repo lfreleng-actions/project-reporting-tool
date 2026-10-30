@@ -77,11 +77,11 @@ lf-releng-project-reporting/
 │   ├── template.config
 │   └── project.config
 └── src/
-    ├── api/                     # External API clients
-    │   ├── github_client.py
-    │   ├── gerrit_client.py
-    │   └── jenkins_client.py
     ├── lf_releng_project_reporting/          # Core system
+    │   ├── api/                 # External API clients
+    │   │   ├── github_client/
+    │   │   ├── gerrit_client/
+    │   │   └── jenkins_client/
     │   ├── reporter.py          # ⭐ Main orchestrator
     │   ├── config.py
     │   ├── collectors/
@@ -158,7 +158,7 @@ def render_my_format(self, data: Dict[str, Any]) -> str:
 
 ### Adding a New API Client
 
-1. **Create:** `src/api/my_service_client.py`
+1. **Create:** `src/lf_releng_project_reporting/api/my_service_client.py`
 2. **Implement:** Client class with `__init__`, methods, error handling
 3. **Import in:** `generate_reports.py` and use in collectors
 
@@ -304,9 +304,9 @@ from lf_releng_project_reporting.config import (
 ### API Clients
 
 ```python
-from api.github_client import GitHubAPIClient
-from api.gerrit_client import GerritAPIClient, GerritAPIDiscovery
-from api.jenkins_client import JenkinsAPIClient
+from lf_releng_project_reporting.api.github_client import GitHubAPIClient
+from lf_releng_project_reporting.api.gerrit_client import GerritAPIClient, GerritAPIDiscovery
+from lf_releng_project_reporting.api.jenkins_client import JenkinsAPIClient
 ```
 
 ### Utilities

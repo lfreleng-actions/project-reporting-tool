@@ -158,7 +158,7 @@ When to Use:
 Example:
 
 ```python
-from performance.parallel import ParallelRepositoryProcessor
+from lf_releng_project_reporting.performance.parallel import ParallelRepositoryProcessor
 
 processor = ParallelRepositoryProcessor(max_workers=4)
 
@@ -247,7 +247,7 @@ Clone Strategies:
 Example:
 
 ```python
-from performance.git_optimizer import GitOptimizer
+from lf_releng_project_reporting.performance.git_optimizer import GitOptimizer
 
 optimizer = GitOptimizer(
     shallow_clone=True,
@@ -347,7 +347,7 @@ Caches are automatically invalidated when:
 Example:
 
 ```python
-from performance.cache import CacheManager
+from lf_releng_project_reporting.performance.cache import CacheManager
 
 cache = CacheManager(
     cache_dir="./.report-cache",
@@ -439,7 +439,7 @@ Memory Usage Patterns:
 Example:
 
 ```python
-from performance.memory import MemoryOptimizer
+from lf_releng_project_reporting.performance.memory import MemoryOptimizer
 
 optimizer = MemoryOptimizer(
     max_memory_mb=500,
@@ -533,7 +533,7 @@ API Call Reduction:
 Example:
 
 ```python
-from performance.batch import BatchProcessor
+from lf_releng_project_reporting.performance.batch import BatchProcessor
 
 processor = BatchProcessor(
     batch_size=10,
@@ -635,7 +635,7 @@ Report Contents:
 Example:
 
 ```python
-from performance.reporter import PerformanceReporter
+from lf_releng_project_reporting.performance.reporter import PerformanceReporter
 
 reporter = PerformanceReporter()
 
@@ -1101,7 +1101,7 @@ Solutions:
 Monitoring:
 
 ```python
-from performance.memory import MemoryOptimizer
+from lf_releng_project_reporting.performance.memory import MemoryOptimizer
 
 optimizer = MemoryOptimizer()
 with optimizer.monitor_memory() as monitor:
@@ -1206,7 +1206,7 @@ Solutions:
 Monitoring:
 
 ```python
-from performance.batch import BatchProcessor
+from lf_releng_project_reporting.performance.batch import BatchProcessor
 
 processor = BatchProcessor()
 stats = processor.get_rate_limit_stats()
@@ -1363,7 +1363,7 @@ python scripts/compare_performance.py before.json after.json
 Profile before adding to production:
 
 ```python
-from performance.profiler import PerformanceProfiler
+from lf_releng_project_reporting.performance.profiler import PerformanceProfiler
 
 profiler = PerformanceProfiler()
 
@@ -1395,7 +1395,7 @@ pytest tests/performance/ --benchmark
 #### Performance Profiler
 
 ```python
-from performance.profiler import PerformanceProfiler
+from lf_releng_project_reporting.performance.profiler import PerformanceProfiler
 
 # Basic profiling
 profiler = PerformanceProfiler()
@@ -1415,7 +1415,7 @@ profiler.export_text("profile.txt")
 #### Parallel Processing
 
 ```python
-from performance.parallel import ParallelRepositoryProcessor
+from lf_releng_project_reporting.performance.parallel import ParallelRepositoryProcessor
 
 # Process repositories in parallel
 processor = ParallelRepositoryProcessor(max_workers=4)
@@ -1435,7 +1435,7 @@ print(f"Speedup: {stats.speedup}x")
 #### Git Optimization
 
 ```python
-from performance.git_optimizer import GitOptimizer
+from lf_releng_project_reporting.performance.git_optimizer import GitOptimizer
 
 # Optimize git operations
 optimizer = GitOptimizer(
@@ -1454,7 +1454,7 @@ optimizer.batch_clone(repo_list, target_dir)
 #### Caching
 
 ```python
-from performance.cache import CacheManager
+from lf_releng_project_reporting.performance.cache import CacheManager
 
 # Create cache manager
 cache = CacheManager(cache_dir=".cache", default_ttl=3600)
@@ -1473,7 +1473,7 @@ print(f"Hit rate: {stats.hit_rate}%")
 #### Memory Optimization
 
 ```python
-from performance.memory import MemoryOptimizer
+from lf_releng_project_reporting.performance.memory import MemoryOptimizer
 
 # Create optimizer
 optimizer = MemoryOptimizer(max_memory_mb=500)
@@ -1491,7 +1491,7 @@ for line in optimizer.stream_file(large_file):
 #### Batch Processing
 
 ```python
-from performance.batch import BatchProcessor
+from lf_releng_project_reporting.performance.batch import BatchProcessor
 
 # Create batch processor
 processor = BatchProcessor(batch_size=10)
@@ -1507,7 +1507,7 @@ print(f"Calls saved: {stats.calls_saved}")
 #### Performance Monitoring
 
 ```python
-from performance.reporter import PerformanceReporter
+from lf_releng_project_reporting.performance.reporter import PerformanceReporter
 
 # Create reporter
 reporter = PerformanceReporter()

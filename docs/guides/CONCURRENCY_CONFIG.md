@@ -346,7 +346,7 @@ pool = AdaptiveThreadPool()
 ### Performance Profiling
 
 ```python
-from performance.profiler import PerformanceProfiler
+from lf_releng_project_reporting.performance.profiler import PerformanceProfiler
 
 with PerformanceProfiler() as profiler:
     pool = AdaptiveThreadPool()
@@ -404,7 +404,7 @@ with ResourceMonitor(max_memory_percent=70):
 pool = AdaptiveThreadPool(max_workers=4)
 
 # Process in smaller batches
-from performance.batch import BatchProcessor
+from lf_releng_project_reporting.performance.batch import BatchProcessor
 for batch in BatchProcessor(batch_size=50).process(data):
     process(batch)
 ```text
