@@ -133,7 +133,6 @@ packages = [
     "src/concurrency",
     "src/config",
     "src/jjb_attribution",
-    "src/observability",
     "src/performance",
     "src/rendering",
 ]
@@ -223,7 +222,6 @@ source = [
     "concurrency",
     "config",
     "jjb_attribution",
-    "observability",
     "performance",
     "rendering",
 ]
