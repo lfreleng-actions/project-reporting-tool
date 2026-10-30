@@ -853,6 +853,8 @@ template = env.get_template('html/base.html.j2')
 - [Configuration Guide](CONFIGURATION.md) - Template configuration options
 - [Developer Guide](DEVELOPER_GUIDE.md) - Architecture and API reference
 - [Testing Guide](TESTING.md) - Comprehensive testing documentation
+- [Theme Creation](guides/THEME_CREATION.md) - Building CSS themes for HTML reports
+- [DataTables Usage](DATATABLES_USAGE.md) - Sorting, search and pagination for HTML tables
 
 ### Template Examples
 

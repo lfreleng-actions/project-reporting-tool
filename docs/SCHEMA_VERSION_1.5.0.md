@@ -188,7 +188,6 @@ matrix:
 
 - `src/config/validator.py` - Bumped schema version to 1.5.0
 - `src/lf_releng_project_reporting/main.py` - Updated SCHEMA_VERSION constant
-- `config/default.yaml` - Updated schema_version
 - `configuration/default.yaml` - Updated schema_version
 
 **Core Logic:**
@@ -300,10 +299,8 @@ Potential future additions (not in 1.5.0):
 
 ## References
 
-- [Implementation Plan](GITHUB_NATIVE_IMPLEMENTATION_PLAN.md)
 - [Configuration Guide](CONFIGURATION.md)
 - [Template Development](TEMPLATE_DEVELOPMENT.md)
-- [Schema Version History](SCHEMA_VERSIONS.md)
 
 ---
 

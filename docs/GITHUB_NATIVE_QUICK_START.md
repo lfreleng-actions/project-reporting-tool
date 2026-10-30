@@ -510,10 +510,8 @@ export GITHUB_TOKEN="your_token_here"
 
 ## Related Documentation
 
-- [Implementation Plan](GITHUB_NATIVE_IMPLEMENTATION_PLAN.md) - Complete design
-- [Implementation Summary](GITHUB_NATIVE_IMPLEMENTATION_SUMMARY.md) - What changed
 - [Schema Version 1.5.0](SCHEMA_VERSION_1.5.0.md) - Version details
-- [Testing Guide](../TESTING_GITHUB_NATIVE.md) - Test procedures
+- [Testing Guide](TESTING_GITHUB_NATIVE.md) - Test procedures
 - [Configuration Guide](CONFIGURATION.md) - Full config reference
 
 ---
@@ -523,7 +521,7 @@ export GITHUB_TOKEN="your_token_here"
 ### Get Help
 
 1. Check [Troubleshooting](#troubleshooting) section above
-2. Review [Testing Guide](../TESTING_GITHUB_NATIVE.md)
+2. Review [Testing Guide](TESTING_GITHUB_NATIVE.md)
 3. Verify GitHub authentication
 4. Check logs in `reports/{project}/`
 5. Open issue with details

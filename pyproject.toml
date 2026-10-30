@@ -149,7 +149,6 @@ include = [
 
 [tool.hatch.build.targets.wheel.shared-data]
 "examples" = "share/lf-releng-project-reporting/examples"
-"docs" = "share/lf-releng-project-reporting/docs"
 
 # UV configuration
 [tool.uv]

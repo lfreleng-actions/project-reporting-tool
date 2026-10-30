@@ -430,9 +430,7 @@ grep "Generated in" testing/reports/Aether/*.log
 
 ### Documentation
 
-- [Implementation Plan](docs/GITHUB_NATIVE_IMPLEMENTATION_PLAN.md)
-- [Implementation Summary](docs/GITHUB_NATIVE_IMPLEMENTATION_SUMMARY.md)
-- [Schema Version 1.5.0](docs/SCHEMA_VERSION_1.5.0.md)
+- [Schema Version 1.5.0](SCHEMA_VERSION_1.5.0.md)
 
 ### Debugging
 

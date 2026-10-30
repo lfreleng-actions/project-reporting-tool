@@ -79,13 +79,16 @@ parameters:
 {% include 'html/components/data_table.html.j2' %}
 
 {#- Disable specific features -#}
-{% include 'html/components/data_table.html.j2'
-    with enable_search=false, enable_pagination=false %}
-
-{#- Completely disable DataTables -#}
-{% include 'html/components/data_table.html.j2'
-    with enable_datatables=false %}
+{% set enable_search = false %}
+{% set enable_pagination = false %}
+{% include 'html/components/data_table.html.j2' %}
 ```
+
+Jinja2's `include` takes no parameters, so set the component's
+parameters as variables before the `include`; the included template
+sees the variables of the template that includes it. To turn
+DataTables off for a table, set `enable_datatables = false` the same
+way.
 
 ### Component Parameters
 
@@ -259,6 +262,7 @@ For complete control, use the `datatables_classes` helper macro:
 {% import 'html/components/datatables_support.html.j2' as dt %}
 
 <table class="{{ dt.datatables_classes(
+    config,
     enable_search=false,
     enable_pagination=false,
     base_classes='my-custom-table'
@@ -270,10 +274,15 @@ For complete control, use the `datatables_classes` helper macro:
 This generates:
 `my-custom-table dt-enabled dt-no-search dt-no-pagination`
 
+Every macro in `datatables_support.html.j2` takes the report
+configuration as its first argument: `datatables_css(config)`,
+`datatables_js(config)` and `datatables_classes(config, ...)`. An
+imported macro does not see the variables of the template that calls
+it, so omitting `config` fails with an undefined `config` error.
+
 ## Further Reading
 
 - [Simple-DataTables
   Documentation](https://github.com/fiduswriter/Simple-DataTables)
-- [DataTables Integration
-  Proposal](DATATABLES_INTEGRATION_PROPOSAL.md)
-- [Template Development Guide](../README.md)
+- [DataTables Implementation](DATATABLES_IMPLEMENTATION.md)
+- [Template Development Guide](TEMPLATE_DEVELOPMENT.md)

@@ -3,33 +3,32 @@ SPDX-License-Identifier: Apache-2.0
 SPDX-FileCopyrightText: 2025 The Linux Foundation
 -->
 
-# DataTables Implementation Summary
-
-**Date**: 2025-01-20
-**Status**: Complete - Phase 1
-**Version**: 1.0
+# DataTables Implementation
 
 ## Overview
 
-This document summarizes the implementation of DataTables integration for
-the test-lf-releng-project-reporting HTML reports. The implementation adds
-sorting, searching, and pagination features to HTML tables using the
-Simple-DataTables library.
+This document describes how the HTML reports integrate the
+Simple-DataTables library to add sorting, searching, and pagination to
+tables. For template authors' usage, see the
+[DataTables Usage Guide](DATATABLES_USAGE.md).
 
-## What Was Implemented
+## Components
 
-### Phase 1: Core Infrastructure (Complete)
-
-#### 1. DataTables Support Macro Template
+### 1. DataTables Support Macro Template
 
 **File**: `src/templates/html/components/datatables_support.html.j2`
 
-Created reusable Jinja2 macros for DataTables integration:
+Reusable Jinja2 macros for DataTables integration:
 
-- `datatables_css()`: Injects the pinned Simple-DataTables CSS from the
-  CDN, with Subresource Integrity
-- `datatables_js()`: Injects JavaScript library and initialization code
-- `datatables_classes()`: Helper macro to generate CSS class strings
+- `datatables_css(config)`: Injects the pinned Simple-DataTables CSS
+  from the CDN, with Subresource Integrity
+- `datatables_js(config)`: Injects JavaScript library and
+  initialization code
+- `datatables_classes(config, ...)`: Helper macro to generate CSS class
+  strings
+
+Each macro takes the report configuration as an explicit argument,
+because an imported Jinja2 macro does not see its caller's variables.
 
 **Key Features**:
 
@@ -38,17 +37,17 @@ Created reusable Jinja2 macros for DataTables integration:
 - Performance optimization (skips small tables)
 - Configurable labels and pagination options
 
-#### 2. Base Template Updates
+### 2. Base Template
 
 **File**: `src/templates/html/base.html.j2`
 
-Added DataTables support to the main HTML template:
+The main HTML template wires in DataTables support:
 
 - Import datatables_support macros
 - Inject CSS in `<head>` section
 - Inject JavaScript before `</body>` tag
 
-#### 3. Theme CSS Updates
+### 3. Theme CSS
 
 **Files**:
 
@@ -56,7 +55,7 @@ Added DataTables support to the main HTML template:
 - `src/themes/dark/theme.css`
 - `src/themes/minimal/theme.css`
 
-Added comprehensive DataTables styling for all themes:
+Each theme styles the DataTables controls:
 
 - Search input styling
 - Pagination controls
@@ -64,21 +63,22 @@ Added comprehensive DataTables styling for all themes:
 - Mobile responsive layouts
 - Print-friendly styles
 
-#### 4. Component Enhancement
+### 4. Data Table Component
 
 **File**: `src/templates/html/components/data_table.html.j2`
 
-Enhanced the data table component with DataTables support:
+The data table component accepts these DataTables parameters and
+generates the matching CSS classes through the helper macro:
 
-- Added `enable_datatables` parameter
-- Added `enable_search` parameter
-- Added `enable_pagination` parameter
-- Added `enable_sorting` parameter
-- Automatic CSS class generation using helper macro
+- `enable_datatables`
+- `enable_search`
+- `enable_pagination`
+- `enable_sorting`
 
-#### 5. Section Template Updates
+### 5. Section Templates
 
-Updated section templates to enable DataTables with appropriate features:
+Section templates enable DataTables with the features suited to each
+table:
 
 - **Repositories** (`repositories.html.j2`): Full features (sort,
   search, pagination)
@@ -88,11 +88,11 @@ Updated section templates to enable DataTables with appropriate features:
 - **Workflows** (`workflows.html.j2`): Sort only
 - **Orphaned Jobs** (`orphaned_jobs.html.j2`): Sort only
 
-#### 6. Configuration Context
+### 6. Configuration Context
 
-**File**: `src/rendering/context.py`
+**File**: `src/rendering/context/sections.py`
 
-Added `html_tables` configuration to template context:
+The template context carries the `html_tables` configuration:
 
 - `sortable`: Global enable/disable
 - `searchable`: Default search setting
@@ -101,19 +101,11 @@ Added `html_tables` configuration to template context:
 - `page_size_options`: Available page sizes
 - `min_rows_for_sorting`: Performance threshold
 
-#### 7. Documentation
-
-Created comprehensive documentation:
-
-- **Usage Guide** (`docs/DATATABLES_USAGE.md`): User-facing
-  documentation
-- **Implementation Summary** (this document): Technical summary
-
-#### 8. Testing
+### 7. Tests
 
 **File**: `tests/test_datatables_integration.py`
 
-Created integration tests verifying:
+Integration tests verify:
 
 - Macro file exists
 - Theme CSS includes DataTables styles
@@ -123,7 +115,7 @@ Created integration tests verifying:
 
 ## CSS Class System
 
-### New CSS Classes
+### CSS Classes
 
 | Class              | Purpose                    |
 | ------------------ | -------------------------- |
@@ -168,7 +160,7 @@ html_tables:
 └─────────────────────────────────────────────┘
                     ↓
 ┌─────────────────────────────────────────────┐
-│ src/rendering/context.py                    │
+│ src/rendering/context/sections.py           │
 │ - Builds config context with html_tables    │
 └─────────────────────────────────────────────┘
                     ↓
@@ -195,7 +187,7 @@ html_tables:
 
 ## Table Feature Matrix
 
-Current implementation applies these features to each table type:
+The templates apply these features to each table type:
 
 <!-- markdownlint-disable MD060 -->
 
@@ -210,49 +202,6 @@ Current implementation applies these features to each table type:
 | Summary Stats  | ❌     | ❌   | ❌         | Metadata only   |
 
 <!-- markdownlint-enable MD060 -->
-
-## Files Changed
-
-### New Files
-
-- `src/templates/html/components/datatables_support.html.j2`
-- `tests/test_datatables_integration.py`
-- `docs/DATATABLES_USAGE.md`
-- `docs/DATATABLES_IMPLEMENTATION.md`
-
-### Modified Files
-
-- `src/templates/html/base.html.j2`
-- `src/templates/html/components/data_table.html.j2`
-- `src/templates/html/sections/repositories.html.j2`
-- `src/templates/html/sections/contributors.html.j2`
-- `src/templates/html/sections/organizations.html.j2`
-- `src/templates/html/sections/features.html.j2`
-- `src/templates/html/sections/workflows.html.j2`
-- `src/templates/html/sections/orphaned_jobs.html.j2`
-- `src/themes/default/theme.css`
-- `src/themes/dark/theme.css`
-- `src/themes/minimal/theme.css`
-- `src/rendering/context.py`
-
-## Testing Results
-
-All integration tests pass:
-
-```text
-tests/test_datatables_integration.py::test_datatables_css_macro_exists
-PASSED
-tests/test_datatables_integration.py::test_datatables_theme_css_exists
-PASSED
-tests/test_datatables_integration.py::test_base_template_has_datatables_import
-PASSED
-tests/test_datatables_integration.py::test_repositories_section_uses_dt_enabled
-PASSED
-tests/test_datatables_integration.py::test_features_section_disables_features
-PASSED
-tests/test_datatables_integration.py::test_data_table_component_supports_datatables
-PASSED
-```
 
 ## Pinned CDN Assets
 
@@ -295,7 +244,7 @@ Dependabot does not track CDN URLs, so bump the library by hand:
 
 ## Browser Compatibility
 
-Tested and working in:
+Supported browsers:
 
 - Chrome/Edge (latest)
 - Firefox (latest)
@@ -316,45 +265,8 @@ Tested and working in:
 3. **JavaScript required**: Gracefully degrades to plain table if JS
    disabled
 
-## Future Enhancements
-
-Potential improvements for future phases:
-
-1. **Local library bundling**: Remove CDN dependency
-2. **Server-side processing**: For very large datasets
-3. **Column visibility toggles**: Allow users to show/hide columns
-4. **Export functionality**: Add CSV/Excel export buttons
-5. **Advanced filtering**: Range filters for numeric columns
-6. **Saved preferences**: Remember user's pagination settings
-
-## Migration Path
-
-The implementation is backward compatible:
-
-- Existing reports continue to work
-- DataTables is opt-in via CSS classes
-- Configuration defaults maintain current behavior
-- No breaking changes to templates
-
 ## References
 
 - [Simple-DataTables
   GitHub](https://github.com/fiduswriter/Simple-DataTables)
 - [DataTables Usage Guide](DATATABLES_USAGE.md)
-- [Legacy Implementation](../../lf-releng-project-reporting/src/lf_releng_project_reporting/renderers/report.py)
-
-## Contributors
-
-- Implementation: System Analysis and Development Team
-- Testing: Automated Test Suite
-- Documentation: Technical Writing Team
-
-## Change Log
-
-### 2025-01-20 - Version 1.0
-
-- Initial implementation (Phase 1)
-- Core infrastructure complete
-- All themes updated
-- Documentation created
-- Tests passing
