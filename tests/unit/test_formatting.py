@@ -17,7 +17,7 @@ import pytest
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 
-from util.formatting import (
+from lf_releng_project_reporting.util.formatting import (
     UNKNOWN_AGE,
     format_age,
     format_number,

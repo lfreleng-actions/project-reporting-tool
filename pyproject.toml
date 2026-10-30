@@ -137,7 +137,6 @@ packages = [
     "src/observability",
     "src/performance",
     "src/rendering",
-    "src/util",
 ]
 include = [
     "/src/templates/**/*",
@@ -229,7 +228,6 @@ source = [
     "observability",
     "performance",
     "rendering",
-    "util",
 ]
 branch = true
 parallel = true

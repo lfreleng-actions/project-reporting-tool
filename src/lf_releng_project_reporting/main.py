@@ -41,8 +41,8 @@ from lf_releng_project_reporting.config import (
 from lf_releng_project_reporting.exceptions import NoRepositoriesError
 from lf_releng_project_reporting.reporter import RepositoryReporter
 from lf_releng_project_reporting.step_summary import write_config_to_step_summary
-from util.github_org import determine_github_org
-from util.zip_bundle import create_report_bundle
+from lf_releng_project_reporting.util.github_org import determine_github_org
+from lf_releng_project_reporting.util.zip_bundle import create_report_bundle
 
 
 logger = logging.getLogger(__name__)

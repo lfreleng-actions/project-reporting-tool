@@ -22,7 +22,7 @@ import pytest
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 
-from util.zip_bundle import (
+from lf_releng_project_reporting.util.zip_bundle import (
     create_report_bundle,
     validate_zip_bundle,
 )
