@@ -32,7 +32,7 @@ except ImportError:
     HTTPX_AVAILABLE = False
 
 if HTTPX_AVAILABLE:
-    from api.gerrit_client import (
+    from lf_releng_project_reporting.api.gerrit_client import (
         GerritAPIClient,
         GerritAPIDiscovery,
         GerritAPIError,
@@ -174,7 +174,9 @@ class TestGerritURLBuilderDiscovery:
 
     def test_discover_uses_gerrit_api_discovery(self):
         """Test that discover() uses GerritAPIDiscovery internally."""
-        with patch("api.gerrit_client.GerritAPIDiscovery") as MockDiscovery:
+        with patch(
+            "lf_releng_project_reporting.api.gerrit_client.GerritAPIDiscovery"
+        ) as MockDiscovery:
             mock_instance = MagicMock()
             mock_instance.discover_base_url.return_value = "https://gerrit.example.org/r"
             MockDiscovery.return_value.__enter__.return_value = mock_instance
@@ -186,7 +188,9 @@ class TestGerritURLBuilderDiscovery:
 
     def test_discover_propagates_error(self):
         """Test that discover() propagates GerritAPIError."""
-        with patch("api.gerrit_client.GerritAPIDiscovery") as MockDiscovery:
+        with patch(
+            "lf_releng_project_reporting.api.gerrit_client.GerritAPIDiscovery"
+        ) as MockDiscovery:
             mock_instance = MagicMock()
             mock_instance.discover_base_url.side_effect = GerritAPIError("Discovery failed")
             MockDiscovery.return_value.__enter__.return_value = mock_instance

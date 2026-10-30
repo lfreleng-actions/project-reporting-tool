@@ -128,7 +128,6 @@ exclude = [
 [tool.hatch.build.targets.wheel]
 packages = [
     "src/lf_releng_project_reporting",
-    "src/api",
     "src/cli",
     "src/config",
     "src/jjb_attribution",
@@ -216,7 +215,6 @@ filterwarnings = [
 data_file = "${TEMP-/tmp}/.coverage.project-reporting-tool"
 source = [
     "lf_releng_project_reporting",
-    "api",
     "cli",
     "config",
     "jjb_attribution",

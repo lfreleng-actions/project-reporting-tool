@@ -9,8 +9,8 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
-from api.gerrit_client import GerritAPIClient
-from api.jenkins_client import JenkinsAPIClient
+from lf_releng_project_reporting.api.gerrit_client import GerritAPIClient
+from lf_releng_project_reporting.api.jenkins_client import JenkinsAPIClient
 from lf_releng_project_reporting.concurrency.jenkins_allocation import JenkinsAllocationContext
 
 from .cache import _CacheMixin

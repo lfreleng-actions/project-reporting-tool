@@ -17,7 +17,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from api.base_client import (
+from lf_releng_project_reporting.api.base_client import (
     APIError,
     APIResponse,
     BaseAPIClient,
