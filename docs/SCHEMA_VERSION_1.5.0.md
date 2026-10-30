@@ -214,7 +214,7 @@ matrix:
 ### Schema Version Check
 
 ```python
-from config.validator import ConfigValidator
+from lf_releng_project_reporting.config.validator import ConfigValidator
 
 validator = ConfigValidator()
 assert validator.CURRENT_SCHEMA_VERSION == "1.5.0"
