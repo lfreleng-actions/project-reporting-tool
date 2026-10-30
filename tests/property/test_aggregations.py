@@ -13,9 +13,9 @@ from hypothesis import given, settings
 from hypothesis import strategies as st
 from hypothesis.strategies import composite
 
-from domain.author_metrics import AuthorMetrics
-from domain.repository_metrics import RepositoryMetrics
-from domain.time_window import TimeWindowStats
+from lf_releng_project_reporting.domain.author_metrics import AuthorMetrics
+from lf_releng_project_reporting.domain.repository_metrics import RepositoryMetrics
+from lf_releng_project_reporting.domain.time_window import TimeWindowStats
 
 
 # =============================================================================

@@ -10,7 +10,7 @@ activity status/colour counts and URL validation outcomes.
 
 from typing import Any
 
-from domain.info_yaml import ProjectInfo
+from lf_releng_project_reporting.domain.info_yaml import ProjectInfo
 
 
 class EnricherStatisticsMixin:

@@ -14,7 +14,7 @@ from typing import Any
 
 import yaml
 
-from domain.info_yaml import (
+from lf_releng_project_reporting.domain.info_yaml import (
     CommitterInfo,
     IssueTracking,
     PersonInfo,

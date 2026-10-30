@@ -14,7 +14,7 @@ Tests the validation, serialization, and business logic of:
 
 import pytest
 
-from domain.info_yaml import (
+from lf_releng_project_reporting.domain.info_yaml import (
     CommitterInfo,
     IssueTracking,
     LifecycleSummary,

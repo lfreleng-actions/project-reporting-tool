@@ -536,7 +536,7 @@ See `src/observability/__init__.py` for the current version.
 
 - **Refactoring Plan**: See `REFACTOR_PLAN.md` Phase 4
 - **Tests**: `tests/test_structured_logging.py`, `tests/test_errors.py`
-- **Domain Models**: `src/domain/` (for context integration)
+- **Domain Models**: `src/lf_releng_project_reporting/domain/` (for context integration)
 - **API Error Types**: `src/api/base_client.py` (error type origins)
 
 ## Migration from Standard Logging

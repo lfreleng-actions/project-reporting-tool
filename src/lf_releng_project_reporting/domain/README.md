@@ -24,7 +24,7 @@ Domain models replace ad-hoc dictionary structures with strongly-typed dataclass
 Represents a named time period for metrics aggregation.
 
 ```python
-from domain import TimeWindow
+from lf_releng_project_reporting.domain import TimeWindow
 
 window = TimeWindow(
     name="1y",
@@ -55,7 +55,7 @@ window = TimeWindow.from_dict("1y", {
 Container for metrics aggregated over a time window.
 
 ```python
-from domain import TimeWindowStats
+from lf_releng_project_reporting.domain import TimeWindowStats
 
 stats = TimeWindowStats(
     commits=42,
@@ -80,7 +80,7 @@ total = stats1 + stats2
 Metrics for a single repository.
 
 ```python
-from domain import RepositoryMetrics
+from lf_releng_project_reporting.domain import RepositoryMetrics
 
 metrics = RepositoryMetrics(
     gerrit_project="foo/bar",
@@ -119,7 +119,7 @@ loc_stats = metrics.get_loc_stats_for_window("1y")
 Statistics for a single contributor.
 
 ```python
-from domain import AuthorMetrics
+from lf_releng_project_reporting.domain import AuthorMetrics
 
 author = AuthorMetrics(
     name="John Doe",
@@ -158,7 +158,7 @@ if author.is_affiliated:
 Aggregated statistics for an organization (by email domain).
 
 ```python
-from domain import OrganizationMetrics
+from lf_releng_project_reporting.domain import OrganizationMetrics
 
 org = OrganizationMetrics(
     domain="example.com",
@@ -187,7 +187,7 @@ if org.is_known_org:
 CI/CD workflow detection results.
 
 ```python
-from domain import WorkflowStatus
+from lf_releng_project_reporting.domain import WorkflowStatus
 
 status = WorkflowStatus(
     has_github_actions=True,
@@ -352,7 +352,7 @@ pytest tests/test_domain_models.py -v
 
 Domain Model Schema Version: **1.0.0**
 
-See `src/domain/__init__.py` for the current version.
+See `src/lf_releng_project_reporting/domain/__init__.py` for the current version.
 
 ## References
 

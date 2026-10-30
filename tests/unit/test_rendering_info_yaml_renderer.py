@@ -13,7 +13,7 @@ Phase 3: Rendering & Report Integration
 import pytest
 from utils.assertions import assert_host_in_collection
 
-from domain.info_yaml import (
+from lf_releng_project_reporting.domain.info_yaml import (
     CommitterInfo,
     IssueTracking,
     LifecycleSummary,

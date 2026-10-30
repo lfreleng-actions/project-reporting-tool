@@ -15,7 +15,7 @@ from pathlib import Path
 import pytest
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound
 
-from domain.info_yaml import (
+from lf_releng_project_reporting.domain.info_yaml import (
     CommitterInfo,
     IssueTracking,
     PersonInfo,

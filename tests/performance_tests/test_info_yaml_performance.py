@@ -19,10 +19,10 @@ from pathlib import Path
 
 import pytest
 
-from domain.author_metrics import AuthorMetrics
-from domain.info_yaml import ProjectInfo
-from domain.repository_metrics import RepositoryMetrics
 from lf_releng_project_reporting.collectors.info_yaml import INFOYamlCollector, InfoYamlEnricher
+from lf_releng_project_reporting.domain.author_metrics import AuthorMetrics
+from lf_releng_project_reporting.domain.info_yaml import ProjectInfo
+from lf_releng_project_reporting.domain.repository_metrics import RepositoryMetrics
 from rendering.info_yaml_renderer import InfoYamlRenderer
 
 

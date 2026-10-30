@@ -17,8 +17,8 @@ from pathlib import Path
 import pytest
 from utils.assertions import assert_host_in_collection, assert_host_in_text
 
-from domain.info_yaml import ProjectInfo
 from lf_releng_project_reporting.collectors.info_yaml import INFOYamlCollector, InfoYamlEnricher
+from lf_releng_project_reporting.domain.info_yaml import ProjectInfo
 from rendering.info_yaml_renderer import InfoYamlRenderer
 
 

@@ -13,7 +13,11 @@ Phase 3: Rendering & Report Integration
 import logging
 from typing import Any
 
-from domain.info_yaml import CommitterInfo, LifecycleSummary, ProjectInfo
+from lf_releng_project_reporting.domain.info_yaml import (
+    CommitterInfo,
+    LifecycleSummary,
+    ProjectInfo,
+)
 
 
 class InfoYamlRenderer:

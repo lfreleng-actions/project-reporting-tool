@@ -12,7 +12,7 @@ most recent commit across the matched repositories.
 import logging
 from typing import Any
 
-from domain.info_yaml import CommitterInfo, ProjectInfo
+from lf_releng_project_reporting.domain.info_yaml import CommitterInfo, ProjectInfo
 
 
 class EnricherMatchingMixin:
