@@ -5,12 +5,6 @@ SPDX-FileCopyrightText: 2025 The Linux Foundation
 
 # Performance Optimization Guide
 
-**Version:** 1.0
-**Last Updated:** 2025-01-25
-**Phase:** 10 - Performance Optimization
-
----
-
 ## Table of Contents
 
 1. [Overview](#overview)
@@ -1554,9 +1548,10 @@ The Repository Reporting System provides comprehensive performance optimization 
 
 ### Further Reading
 
-- Phase 10 Implementation Plan
-- Performance Testing Guide
-- CLI Reference
+- [Concurrency Configuration](guides/CONCURRENCY_CONFIG.md) - Thread
+  pools and executors used for rendering
+- [Concurrency Performance Tuning](concurrency/performance_tuning.md)
+- [Commands](COMMANDS.md)
 - [Troubleshooting Guide](TROUBLESHOOTING.md)
 
 ---
@@ -1564,11 +1559,4 @@ The Repository Reporting System provides comprehensive performance optimization 
 Questions or Issues?
 
 - Check the [Troubleshooting](#troubleshooting) section
-- Review Session Summaries
 - Submit an issue on GitHub
-
----
-
-*Last Updated: 2025-01-25*
-*Version: 1.0*
-*Phase 10: Performance Optimization - Complete*

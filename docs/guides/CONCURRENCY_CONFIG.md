@@ -545,7 +545,7 @@ def stress_test_concurrency():
 
 ### Documentation
 
-- Performance Guide: `docs/guides/PERFORMANCE_OPTIMIZATION.md`
+- Performance Guide: `docs/PERFORMANCE.md`
 - Architecture Docs: `docs/architecture/`
 - API Documentation: See docstrings
 

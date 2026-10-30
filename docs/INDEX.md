@@ -235,82 +235,94 @@ All documentation follows these standards:
 - **Structure:** Consistent headings and organization
 - **Links:** Relative paths, verified regularly
 - **Examples:** Syntax highlighted, tested when possible
+- **One page per topic:** Update the existing page for a feature in
+  place; do not add dated status reports. See [README](README.md).
 
 ---
 
 ## 🗂️ Complete File List
 
-### User Documentation (7 files)
+This index is the single table of contents for `docs/`. Add new pages
+here when you create them.
 
-```text
-GETTING_STARTED.md      - Installation and first report
-COMMANDS.md             - Command-line reference
-FAQ.md                  - Frequently asked questions
-CONFIGURATION.md        - Configuration reference
-CONFIGURATION_MERGING.md - Configuration inheritance and overrides
-USAGE_EXAMPLES.md       - Real-world usage patterns
-TROUBLESHOOTING.md      - Problem solving guide
-```
+### User Documentation
 
-### Advanced Topics (4 files)
+| File                                                  | Topic                                    |
+| ----------------------------------------------------- | ---------------------------------------- |
+| [GETTING_STARTED.md](GETTING_STARTED.md)              | Installation and first report            |
+| [COMMANDS.md](COMMANDS.md)                            | Command-line reference                   |
+| [QUICK_REFERENCE.md](QUICK_REFERENCE.md)              | GitHub Pages reporting quick reference   |
+| [FAQ.md](FAQ.md)                                      | Frequently asked questions               |
+| [CONFIGURATION.md](CONFIGURATION.md)                  | Configuration reference                  |
+| [CONFIGURATION_MERGING.md](CONFIGURATION_MERGING.md)  | Configuration inheritance and overrides  |
+| [USAGE_EXAMPLES.md](USAGE_EXAMPLES.md)                | Real-world usage patterns                |
+| [TROUBLESHOOTING.md](TROUBLESHOOTING.md)              | Problem solving guide                    |
 
-```text
-PERFORMANCE.md          - Optimization and scaling
-CI_CD_INTEGRATION.md    - Automation and workflows
-DEPLOYMENT.md           - Production operations
-FEATURE_DISCOVERY_GUIDE.md - Feature detection system
-```
+### Features
 
-### Developer Documentation (4 files)
+| File                                                                 | Topic                               |
+| -------------------------------------------------------------------- | ----------------------------------- |
+| [FEATURE_DISCOVERY_GUIDE.md](FEATURE_DISCOVERY_GUIDE.md)             | Feature detection system            |
+| [TABLE_OF_CONTENTS.md](TABLE_OF_CONTENTS.md)                         | Report table of contents            |
+| [DATATABLES_USAGE.md](DATATABLES_USAGE.md)                           | Sortable, searchable HTML tables    |
+| [INFO_YAML_REPORTING.md](INFO_YAML_REPORTING.md)                     | INFO.yaml committer reporting       |
+| [INFO_YAML_QUICK_REF.md](INFO_YAML_QUICK_REF.md)                     | INFO.yaml reporting quick reference |
+| [INFO_YAML_SERVER_FILTERING.md](INFO_YAML_SERVER_FILTERING.md)       | INFO.yaml server filtering          |
+| [GITHUB_NATIVE_QUICK_START.md](GITHUB_NATIVE_QUICK_START.md)         | GitHub-native projects              |
+| [GITHUB_ONLY_PROJECTS.md](GITHUB_ONLY_PROJECTS.md)                   | GitHub-only projects                |
+| [SCHEMA_VERSION_1.5.0.md](SCHEMA_VERSION_1.5.0.md)                   | Project schema 1.5.0                |
+| [GITHUB_TOKEN_ENV.md](GITHUB_TOKEN_ENV.md)                           | GitHub token environment variable   |
+| [features/GITHUB_TOKEN_ENV_VAR.md](features/GITHUB_TOKEN_ENV_VAR.md) | GitHub token variable summary       |
+| [features/G2G_REGEX_PATTERNS.md](features/G2G_REGEX_PATTERNS.md)     | G2G workflow detection patterns     |
+| [features/G2G_PATTERN_FLOW.md](features/G2G_PATTERN_FLOW.md)         | G2G pattern matching flow           |
+| [HTTP_FALLBACK_GUIDE.md](HTTP_FALLBACK_GUIDE.md)                     | Jenkins HTTP fallback               |
+| [GITHUB_LANGUAGE_COMPARISON.md](GITHUB_LANGUAGE_COMPARISON.md)       | GitHub language comparison tool     |
 
-```text
-DEVELOPER_GUIDE.md      - Architecture and API reference
-TEMPLATE_DEVELOPMENT.md - Template customization guide
-MIGRATION_GUIDE.md      - Production migration guide
-TESTING.md              - Test suite documentation
-```
+### Operations and Deployment
 
-### Navigation (1 file)
+| File                                                      | Topic                                  |
+| --------------------------------------------------------- | -------------------------------------- |
+| [PERFORMANCE.md](PERFORMANCE.md)                          | Optimization and scaling               |
+| [CI_CD_INTEGRATION.md](CI_CD_INTEGRATION.md)              | Automation and workflows               |
+| [DEPLOYMENT.md](DEPLOYMENT.md)                            | Production operations                  |
+| [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md)                  | Production migration guide             |
+| [GITHUB_PAGES_SETUP.md](GITHUB_PAGES_SETUP.md)            | GitHub Pages publishing                |
+| [TABLE_COMPARISON.md](TABLE_COMPARISON.md)                | Production and new system tables       |
 
-```text
-INDEX.md                - This file
-```
+### Developer Documentation
 
-**Total:** 16 core documentation files
+| File                                                                     | Topic                            |
+| ------------------------------------------------------------------------ | -------------------------------- |
+| [DEVELOPER_GUIDE.md](DEVELOPER_GUIDE.md)                                 | Architecture and API reference   |
+| [TEMPLATE_DEVELOPMENT.md](TEMPLATE_DEVELOPMENT.md)                       | Template customization guide     |
+| [TEMPLATE_AUDIT.md](TEMPLATE_AUDIT.md)                                   | Template field audit tool        |
+| [DATATABLES_IMPLEMENTATION.md](DATATABLES_IMPLEMENTATION.md)             | DataTables integration internals |
+| [guides/THEME_CREATION.md](guides/THEME_CREATION.md)                     | Building HTML report themes      |
+| [guides/CONCURRENCY_CONFIG.md](guides/CONCURRENCY_CONFIG.md)             | Concurrency configuration        |
+| [concurrency/model.md](concurrency/model.md)                             | Concurrency model                |
+| [concurrency/performance_tuning.md](concurrency/performance_tuning.md)   | Concurrency performance tuning   |
+| [concurrency/troubleshooting.md](concurrency/troubleshooting.md)         | Concurrency troubleshooting      |
+| [concurrency/thread_safety_audit.md](concurrency/thread_safety_audit.md) | Thread safety audit              |
 
----
+### Testing
 
-## 📊 Documentation Statistics
+| File                                                                               | Topic                              |
+| ---------------------------------------------------------------------------------- | ---------------------------------- |
+| [TESTING.md](TESTING.md)                                                           | Test suite documentation           |
+| [TESTING_GITHUB_NATIVE.md](TESTING_GITHUB_NATIVE.md)                               | Testing GitHub-native projects     |
+| [testing/TEST_PREREQUISITES.md](testing/TEST_PREREQUISITES.md)                     | Test prerequisites and environment |
+| [testing/TEST_WRITING_GUIDE.md](testing/TEST_WRITING_GUIDE.md)                     | Writing tests                      |
+| [testing/PARALLEL_EXECUTION.md](testing/PARALLEL_EXECUTION.md)                     | Parallel test execution            |
+| [testing/PARALLEL_EXECUTION_QUICK_REF.md](testing/PARALLEL_EXECUTION_QUICK_REF.md) | Parallel execution quick reference |
+| [testing/PROPERTY_TESTING_OVERVIEW.md](testing/PROPERTY_TESTING_OVERVIEW.md)       | Property-based testing             |
+| [testing/ENHANCED_ERRORS_GUIDE.md](testing/ENHANCED_ERRORS_GUIDE.md)               | Enhanced error messages            |
 
-- **Total Files:** 16 core documentation files
-- **User Guides:** 7 essential guides
-- **Advanced Topics:** 4 specialized guides
-- **Developer Docs:** 4 technical guides (including template dev & migration)
-- **Total Lines:** ~18,500 (comprehensive coverage)
-- **Last Updated:** 2025-01-16
+### Navigation
 
----
-
-## 🎯 Documentation Goals
-
-✅ **Achieved:**
-
-- Clear entry point for new users
-- Comprehensive command reference
-- All features documented
-- Troubleshooting coverage
-- Developer API documentation
-- Consistent structure and naming
-- INFO.yaml fully integrated
-
-🎯 **Principles:**
-
-- Easy to navigate
-- Example-driven
-- Consistent structure
-- No redundancy
-- Regular updates
-- Community feedback
+| File                     | Topic                         |
+| ------------------------ | ----------------------------- |
+| [INDEX.md](INDEX.md)     | This file                     |
+| [README.md](README.md)   | Documentation conventions     |
 
 ---
 
