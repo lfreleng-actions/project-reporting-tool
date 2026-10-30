@@ -17,20 +17,20 @@ from pathlib import Path
 
 import pytest
 
-from performance.batch import (
+from lf_releng_project_reporting.performance.batch import (
     APIRequest,
     RateLimitOptimizer,
     RequestPriority,
     RequestQueue,
 )
-from performance.cache import (
+from lf_releng_project_reporting.performance.cache import (
     CacheEntry,
     CacheKey,
     CacheManager,
     CacheStats,
     CacheType,
 )
-from performance.parallel import (
+from lf_releng_project_reporting.performance.parallel import (
     ProcessingResult,
     ProcessingStatus,
     ResultAggregator,

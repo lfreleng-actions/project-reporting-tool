@@ -131,7 +131,6 @@ packages = [
     "src/cli",
     "src/config",
     "src/jjb_attribution",
-    "src/performance",
     "src/rendering",
 ]
 include = [
@@ -218,7 +217,6 @@ source = [
     "cli",
     "config",
     "jjb_attribution",
-    "performance",
     "rendering",
 ]
 branch = true

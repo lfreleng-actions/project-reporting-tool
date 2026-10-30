@@ -15,7 +15,7 @@ Classes:
     GitConfig: Git configuration optimization
 
 Example:
-    >>> from src.performance import GitOptimizer
+    >>> from lf_releng_project_reporting.performance import GitOptimizer
     >>>
     >>> optimizer = GitOptimizer(use_shallow=True, use_references=True)
     >>> repo_path = optimizer.clone_optimized(

@@ -51,7 +51,11 @@ Classes:
     MetricsVisualizer: Performance metrics visualization
 
 Example:
-    >>> from src.performance import PerformanceProfiler, CacheManager, MemoryOptimizer
+    >>> from lf_releng_project_reporting.performance import (
+    ...     CacheManager,
+    ...     MemoryOptimizer,
+    ...     PerformanceProfiler,
+    ... )
     >>> profiler = PerformanceProfiler()
     >>> cache = CacheManager(cache_dir=".cache", ttl=3600)
     >>> optimizer = MemoryOptimizer(max_memory_mb=500)

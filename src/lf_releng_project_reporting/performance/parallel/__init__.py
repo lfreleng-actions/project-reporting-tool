@@ -16,7 +16,7 @@ Classes:
     ProcessingResult: Result from processing a repository
 
 Example:
-    >>> from src.performance import ParallelRepositoryProcessor
+    >>> from lf_releng_project_reporting.performance import ParallelRepositoryProcessor
     >>>
     >>> processor = ParallelRepositoryProcessor(max_workers=4)
     >>> repos = ['repo1', 'repo2', 'repo3']

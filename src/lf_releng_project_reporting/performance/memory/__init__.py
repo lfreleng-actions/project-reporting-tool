@@ -16,7 +16,7 @@ Classes:
     LazyProxy: Proxy for lazy-loaded objects
 
 Example:
-    >>> from src.performance.memory import MemoryOptimizer
+    >>> from lf_releng_project_reporting.performance.memory import MemoryOptimizer
     >>> optimizer = MemoryOptimizer(max_memory_mb=500)
     >>> optimizer.optimize_environment()
     >>> with optimizer.track_memory("analyze_repo"):

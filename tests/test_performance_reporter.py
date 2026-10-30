@@ -16,7 +16,7 @@ This module tests all aspects of performance reporting including:
 import json
 from unittest.mock import MagicMock
 
-from performance.reporter import (
+from lf_releng_project_reporting.performance.reporter import (
     Alert,
     AlertRule,
     AlertSeverity,

@@ -16,7 +16,7 @@ Classes:
     BatchResult: Batch execution results
 
 Example:
-    >>> from src.performance.batch import BatchProcessor
+    >>> from lf_releng_project_reporting.performance.batch import BatchProcessor
     >>> processor = BatchProcessor(batch_size=10, parallel_requests=5)
     >>> results = processor.batch_requests(api_calls)
     >>> print(f"Success rate: {results.success_rate:.1%}")

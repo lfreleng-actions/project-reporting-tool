@@ -16,7 +16,7 @@ Classes:
     AlertRule: Performance alert rules
 
 Example:
-    >>> from src.performance.reporter import PerformanceReporter
+    >>> from lf_releng_project_reporting.performance.reporter import PerformanceReporter
     >>> reporter = PerformanceReporter()
     >>> reporter.collect_metrics()
     >>> report = reporter.generate_report()

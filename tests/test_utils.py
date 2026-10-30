@@ -246,7 +246,7 @@ def reset_global_state():
 
     # Clear performance caches
     try:
-        from performance.cache import CacheManager
+        from lf_releng_project_reporting.performance.cache import CacheManager
 
         # Clear any singleton instances if they exist
         if hasattr(CacheManager, "_instance"):
@@ -256,7 +256,7 @@ def reset_global_state():
 
     # Reset benchmark runner
     try:
-        from performance.profiler import BenchmarkRunner
+        from lf_releng_project_reporting.performance.profiler import BenchmarkRunner
 
         if hasattr(BenchmarkRunner, "_instance"):
             BenchmarkRunner._instance = None
