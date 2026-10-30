@@ -26,7 +26,8 @@ Simple-DataTables library.
 
 Created reusable Jinja2 macros for DataTables integration:
 
-- `datatables_css()`: Injects Simple-DataTables CSS from CDN
+- `datatables_css()`: Injects the pinned Simple-DataTables CSS from the
+  CDN, with Subresource Integrity
 - `datatables_js()`: Injects JavaScript library and initialization code
 - `datatables_classes()`: Helper macro to generate CSS class strings
 
@@ -252,6 +253,38 @@ PASSED
 tests/test_datatables_integration.py::test_data_table_component_supports_datatables
 PASSED
 ```
+
+## Pinned CDN Assets
+
+Reports load Simple-DataTables from jsDelivr at an exact version, and
+each `<link>` and `<script>` tag carries an `integrity` hash and
+`crossorigin="anonymous"`. The browser refuses a file whose bytes do
+not match the hash, so a compromised or changed CDN file cannot alter
+a published report. `src/rendering/assets.py` holds the version, URLs
+and hashes; `TemplateRenderer` exposes them to templates as Jinja2
+globals.
+
+### Bumping the version
+
+Dependabot does not track CDN URLs, so bump the library by hand:
+
+1. Set `DATATABLES_VERSION` in `src/rendering/assets.py` to the new
+   release.
+2. Download the release from npm and compute both hashes from the
+   package contents:
+
+   ```bash
+   npm pack simple-datatables@<version>
+   tar xzf simple-datatables-<version>.tgz
+   for f in package/dist/style.css package/dist/umd/simple-datatables.js; do
+     echo "$f sha384-$(openssl dgst -sha384 -binary "$f" | base64 -w0)"
+   done
+   ```
+
+3. Confirm jsDelivr serves the same bytes, for example
+   `curl -sL https://cdn.jsdelivr.net/npm/simple-datatables@<version>/dist/style.css | openssl dgst -sha384 -binary | base64 -w0`.
+4. Update `DATATABLES_CSS_SRI` and `DATATABLES_JS_SRI`, then render a
+   report and check the tables still sort, search and paginate.
 
 ## Performance Characteristics
 
