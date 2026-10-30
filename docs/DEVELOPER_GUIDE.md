@@ -88,20 +88,20 @@ lf-releng-project-reporting/
     │   │   └── git.py
     │   ├── aggregators/
     │   │   └── data.py
-    │   └── features/
-    │       └── registry.py
+    │   ├── features/
+    │   │   └── registry.py
+    │   └── util/                # Utilities
+    │       ├── formatting.py
+    │       ├── github_org.py
+    │       ├── zip_bundle.py
+    │       └── git.py
     ├── rendering/               # ⭐ Template-based rendering (Phase 8)
     │   ├── renderer.py          # Modern report renderer
     │   ├── context.py           # Context builder
     │   └── formatters.py        # Template filters
-    ├── templates/               # Jinja2 templates
-    │   ├── html/
-    │   └── markdown/
-    └── util/                    # Utilities
-        ├── formatting.py
-        ├── github_org.py
-        ├── zip_bundle.py
-        └── git.py
+    └── templates/               # Jinja2 templates
+        ├── html/
+        └── markdown/
 ```
 
 ---
@@ -312,10 +312,10 @@ from api.jenkins_client import JenkinsAPIClient
 ### Utilities
 
 ```python
-from util.formatting import format_number, format_age, UNKNOWN_AGE
-from util.github_org import determine_github_org
-from util.zip_bundle import create_report_bundle
-from util.git import safe_git_command
+from lf_releng_project_reporting.util.formatting import format_number, format_age, UNKNOWN_AGE
+from lf_releng_project_reporting.util.github_org import determine_github_org
+from lf_releng_project_reporting.util.zip_bundle import create_report_bundle
+from lf_releng_project_reporting.util.git import safe_git_command
 ```text
 
 ---
@@ -571,7 +571,7 @@ Examples:
 ### Debugging Git Issues
 
 ```python
-from util.git import safe_git_command
+from lf_releng_project_reporting.util.git import safe_git_command
 from pathlib import Path
 import logging
 
@@ -794,7 +794,7 @@ cache.clear()
 Key data structures:
 
 ```python
-from domain.info_yaml import ProjectInfo, CommitterInfo, IssueTracker
+from lf_releng_project_reporting.domain.info_yaml import ProjectInfo, CommitterInfo, IssueTracker
 
 # ProjectInfo
 project = ProjectInfo(

@@ -16,7 +16,7 @@ from pathlib import Path
 from typing import Any
 
 from lf_releng_project_reporting.config import save_resolved_config
-from util.zip_bundle import create_report_bundle
+from lf_releng_project_reporting.util.zip_bundle import create_report_bundle
 
 from .analysis import ReporterAnalysisMixin
 

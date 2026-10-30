@@ -56,7 +56,7 @@ renderer = ModernReportRenderer(concurrent=False)
 ### Adaptive Thread Pool (Default)
 
 ```python
-from concurrency.adaptive_pool import AdaptiveThreadPool
+from lf_releng_project_reporting.concurrency.adaptive_pool import AdaptiveThreadPool
 
 # Auto-configure based on system (recommended)
 pool = AdaptiveThreadPool()
@@ -100,7 +100,7 @@ with ThreadPoolExecutor(max_workers=8) as executor:
 ### Automatic Separation (Default)
 
 ```python
-from concurrency.hybrid_executor import HybridExecutor
+from lf_releng_project_reporting.concurrency.hybrid_executor import HybridExecutor
 
 # Automatically uses correct pool type
 executor = HybridExecutor()
@@ -148,7 +148,7 @@ executor.submit_io_bound(
 ### Automatic Retry (Default)
 
 ```python
-from concurrency.error_handler import ErrorHandler
+from lf_releng_project_reporting.concurrency.error_handler import ErrorHandler
 
 # Retry with exponential backoff (enabled by default)
 handler = ErrorHandler(
@@ -189,7 +189,7 @@ handler = ErrorHandler(max_retries=0)
 ### Memory Monitoring
 
 ```python
-from concurrency.resource_monitor import ResourceMonitor
+from lf_releng_project_reporting.concurrency.resource_monitor import ResourceMonitor
 
 # Stop operations at 80% memory usage
 with ResourceMonitor(max_memory_percent=80) as monitor:

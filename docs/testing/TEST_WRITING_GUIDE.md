@@ -145,7 +145,7 @@ def test_repository_with_commits():
 
 Examples:
 
-- ✅ `test_formatting.py` - tests for `src/util/formatting.py`
+- ✅ `test_formatting.py` - tests for `src/lf_releng_project_reporting/util/formatting.py`
 - ✅ `test_github_api.py` - tests for GitHub API client
 - ✅ `test_repository_metrics.py` - tests for repository metrics
 - ❌ `formatting_test.py` - doesn't match pytest discovery
@@ -1039,7 +1039,7 @@ def test_full_analysis(temp_git_repo):
 """Unit tests for formatting utilities."""
 
 import pytest
-from util.formatting import format_number
+from lf_releng_project_reporting.util.formatting import format_number
 
 
 class TestFormatNumber:

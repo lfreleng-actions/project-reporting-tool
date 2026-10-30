@@ -13,7 +13,7 @@ Tests cover:
 
 import pytest
 
-from domain.organization_metrics import OrganizationMetrics
+from lf_releng_project_reporting.domain.organization_metrics import OrganizationMetrics
 
 
 class TestOrganizationMetricsValidation:

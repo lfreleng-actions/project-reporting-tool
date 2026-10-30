@@ -7,7 +7,7 @@ Unit tests for error taxonomy and classification system.
 Tests error types, classification, tracking, and aggregation.
 """
 
-from observability.errors import (
+from lf_releng_project_reporting.observability.errors import (
     ERROR_TYPE_CATEGORY_MAP,
     ERROR_TYPE_SEVERITY_MAP,
     ClassifiedError,

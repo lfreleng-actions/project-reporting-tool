@@ -12,7 +12,7 @@ module-level convenience wrappers.
 import logging
 from typing import Any
 
-from domain.info_yaml import ProjectInfo
+from lf_releng_project_reporting.domain.info_yaml import ProjectInfo
 
 from .matching import EnricherMatchingMixin
 from .statistics import EnricherStatisticsMixin

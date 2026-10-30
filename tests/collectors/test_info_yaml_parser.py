@@ -16,12 +16,12 @@ from pathlib import Path
 
 import pytest
 
-from domain.info_yaml import CommitterInfo, ProjectInfo
 from lf_releng_project_reporting.collectors.info_yaml.parser import (
     INFOYamlParser,
     parse_info_yaml_directory,
     parse_info_yaml_file,
 )
+from lf_releng_project_reporting.domain.info_yaml import CommitterInfo, ProjectInfo
 
 
 @pytest.fixture

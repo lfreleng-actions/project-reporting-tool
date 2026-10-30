@@ -13,7 +13,7 @@ Tests cover:
 
 import pytest
 
-from domain.repository_metrics import RepositoryMetrics
+from lf_releng_project_reporting.domain.repository_metrics import RepositoryMetrics
 
 
 class TestRepositoryMetricsValidation:

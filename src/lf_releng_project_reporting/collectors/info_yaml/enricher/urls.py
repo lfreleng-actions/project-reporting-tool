@@ -11,7 +11,7 @@ concurrently, and exposes the underlying validator's cache controls.
 import asyncio
 import logging
 
-from domain.info_yaml import ProjectInfo
+from lf_releng_project_reporting.domain.info_yaml import ProjectInfo
 
 from ..validator import URLValidator
 

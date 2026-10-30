@@ -11,7 +11,7 @@ and integration with the logging system.
 import logging
 import time
 
-from observability.structured_logging import (
+from lf_releng_project_reporting.observability.structured_logging import (
     LogAggregator,
     LogContext,
     LogEntry,

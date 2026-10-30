@@ -12,10 +12,10 @@ import logging
 from pathlib import Path
 from typing import Any
 
-from domain.info_yaml import LifecycleSummary, ProjectInfo
 from lf_releng_project_reporting.collectors.base import BaseCollector
 from lf_releng_project_reporting.collectors.info_yaml.enricher import InfoYamlEnricher
 from lf_releng_project_reporting.collectors.info_yaml.parser import INFOYamlParser
+from lf_releng_project_reporting.domain.info_yaml import LifecycleSummary, ProjectInfo
 
 
 logger = logging.getLogger(__name__)

@@ -13,7 +13,7 @@ Tests cover:
 
 import pytest
 
-from domain.workflow_status import WorkflowStatus
+from lf_releng_project_reporting.domain.workflow_status import WorkflowStatus
 
 
 class TestWorkflowStatusValidation:

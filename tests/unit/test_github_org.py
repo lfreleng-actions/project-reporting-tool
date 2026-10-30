@@ -21,7 +21,7 @@ import pytest
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 
-from util.github_org import (
+from lf_releng_project_reporting.util.github_org import (
     _derive_org_from_path,
     _is_valid_github_org_name,
     determine_github_org,

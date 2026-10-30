@@ -14,7 +14,7 @@ import asyncio
 import logging
 from typing import Any
 
-from domain.info_yaml import CommitterInfo, ProjectInfo
+from lf_releng_project_reporting.domain.info_yaml import CommitterInfo, ProjectInfo
 
 from ..matcher import CommitterMatcher
 from ..validator import URLValidator

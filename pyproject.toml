@@ -130,14 +130,10 @@ packages = [
     "src/lf_releng_project_reporting",
     "src/api",
     "src/cli",
-    "src/concurrency",
     "src/config",
-    "src/domain",
     "src/jjb_attribution",
-    "src/observability",
     "src/performance",
     "src/rendering",
-    "src/util",
 ]
 include = [
     "/src/templates/**/*",
@@ -222,14 +218,10 @@ source = [
     "lf_releng_project_reporting",
     "api",
     "cli",
-    "concurrency",
     "config",
-    "domain",
     "jjb_attribution",
-    "observability",
     "performance",
     "rendering",
-    "util",
 ]
 branch = true
 parallel = true

@@ -11,7 +11,7 @@ from typing import Any
 
 from api.gerrit_client import GerritAPIClient
 from api.jenkins_client import JenkinsAPIClient
-from concurrency.jenkins_allocation import JenkinsAllocationContext
+from lf_releng_project_reporting.concurrency.jenkins_allocation import JenkinsAllocationContext
 
 from .cache import _CacheMixin
 from .clients import _ClientIntegrationMixin

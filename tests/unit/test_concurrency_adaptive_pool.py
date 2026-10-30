@@ -21,7 +21,7 @@ from unittest.mock import patch
 
 import pytest
 
-from concurrency.adaptive_pool import (
+from lf_releng_project_reporting.concurrency.adaptive_pool import (
     AdaptiveThreadPool,
     PoolMetrics,
 )

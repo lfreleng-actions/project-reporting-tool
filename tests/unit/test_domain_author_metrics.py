@@ -14,7 +14,7 @@ Tests cover:
 
 import pytest
 
-from domain.author_metrics import AuthorMetrics
+from lf_releng_project_reporting.domain.author_metrics import AuthorMetrics
 
 
 class TestAuthorMetricsValidation:

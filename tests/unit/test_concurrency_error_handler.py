@@ -21,7 +21,7 @@ from unittest.mock import patch
 
 import pytest
 
-from concurrency.error_handler import (
+from lf_releng_project_reporting.concurrency.error_handler import (
     CircuitBreaker,
     CircuitOpenError,
     ConcurrentErrorHandler,

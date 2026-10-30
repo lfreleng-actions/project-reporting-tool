@@ -531,7 +531,7 @@ class TestErrorHandlingIntegration:
 
     def test_validation_error_from_domain_model(self):
         """Test validation errors from domain models."""
-        from domain.time_window import TimeWindow
+        from lf_releng_project_reporting.domain.time_window import TimeWindow
 
         with pytest.raises(ValidationError) as exc_info:
             TimeWindow(

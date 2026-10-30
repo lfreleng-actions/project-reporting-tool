@@ -19,7 +19,7 @@ import os
 
 import pytest
 
-from concurrency.hybrid_executor import (
+from lf_releng_project_reporting.concurrency.hybrid_executor import (
     ExecutorStats,
     HybridExecutor,
     OperationType,

@@ -17,7 +17,7 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
-from util.git import safe_git_command
+from lf_releng_project_reporting.util.git import safe_git_command
 
 
 class ReporterInfoMasterMixin:

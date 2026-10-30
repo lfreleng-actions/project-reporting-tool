@@ -144,7 +144,7 @@ output:
 from pathlib import Path
 from lf_releng_project_reporting.collectors.info_yaml import INFOYamlCollector
 from rendering.info_yaml_renderer import InfoYamlRenderer
-from domain.info_yaml import ProjectInfo
+from lf_releng_project_reporting.domain.info_yaml import ProjectInfo
 
 # Configure
 config = {
