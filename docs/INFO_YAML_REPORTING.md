@@ -437,7 +437,7 @@ result = collector.collect(info_master_path, git_metrics=git_metrics)
 ### Rendering Reports
 
 ```python
-from domain.info_yaml import ProjectInfo
+from lf_releng_project_reporting.domain.info_yaml import ProjectInfo
 from rendering.info_yaml_renderer import InfoYamlRenderer
 
 # Convert to domain objects
