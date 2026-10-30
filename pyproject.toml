@@ -130,7 +130,6 @@ packages = [
     "src/lf_releng_project_reporting",
     "src/cli",
     "src/config",
-    "src/jjb_attribution",
     "src/rendering",
 ]
 include = [
@@ -216,7 +215,6 @@ source = [
     "lf_releng_project_reporting",
     "cli",
     "config",
-    "jjb_attribution",
     "rendering",
 ]
 branch = true

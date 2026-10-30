@@ -19,7 +19,7 @@ from .catalog import JenkinsCatalogMixin
 
 # Optional JJB Attribution integration
 try:
-    from jjb_attribution import JJBAttribution, JJBRepoManager
+    from lf_releng_project_reporting.jjb_attribution import JJBAttribution, JJBRepoManager
 
     JJB_ATTRIBUTION_AVAILABLE = True
 except ImportError:
