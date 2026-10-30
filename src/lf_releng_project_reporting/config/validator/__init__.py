@@ -14,7 +14,7 @@ Features:
 - Schema version compatibility checking
 
 Example:
-    >>> from src.config.validator import ConfigValidator
+    >>> from lf_releng_project_reporting.config.validator import ConfigValidator
     >>> validator = ConfigValidator()
     >>> result = validator.validate(config)
     >>> if not result.is_valid:

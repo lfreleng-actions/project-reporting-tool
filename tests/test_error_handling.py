@@ -500,7 +500,7 @@ class TestErrorHandlingIntegration:
 
     def test_config_file_not_found_flow(self):
         """Test full error flow for missing config file."""
-        from config.validator import validate_config_file
+        from lf_releng_project_reporting.config.validator import validate_config_file
 
         with pytest.raises(ConfigurationError) as exc_info:
             validate_config_file(Path("/nonexistent/config.yaml"))
@@ -512,7 +512,7 @@ class TestErrorHandlingIntegration:
 
     def test_invalid_yaml_flow(self):
         """Test full error flow for invalid YAML."""
-        from config.validator import validate_config_file
+        from lf_releng_project_reporting.config.validator import validate_config_file
 
         with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
             f.write("invalid: yaml: syntax: [[[")
