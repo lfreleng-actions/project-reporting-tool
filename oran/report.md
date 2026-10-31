@@ -1,6 +1,6 @@
 # 📊 GitHub Project Analysis Report: O-RAN-SC
 
-**Generated:** 2026-10-30 07:03:16 UTC
+**Generated:** 2026-10-31 07:02:04 UTC
 **Schema Version:** 1.5.0
 
 ---## Table of Contents
@@ -118,121 +118,121 @@ The data presented in the table below covers the past 365 days.
 
 | Repository | Commits | LOC | Contributors | Days Inactive | Last Commit Date | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| [ci-management](https://github.com/gerrit.o-ran-sc.org/ci-management) | 1407 | +181 | 3 | 29 | 2026-09-30 | ✅ |
-| [nonrtric](https://github.com/gerrit.o-ran-sc.org/nonrtric) | 1316 | +3624 | 4 | 29 | 2026-09-30 | ✅ |
-| [oam](https://github.com/gerrit.o-ran-sc.org/oam) | 810 | +271 | 2 | 29 | 2026-09-30 | ✅ |
-| [o-du/l2](https://github.com/gerrit.o-ran-sc.org/o-du/l2) | 746 | +101 | 1 | 29 | 2026-09-30 | ✅ |
-| [it/dep](https://github.com/gerrit.o-ran-sc.org/it/dep) | 647 | +1225 | 5 | 29 | 2026-09-30 | ✅ |
-| [pti/rtp](https://github.com/gerrit.o-ran-sc.org/pti/rtp) | 570 | +3322 | 4 | 29 | 2026-09-30 | ✅ |
-| [pti/o2](https://github.com/gerrit.o-ran-sc.org/pti/o2) | 358 | +226 | 5 | 15 | 2026-10-14 | ✅ |
-| [ric-plt/e2mgr](https://github.com/gerrit.o-ran-sc.org/ric-plt/e2mgr) | 351 | +229 | 3 | 29 | 2026-09-30 | ✅ |
-| [aiml-fw/awmf/tm](https://github.com/gerrit.o-ran-sc.org/aiml-fw/awmf/tm) | 331 | +394 | 3 | 29 | 2026-09-30 | ✅ |
-| [portal/nonrtric-controlpanel](https://github.com/gerrit.o-ran-sc.org/portal/nonrtric-controlpanel) | 307 | +265 | 3 | 29 | 2026-09-30 | ✅ |
-| [ric-plt/lib/rmr](https://github.com/gerrit.o-ran-sc.org/ric-plt/lib/rmr) | 307 | +101 | 2 | 8 | 2026-10-21 | ✅ |
-| [nonrtric/plt/rappmanager](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/rappmanager) | 284 | +10729 | 6 | 29 | 2026-09-30 | ✅ |
-| [ric-plt/submgr](https://github.com/gerrit.o-ran-sc.org/ric-plt/submgr) | 265 | +6541 | 3 | 29 | 2026-09-30 | ✅ |
-| [ric-plt/ric-dep](https://github.com/gerrit.o-ran-sc.org/ric-plt/ric-dep) | 260 | +274 | 2 | 29 | 2026-09-30 | ✅ |
-| [aiml-fw/aimlfw-dep](https://github.com/gerrit.o-ran-sc.org/aiml-fw/aimlfw-dep) | 250 | +398 | 4 | 29 | 2026-09-30 | ✅ |
-| [ric-plt/a1](https://github.com/gerrit.o-ran-sc.org/ric-plt/a1) | 207 | +114 | 3 | 8 | 2026-10-21 | ✅ |
-| [ric-plt/e2](https://github.com/gerrit.o-ran-sc.org/ric-plt/e2) | 197 | +110 | 3 | 184 | 2026-04-28 | ✅ |
-| [nonrtric/plt/sme](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/sme) | 188 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [ric-plt/xapp-frame](https://github.com/gerrit.o-ran-sc.org/ric-plt/xapp-frame) | 156 | +106 | 1 | 29 | 2026-09-30 | ✅ |
-| [doc](https://github.com/gerrit.o-ran-sc.org/doc) | 155 | +267 | 3 | 8 | 2026-10-21 | ✅ |
-| [ric-plt/rtmgr](https://github.com/gerrit.o-ran-sc.org/ric-plt/rtmgr) | 151 | +116 | 2 | 29 | 2026-09-30 | ✅ |
-| [portal/aiml-dashboard](https://github.com/gerrit.o-ran-sc.org/portal/aiml-dashboard) | 144 | +111 | 2 | 29 | 2026-09-30 | ✅ |
-| [smo/teiv](https://github.com/gerrit.o-ran-sc.org/smo/teiv) | 141 | +11799 | 5 | 8 | 2026-10-21 | ✅ |
-| [nonrtric/plt/ranpm](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/ranpm) | 141 | +321 | 4 | 8 | 2026-10-21 | ✅ |
-| [nonrtric/plt/a1policymanagementservice](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/a1policymanagementservice) | 140 | +2302 | 3 | 29 | 2026-09-30 | ✅ |
-| [sim/a1-interface](https://github.com/gerrit.o-ran-sc.org/sim/a1-interface) | 139 | +191 | 2 | 29 | 2026-09-30 | ✅ |
-| [ric-plt/nodeb-rnib](https://github.com/gerrit.o-ran-sc.org/ric-plt/nodeb-rnib) | 127 | +99 | 1 | 29 | 2026-09-30 | ✅ |
-| [it/test](https://github.com/gerrit.o-ran-sc.org/it/test) | 122 | +106 | 1 | 29 | 2026-09-30 | ✅ |
-| [sim/o1-interface](https://github.com/gerrit.o-ran-sc.org/sim/o1-interface) | 122 | +105 | 1 | 29 | 2026-09-30 | ✅ |
-| [aiml-fw/awmf/modelmgmtservice](https://github.com/gerrit.o-ran-sc.org/aiml-fw/awmf/modelmgmtservice) | 119 | +735 | 3 | 29 | 2026-09-30 | ✅ |
-| [ric-plt/alarm-go](https://github.com/gerrit.o-ran-sc.org/ric-plt/alarm-go) | 116 | +110 | 2 | 29 | 2026-09-30 | ✅ |
-| [ric-plt/xapp-frame-py](https://github.com/gerrit.o-ran-sc.org/ric-plt/xapp-frame-py) | 108 | +170 | 1 | 29 | 2026-09-30 | ✅ |
-| [ric-app/mc](https://github.com/gerrit.o-ran-sc.org/ric-app/mc) | 102 | +100 | 1 | 29 | 2026-09-30 | ✅ |
-| [nonrtric/plt/dmaapadapter](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/dmaapadapter) | 96 | +146 | 2 | 29 | 2026-09-30 | ✅ |
-| [ric-plt/appmgr](https://github.com/gerrit.o-ran-sc.org/ric-plt/appmgr) | 93 | +320 | 3 | 8 | 2026-10-21 | ✅ |
-| [smo/ves](https://github.com/gerrit.o-ran-sc.org/smo/ves) | 86 | +104 | 2 | 8 | 2026-10-21 | ✅ |
-| [oam/oam-controller](https://github.com/gerrit.o-ran-sc.org/oam/oam-controller) | 84 | +20166 | 3 | 258 | 2026-02-13 | ✅ |
-| [aiml-fw/athp/tps/kubeflow-adapter](https://github.com/gerrit.o-ran-sc.org/aiml-fw/athp/tps/kubeflow-adapter) | 83 | +103 | 3 | 8 | 2026-10-21 | ✅ |
-| [it/dev](https://github.com/gerrit.o-ran-sc.org/it/dev) | 81 | +101 | 1 | 29 | 2026-09-30 | ✅ |
-| [nonrtric/plt/informationcoordinatorservice](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/informationcoordinatorservice) | 77 | +266 | 3 | 29 | 2026-09-30 | ✅ |
-| [nonrtric/plt/rappcatalogue](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/rappcatalogue) | 73 | +140 | 3 | 8 | 2026-10-21 | ✅ |
-| [ric-plt/sdlgo](https://github.com/gerrit.o-ran-sc.org/ric-plt/sdlgo) | 71 | +114 | 2 | 8 | 2026-10-21 | ✅ |
-| [ric-plt/ricdms](https://github.com/gerrit.o-ran-sc.org/ric-plt/ricdms) | 71 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [ric-plt/dbaas](https://github.com/gerrit.o-ran-sc.org/ric-plt/dbaas) | 70 | +110 | 2 | 29 | 2026-09-30 | ✅ |
-| [smo/o2](https://github.com/gerrit.o-ran-sc.org/smo/o2) | 70 | +121 | 2 | 29 | 2026-09-30 | ✅ |
-| [ric-app/ad-cell](https://github.com/gerrit.o-ran-sc.org/ric-app/ad-cell) | 70 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [nonrtric/rapp/ransliceassurance](https://github.com/gerrit.o-ran-sc.org/nonrtric/rapp/ransliceassurance) | 65 | +111 | 1 | 29 | 2026-09-30 | ✅ |
-| [aiml-fw/athp/data-extraction](https://github.com/gerrit.o-ran-sc.org/aiml-fw/athp/data-extraction) | 64 | +343 | 1 | 318 | 2025-12-15 | ✅ |
-| [ric-app/ts](https://github.com/gerrit.o-ran-sc.org/ric-app/ts) | 61 | +101 | 1 | 29 | 2026-09-30 | ✅ |
-| [sim/e2-interface](https://github.com/gerrit.o-ran-sc.org/sim/e2-interface) | 61 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [ric-plt/sdlpy](https://github.com/gerrit.o-ran-sc.org/ric-plt/sdlpy) | 60 | +105 | 1 | 29 | 2026-09-30 | ✅ |
-| [ric-plt/o1](https://github.com/gerrit.o-ran-sc.org/ric-plt/o1) | 59 | +106 | 2 | 29 | 2026-09-30 | ✅ |
-| [ric-plt/vespamgr](https://github.com/gerrit.o-ran-sc.org/ric-plt/vespamgr) | 58 | +110 | 3 | 8 | 2026-10-21 | ✅ |
-| [ric-app/hw](https://github.com/gerrit.o-ran-sc.org/ric-app/hw) | 58 | +102 | 1 | 29 | 2026-09-30 | ✅ |
-| [aiml-fw/aihp/ips/kserve-adapter](https://github.com/gerrit.o-ran-sc.org/aiml-fw/aihp/ips/kserve-adapter) | 58 | +18 | 1 | 164 | 2026-05-18 | ✅ |
-| [ric-plt/xapp-frame-cpp](https://github.com/gerrit.o-ran-sc.org/ric-plt/xapp-frame-cpp) | 57 | +13 | 1 | 184 | 2026-04-28 | ✅ |
-| [it/otf](https://github.com/gerrit.o-ran-sc.org/it/otf) | 54 | +102 | 1 | 29 | 2026-09-30 | ✅ |
-| [aiml-fw/athp/sdk/model-storage](https://github.com/gerrit.o-ran-sc.org/aiml-fw/athp/sdk/model-storage) | 54 | +39 | 1 | 164 | 2026-05-18 | ✅ |
-| [ric-plt/sdl](https://github.com/gerrit.o-ran-sc.org/ric-plt/sdl) | 53 | +111 | 2 | 8 | 2026-10-21 | ✅ |
-| [ric-app/rc](https://github.com/gerrit.o-ran-sc.org/ric-app/rc) | 52 | +103 | 1 | 29 | 2026-09-30 | ✅ |
-| [com/log](https://github.com/gerrit.o-ran-sc.org/com/log) | 51 | +106 | 1 | 29 | 2026-09-30 | ✅ |
-| [com/gs-lite](https://github.com/gerrit.o-ran-sc.org/com/gs-lite) | 49 | +101 | 1 | 29 | 2026-09-30 | ✅ |
-| [com/pylog](https://github.com/gerrit.o-ran-sc.org/com/pylog) | 48 | +115 | 2 | 8 | 2026-10-21 | ✅ |
-| [o-du/phy](https://github.com/gerrit.o-ran-sc.org/o-du/phy) | 45 | +133 | 1 | 29 | 2026-09-30 | ✅ |
-| [ric-app/hw-go](https://github.com/gerrit.o-ran-sc.org/ric-app/hw-go) | 44 | +116 | 2 | 8 | 2026-10-21 | ✅ |
-| [nonrtric/rapp/orufhrecovery](https://github.com/gerrit.o-ran-sc.org/nonrtric/rapp/orufhrecovery) | 44 | +110 | 1 | 29 | 2026-09-30 | ✅ |
-| [aiml-fw/athp/sdk/feature-store](https://github.com/gerrit.o-ran-sc.org/aiml-fw/athp/sdk/feature-store) | 42 | +108 | 1 | 29 | 2026-09-30 | ✅ |
-| [nonrtric/plt/dmaapmediatorproducer](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/dmaapmediatorproducer) | 40 | +133 | 1 | 29 | 2026-09-30 | ✅ |
-| [aiml-fw/athp/pipeline-components](https://github.com/gerrit.o-ran-sc.org/aiml-fw/athp/pipeline-components) | 36 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [ric-plt/xapp-frame-rust](https://github.com/gerrit.o-ran-sc.org/ric-plt/xapp-frame-rust) | 33 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [ric-app/ad](https://github.com/gerrit.o-ran-sc.org/ric-app/ad) | 29 | +45 | 1 | 168 | 2026-05-14 | ✅ |
-| [ric-app/lp](https://github.com/gerrit.o-ran-sc.org/ric-app/lp) | 28 | 0 | 0 | 912 | 2024-04-30 | ☑️ |
-| [nonrtric/plt/helmmanager](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/helmmanager) | 27 | +114 | 2 | 29 | 2026-09-30 | ✅ |
-| [ric-app/qp](https://github.com/gerrit.o-ran-sc.org/ric-app/qp) | 26 | +52 | 1 | 168 | 2026-05-14 | ✅ |
-| [ric-app/hw-python](https://github.com/gerrit.o-ran-sc.org/ric-app/hw-python) | 24 | +95 | 2 | 8 | 2026-10-21 | ✅ |
-| [ric-plt/streaming-protobufs](https://github.com/gerrit.o-ran-sc.org/ric-plt/streaming-protobufs) | 24 | +110 | 2 | 8 | 2026-10-21 | ✅ |
-| [com/golog](https://github.com/gerrit.o-ran-sc.org/com/golog) | 23 | +115 | 2 | 8 | 2026-10-21 | ✅ |
-| [ric-plt/libe2ap](https://github.com/gerrit.o-ran-sc.org/ric-plt/libe2ap) | 21 | +102 | 1 | 29 | 2026-09-30 | ✅ |
-| [ric-plt/tracelibgo](https://github.com/gerrit.o-ran-sc.org/ric-plt/tracelibgo) | 20 | +115 | 2 | 8 | 2026-10-21 | ✅ |
-| [smo/o1](https://github.com/gerrit.o-ran-sc.org/smo/o1) | 20 | +107 | 1 | 29 | 2026-09-30 | ✅ |
-| [.github](https://github.com/gerrit.o-ran-sc.org/.github) | 18 | +527 | 2 | 8 | 2026-10-21 | ✅ |
-| [ric-plt/tracelibcpp](https://github.com/gerrit.o-ran-sc.org/ric-plt/tracelibcpp) | 18 | +110 | 2 | 8 | 2026-10-21 | ✅ |
-| [ric-app/hw-rust](https://github.com/gerrit.o-ran-sc.org/ric-app/hw-rust) | 18 | +90 | 1 | 29 | 2026-09-30 | ✅ |
-| [ric-app/kpimon-go](https://github.com/gerrit.o-ran-sc.org/ric-app/kpimon-go) | 18 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [scp/ric-app/kpimon](https://github.com/gerrit.o-ran-sc.org/scp/ric-app/kpimon) | 18 | 0 | 0 | 2088 | 2021-02-09 | 🛑 |
-| [ric-plt/asn1-documents](https://github.com/gerrit.o-ran-sc.org/ric-plt/asn1-documents) | 17 | +112 | 2 | 8 | 2026-10-21 | ✅ |
-| [nonrtric/rapp/healthcheck](https://github.com/gerrit.o-ran-sc.org/nonrtric/rapp/healthcheck) | 14 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [ric-plt/jaegeradapter](https://github.com/gerrit.o-ran-sc.org/ric-plt/jaegeradapter) | 13 | +115 | 2 | 8 | 2026-10-21 | ✅ |
-| [ric-app/qp-aimlfw](https://github.com/gerrit.o-ran-sc.org/ric-app/qp-aimlfw) | 13 | +112 | 2 | 8 | 2026-10-21 | ✅ |
-| [scp/ocu/5gnr](https://github.com/gerrit.o-ran-sc.org/scp/ocu/5gnr) | 13 | +89 | 1 | 12 | 2026-10-17 | ✅ |
-| [ric-plt/conflictmgr](https://github.com/gerrit.o-ran-sc.org/ric-plt/conflictmgr) | 12 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [sim/ns3-o-ran-e2](https://github.com/gerrit.o-ran-sc.org/sim/ns3-o-ran-e2) | 11 | +95 | 2 | 8 | 2026-10-21 | ✅ |
-| [it/tifg](https://github.com/gerrit.o-ran-sc.org/it/tifg) | 11 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [ric-app/bouncer](https://github.com/gerrit.o-ran-sc.org/ric-app/bouncer) | 11 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [nonrtric/plt/sdnca1controller](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/sdnca1controller) | 10 | +121 | 2 | 29 | 2026-09-30 | ✅ |
-| [sim/e2-interface-data](https://github.com/gerrit.o-ran-sc.org/sim/e2-interface-data) | 9 | +97 | 2 | 8 | 2026-10-21 | ✅ |
-| [sim/o1-ofhmp-interfaces](https://github.com/gerrit.o-ran-sc.org/sim/o1-ofhmp-interfaces) | 9 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [aiml-fw/apm/analysis-module](https://github.com/gerrit.o-ran-sc.org/aiml-fw/apm/analysis-module) | 8 | +86 | 2 | 8 | 2026-10-21 | ✅ |
-| [aiml-fw/apm/monitoring-agent](https://github.com/gerrit.o-ran-sc.org/aiml-fw/apm/monitoring-agent) | 8 | +86 | 2 | 8 | 2026-10-21 | ✅ |
-| [aiml-fw/apm/monitoring-server](https://github.com/gerrit.o-ran-sc.org/aiml-fw/apm/monitoring-server) | 8 | +86 | 2 | 8 | 2026-10-21 | ✅ |
-| [ric-plt/stslgo](https://github.com/gerrit.o-ran-sc.org/ric-plt/stslgo) | 8 | +95 | 2 | 8 | 2026-10-21 | ✅ |
-| [ric-plt/utils](https://github.com/gerrit.o-ran-sc.org/ric-plt/utils) | 8 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [smo/pkg](https://github.com/gerrit.o-ran-sc.org/smo/pkg) | 7 | +143 | 2 | 8 | 2026-10-21 | ✅ |
-| [aiml-fw](https://github.com/gerrit.o-ran-sc.org/aiml-fw) | 7 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [ric-app/ccc](https://github.com/gerrit.o-ran-sc.org/ric-app/ccc) | 6 | +153 | 2 | 8 | 2026-10-21 | ✅ |
-| [ric-plt/dbaas/hiredis-vip](https://github.com/gerrit.o-ran-sc.org/ric-plt/dbaas/hiredis-vip) | 6 | +95 | 2 | 8 | 2026-10-21 | ✅ |
-| [aiml-fw/apm/influx-wrapper](https://github.com/gerrit.o-ran-sc.org/aiml-fw/apm/influx-wrapper) | 6 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [aiml-fw/awmf/cli](https://github.com/gerrit.o-ran-sc.org/aiml-fw/awmf/cli) | 6 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [aiml-fw/aihp/tps/kserve-adapter](https://github.com/gerrit.o-ran-sc.org/aiml-fw/aihp/tps/kserve-adapter) | 5 | +95 | 2 | 8 | 2026-10-21 | ✅ |
-| [ric-plt/alarm-cpp](https://github.com/gerrit.o-ran-sc.org/ric-plt/alarm-cpp) | 5 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [ric-plt/ricctl](https://github.com/gerrit.o-ran-sc.org/ric-plt/ricctl) | 5 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [ric-app/ric-sdk-py](https://github.com/gerrit.o-ran-sc.org/ric-app/ric-sdk-py) | 4 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [ric-plt/demo1](https://github.com/gerrit.o-ran-sc.org/ric-plt/demo1) | 4 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [ric-plt/ric-test](https://github.com/gerrit.o-ran-sc.org/ric-plt/ric-test) | 4 | +86 | 1 | 29 | 2026-09-30 | ✅ |
-| [scp/ric-app/ssp](https://github.com/gerrit.o-ran-sc.org/scp/ric-app/ssp) | 3 | 0 | 0 | 2206 | 2020-10-14 | 🛑 |
+| [ci-management](https://github.com/gerrit.o-ran-sc.org/ci-management) | 1407 | +181 | 3 | 30 | 2026-09-30 | ✅ |
+| [nonrtric](https://github.com/gerrit.o-ran-sc.org/nonrtric) | 1316 | +3624 | 4 | 30 | 2026-09-30 | ✅ |
+| [oam](https://github.com/gerrit.o-ran-sc.org/oam) | 810 | +271 | 2 | 30 | 2026-09-30 | ✅ |
+| [o-du/l2](https://github.com/gerrit.o-ran-sc.org/o-du/l2) | 746 | +101 | 1 | 30 | 2026-09-30 | ✅ |
+| [it/dep](https://github.com/gerrit.o-ran-sc.org/it/dep) | 647 | +1225 | 5 | 30 | 2026-09-30 | ✅ |
+| [pti/rtp](https://github.com/gerrit.o-ran-sc.org/pti/rtp) | 570 | +3322 | 4 | 30 | 2026-09-30 | ✅ |
+| [pti/o2](https://github.com/gerrit.o-ran-sc.org/pti/o2) | 358 | +226 | 5 | 16 | 2026-10-14 | ✅ |
+| [ric-plt/e2mgr](https://github.com/gerrit.o-ran-sc.org/ric-plt/e2mgr) | 351 | +229 | 3 | 30 | 2026-09-30 | ✅ |
+| [aiml-fw/awmf/tm](https://github.com/gerrit.o-ran-sc.org/aiml-fw/awmf/tm) | 331 | +394 | 3 | 30 | 2026-09-30 | ✅ |
+| [portal/nonrtric-controlpanel](https://github.com/gerrit.o-ran-sc.org/portal/nonrtric-controlpanel) | 307 | +265 | 3 | 30 | 2026-09-30 | ✅ |
+| [ric-plt/lib/rmr](https://github.com/gerrit.o-ran-sc.org/ric-plt/lib/rmr) | 307 | +101 | 2 | 9 | 2026-10-21 | ✅ |
+| [nonrtric/plt/rappmanager](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/rappmanager) | 284 | +10729 | 6 | 30 | 2026-09-30 | ✅ |
+| [ric-plt/submgr](https://github.com/gerrit.o-ran-sc.org/ric-plt/submgr) | 265 | +6541 | 3 | 30 | 2026-09-30 | ✅ |
+| [ric-plt/ric-dep](https://github.com/gerrit.o-ran-sc.org/ric-plt/ric-dep) | 260 | +274 | 2 | 30 | 2026-09-30 | ✅ |
+| [aiml-fw/aimlfw-dep](https://github.com/gerrit.o-ran-sc.org/aiml-fw/aimlfw-dep) | 250 | +398 | 4 | 30 | 2026-09-30 | ✅ |
+| [ric-plt/a1](https://github.com/gerrit.o-ran-sc.org/ric-plt/a1) | 207 | +114 | 3 | 9 | 2026-10-21 | ✅ |
+| [ric-plt/e2](https://github.com/gerrit.o-ran-sc.org/ric-plt/e2) | 197 | +110 | 3 | 185 | 2026-04-28 | ✅ |
+| [nonrtric/plt/sme](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/sme) | 188 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [ric-plt/xapp-frame](https://github.com/gerrit.o-ran-sc.org/ric-plt/xapp-frame) | 156 | +106 | 1 | 30 | 2026-09-30 | ✅ |
+| [doc](https://github.com/gerrit.o-ran-sc.org/doc) | 155 | +267 | 3 | 9 | 2026-10-21 | ✅ |
+| [ric-plt/rtmgr](https://github.com/gerrit.o-ran-sc.org/ric-plt/rtmgr) | 151 | +116 | 2 | 30 | 2026-09-30 | ✅ |
+| [portal/aiml-dashboard](https://github.com/gerrit.o-ran-sc.org/portal/aiml-dashboard) | 144 | +111 | 2 | 30 | 2026-09-30 | ✅ |
+| [smo/teiv](https://github.com/gerrit.o-ran-sc.org/smo/teiv) | 141 | +11799 | 5 | 9 | 2026-10-21 | ✅ |
+| [nonrtric/plt/ranpm](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/ranpm) | 141 | +321 | 4 | 9 | 2026-10-21 | ✅ |
+| [nonrtric/plt/a1policymanagementservice](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/a1policymanagementservice) | 140 | +2302 | 3 | 30 | 2026-09-30 | ✅ |
+| [sim/a1-interface](https://github.com/gerrit.o-ran-sc.org/sim/a1-interface) | 139 | +191 | 2 | 30 | 2026-09-30 | ✅ |
+| [ric-plt/nodeb-rnib](https://github.com/gerrit.o-ran-sc.org/ric-plt/nodeb-rnib) | 127 | +99 | 1 | 30 | 2026-09-30 | ✅ |
+| [it/test](https://github.com/gerrit.o-ran-sc.org/it/test) | 122 | +106 | 1 | 30 | 2026-09-30 | ✅ |
+| [sim/o1-interface](https://github.com/gerrit.o-ran-sc.org/sim/o1-interface) | 122 | +105 | 1 | 30 | 2026-09-30 | ✅ |
+| [aiml-fw/awmf/modelmgmtservice](https://github.com/gerrit.o-ran-sc.org/aiml-fw/awmf/modelmgmtservice) | 119 | +735 | 3 | 30 | 2026-09-30 | ✅ |
+| [ric-plt/alarm-go](https://github.com/gerrit.o-ran-sc.org/ric-plt/alarm-go) | 116 | +110 | 2 | 30 | 2026-09-30 | ✅ |
+| [ric-plt/xapp-frame-py](https://github.com/gerrit.o-ran-sc.org/ric-plt/xapp-frame-py) | 108 | +170 | 1 | 30 | 2026-09-30 | ✅ |
+| [ric-app/mc](https://github.com/gerrit.o-ran-sc.org/ric-app/mc) | 102 | +100 | 1 | 30 | 2026-09-30 | ✅ |
+| [nonrtric/plt/dmaapadapter](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/dmaapadapter) | 96 | +146 | 2 | 30 | 2026-09-30 | ✅ |
+| [ric-plt/appmgr](https://github.com/gerrit.o-ran-sc.org/ric-plt/appmgr) | 93 | +320 | 3 | 9 | 2026-10-21 | ✅ |
+| [smo/ves](https://github.com/gerrit.o-ran-sc.org/smo/ves) | 86 | +104 | 2 | 9 | 2026-10-21 | ✅ |
+| [oam/oam-controller](https://github.com/gerrit.o-ran-sc.org/oam/oam-controller) | 84 | +20166 | 3 | 259 | 2026-02-13 | ✅ |
+| [aiml-fw/athp/tps/kubeflow-adapter](https://github.com/gerrit.o-ran-sc.org/aiml-fw/athp/tps/kubeflow-adapter) | 83 | +103 | 3 | 9 | 2026-10-21 | ✅ |
+| [it/dev](https://github.com/gerrit.o-ran-sc.org/it/dev) | 81 | +101 | 1 | 30 | 2026-09-30 | ✅ |
+| [nonrtric/plt/informationcoordinatorservice](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/informationcoordinatorservice) | 77 | +266 | 3 | 30 | 2026-09-30 | ✅ |
+| [nonrtric/plt/rappcatalogue](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/rappcatalogue) | 73 | +140 | 3 | 9 | 2026-10-21 | ✅ |
+| [ric-plt/sdlgo](https://github.com/gerrit.o-ran-sc.org/ric-plt/sdlgo) | 71 | +114 | 2 | 9 | 2026-10-21 | ✅ |
+| [ric-plt/ricdms](https://github.com/gerrit.o-ran-sc.org/ric-plt/ricdms) | 71 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [ric-plt/dbaas](https://github.com/gerrit.o-ran-sc.org/ric-plt/dbaas) | 70 | +110 | 2 | 30 | 2026-09-30 | ✅ |
+| [smo/o2](https://github.com/gerrit.o-ran-sc.org/smo/o2) | 70 | +121 | 2 | 30 | 2026-09-30 | ✅ |
+| [ric-app/ad-cell](https://github.com/gerrit.o-ran-sc.org/ric-app/ad-cell) | 70 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [nonrtric/rapp/ransliceassurance](https://github.com/gerrit.o-ran-sc.org/nonrtric/rapp/ransliceassurance) | 65 | +111 | 1 | 30 | 2026-09-30 | ✅ |
+| [aiml-fw/athp/data-extraction](https://github.com/gerrit.o-ran-sc.org/aiml-fw/athp/data-extraction) | 64 | +343 | 1 | 319 | 2025-12-15 | ✅ |
+| [ric-app/ts](https://github.com/gerrit.o-ran-sc.org/ric-app/ts) | 61 | +101 | 1 | 30 | 2026-09-30 | ✅ |
+| [sim/e2-interface](https://github.com/gerrit.o-ran-sc.org/sim/e2-interface) | 61 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [ric-plt/sdlpy](https://github.com/gerrit.o-ran-sc.org/ric-plt/sdlpy) | 60 | +105 | 1 | 30 | 2026-09-30 | ✅ |
+| [ric-plt/o1](https://github.com/gerrit.o-ran-sc.org/ric-plt/o1) | 59 | +106 | 2 | 30 | 2026-09-30 | ✅ |
+| [ric-plt/vespamgr](https://github.com/gerrit.o-ran-sc.org/ric-plt/vespamgr) | 58 | +110 | 3 | 9 | 2026-10-21 | ✅ |
+| [ric-app/hw](https://github.com/gerrit.o-ran-sc.org/ric-app/hw) | 58 | +102 | 1 | 30 | 2026-09-30 | ✅ |
+| [aiml-fw/aihp/ips/kserve-adapter](https://github.com/gerrit.o-ran-sc.org/aiml-fw/aihp/ips/kserve-adapter) | 58 | +18 | 1 | 165 | 2026-05-18 | ✅ |
+| [ric-plt/xapp-frame-cpp](https://github.com/gerrit.o-ran-sc.org/ric-plt/xapp-frame-cpp) | 57 | +13 | 1 | 185 | 2026-04-28 | ✅ |
+| [it/otf](https://github.com/gerrit.o-ran-sc.org/it/otf) | 54 | +102 | 1 | 30 | 2026-09-30 | ✅ |
+| [aiml-fw/athp/sdk/model-storage](https://github.com/gerrit.o-ran-sc.org/aiml-fw/athp/sdk/model-storage) | 54 | +39 | 1 | 165 | 2026-05-18 | ✅ |
+| [ric-plt/sdl](https://github.com/gerrit.o-ran-sc.org/ric-plt/sdl) | 53 | +111 | 2 | 9 | 2026-10-21 | ✅ |
+| [ric-app/rc](https://github.com/gerrit.o-ran-sc.org/ric-app/rc) | 52 | +103 | 1 | 30 | 2026-09-30 | ✅ |
+| [com/log](https://github.com/gerrit.o-ran-sc.org/com/log) | 51 | +106 | 1 | 30 | 2026-09-30 | ✅ |
+| [com/gs-lite](https://github.com/gerrit.o-ran-sc.org/com/gs-lite) | 49 | +101 | 1 | 30 | 2026-09-30 | ✅ |
+| [com/pylog](https://github.com/gerrit.o-ran-sc.org/com/pylog) | 48 | +115 | 2 | 9 | 2026-10-21 | ✅ |
+| [o-du/phy](https://github.com/gerrit.o-ran-sc.org/o-du/phy) | 45 | +133 | 1 | 30 | 2026-09-30 | ✅ |
+| [ric-app/hw-go](https://github.com/gerrit.o-ran-sc.org/ric-app/hw-go) | 44 | +116 | 2 | 9 | 2026-10-21 | ✅ |
+| [nonrtric/rapp/orufhrecovery](https://github.com/gerrit.o-ran-sc.org/nonrtric/rapp/orufhrecovery) | 44 | +110 | 1 | 30 | 2026-09-30 | ✅ |
+| [aiml-fw/athp/sdk/feature-store](https://github.com/gerrit.o-ran-sc.org/aiml-fw/athp/sdk/feature-store) | 42 | +108 | 1 | 30 | 2026-09-30 | ✅ |
+| [nonrtric/plt/dmaapmediatorproducer](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/dmaapmediatorproducer) | 40 | +133 | 1 | 30 | 2026-09-30 | ✅ |
+| [aiml-fw/athp/pipeline-components](https://github.com/gerrit.o-ran-sc.org/aiml-fw/athp/pipeline-components) | 36 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [ric-plt/xapp-frame-rust](https://github.com/gerrit.o-ran-sc.org/ric-plt/xapp-frame-rust) | 33 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [ric-app/ad](https://github.com/gerrit.o-ran-sc.org/ric-app/ad) | 29 | +45 | 1 | 169 | 2026-05-14 | ✅ |
+| [ric-app/lp](https://github.com/gerrit.o-ran-sc.org/ric-app/lp) | 28 | 0 | 0 | 913 | 2024-04-30 | ☑️ |
+| [nonrtric/plt/helmmanager](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/helmmanager) | 27 | +114 | 2 | 30 | 2026-09-30 | ✅ |
+| [ric-app/qp](https://github.com/gerrit.o-ran-sc.org/ric-app/qp) | 26 | +52 | 1 | 169 | 2026-05-14 | ✅ |
+| [ric-app/hw-python](https://github.com/gerrit.o-ran-sc.org/ric-app/hw-python) | 24 | +95 | 2 | 9 | 2026-10-21 | ✅ |
+| [ric-plt/streaming-protobufs](https://github.com/gerrit.o-ran-sc.org/ric-plt/streaming-protobufs) | 24 | +110 | 2 | 9 | 2026-10-21 | ✅ |
+| [com/golog](https://github.com/gerrit.o-ran-sc.org/com/golog) | 23 | +115 | 2 | 9 | 2026-10-21 | ✅ |
+| [ric-plt/libe2ap](https://github.com/gerrit.o-ran-sc.org/ric-plt/libe2ap) | 21 | +102 | 1 | 30 | 2026-09-30 | ✅ |
+| [ric-plt/tracelibgo](https://github.com/gerrit.o-ran-sc.org/ric-plt/tracelibgo) | 20 | +115 | 2 | 9 | 2026-10-21 | ✅ |
+| [smo/o1](https://github.com/gerrit.o-ran-sc.org/smo/o1) | 20 | +107 | 1 | 30 | 2026-09-30 | ✅ |
+| [.github](https://github.com/gerrit.o-ran-sc.org/.github) | 18 | +527 | 2 | 9 | 2026-10-21 | ✅ |
+| [ric-plt/tracelibcpp](https://github.com/gerrit.o-ran-sc.org/ric-plt/tracelibcpp) | 18 | +110 | 2 | 9 | 2026-10-21 | ✅ |
+| [ric-app/hw-rust](https://github.com/gerrit.o-ran-sc.org/ric-app/hw-rust) | 18 | +90 | 1 | 30 | 2026-09-30 | ✅ |
+| [ric-app/kpimon-go](https://github.com/gerrit.o-ran-sc.org/ric-app/kpimon-go) | 18 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [scp/ric-app/kpimon](https://github.com/gerrit.o-ran-sc.org/scp/ric-app/kpimon) | 18 | 0 | 0 | 2089 | 2021-02-09 | 🛑 |
+| [ric-plt/asn1-documents](https://github.com/gerrit.o-ran-sc.org/ric-plt/asn1-documents) | 17 | +112 | 2 | 9 | 2026-10-21 | ✅ |
+| [nonrtric/rapp/healthcheck](https://github.com/gerrit.o-ran-sc.org/nonrtric/rapp/healthcheck) | 14 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [ric-plt/jaegeradapter](https://github.com/gerrit.o-ran-sc.org/ric-plt/jaegeradapter) | 13 | +115 | 2 | 9 | 2026-10-21 | ✅ |
+| [ric-app/qp-aimlfw](https://github.com/gerrit.o-ran-sc.org/ric-app/qp-aimlfw) | 13 | +112 | 2 | 9 | 2026-10-21 | ✅ |
+| [scp/ocu/5gnr](https://github.com/gerrit.o-ran-sc.org/scp/ocu/5gnr) | 13 | +89 | 1 | 13 | 2026-10-17 | ✅ |
+| [ric-plt/conflictmgr](https://github.com/gerrit.o-ran-sc.org/ric-plt/conflictmgr) | 12 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [sim/ns3-o-ran-e2](https://github.com/gerrit.o-ran-sc.org/sim/ns3-o-ran-e2) | 11 | +95 | 2 | 9 | 2026-10-21 | ✅ |
+| [it/tifg](https://github.com/gerrit.o-ran-sc.org/it/tifg) | 11 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [ric-app/bouncer](https://github.com/gerrit.o-ran-sc.org/ric-app/bouncer) | 11 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [nonrtric/plt/sdnca1controller](https://github.com/gerrit.o-ran-sc.org/nonrtric/plt/sdnca1controller) | 10 | +121 | 2 | 30 | 2026-09-30 | ✅ |
+| [sim/e2-interface-data](https://github.com/gerrit.o-ran-sc.org/sim/e2-interface-data) | 9 | +97 | 2 | 9 | 2026-10-21 | ✅ |
+| [sim/o1-ofhmp-interfaces](https://github.com/gerrit.o-ran-sc.org/sim/o1-ofhmp-interfaces) | 9 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [aiml-fw/apm/analysis-module](https://github.com/gerrit.o-ran-sc.org/aiml-fw/apm/analysis-module) | 8 | +86 | 2 | 9 | 2026-10-21 | ✅ |
+| [aiml-fw/apm/monitoring-agent](https://github.com/gerrit.o-ran-sc.org/aiml-fw/apm/monitoring-agent) | 8 | +86 | 2 | 9 | 2026-10-21 | ✅ |
+| [aiml-fw/apm/monitoring-server](https://github.com/gerrit.o-ran-sc.org/aiml-fw/apm/monitoring-server) | 8 | +86 | 2 | 9 | 2026-10-21 | ✅ |
+| [ric-plt/stslgo](https://github.com/gerrit.o-ran-sc.org/ric-plt/stslgo) | 8 | +95 | 2 | 9 | 2026-10-21 | ✅ |
+| [ric-plt/utils](https://github.com/gerrit.o-ran-sc.org/ric-plt/utils) | 8 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [smo/pkg](https://github.com/gerrit.o-ran-sc.org/smo/pkg) | 7 | +143 | 2 | 9 | 2026-10-21 | ✅ |
+| [aiml-fw](https://github.com/gerrit.o-ran-sc.org/aiml-fw) | 7 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [ric-app/ccc](https://github.com/gerrit.o-ran-sc.org/ric-app/ccc) | 6 | +153 | 2 | 9 | 2026-10-21 | ✅ |
+| [ric-plt/dbaas/hiredis-vip](https://github.com/gerrit.o-ran-sc.org/ric-plt/dbaas/hiredis-vip) | 6 | +95 | 2 | 9 | 2026-10-21 | ✅ |
+| [aiml-fw/apm/influx-wrapper](https://github.com/gerrit.o-ran-sc.org/aiml-fw/apm/influx-wrapper) | 6 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [aiml-fw/awmf/cli](https://github.com/gerrit.o-ran-sc.org/aiml-fw/awmf/cli) | 6 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [aiml-fw/aihp/tps/kserve-adapter](https://github.com/gerrit.o-ran-sc.org/aiml-fw/aihp/tps/kserve-adapter) | 5 | +95 | 2 | 9 | 2026-10-21 | ✅ |
+| [ric-plt/alarm-cpp](https://github.com/gerrit.o-ran-sc.org/ric-plt/alarm-cpp) | 5 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [ric-plt/ricctl](https://github.com/gerrit.o-ran-sc.org/ric-plt/ricctl) | 5 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [ric-app/ric-sdk-py](https://github.com/gerrit.o-ran-sc.org/ric-app/ric-sdk-py) | 4 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [ric-plt/demo1](https://github.com/gerrit.o-ran-sc.org/ric-plt/demo1) | 4 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [ric-plt/ric-test](https://github.com/gerrit.o-ran-sc.org/ric-plt/ric-test) | 4 | +86 | 1 | 30 | 2026-09-30 | ✅ |
+| [scp/ric-app/ssp](https://github.com/gerrit.o-ran-sc.org/scp/ric-app/ssp) | 3 | 0 | 0 | 2207 | 2020-10-14 | 🛑 |
 
 **Total:** 115 repositories
 
@@ -241,119 +241,119 @@ The data presented in the table below covers the past 365 days.
 
 | Gerrit Project | Primary Type | Other Types | Dependabot | Pre-commit | ReadTheDocs | .gitreview | G2G | Status |
 |----------------|--------------|-------------|------------|------------|-------------|------------|-----|--------|
+| aiml-fw/aihp/ips/kserve-adapter | Go | Python, Dockerfile, Smarty | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
 | aiml-fw/aihp/tps/kserve-adapter | N/A |  | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | aiml-fw/apm/monitoring-agent | Go |  | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| aiml-fw/apm/analysis-module | N/A |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | aiml-fw/apm/influx-wrapper | N/A |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| aiml-fw/aihp/ips/kserve-adapter | Go | Python, Dockerfile, Smarty | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
-| aiml-fw/athp/sdk/feature-store | Python |  | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| aiml-fw/awmf/cli | N/A |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| aiml-fw/apm/analysis-module | N/A |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | aiml-fw/apm/monitoring-server | Go |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | aiml-fw/athp/pipeline-components | Python |  | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| aiml-fw/awmf/cli | N/A |  | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | aiml-fw/athp/tps/kubeflow-adapter | Python | Dockerfile, Shell | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| aiml-fw/athp/sdk/model-storage | Python |  | ✅ | ❌ | ✅ | ✅ | ❌ | ✅ |
 | aiml-fw/athp/data-extraction | Python | Dockerfile, Shell | ✅ | ❌ | ✅ | ✅ | ❌ | ✅ |
+| aiml-fw/athp/sdk/feature-store | Python |  | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | aiml-fw/awmf/modelmgmtservice | Go | Python, Dockerfile, Shell | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| aiml-fw/athp/sdk/model-storage | Python |  | ✅ | ❌ | ✅ | ✅ | ❌ | ✅ |
 | aiml-fw/awmf/tm | Python | Dockerfile | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| nonrtric/plt/helmmanager | Shell | Java/Maven, Python, Dockerfile, Smarty | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | nonrtric/plt/dmaapmediatorproducer | Go | Python, Dockerfile, Shell | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | nonrtric/plt/dmaapadapter | Java/Maven | Python, Dockerfile | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| nonrtric/plt/helmmanager | Shell | Java/Maven, Python, Dockerfile, Smarty | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| nonrtric/plt/sdnca1controller | Shell | Python, Groovy, Java/Maven | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| nonrtric/rapp/healthcheck | Shell | Python, Dockerfile, Smarty | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | nonrtric/plt/informationcoordinatorservice | Java/Maven | Python, Dockerfile, HTML | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ric-plt/dbaas/hiredis-vip | N/A |  | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| nonrtric/plt/sdnca1controller | Shell | Python, Groovy, Java/Maven | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | nonrtric/plt/a1policymanagementservice | HTML | Python, Dockerfile, Java/Maven | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| nonrtric/rapp/healthcheck | Shell | Python, Dockerfile, Smarty | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| ric-plt/dbaas/hiredis-vip | N/A |  | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | nonrtric/plt/rappcatalogue | Python | Dockerfile, Shell, Java/Maven | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | scp/ocu/5gnr | C | Python | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
 | scp/ric-app/ssp | N/A |  | ❌ | ❌ | ❌ | ✅ | ❌ | 🛑 |
 | scp/ric-app/kpimon | C | Python, Dockerfile, Go | ❌ | ❌ | ✅ | ✅ | ❌ | 🛑 |
-| aiml-fw/aimlfw-dep | Shell | Python, Smarty | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ric-plt/lib/rmr | C | Python, Shell, C++ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | nonrtric/rapp/orufhrecovery | Go | JavaScript, Python, Shell, Smarty, PLpgSQL | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ric-plt/lib/rmr | C | Python, Shell, C++ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | nonrtric/rapp/ransliceassurance | Go | Python, Shell, Smarty | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | com/golog | Go | Python | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| com/gs-lite | C | Python, Shell, C++ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| com/log | C | Python, Shell, C++ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| com/pylog | Python |  | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | nonrtric/plt/sme | Go | JavaScript, Python, Shell, HTML, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| aiml-fw/aimlfw-dep | Shell | Python, Smarty | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| com/gs-lite | C | Python, Shell, C++ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| com/pylog | Python |  | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| com/log | C | Python, Shell, C++ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | it/tifg | Python | PLpgSQL | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| it/dev | Python | Smarty, CSS | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | nonrtric/plt/ranpm | Java | Python, Shell, Go, HTML | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| it/dev | Python | Smarty, CSS | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | nonrtric/plt/rappmanager | Java/Maven | Python, Shell, Go, Groovy, Smarty | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| it/dep | Smarty | Python, Shell, D, PLpgSQL | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | portal/aiml-dashboard | JavaScript | Node, Python, Dockerfile, Shell, HTML, CSS | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | pti/o2 | Python | Dockerfile, Shell, Smarty | ✅ | ❌ | ✅ | ✅ | ❌ | ✅ |
 | portal/nonrtric-controlpanel | TypeScript | JavaScript, Python, SCSS, HTML, CSS, Java/Maven | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| o-du/l2 | C | Python, Dockerfile, Shell, C++, Smarty | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ric-app/ad | Python | Dockerfile | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
-| it/dep | Smarty | Python, Shell, D, PLpgSQL | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | ric-app/ad-cell | Python | Dockerfile | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| ric-app/ccc | N/A |  | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| ric-app/ad | Python | Dockerfile | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
 | it/otf | TypeScript | JavaScript, Python, Shell, Java, Smarty, D, SCSS, HTML, PLpgSQL | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ric-app/ccc | N/A |  | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | ric-app/hw-go | Go | Python, Dockerfile | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| it/test | C | Python, Shell, Go, C++, PHP, Smarty, Robot Framework, HTML | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ric-app/hw | C | Python, Dockerfile, Shell, C++ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| o-du/l2 | C | Python, Dockerfile, Shell, C++, Smarty | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | ric-app/hw-python | Python | Dockerfile | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | ric-app/hw-rust | Rust | Dockerfile | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| ric-app/hw | C | Python, Dockerfile, Shell, C++ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ric-app/bouncer | C | Shell, C++ | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| ric-app/lp | Python | Dockerfile | ❌ | ❌ | ✅ | ✅ | ❌ | ☑️ |
-| o-du/phy | C | Python, Dockerfile, Shell, C++ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ric-app/qp | Python | Dockerfile | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
-| ric-app/kpimon-go | C | Dockerfile, Shell, Go | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| ric-app/qp-aimlfw | Go | Python, Dockerfile | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | pti/rtp | Shell | Python | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ric-app/mc | C | Python, Shell, C++ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ric-app/bouncer | C | Shell, C++ | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| o-du/phy | C | Python, Dockerfile, Shell, C++ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ric-app/lp | Python | Dockerfile | ❌ | ❌ | ✅ | ✅ | ❌ | ☑️ |
+| ric-app/qp-aimlfw | Go | Python, Dockerfile | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ric-app/qp | Python | Dockerfile | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
 | ric-app/ric-sdk-py | N/A |  | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| ric-plt/alarm-cpp | N/A |  | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| ric-app/kpimon-go | C | Dockerfile, Shell, Go | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| ric-app/mc | C | Python, Shell, C++ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | ric-app/ts | C++ | Python, Dockerfile, Shell, C | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| it/test | C | Python, Shell, Go, C++, PHP, Smarty, Robot Framework, HTML | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ric-plt/alarm-go | Go | Python, Shell, C | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ric-plt/asn1-documents | Python |  | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | ric-app/rc | C | Python, Dockerfile, Shell, Go | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ric-plt/alarm-cpp | N/A |  | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | ric-plt/a1 | Go | Python, Dockerfile, Shell, Smarty | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ric-plt/conflictmgr | Go | Dockerfile | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| ric-plt/asn1-documents | Python |  | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | ric-plt/demo1 | N/A |  | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| ric-plt/appmgr | Python | Dockerfile, Shell, Go, Smarty, CSS | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ric-plt/e2 | C | Python, Shell, C++ | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
-| ric-plt/jaegeradapter | Python | Smarty | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ric-plt/libe2ap | C | Python, Shell, C++ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ric-plt/conflictmgr | Go | Dockerfile | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| ric-plt/alarm-go | Go | Python, Shell, C | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | ric-plt/dbaas | C++ | Python, Shell, Go, C | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| oam/oam-controller | Java/Maven | JavaScript, TypeScript, Python, Shell, Groovy, HTML, CSS | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
-| ric-plt/ric-test | N/A |  | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| ric-plt/e2 | C | Python, Shell, C++ | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
+| ric-plt/appmgr | Python | Dockerfile, Shell, Go, Smarty, CSS | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ric-plt/jaegeradapter | Python | Smarty | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | ric-plt/nodeb-rnib | Go | Python, Shell, C | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ric-plt/libe2ap | C | Python, Shell, C++ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ric-plt/ric-test | N/A |  | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | ric-plt/o1 | Go | Python, Dockerfile, Shell, C | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | ric-plt/ricctl | N/A |  | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| oam/oam-controller | Java/Maven | JavaScript, TypeScript, Python, Shell, Groovy, HTML, CSS | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
 | ric-plt/ricdms | Go | Python, Dockerfile, Shell | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | ric-plt/rtmgr | Go | Python, Dockerfile, Shell | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | ric-plt/stslgo | Go | Dockerfile, Shell | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | ric-plt/sdlpy | Python |  | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ric-plt/streaming-protobufs | Go | Python | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ |
 | ric-plt/sdlgo | Go | Python, Shell | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ric-plt/ric-dep | Smarty | Python, Shell, Go | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ric-plt/e2mgr | C | Python, Shell, Go, Smarty, Robot Framework | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ric-plt/submgr | C | Python, Dockerfile, Shell, Go | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ric-plt/streaming-protobufs | Go | Python | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ |
 | ric-plt/sdl | C++ | Python, Shell, C, .NET | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ric-plt/ric-dep | Smarty | Python, Shell, Go | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ric-plt/tracelibgo | Go | Python, Shell | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | ric-plt/tracelibcpp | C++ | Python, Shell | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | ric-plt/utils | C++ | Python, Shell, C | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| ric-plt/tracelibgo | Go | Python, Shell | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ric-plt/submgr | C | Python, Dockerfile, Shell, Go | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | ric-plt/vespamgr | Go | Python, Dockerfile, Shell, Smarty | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| sim/e2-interface-data | N/A |  | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| ric-plt/xapp-frame-rust | Rust | C | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| sim/ns3-o-ran-e2 | C++ | C | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | ric-plt/xapp-frame-cpp | C++ | Python, Dockerfile, Shell, C | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ |
-| sim/o1-ofhmp-interfaces | Python | Dockerfile, Shell | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| ric-plt/xapp-frame-py | Python | Shell | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| smo/o1 | Python | Shell | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| smo/pkg | Python | Shell | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| ric-plt/e2mgr | C | Python, Shell, Go, Smarty, Robot Framework | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| ric-plt/xapp-frame-rust | Rust | C | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| sim/e2-interface-data | N/A |  | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | ric-plt/xapp-frame | Go | Python, Shell | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| sim/e2-interface | C | C++ | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| sim/ns3-o-ran-e2 | C++ | C | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| ric-plt/xapp-frame-py | Python | Shell | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| sim/o1-ofhmp-interfaces | Python | Dockerfile, Shell | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| smo/pkg | Python | Shell | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| smo/o1 | Python | Shell | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | smo/o2 | Python | Shell, Smarty, Robot Framework | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| sim/e2-interface | C | C++ | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | sim/o1-interface | C | Python, Shell, C++ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| smo/ves | Python | Java/Maven, Dockerfile, Shell | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| .github | N/A |  | ❌ | ✅ | ❌ | ✅ | ✅ | ✅ |
 | sim/a1-interface | Python | Shell | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| smo/ves | Python | Java/Maven, Dockerfile, Shell | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | aiml-fw | Python | Shell, Go, Smarty | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
 | doc | Python |  | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ |
-| smo/teiv | Java/Maven | Python, Shell, Groovy, Smarty, HTML, PLpgSQL | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| .github | N/A |  | ❌ | ✅ | ❌ | ✅ | ✅ | ✅ |
 | ci-management | jjb |  | ❌ | ✅ | ❌ | ✅ | ✅ | ✅ |
+| smo/teiv | Java/Maven | Python, Shell, Groovy, Smarty, HTML, PLpgSQL | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | oam | Java | JavaScript, TypeScript, Python, Shell, Go, Groovy, Smarty, HTML, CSS | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | nonrtric | Java | JavaScript, Python, Shell, Go, Groovy, Smarty, HTML, CSS, PLpgSQL | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
 
@@ -416,19 +416,19 @@ The data presented in the table below covers the past 365 days.
 | portal/nonrtric-controlpanel | call-github2gerrit.yaml<br>dependabot-updates<br>gerrit-merge.yaml<br>update-graph | 4 | portal-nonrtric-controlpanel-cli-sonar<br>portal-nonrtric-controlpanel-docker-merge-g-release<br>portal-nonrtric-controlpanel-docker-merge-h-release<br>portal-nonrtric-controlpanel-docker-merge-i-release<br>portal-nonrtric-controlpanel-docker-merge-master<br>portal-nonrtric-controlpanel-docker-verify-g-release<br>portal-nonrtric-controlpanel-docker-verify-h-release<br>portal-nonrtric-controlpanel-docker-verify-i-release<br>portal-nonrtric-controlpanel-docker-verify-master<br>portal-nonrtric-controlpanel-gateway-docker-maven-docker-merge-g-release<br>portal-nonrtric-controlpanel-gateway-docker-maven-docker-merge-h-release<br>portal-nonrtric-controlpanel-gateway-docker-maven-docker-merge-i-release<br>portal-nonrtric-controlpanel-gateway-docker-maven-docker-merge-master<br>portal-nonrtric-controlpanel-gateway-docker-maven-docker-stage-g-release<br>portal-nonrtric-controlpanel-gateway-docker-maven-docker-stage-h-release<br>portal-nonrtric-controlpanel-gateway-docker-maven-docker-stage-i-release<br>portal-nonrtric-controlpanel-gateway-docker-maven-docker-stage-master<br>portal-nonrtric-controlpanel-gateway-docker-maven-docker-verify-g-release-mvn36-openjdk11<br>portal-nonrtric-controlpanel-gateway-docker-maven-docker-verify-h-release-mvn36-openjdk17<br>portal-nonrtric-controlpanel-gateway-docker-maven-docker-verify-i-release-mvn36-openjdk17<br>portal-nonrtric-controlpanel-gateway-docker-maven-docker-verify-master-mvn39-openjdk17<br>portal-nonrtric-controlpanel-gateway-maven-clm-g-release<br>portal-nonrtric-controlpanel-gateway-maven-clm-h-release<br>portal-nonrtric-controlpanel-gateway-maven-clm-i-release<br>portal-nonrtric-controlpanel-gateway-maven-clm-master<br>portal-nonrtric-controlpanel-gateway-maven-merge-g-release<br>portal-nonrtric-controlpanel-gateway-maven-merge-h-release<br>portal-nonrtric-controlpanel-gateway-maven-merge-i-release<br>portal-nonrtric-controlpanel-gateway-maven-merge-master<br>portal-nonrtric-controlpanel-gateway-maven-stage-g-release<br>portal-nonrtric-controlpanel-gateway-maven-stage-h-release<br>portal-nonrtric-controlpanel-gateway-maven-stage-i-release<br>portal-nonrtric-controlpanel-gateway-maven-stage-master<br>portal-nonrtric-controlpanel-gateway-maven-verify-g-release-mvn36-openjdk11<br>portal-nonrtric-controlpanel-gateway-maven-verify-h-release-mvn36-openjdk17<br>portal-nonrtric-controlpanel-gateway-maven-verify-i-release-mvn36-openjdk17<br>portal-nonrtric-controlpanel-gateway-maven-verify-master-mvn39-openjdk17<br>portal-nonrtric-controlpanel-release-merge-master<br>portal-nonrtric-controlpanel-release-verify-master | 39 |
 | pti/o2 | dependabot-updates<br>gerrit-merge.yaml<br>gerrit-verify.yaml<br>update-graph | 4 | pti-o2-docker-merge-l-release<br>pti-o2-docker-merge-master<br>pti-o2-docker-verify-l-release<br>pti-o2-docker-verify-master<br>pti-o2-release-merge-master<br>pti-o2-release-verify-master<br>pti-o2-tox-nexus-iq-clm | 7 |
 | pti/rtp | call-github2gerrit.yaml<br>dependabot-updates<br>update-graph | 3 | pti-rtp-shell-merge-master<br>pti-rtp-shell-release-f-release<br>pti-rtp-shell-release-g-release<br>pti-rtp-shell-release-h-release<br>pti-rtp-shell-release-i-release<br>pti-rtp-shell-release-j-release<br>pti-rtp-shell-release-master<br>pti-rtp-shell-verify-master | 8 |
-| ric-app/ad | gerrit-novote-merge.yaml<br>gerrit-verify.yaml | 2 | ric-app-ad-cell-info-yaml-verify<br>ric-app-ad-docker-merge-master<br>ric-app-ad-docker-verify-master<br>ric-app-ad-release-merge-master<br>ric-app-ad-release-verify-master<br>ric-app-ad-tox-sonarqube | 6 |
-| ric-app/ad-cell | call-github2gerrit.yaml | 1 |  | 0 |
+| ric-app/ad | gerrit-novote-merge.yaml<br>gerrit-verify.yaml | 2 | ric-app-ad-docker-merge-master<br>ric-app-ad-docker-verify-master<br>ric-app-ad-release-merge-master<br>ric-app-ad-release-verify-master<br>ric-app-ad-tox-sonarqube | 5 |
+| ric-app/ad-cell | call-github2gerrit.yaml | 1 | ric-app-ad-cell-info-yaml-verify | 1 |
 | ric-app/bouncer | call-github2gerrit.yaml | 1 | ric-app-bouncer-docker-merge-master<br>ric-app-bouncer-docker-verify-master<br>ric-app-bouncer-release-merge-master<br>ric-app-bouncer-release-verify-master | 4 |
 | ric-app/ccc | call-github2gerrit.yaml | 1 |  | 0 |
-| ric-app/hw | call-github2gerrit.yaml<br>update-graph | 2 | ric-app-hw-docker-merge-master<br>ric-app-hw-docker-verify-master<br>ric-app-hw-release-merge-master<br>ric-app-hw-release-verify-master<br>ric-app-hw-rust-docker-merge-master<br>ric-app-hw-rust-docker-verify-master<br>ric-app-hw-rust-release-merge-master<br>ric-app-hw-rust-release-verify-master | 8 |
-| ric-app/hw-go | call-github2gerrit.yaml | 1 | ric-app-hw-go-docker-merge-master<br>ric-app-hw-go-docker-verify-master<br>ric-app-hw-go-release-merge-master<br>ric-app-hw-go-release-verify-master | 4 |
-| ric-app/hw-python | call-github2gerrit.yaml | 1 | ric-app-hw-python-docker-merge-master<br>ric-app-hw-python-docker-verify-master<br>ric-app-hw-python-release-merge-master<br>ric-app-hw-python-release-verify-master | 4 |
+| ric-app/hw | call-github2gerrit.yaml<br>update-graph | 2 | ric-app-hw-docker-merge-master<br>ric-app-hw-docker-verify-master<br>ric-app-hw-go-docker-merge-master<br>ric-app-hw-go-docker-verify-master<br>ric-app-hw-go-release-merge-master<br>ric-app-hw-go-release-verify-master<br>ric-app-hw-python-docker-merge-master<br>ric-app-hw-python-docker-verify-master<br>ric-app-hw-python-release-merge-master<br>ric-app-hw-python-release-verify-master<br>ric-app-hw-release-merge-master<br>ric-app-hw-release-verify-master<br>ric-app-hw-rust-docker-merge-master<br>ric-app-hw-rust-docker-verify-master<br>ric-app-hw-rust-release-merge-master<br>ric-app-hw-rust-release-verify-master | 16 |
+| ric-app/hw-go | call-github2gerrit.yaml | 1 |  | 0 |
+| ric-app/hw-python | call-github2gerrit.yaml | 1 |  | 0 |
 | ric-app/hw-rust | call-github2gerrit.yaml | 1 |  | 0 |
 | ric-app/kpimon-go | call-github2gerrit.yaml | 1 | ric-app-kpimon-go-docker-merge-master<br>ric-app-kpimon-go-docker-verify-master<br>ric-app-kpimon-go-release-merge-master<br>ric-app-kpimon-go-release-verify-master | 4 |
 | ric-app/lp | gerrit-merge.yaml<br>gerrit-verify.yaml | 2 | ric-app-lp-docker-merge-master<br>ric-app-lp-docker-verify-master<br>ric-app-lp-release-merge-master<br>ric-app-lp-release-verify-master | 4 |
 | ric-app/mc | call-github2gerrit.yaml<br>gerrit-novote-merge.yaml<br>update-graph | 3 | ric-app-mc-cmake-sonarqube<br>ric-app-mc-docker-merge-master<br>ric-app-mc-docker-verify-master<br>ric-app-mc-listener-docker-merge-master<br>ric-app-mc-listener-docker-verify-master<br>ric-app-mc-release-merge-master<br>ric-app-mc-release-verify-master | 7 |
-| ric-app/qp | gerrit-novote-merge.yaml<br>gerrit-verify.yaml<br>update-graph | 3 | ric-app-qp-aimlfw-docker-merge-master<br>ric-app-qp-aimlfw-docker-verify-master<br>ric-app-qp-aimlfw-release-merge-master<br>ric-app-qp-aimlfw-release-verify-master<br>ric-app-qp-aimlfw-sonar-prescan-script<br>ric-app-qp-docker-merge-master<br>ric-app-qp-docker-verify-master<br>ric-app-qp-release-merge-master<br>ric-app-qp-release-verify-master<br>ric-app-qp-tox-sonarqube | 10 |
-| ric-app/qp-aimlfw | call-github2gerrit.yaml<br>update-graph | 2 |  | 0 |
+| ric-app/qp | gerrit-novote-merge.yaml<br>gerrit-verify.yaml<br>update-graph | 3 | ric-app-qp-docker-merge-master<br>ric-app-qp-docker-verify-master<br>ric-app-qp-release-merge-master<br>ric-app-qp-release-verify-master<br>ric-app-qp-tox-sonarqube | 5 |
+| ric-app/qp-aimlfw | call-github2gerrit.yaml<br>update-graph | 2 | ric-app-qp-aimlfw-docker-merge-master<br>ric-app-qp-aimlfw-docker-verify-master<br>ric-app-qp-aimlfw-release-merge-master<br>ric-app-qp-aimlfw-release-verify-master<br>ric-app-qp-aimlfw-sonar-prescan-script | 5 |
 | ric-app/rc | call-github2gerrit.yaml | 1 | ric-app-rc-docker-merge-master<br>ric-app-rc-docker-verify-master<br>ric-app-rc-release-merge-master<br>ric-app-rc-release-verify-master | 4 |
 | ric-app/ric-sdk-py | call-github2gerrit.yaml | 1 | ric-app-ric-sdk-py-info-yaml-verify | 1 |
 | ric-app/ts | call-github2gerrit.yaml<br>update-graph | 2 | ric-app-ts-docker-merge-master<br>ric-app-ts-docker-verify-master<br>ric-app-ts-release-merge-master<br>ric-app-ts-release-verify-master | 4 |
