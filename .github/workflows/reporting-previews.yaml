@@ -42,7 +42,7 @@ jobs:
     steps:
       # Harden the runner
       # yamllint disable-line rule:line-length
-      - uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2  # v2.22.2
+      - uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43  # v2.22.3
         with:
           egress-policy: "audit"
 
@@ -194,7 +194,7 @@ jobs:
     steps:
       # Harden the runner
       # yamllint disable-line rule:line-length
-      - uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2  # v2.22.2
+      - uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43  # v2.22.3
         with:
           egress-policy: "audit"
 
@@ -208,7 +208,7 @@ jobs:
       - name: "Clone Gerrit repos for ${{ matrix.project }}"
         if: matrix.gerrit != '' && matrix.gerrit != null
         # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/gerrit-clone-action@9cc8af0414f93e219ac086340a125b4427b0dfd2  # v2.5.0
+        uses: lfreleng-actions/source-clone-action@a717c42ccd53c82874a25a805a2429a6095801f9  # v3.0.1
         id: clone-gerrit
         with:
           host: ${{ matrix.gerrit }}
@@ -227,7 +227,7 @@ jobs:
           (matrix.gerrit == '' || matrix.gerrit == null) &&
           matrix.github != '' && matrix.github != null
         # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/gerrit-clone-action@9cc8af0414f93e219ac086340a125b4427b0dfd2  # v2.5.0
+        uses: lfreleng-actions/source-clone-action@a717c42ccd53c82874a25a805a2429a6095801f9  # v3.0.1
         id: clone-github
         env:
           GITHUB_TOKEN: ${{ secrets.CLASSIC_READ_ONLY_PAT_TOKEN }}
@@ -315,7 +315,7 @@ jobs:
 
       - name: "Install uv"
         # yamllint disable-line rule:line-length
-        uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e  # v10.3.2
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2  # v10.3.3
 
       - name: "Set up Python"
         # yamllint disable-line rule:line-length
@@ -490,7 +490,7 @@ jobs:
     steps:
       # Harden the runner
       # yamllint disable-line rule:line-length
-      - uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2  # v2.22.2
+      - uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43  # v2.22.3
         with:
           egress-policy: "audit"
 
@@ -932,7 +932,7 @@ jobs:
     steps:
       # Harden the runner
       # yamllint disable-line rule:line-length
-      - uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2  # v2.22.2
+      - uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43  # v2.22.3
         with:
           egress-policy: "audit"
 
