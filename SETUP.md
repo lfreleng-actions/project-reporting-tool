@@ -92,7 +92,7 @@ lf-releng-project-reporting generate --project my-project --repos-path ./repos \
    ```bash
    git checkout --orphan gh-pages
    git rm -rf .
-   mkdir -p production pr-preview
+   mkdir -p production
    echo "Reports coming soon" > index.html
    git add .
    git commit -m "chore: initialize gh-pages branch"
@@ -178,13 +178,13 @@ echo "YOUR_BASE64_STRING" | base64 -d | jq .
 2. Encode it: `cat projects.json | base64`
 3. Go to your repository's **Settings** → **Secrets and variables** →
    **Actions**
-4. Click **Variables** tab (for previews) or **Secrets** tab (for production)
-5. Click **New repository variable** or **New repository secret**
+4. Click the **Secrets** tab
+5. Click **New repository secret**
 6. Name: `PROJECTS_JSON`
 7. Value: Paste the **base64-encoded** string (not the raw JSON)
 
-> **Note:** The production workflow uses `secrets.PROJECTS_JSON` while the
-> preview workflow uses `vars.PROJECTS_JSON`. Both must be base64-encoded.
+> **Note:** The production workflow reads `secrets.PROJECTS_JSON`, which
+> must be base64-encoded.
 
 ## Workflow Structure
 
@@ -198,17 +198,6 @@ Scheduled to run every Monday at 7:00 AM UTC, or can be triggered manually.
 2. **analyze**: Clones repositories, generates reports (parallel processing)
 3. **publish**: Publishes reports to GitHub Pages at `/production/`
 4. **summary**: Generates workflow summary and statistics
-
-### Preview Report Workflow (`reporting-pr-preview.yaml`)
-
-Runs automatically on pull requests that modify reporting code.
-
-**Jobs:**
-
-1. **verify**: Validates configuration (limited to 2 projects)
-2. **analyze**: Generates preview reports for first 2 projects
-3. **publish-preview**: Publishes to GitHub Pages at `/pr-preview/<pr-number>/`
-4. **summary**: Comments on PR with preview links
 
 ### Security Features
 
@@ -329,7 +318,6 @@ repository:
 
 - No longer requires `GERRIT_REPORTS_PAT_TOKEN`
 - Reports published to GitHub Pages on this repository
-- Separate production and Preview report workflows
 - Enhanced artifact retention for meta-reporting
 - See [GitHub Pages Setup Guide](docs/GITHUB_PAGES_SETUP.md) for migration steps
 

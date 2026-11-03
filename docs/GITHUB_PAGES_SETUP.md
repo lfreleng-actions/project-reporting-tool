@@ -21,8 +21,7 @@ The new reporting system publishes reports directly to GitHub Pages on this repo
 | **Branch**             | `main` in external repo    | `gh-pages` branch                  |
 | **Authentication**     | `GERRIT_REPORTS_PAT_TOKEN` | Built-in `GITHUB_TOKEN`            |
 | **Production Reports** | Pushed to external repo    | `/production/` on Pages            |
-| **Preview Reports**    | Not available              | `/pr-preview/<pr-number>/`         |
-| **Workflows**          | Single `reporting.yaml`    | Separate production & PR workflows |
+| **Workflows**          | Single `reporting.yaml`    | `reporting-production.yaml`        |
 
 ---
 
@@ -86,7 +85,7 @@ git checkout --orphan gh-pages
 git rm -rf .
 
 # Create initial structure
-mkdir -p production pr-preview
+mkdir -p production
 
 # Create a placeholder index
 cat > index.html <<'EOF'
@@ -104,7 +103,7 @@ cat > index.html <<'EOF'
 EOF
 
 # Commit and push
-git add index.html production pr-preview
+git add index.html production
 git commit -m "chore: initialize gh-pages branch"
 git push origin gh-pages
 
@@ -219,19 +218,16 @@ The `GERRIT_REPORTS_PAT_TOKEN` is no longer needed and can be deleted:
 
 ### Step 2: Update Workflows
 
-The old `reporting.yaml` workflow has been replaced with:
-
-- **`reporting-production.yaml`** - Production reports (scheduled)
-- **`reporting-pr-preview.yaml`** - Preview report reports
+The old `reporting.yaml` workflow has been replaced with
+**`reporting-production.yaml`**, which produces production reports on a
+schedule.
 
 The old workflow file has been renamed to `reporting.yaml.deprecated` and is no longer active.
 
 ### Step 3: Verify New Workflows
 
 1. Navigate to **Actions** tab
-2. You should see two new workflows:
-   - 📊 Production Reports
-   - 🔍 Preview Report Reports
+2. You should see the new workflow: 📊 Production Reports
 
 ---
 
@@ -261,42 +257,6 @@ The old workflow file has been renamed to `reporting.yaml.deprecated` and is no 
 https://<owner>.github.io/<repo>/production/<project-slug>/report.html
 ```text
 
-### Preview Report Workflow
-
-**File:** `.github/workflows/reporting-pr-preview.yaml`
-
-**Triggers:**
-
-- Pull requests modifying:
-  - `src/**/*.py`
-  - `tests/**/*.py`
-  - `.github/workflows/reporting-*.yaml`
-  - `.github/scripts/*.sh`
-  - `pyproject.toml`
-  - `uv.lock`
-
-**What it does:**
-
-1. Runs on PR with code changes
-2. Processes **first 2 projects only** (resource conservation)
-3. Generates preview reports
-4. Publishes to `gh-pages` at `/pr-preview/<pr-number>/`
-5. Comments on PR with preview link
-6. Uploads artifacts with 30-day retention
-
-**Output Location:**
-
-```text
-https://<owner>.github.io/<repo>/pr-preview/<pr-number>/<project-slug>/report.html
-```text
-
-**Key Features:**
-
-- ✅ Validates reporting code changes before merge
-- ✅ Does NOT overwrite production reports
-- ✅ Limited to 2 projects to save CI resources
-- ✅ Automatic PR comments with preview links
-
 ---
 
 ## 🗂️ GitHub Pages Structure
@@ -304,7 +264,7 @@ https://<owner>.github.io/<repo>/pr-preview/<pr-number>/<project-slug>/report.ht
 ```text
 https://<owner>.github.io/<repo>/
 ├── index.html                          # Landing page
-├── production/                         # Production reports
+└── production/                         # Production reports
 │   ├── index.html                      # Production report list
 │   ├── onap/
 │   │   ├── report.html
@@ -316,15 +276,6 @@ https://<owner>.github.io/<repo>/
 │   │   ├── report_raw.json
 │   │   └── metadata.json
 │   └── ...
-└── pr-preview/                         # Preview report reports
-    ├── 123/                            # PR number
-    │   ├── index.html
-    │   ├── onap/
-    │   │   └── report.html
-    │   └── o-ran-sc/
-    │       └── report.html
-    └── 456/
-        └── ...
 ```text
 
 ---
@@ -339,14 +290,6 @@ https://<owner>.github.io/<repo>/
 | Complete reports | 90 days   | Full report package            |
 | Clone manifests  | 90 days   | Repository tracking            |
 | Clone logs       | 90 days   | Debugging                      |
-
-### Preview Report Workflow
-
-| Artifact Type   | Retention | Purpose    |
-| --------------- | --------- | ---------- |
-| Raw data (JSON) | 30 days   | Validation |
-| Preview reports | 30 days   | Review     |
-| Clone manifests | 30 days   | Debugging  |
 
 ---
 
@@ -368,12 +311,6 @@ To manually trigger a production report:
 
 ```text
 https://<owner>.github.io/<repo>/production/
-```text
-
-**Preview Report (after PR created):**
-
-```text
-https://<owner>.github.io/<repo>/pr-preview/<pr-number>/
 ```text
 
 ### Downloading Artifacts for Meta-Reporting
@@ -423,25 +360,6 @@ git fetch origin gh-pages
 git checkout gh-pages
 ls -la production/
 ```text
-
-### Preview Reports Not Working
-
-**Check PR Comment:**
-
-- Bot should comment on PR with preview link
-- If no comment, check workflow logs
-
-**Check gh-pages Branch:**
-
-```bash
-git checkout gh-pages
-ls -la pr-preview/<pr-number>/
-```text
-
-**Permissions Issue:**
-
-- Ensure workflow has `contents: write` permission
-- Check repository settings allow Actions to write
 
 ### Missing Secrets Error
 
@@ -531,20 +449,6 @@ If repository cloning fails:
 3. **Archive old reports**
    - Download artifacts before retention expires
    - Store externally for long-term analysis
-
-### Preview Reports
-
-1. **Limit scope**
-   - Only test with 2 projects
-   - Keeps CI costs reasonable
-
-2. **Review before merge**
-   - Always check preview reports
-   - Verify formatting and data
-
-3. **Clean up old previews**
-   - Periodically remove old Preview report directories
-   - Keep `gh-pages` branch clean
 
 ### Artifacts
 

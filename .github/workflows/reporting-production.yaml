@@ -941,11 +941,10 @@ jobs:
           git add index.html || true
           git add .nojekyll || true
 
-          # Add all project report directories (exclude previews/)
+          # Add all project report directories
           for project_dir in */; do
-            # Skip previews and non-report directories
+            # Skip non-report directories
             if [ -d "$project_dir" ] && \
-               [ "$project_dir" != "previews/" ] && \
                [ -f "$project_dir/report.html" ]; then
               echo "Adding $project_dir"
               git add "$project_dir"

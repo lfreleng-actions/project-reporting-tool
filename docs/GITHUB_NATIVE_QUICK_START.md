@@ -381,7 +381,7 @@ export GITHUB_TOKEN="your_token_here"
 
 ✅ **Do:**
 
-- Start with preview reports
+- Start with a local test run
 - Monitor first production run
 - Document findings
 

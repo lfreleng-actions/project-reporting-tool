@@ -17,12 +17,6 @@ Fast reference for common tasks and operations.
 https://<owner>.github.io/<repo>/production/
 ```text
 
-### View Preview Report
-
-```text
-https://<owner>.github.io/<repo>/pr-preview/<pr-number>/
-```text
-
 ### Manually Trigger Production Report
 
 1. Go to **Actions** → **📊 Production Reports**
@@ -81,32 +75,19 @@ https://<owner>.github.io/<repo>/pr-preview/<pr-number>/
 - **Artifacts:** 90-day retention
 - **Projects:** All configured projects
 
-### Preview Report (`reporting-pr-preview.yaml`)
-
-- **Schedule:** On PR to reporting code
-- **Trigger:** Automatic on code changes
-- **Output:** `/pr-preview/<pr-number>/`
-- **Artifacts:** 30-day retention
-- **Projects:** First 2 projects only
-
 ---
 
 ## 🗂️ GitHub Pages Structure
 
 ```text
 /                              # Root landing page
-├── production/                # Production reports
-│   ├── index.html            # Report listing
-│   └── <project-slug>/
-│       ├── report.html       # Interactive report
-│       ├── report_raw.json   # Raw data
-│       ├── report.md         # Markdown report
-│       └── metadata.json     # Generation metadata
-└── pr-preview/               # Preview reports
-    └── <pr-number>/          # PR-specific reports
-        ├── index.html
-        └── <project-slug>/
-            └── ...
+└── production/                # Production reports
+    ├── index.html            # Report listing
+    └── <project-slug>/
+        ├── report.html       # Interactive report
+        ├── report_raw.json   # Raw data
+        ├── report.md         # Markdown report
+        └── metadata.json     # Generation metadata
 ```text
 
 ---
@@ -125,7 +106,7 @@ https://<owner>.github.io/<repo>/pr-preview/<pr-number>/
 ```bash
 git checkout --orphan gh-pages
 git rm -rf .
-mkdir -p production pr-preview
+mkdir -p production
 echo "Coming soon" > index.html
 git add .
 git commit -m "chore: init gh-pages"
@@ -154,14 +135,6 @@ git checkout main
 | `clone-manifest-<project>` | Clone tracking   | 90 days   |
 | `clone-log-<project>`      | Clone logs       | 90 days   |
 
-### Preview Report Workflow
-
-| Artifact                              | Contents  | Retention |
-| ------------------------------------- | --------- | --------- |
-| `pr-preview-raw-data-<project>`       | JSON data | 30 days   |
-| `pr-preview-reports-<project>`        | Reports   | 30 days   |
-| `pr-preview-clone-manifest-<project>` | Manifests | 30 days   |
-
 ---
 
 ## 🐛 Troubleshooting
@@ -189,18 +162,6 @@ ls -la production/
 
 # Validate PROJECTS_JSON
 echo '${{ vars.PROJECTS_JSON }}' | jq .
-```text
-
-### Preview Report Not Working
-
-```bash
-# Verify PR modifies correct paths:
-# - src/**/*.py
-# - .github/workflows/reporting-*.yaml
-# - .github/scripts/*.sh
-
-# Check workflow permissions
-# Settings → Actions → General → Read and write
 ```text
 
 ---
@@ -261,8 +222,7 @@ export GITHUB_TOKEN=ghp_...
 ## 💡 Tips
 
 - ✅ Production runs Monday 7am UTC
-- ✅ Preview reports use only 2 projects
-- ✅ Artifacts retained 90 days (production), 30 days (preview)
+- ✅ Artifacts retained 90 days
 - ✅ Use download script for meta-reporting
 - ✅ Check gh-pages branch for published content
 

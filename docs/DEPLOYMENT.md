@@ -537,7 +537,7 @@ ls -lah PRODUCTION-report.*
 du -h PRODUCTION-report.*
 # Should be reasonable sizes
 
-# Preview reports
+# Show the start of the text report
 head -20 PRODUCTION-report.txt
 ```text
 
