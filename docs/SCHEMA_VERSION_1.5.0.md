@@ -193,14 +193,14 @@ matrix:
 **Core Logic:**
 
 - `src/lf_releng_project_reporting/config.py` - Enhanced auto-derivation logic
-- `src/rendering/context.py` - Added project type detection and terminology
+- `src/lf_releng_project_reporting/rendering/context/` - Added project type detection and terminology
 
 **Templates (4 files):**
 
-- `src/templates/markdown/sections/summary.md.j2`
-- `src/templates/markdown/sections/repositories.md.j2`
-- `src/templates/html/sections/summary.html.j2`
-- `src/templates/html/sections/repositories.html.j2`
+- `src/lf_releng_project_reporting/templates/markdown/sections/summary.md.j2`
+- `src/lf_releng_project_reporting/templates/markdown/sections/repositories.md.j2`
+- `src/lf_releng_project_reporting/templates/html/sections/summary.html.j2`
+- `src/lf_releng_project_reporting/templates/html/sections/repositories.html.j2`
 
 **Testing:**
 

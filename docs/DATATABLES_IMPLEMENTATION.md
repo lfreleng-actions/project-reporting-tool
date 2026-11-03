@@ -16,7 +16,7 @@ tables. For template authors' usage, see the
 
 ### 1. DataTables Support Macro Template
 
-**File**: `src/templates/html/components/datatables_support.html.j2`
+**File**: `src/lf_releng_project_reporting/templates/html/components/datatables_support.html.j2`
 
 Reusable Jinja2 macros for DataTables integration:
 
@@ -39,7 +39,7 @@ because an imported Jinja2 macro does not see its caller's variables.
 
 ### 2. Base Template
 
-**File**: `src/templates/html/base.html.j2`
+**File**: `src/lf_releng_project_reporting/templates/html/base.html.j2`
 
 The main HTML template wires in DataTables support:
 
@@ -51,9 +51,9 @@ The main HTML template wires in DataTables support:
 
 **Files**:
 
-- `src/themes/default/theme.css`
-- `src/themes/dark/theme.css`
-- `src/themes/minimal/theme.css`
+- `src/lf_releng_project_reporting/themes/default/theme.css`
+- `src/lf_releng_project_reporting/themes/dark/theme.css`
+- `src/lf_releng_project_reporting/themes/minimal/theme.css`
 
 Each theme styles the DataTables controls:
 
@@ -65,7 +65,7 @@ Each theme styles the DataTables controls:
 
 ### 4. Data Table Component
 
-**File**: `src/templates/html/components/data_table.html.j2`
+**File**: `src/lf_releng_project_reporting/templates/html/components/data_table.html.j2`
 
 The data table component accepts these DataTables parameters and
 generates the matching CSS classes through the helper macro:
@@ -90,7 +90,7 @@ table:
 
 ### 6. Configuration Context
 
-**File**: `src/rendering/context/sections.py`
+**File**: `src/lf_releng_project_reporting/rendering/context/sections.py`
 
 The template context carries the `html_tables` configuration:
 
@@ -154,35 +154,35 @@ html_tables:
 ## Architecture
 
 ```text
-┌─────────────────────────────────────────────┐
-│ configuration/default.yaml                  │
-│ - html_tables configuration                 │
-└─────────────────────────────────────────────┘
-                    ↓
-┌─────────────────────────────────────────────┐
-│ src/rendering/context/sections.py           │
-│ - Builds config context with html_tables    │
-└─────────────────────────────────────────────┘
-                    ↓
-┌─────────────────────────────────────────────┐
-│ src/templates/html/base.html.j2             │
-│ - Imports datatables_support macros         │
-│ - Calls datatables_css() in <head>          │
-│ - Calls datatables_js() before </body>      │
-└─────────────────────────────────────────────┘
-                    ↓
-┌─────────────────────────────────────────────┐
-│ Section Templates                           │
-│ - Use dt-enabled class on tables            │
-│ - Add dt-no-* classes to disable features   │
-└─────────────────────────────────────────────┘
-                    ↓
-┌─────────────────────────────────────────────┐
-│ Simple-DataTables Library                   │
-│ - Initializes tables with dt-enabled class  │
-│ - Respects per-table feature flags          │
-│ - Skips tables < min_rows_for_sorting       │
-└─────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────────────┐
+│ configuration/default.yaml                                    │
+│ - html_tables configuration                                   │
+└───────────────────────────────────────────────────────────────┘
+                                ↓
+┌───────────────────────────────────────────────────────────────┐
+│ src/lf_releng_project_reporting/rendering/context/sections.py │
+│ - Builds config context with html_tables                      │
+└───────────────────────────────────────────────────────────────┘
+                                ↓
+┌───────────────────────────────────────────────────────────────┐
+│ src/lf_releng_project_reporting/templates/html/base.html.j2   │
+│ - Imports datatables_support macros                           │
+│ - Calls datatables_css() in <head>                            │
+│ - Calls datatables_js() before </body>                        │
+└───────────────────────────────────────────────────────────────┘
+                                ↓
+┌───────────────────────────────────────────────────────────────┐
+│ Section Templates                                             │
+│ - Use dt-enabled class on tables                              │
+│ - Add dt-no-* classes to disable features                     │
+└───────────────────────────────────────────────────────────────┘
+                                ↓
+┌───────────────────────────────────────────────────────────────┐
+│ Simple-DataTables Library                                     │
+│ - Initializes tables with dt-enabled class                    │
+│ - Respects per-table feature flags                            │
+│ - Skips tables < min_rows_for_sorting                         │
+└───────────────────────────────────────────────────────────────┘
 ```
 
 ## Table Feature Matrix
@@ -209,7 +209,7 @@ Reports load Simple-DataTables from jsDelivr at an exact version, and
 each `<link>` and `<script>` tag carries an `integrity` hash and
 `crossorigin="anonymous"`. The browser refuses a file whose bytes do
 not match the hash, so a compromised or changed CDN file cannot alter
-a published report. `src/rendering/assets.py` holds the version, URLs
+a published report. `src/lf_releng_project_reporting/rendering/assets.py` holds the version, URLs
 and hashes; `TemplateRenderer` exposes them to templates as Jinja2
 globals.
 
@@ -217,7 +217,7 @@ globals.
 
 Dependabot does not track CDN URLs, so bump the library by hand:
 
-1. Set `DATATABLES_VERSION` in `src/rendering/assets.py` to the new
+1. Set `DATATABLES_VERSION` in `src/lf_releng_project_reporting/rendering/assets.py` to the new
    release.
 2. Download the release from npm and compute both hashes from the
    package contents:

@@ -74,7 +74,7 @@ Metric | Value | Total | Percentage
 
 ### ✅ Recommended Fix
 
-Update `src/templates/html/sections/summary.html.j2`:
+Update `src/lf_releng_project_reporting/templates/html/sections/summary.html.j2`:
 
 - Remove "Total" column to match 3-column structure
 - Use "Gerrit Projects" terminology instead of "Repositories"
@@ -134,7 +134,7 @@ Rank | Organization | Domain | Contributors | Commits | LOC | Δ LOC | Avg LOC/C
 
 ### ✅ Recommended Fix
 
-Update `src/templates/html/sections/organizations.html.j2`:
+Update `src/lf_releng_project_reporting/templates/html/sections/organizations.html.j2`:
 
 - Remove "Domain" column
 - Disable number abbreviation for this table
@@ -195,7 +195,7 @@ Rank | Contributor | Email | Commits | Avg LOC/Commit | Repositories | Organizat
 
 ### ✅ Recommended Fix
 
-Update `src/templates/html/sections/contributors.html.j2`:
+Update `src/lf_releng_project_reporting/templates/html/sections/contributors.html.j2`:
 
 - Remove "Email" column
 - Add back "LOC" and "Δ LOC" columns
@@ -262,7 +262,7 @@ doc | 27.8K | +10223 | 5 | 5m | 2025-08-13 | ✅
 
 ### ✅ Recommended Fix
 
-Update `src/templates/html/sections/repositories.html.j2`:
+Update `src/lf_releng_project_reporting/templates/html/sections/repositories.html.j2`:
 
 - Use "Gerrit Project" column header
 - Use "Commits" not "Total Commits"
@@ -329,7 +329,7 @@ dcaegen2/collectors/restconf | N/A | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | �
 
 ### ✅ Recommended Fix
 
-Update `src/templates/html/sections/features.html.j2`:
+Update `src/lf_releng_project_reporting/templates/html/sections/features.html.j2`:
 
 - Use "Gerrit Project" column header
 - Remove duplicate "Type" column
@@ -420,22 +420,22 @@ Need to verify table structures match when both are present.
 
 ### High Priority (Table Structure Mismatches)
 
-1. **`src/templates/html/sections/summary.html.j2`**
+1. **`src/lf_releng_project_reporting/templates/html/sections/summary.html.j2`**
    - Remove "Total" column (3 columns only)
    - Change "Repositories" to "Gerrit Projects"
    - Match exact metric rows
 
-2. **`src/templates/html/sections/organizations.html.j2`**
+2. **`src/lf_releng_project_reporting/templates/html/sections/organizations.html.j2`**
    - Remove "Domain" column (8 columns only)
    - Disable number abbreviation
 
-3. **`src/templates/html/sections/contributors.html.j2`**
+3. **`src/lf_releng_project_reporting/templates/html/sections/contributors.html.j2`**
    - Remove "Email" column
    - Add "LOC" and "Δ LOC" columns
    - Disable number abbreviation
    - Remove subsection wrapper
 
-4. **`src/templates/html/sections/repositories.html.j2`**
+4. **`src/lf_releng_project_reporting/templates/html/sections/repositories.html.j2`**
    - Use "Gerrit Project" not "Repository"
    - Use "Commits" not "Total Commits"
    - Use "LOC" not "Lines Added"
@@ -443,7 +443,7 @@ Need to verify table structures match when both are present.
    - Sort by commits descending
    - Remove subsection wrapper
 
-5. **`src/templates/html/sections/features.html.j2`**
+5. **`src/lf_releng_project_reporting/templates/html/sections/features.html.j2`**
    - Use "Gerrit Project" not "Repository"
    - Remove duplicate "Type" column
    - Remove GitHub2Gerrit, Sonatype Config, Workflows columns
@@ -451,7 +451,7 @@ Need to verify table structures match when both are present.
    - Fix type detection (currently shows "N/A")
    - Add Status column
 
-6. **`src/templates/html/sections/workflows.html.j2`**
+6. **`src/lf_releng_project_reporting/templates/html/sections/workflows.html.j2`**
    - ✅ Already fixed to match production format
 
 ### Medium Priority (Data Issues)

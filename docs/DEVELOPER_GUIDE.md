@@ -151,8 +151,8 @@ def compute_my_rollup(self, repos: list[dict]) -> dict:
 
 ### Adding a New Output Format
 
-1. **Create template:** `src/templates/my_format/base.my_format.j2`
-2. **Add render method:** In `src/rendering/renderer.py`
+1. **Create template:** `src/lf_releng_project_reporting/templates/my_format/base.my_format.j2`
+2. **Add render method:** In `src/lf_releng_project_reporting/rendering/renderer.py`
 3. **Call from:** `main.py` or `RepositoryReporter.generate_reports()`
 
 ```python
@@ -297,8 +297,8 @@ from lf_releng_project_reporting.features import FeatureRegistry
 from lf_releng_project_reporting.aggregators import DataAggregator
 
 # Rendering (Modern Template-Based System)
-from rendering.renderer import ModernReportRenderer
-from rendering.context import RenderContext
+from lf_releng_project_reporting.rendering.renderer import ModernReportRenderer
+from lf_releng_project_reporting.rendering.context import RenderContext
 
 # Configuration
 from lf_releng_project_reporting.config import (
@@ -497,7 +497,7 @@ summaries = aggregator.aggregate_global_data(repos)
 ### ModernReportRenderer
 
 **Purpose:** Template-based report generation (Phase 8)
-**Location:** `src/rendering/renderer.py`
+**Location:** `src/lf_releng_project_reporting/rendering/renderer.py`
 
 ```python
 # Modern template-based rendering system
@@ -832,7 +832,7 @@ committer = CommitterInfo(
 Render INFO.yaml data to HTML/Markdown:
 
 ```python
-from rendering.info_yaml_renderer import InfoYamlRenderer
+from lf_releng_project_reporting.rendering.info_yaml_renderer import InfoYamlRenderer
 
 renderer = InfoYamlRenderer()
 
