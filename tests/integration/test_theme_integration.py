@@ -16,7 +16,7 @@ from pathlib import Path
 
 import pytest
 
-from rendering.renderer import ModernReportRenderer, TemplateRenderer
+from lf_releng_project_reporting.rendering.renderer import ModernReportRenderer, TemplateRenderer
 
 
 # Sample test data - matches expected format from context.py

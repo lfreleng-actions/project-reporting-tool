@@ -17,8 +17,12 @@ from unittest.mock import Mock
 
 import pytest
 
-from rendering import ModernReportRenderer, RenderContext, TemplateRenderer
-from rendering.formatters import (
+from lf_releng_project_reporting.rendering import (
+    ModernReportRenderer,
+    RenderContext,
+    TemplateRenderer,
+)
+from lf_releng_project_reporting.rendering.formatters import (
     format_age,
     format_bytes,
     format_date,
@@ -279,7 +283,7 @@ class TestTemplateRenderer:
         }
         config = {}
 
-        from rendering import RenderContext
+        from lf_releng_project_reporting.rendering import RenderContext
 
         render_context = RenderContext(data, config)
         context = render_context.build()

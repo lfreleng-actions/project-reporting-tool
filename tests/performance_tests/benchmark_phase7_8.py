@@ -32,7 +32,7 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 
 from lf_releng_project_reporting.concurrency.adaptive_pool import AdaptiveThreadPool
-from rendering.renderer import ModernReportRenderer
+from lf_releng_project_reporting.rendering.renderer import ModernReportRenderer
 
 
 # Sample test data for benchmarking

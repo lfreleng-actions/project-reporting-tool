@@ -15,7 +15,7 @@ from html.parser import HTMLParser
 
 import pytest
 
-from rendering.renderer import ModernReportRenderer
+from lf_releng_project_reporting.rendering.renderer import ModernReportRenderer
 
 
 PINNED_VERSION = re.compile(r"@\d+\.\d+\.\d+(/|$)")

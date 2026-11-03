@@ -155,7 +155,7 @@ class ModernReportRenderer:
         self.logger = logger
 
         # Determine template directory
-        template_dir = Path(__file__).parent.parent / "templates"
+        template_dir = Path(__file__).parents[2] / "templates"
         if not template_dir.exists():
             raise FileNotFoundError(
                 f"Template directory not found: {template_dir}. "
@@ -286,7 +286,7 @@ class ModernReportRenderer:
 
             # Find CSS source file
             # CSS is in src/themes/{theme}/theme.css
-            themes_dir = Path(__file__).parent.parent / "themes"
+            themes_dir = Path(__file__).parents[2] / "themes"
             css_source = themes_dir / theme / "theme.css"
 
             # Fallback to default theme if specified theme not found
@@ -315,7 +315,7 @@ class ModernReportRenderer:
         Returns:
             Path to theme CSS file
         """
-        theme_dir = Path(__file__).parent.parent / "themes"
+        theme_dir = Path(__file__).parents[2] / "themes"
         render = self.config.get("render", {})
         theme_name = render.get("theme", "default")
         return theme_dir / f"{theme_name}.css"

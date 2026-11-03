@@ -50,11 +50,7 @@ def _top_level_entries(wheel: Path) -> set[str]:
         return {name.split("/", 1)[0] for name in archive.namelist()}
 
 
-XFAIL_REASON = "templates, themes and rendering still ship outside the package"
-
-
 @pytest.mark.slow
-@pytest.mark.xfail(strict=True, reason=XFAIL_REASON)
 def test_wheel_ships_only_the_package_and_dist_info(wheel: Path) -> None:
     """The wheel holds only the package directory and wheel metadata."""
     entries = _top_level_entries(wheel)
@@ -69,7 +65,7 @@ def test_wheel_ships_only_the_package_and_dist_info(wheel: Path) -> None:
 
 
 @pytest.mark.slow
-@pytest.mark.xfail(strict=True, reason=XFAIL_REASON)
+@pytest.mark.xfail(strict=True, reason="templates and themes still live outside the package")
 def test_wheel_ships_templates_and_themes(wheel: Path) -> None:
     """Templates and themes travel inside the package directory."""
     with zipfile.ZipFile(wheel) as archive:

@@ -128,7 +128,6 @@ exclude = [
 [tool.hatch.build.targets.wheel]
 packages = [
     "src/lf_releng_project_reporting",
-    "src/rendering",
 ]
 include = [
     "/src/templates/**/*",
@@ -211,7 +210,6 @@ filterwarnings = [
 data_file = "${TEMP-/tmp}/.coverage.project-reporting-tool"
 source = [
     "lf_releng_project_reporting",
-    "rendering",
 ]
 branch = true
 parallel = true

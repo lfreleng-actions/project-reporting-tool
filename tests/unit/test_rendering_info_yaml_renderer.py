@@ -20,7 +20,7 @@ from lf_releng_project_reporting.domain.info_yaml import (
     PersonInfo,
     ProjectInfo,
 )
-from rendering.info_yaml_renderer import InfoYamlRenderer
+from lf_releng_project_reporting.rendering.info_yaml_renderer import InfoYamlRenderer
 
 
 @pytest.fixture

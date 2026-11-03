@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: 2025 The Linux Foundation
 
 """
-Comprehensive tests for src/rendering/formatters.py module.
+Comprehensive tests for the lf_releng_project_reporting.rendering.formatters module.
 
 This test suite provides thorough coverage of:
 - Number formatting functions
@@ -17,7 +17,7 @@ Phase: 12, Step 4, Task 1.3
 
 import datetime
 
-from rendering.formatters import (
+from lf_releng_project_reporting.rendering.formatters import (
     UNKNOWN_AGE,
     format_age,
     format_bytes,
