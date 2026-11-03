@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any, cast
 
 from lf_releng_project_reporting.exceptions import NoRepositoriesError
+from lf_releng_project_reporting.raw_report import REPORT_SCHEMA_VERSION
 
 from .discovery import ReporterDiscoveryMixin
 from .info_master import ReporterInfoMasterMixin
@@ -136,7 +137,7 @@ class ReporterAnalysisMixin(ReporterDiscoveryMixin, ReporterInfoMasterMixin):
     def _build_initial_report_data(self) -> dict[str, Any]:
         """Create the report skeleton and attach Jenkins metadata when configured."""
         report_data: dict[str, Any] = {
-            "schema_version": self.config.get("_schema_version", "1.0.0"),
+            "schema_version": REPORT_SCHEMA_VERSION,
             "generated_at": datetime.datetime.now(datetime.UTC).isoformat(),
             "project": self.config["project"],
             "config_digest": self._compute_config_digest(self.config),

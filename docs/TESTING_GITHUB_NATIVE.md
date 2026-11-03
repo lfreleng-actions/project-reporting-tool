@@ -137,7 +137,7 @@ xdg-open report.html  # Linux
 ```bash
 # Check schema version in generated report
 jq '.schema_version' testing/reports/Aether/report_raw.json
-# Expected: "1.5.0"
+# Expected: "1.6.0"
 ```
 
 ### Test 2: Project Type Detection

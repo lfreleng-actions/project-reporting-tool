@@ -25,6 +25,8 @@ except ImportError:
         "(see the project's pyproject.toml for the authoritative version pin)."
     ) from None
 
+from lf_releng_project_reporting.raw_report import write_raw_json
+
 from .assets import get_template_globals
 from .context import RenderContext
 from .formatters import get_template_filters
@@ -256,17 +258,16 @@ class ModernReportRenderer:
         """
         Render JSON report and write to file.
 
-        This is a compatibility method matching the old API.
+        Writes the compact raw report format (see
+        ``lf_releng_project_reporting.raw_report``). This is a compatibility
+        method matching the old API.
 
         Args:
             data: Report data dictionary
             output_path: Path to write JSON file
         """
-        import json
-
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(output_path, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2, default=str, sort_keys=True)
+        write_raw_json(data, output_path)
 
         self.logger.info(f"JSON report written to {output_path}")
 

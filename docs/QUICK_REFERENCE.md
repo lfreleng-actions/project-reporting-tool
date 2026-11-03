@@ -85,7 +85,7 @@ https://<owner>.github.io/<repo>/production/
     ├── index.html            # Report listing
     └── <project-slug>/
         ├── report.html       # Interactive report
-        ├── report_raw.json   # Raw data
+        ├── report_raw.json   # Raw data (compact JSON)
         ├── report.md         # Markdown report
         └── metadata.json     # Generation metadata
 ```text

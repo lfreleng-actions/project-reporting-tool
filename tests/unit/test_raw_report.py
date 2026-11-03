@@ -15,8 +15,6 @@ import json
 import logging
 from typing import Any
 
-import pytest
-
 from lf_releng_project_reporting.aggregators import DataAggregator
 
 
@@ -132,7 +130,6 @@ def _resolve(raw: dict[str, Any], list_name: str) -> list[Any]:
     return resolved
 
 
-@pytest.mark.xfail(strict=True, reason="compact raw report not yet implemented")
 class TestToRawJson:
     """Serialisation of the report written to ``report_raw.json``."""
 
@@ -271,7 +268,6 @@ class TestToRawJson:
         assert rendered.read_text(encoding="utf-8") == to_raw_json(report_data)
 
 
-@pytest.mark.xfail(strict=True, reason="compact raw report not yet implemented")
 class TestReportSchemaVersion:
     """Every report in the raw format is labelled with its schema version."""
 

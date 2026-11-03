@@ -39,6 +39,7 @@ from lf_releng_project_reporting.config import (
     save_resolved_config,
 )
 from lf_releng_project_reporting.exceptions import NoRepositoriesError
+from lf_releng_project_reporting.raw_report import REPORT_SCHEMA_VERSION, write_raw_json
 from lf_releng_project_reporting.reporter import RepositoryReporter
 from lf_releng_project_reporting.step_summary import write_config_to_step_summary
 from lf_releng_project_reporting.util.github_org import determine_github_org
@@ -53,7 +54,7 @@ try:
 except ImportError:
     __version__ = "0.0.0"  # Fallback if not installed
 
-SCHEMA_VERSION = "1.5.0"
+SCHEMA_VERSION = REPORT_SCHEMA_VERSION
 DEFAULT_CONFIG_DIR = "configuration"
 DEFAULT_OUTPUT_DIR = "reports"
 
@@ -158,11 +159,8 @@ def _write_report_outputs(
     html_path = project_output_dir / "report.html"
     config_path = project_output_dir / "config_resolved.json"
 
-    import json
-
     logger.info(f"Writing JSON report to {json_path}")
-    with open(json_path, "w", encoding="utf-8") as f:
-        json.dump(report_data, f, indent=2, ensure_ascii=False, default=str)
+    write_raw_json(report_data, json_path)
 
     # Generate Markdown report using modern template system
     logger.info(f"Generating Markdown report to {md_path}")

@@ -237,6 +237,11 @@ Output Files:
 - `html`: `{project}_report.html` (with CSS/JS)
 - `all`: All of the above
 
+The raw data file (`report_raw.json`) is compact JSON with no
+indentation; pipe it through `jq .` to read it. Its ranked `summaries`
+lists hold keys into `repositories` and `authors` rather than copies:
+see [Schema Version 1.6.0](SCHEMA_VERSION_1.5.0.md#160-compact-raw-report).
+
 ---
 
 ### `--no-html`
