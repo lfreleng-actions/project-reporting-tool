@@ -226,13 +226,17 @@ class TestTemplateRenderer:
 
     def test_template_renderer_init(self):
         """Test TemplateRenderer initialization."""
-        templates_dir = Path(__file__).parent.parent / "src" / "templates"
+        templates_dir = (
+            Path(__file__).parent.parent / "src" / "lf_releng_project_reporting" / "templates"
+        )
         renderer = TemplateRenderer(template_dir=templates_dir)
         assert renderer.env is not None
 
     def test_template_renderer_filters_registered(self):
         """Test that all custom filters are registered."""
-        templates_dir = Path(__file__).parent.parent / "src" / "templates"
+        templates_dir = (
+            Path(__file__).parent.parent / "src" / "lf_releng_project_reporting" / "templates"
+        )
         renderer = TemplateRenderer(template_dir=templates_dir)
 
         # Check that custom filters are registered
@@ -242,7 +246,9 @@ class TestTemplateRenderer:
 
     def test_template_renderer_render_simple(self):
         """Test rendering a simple template string."""
-        templates_dir = Path(__file__).parent.parent / "src" / "templates"
+        templates_dir = (
+            Path(__file__).parent.parent / "src" / "lf_releng_project_reporting" / "templates"
+        )
         renderer = TemplateRenderer(template_dir=templates_dir)
 
         # Use render_string method
@@ -253,7 +259,9 @@ class TestTemplateRenderer:
 
     def test_template_renderer_render_with_filters(self):
         """Test rendering with custom filters."""
-        templates_dir = Path(__file__).parent.parent / "src" / "templates"
+        templates_dir = (
+            Path(__file__).parent.parent / "src" / "lf_releng_project_reporting" / "templates"
+        )
         renderer = TemplateRenderer(template_dir=templates_dir)
 
         template_content = "Total: {{ count | format_number }}"
@@ -263,7 +271,9 @@ class TestTemplateRenderer:
 
     def test_template_renderer_load_markdown_base(self):
         """Test loading the actual markdown base template."""
-        templates_dir = Path(__file__).parent.parent / "src" / "templates"
+        templates_dir = (
+            Path(__file__).parent.parent / "src" / "lf_releng_project_reporting" / "templates"
+        )
         renderer = TemplateRenderer(template_dir=templates_dir)
 
         # Should not raise an error
@@ -272,7 +282,9 @@ class TestTemplateRenderer:
 
     def test_template_renderer_render_method(self):
         """Test the render method with template file using RenderContext."""
-        templates_dir = Path(__file__).parent.parent / "src" / "templates"
+        templates_dir = (
+            Path(__file__).parent.parent / "src" / "lf_releng_project_reporting" / "templates"
+        )
         renderer = TemplateRenderer(template_dir=templates_dir)
 
         # Use RenderContext to build a proper context
@@ -421,7 +433,9 @@ class TestRenderingIntegration:
         context = render_context.build()
 
         # Render with context
-        templates_dir = Path(__file__).parent.parent / "src" / "templates"
+        templates_dir = (
+            Path(__file__).parent.parent / "src" / "lf_releng_project_reporting" / "templates"
+        )
         template_renderer = TemplateRenderer(template_dir=templates_dir)
 
         result = template_renderer.render("markdown/base.md.j2", context)

@@ -65,12 +65,19 @@ class TestThemeSystemIntegration:
     @pytest.fixture
     def theme_dir(self):
         """Get path to themes directory."""
-        return Path(__file__).parent.parent.parent / "src" / "themes"
+        return (
+            Path(__file__).parent.parent.parent / "src" / "lf_releng_project_reporting" / "themes"
+        )
 
     @pytest.fixture
     def template_dir(self):
         """Get path to templates directory."""
-        return Path(__file__).parent.parent.parent / "src" / "templates"
+        return (
+            Path(__file__).parent.parent.parent
+            / "src"
+            / "lf_releng_project_reporting"
+            / "templates"
+        )
 
     @pytest.fixture
     def logger(self):
@@ -291,7 +298,9 @@ class TestThemeAccessibility:
     @pytest.fixture
     def theme_dir(self):
         """Get path to themes directory."""
-        return Path(__file__).parent.parent.parent / "src" / "themes"
+        return (
+            Path(__file__).parent.parent.parent / "src" / "lf_releng_project_reporting" / "themes"
+        )
 
     def test_default_theme_wcag_aa_claim(self, theme_dir):
         """Test that default theme claims WCAG AA compliance."""
@@ -327,7 +336,9 @@ class TestThemePerformance:
     @pytest.fixture
     def theme_dir(self):
         """Get path to themes directory."""
-        return Path(__file__).parent.parent.parent / "src" / "themes"
+        return (
+            Path(__file__).parent.parent.parent / "src" / "lf_releng_project_reporting" / "themes"
+        )
 
     def test_theme_css_size(self, theme_dir):
         """Test that theme CSS files are reasonably sized."""

@@ -65,7 +65,6 @@ def test_wheel_ships_only_the_package_and_dist_info(wheel: Path) -> None:
 
 
 @pytest.mark.slow
-@pytest.mark.xfail(strict=True, reason="templates and themes still live outside the package")
 def test_wheel_ships_templates_and_themes(wheel: Path) -> None:
     """Templates and themes travel inside the package directory."""
     with zipfile.ZipFile(wheel) as archive:

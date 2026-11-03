@@ -29,7 +29,7 @@ def template_dir():
     """Get path to templates directory."""
     current_file = Path(__file__)
     src_dir = current_file.parent.parent.parent / "src"
-    return src_dir / "templates" / "markdown" / "sections"
+    return src_dir / "lf_releng_project_reporting" / "templates" / "markdown" / "sections"
 
 
 @pytest.fixture
