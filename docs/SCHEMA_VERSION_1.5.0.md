@@ -3,18 +3,121 @@ SPDX-License-Identifier: Apache-2.0
 SPDX-FileCopyrightText: 2025 The Linux Foundation
 -->
 
-# Schema Version 1.5.0 - GitHub Native Project Support
+# Schema Version 1.6.0 - Compact Raw Report
 
-> Schema version changelog for GitHub-native project support
+> Schema version changelog for the compact raw report (1.6.0) and
+> GitHub-native project support (1.5.0)
 
-**Version:** 1.5.0
-**Previous Version:** 1.4.0
-**Date:** January 2025
+**Version:** 1.6.0
+**Previous Version:** 1.5.0
+**Date:** November 2026
 **Status:** ✅ Implemented
 
 ---
 
-## Overview
+## 1.6.0: Compact Raw Report
+
+Schema version 1.6.0 changes how `report_raw.json` is written. The
+report the templates render from is unchanged, so the HTML and Markdown
+reports differ only in the schema version they print.
+
+The version applies to the `schema_version` field of `report_raw.json`.
+The configuration `schema_version` (`configuration/default.yaml` and the
+configuration validator) stays at 1.5.0, because the configuration
+format has not changed.
+
+### Compact JSON
+
+`report_raw.json` carries no indentation or padding whitespace
+(`separators=(",", ":")`) and writes non-ASCII characters as UTF-8
+rather than `\u` escapes. Pretty-print it locally to read it:
+
+```bash
+jq . report_raw.json | less
+```
+
+### Ranked Lists Hold References
+
+The ranked lists in `summaries` no longer repeat whole repository and
+author entries. Each item names its entry in `repositories` or
+`authors` by key:
+
+| `summaries` field           | Key field        | Resolves against |
+| --------------------------- | ---------------- | ---------------- |
+| `all_repositories`          | `gerrit_project` | `repositories`   |
+| `top_current_repositories`  | `gerrit_project` | `repositories`   |
+| `top_active_repositories`   | `gerrit_project` | `repositories`   |
+| `least_active_repositories` | `gerrit_project` | `repositories`   |
+| `top_contributors_commits`  | `email`          | `authors`        |
+| `top_contributors_loc`      | `email`          | `authors`        |
+
+Each list keeps its ranking order. An item takes exactly one of three
+forms, told apart by its type and the field an object carries:
+
+- **A string**: the key. The ranked entry equals the base entry with
+  that key. The tool writes this form for every ranked entry it
+  produces today.
+- **`{"ref": <key>, "extra": {...}}`**: the ranked entry is the base
+  entry named by `ref` with the rank-specific fields in `extra` added.
+  Merge `extra` over the base entry.
+- **`{"entry": <value>}`**: the ranked entry verbatim. The tool writes
+  this form when no single base entry carries the key, or when the
+  ranked entry disagrees with it, so that no data is lost.
+
+All other `summaries` fields (`reporting_period`, `counts`,
+`activity_status_distribution`, `no_commit_repositories`,
+`top_organizations`) keep their full entries.
+
+### Resolving a Key
+
+With `jq`:
+
+```bash
+jq '(.repositories | INDEX(.gerrit_project)) as $repos
+    | .summaries.top_current_repositories
+    | map(if type == "string" then $repos[.]
+          elif has("ref") then $repos[.ref] + .extra
+          else .entry end)' report_raw.json
+```
+
+In Python:
+
+```python
+import json
+
+with open("report_raw.json", encoding="utf-8") as f:
+    report = json.load(f)
+
+repos = {repo["gerrit_project"]: repo for repo in report["repositories"]}
+authors = {author["email"]: author for author in report["authors"]}
+
+
+def resolve(item, index):
+    if isinstance(item, str):
+        return index[item]
+    if "ref" in item:
+        return {**index[item["ref"]], **item["extra"]}
+    return item["entry"]
+
+
+top_current = [
+    resolve(item, repos)
+    for item in report["summaries"]["top_current_repositories"]
+]
+top_loc = [
+    resolve(item, authors)
+    for item in report["summaries"]["top_contributors_loc"]
+]
+```
+
+`to_raw_json()` in `lf_releng_project_reporting.raw_report` produces
+this format; both writers of `report_raw.json` use it. The same module
+defines `REPORT_SCHEMA_VERSION`, which labels every report, whether the
+CLI or a library caller of `RepositoryReporter` builds it.
+
+---
+
+## 1.5.0: GitHub Native Project Support
 
 Schema version 1.5.0 adds support for **GitHub-native projects** that do not have a Gerrit backend. This enhancement allows the lf-releng-project-reporting to analyze and report on projects hosted entirely on GitHub, while maintaining full backward compatibility with existing Gerrit-based projects.
 
@@ -308,6 +411,7 @@ Potential future additions (not in 1.5.0):
 
 | Version | Date    | Description                   |
 | ------- | ------- | ----------------------------- |
+| 1.6.0   | 2026-11 | Compact raw report            |
 | 1.5.0   | 2025-01 | GitHub-native project support |
 | 1.4.0   | 2024-12 | Previous version              |
 | 1.3.0   | 2024-11 | Total LOC metrics             |
@@ -319,4 +423,4 @@ Potential future additions (not in 1.5.0):
 
 **Document Status:** ✅ Complete
 **Schema Status:** ✅ Implemented
-**Last Updated:** 2025-01-XX
+**Last Updated:** 2026-11-03
