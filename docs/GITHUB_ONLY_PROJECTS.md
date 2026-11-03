@@ -73,9 +73,8 @@ gerrit-clone clone \
 
 ### 3. Version Updates
 
-- **gerrit-clone-action**: Updated from `v0.1.12` to `v0.1.13` in both:
-  - `reporting-production.yaml`
-  - `reporting-previews.yaml`
+- **gerrit-clone-action**: Updated from `v0.1.12` to `v0.1.13` in
+  `reporting-production.yaml`
 
 ## Project Configuration
 

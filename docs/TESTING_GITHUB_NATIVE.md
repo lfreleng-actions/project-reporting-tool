@@ -419,10 +419,9 @@ grep "Generated in" testing/reports/Aether/*.log
 
 1. Port changes to `lf-releng-project-reporting` (production repo)
 2. Update production `PROJECTS_JSON` variable
-3. Add Aether to preview workflow first
-4. Monitor preview reports
-5. Deploy to production workflow
-6. Announce new capability
+3. Deploy to production workflow
+4. Monitor the first production run
+5. Announce new capability
 
 ---
 
