@@ -13,7 +13,7 @@ use fixtures that match the ACTUAL data structure produced by the aggregation
 pipeline.
 """
 
-from src.rendering.context import RenderContext
+from lf_releng_project_reporting.rendering.context import RenderContext
 
 
 class TestRenderContextDataExtraction:

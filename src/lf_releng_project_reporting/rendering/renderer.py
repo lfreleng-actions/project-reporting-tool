@@ -285,7 +285,7 @@ class ModernReportRenderer:
             theme = self.config.get("theme", "default")
 
             # Find CSS source file
-            # CSS is in src/themes/{theme}/theme.css
+            # CSS is in lf_releng_project_reporting/themes/{theme}/theme.css
             themes_dir = Path(__file__).parent.parent / "themes"
             css_source = themes_dir / theme / "theme.css"
 

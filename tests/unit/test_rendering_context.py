@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: 2025 The Linux Foundation
 
 """
-Comprehensive tests for src/rendering/context.py module.
+Comprehensive tests for the lf_releng_project_reporting.rendering.context module.
 
 This test suite provides thorough coverage of:
 - RenderContext initialization
@@ -17,7 +17,7 @@ Phase: 12, Step 4, Task 1.4
 
 import pytest
 
-from rendering.context import RenderContext
+from lf_releng_project_reporting.rendering.context import RenderContext
 
 
 # ============================================================================

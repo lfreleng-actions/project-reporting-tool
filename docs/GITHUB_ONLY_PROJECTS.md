@@ -347,7 +347,7 @@ This applies to both HTML and Markdown reports:
 - **HTML**: Page title (`<title>` tag) and main heading (`<h1>`)
 - **Markdown**: Main heading (`#`)
 
-The `project_type` is automatically detected in `src/rendering/context.py`:
+The `project_type` is automatically detected in `src/lf_releng_project_reporting/rendering/context/`:
 
 - If `gerrit.host` is configured → `"gerrit"`
 - Otherwise → `"github"`

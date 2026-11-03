@@ -37,7 +37,7 @@ The reporting tool uses **Jinja2** templates to generate both Markdown and HTML 
 ### Template Locations
 
 ```text
-src/templates/
+src/lf_releng_project_reporting/templates/
 ├── html/                          # HTML templates
 │   ├── base.html.j2              # Main HTML template
 │   ├── components/               # Reusable HTML components
@@ -538,10 +538,10 @@ Create a new template file in the appropriate directory:
 
 ```bash
 # For HTML
-touch src/templates/html/sections/my_section.html.j2
+touch src/lf_releng_project_reporting/templates/html/sections/my_section.html.j2
 
 # For Markdown
-touch src/templates/markdown/sections/my_section.md.j2
+touch src/lf_releng_project_reporting/templates/markdown/sections/my_section.md.j2
 ```
 
 ### Step 2: Define Template Structure
@@ -585,7 +585,7 @@ Add the include directive to the base template:
 Ensure your custom data is available in the template context:
 
 ```python
-# In src/rendering/context.py
+# In src/lf_releng_project_reporting/rendering/context/
 def build(self) -> dict[str, Any]:
     context = {
         'project_name': self.data.get('project_name'),
@@ -773,7 +773,7 @@ Check for Jinja2 syntax errors:
 ```python
 from jinja2 import Environment, FileSystemLoader
 
-env = Environment(loader=FileSystemLoader('src/templates'))
+env = Environment(loader=FileSystemLoader('src/lf_releng_project_reporting/templates'))
 template = env.get_template('html/base.html.j2')
 # No exception = valid syntax
 ```
@@ -788,7 +788,7 @@ template = env.get_template('html/base.html.j2')
 
 **Solutions:**
 
-1. Check file path is correct relative to `src/templates/`
+1. Check file path is correct relative to `src/lf_releng_project_reporting/templates/`
 2. Verify file extension is `.j2`
 3. Ensure template loader is configured correctly
 
@@ -800,7 +800,7 @@ template = env.get_template('html/base.html.j2')
 
 **Solutions:**
 
-1. Check variable is provided in context (see `src/rendering/context.py`)
+1. Check variable is provided in context (see `src/lf_releng_project_reporting/rendering/context/`)
 2. Use default filter: `{{ my_variable | default('N/A') }}`
 3. Check for typos in variable name
 
@@ -858,8 +858,8 @@ template = env.get_template('html/base.html.j2')
 
 ### Template Examples
 
-- `src/templates/html/` - Complete HTML template examples
-- `src/templates/markdown/` - Complete Markdown template examples
+- `src/lf_releng_project_reporting/templates/html/` - Complete HTML template examples
+- `src/lf_releng_project_reporting/templates/markdown/` - Complete Markdown template examples
 - `testing/` - Test scripts that generate example reports
 
 ### Jinja2 Documentation

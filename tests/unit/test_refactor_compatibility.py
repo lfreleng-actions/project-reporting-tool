@@ -19,8 +19,8 @@ from lf_releng_project_reporting.collectors.info_yaml.validator import (
     validate_urls_async,
 )
 from lf_releng_project_reporting.features.registry import FeatureRegistry
+from lf_releng_project_reporting.rendering.context import RenderContext
 from lf_releng_project_reporting.reporter import RepositoryReporter
-from rendering.context import RenderContext
 
 
 def test_public_classes_keep_historical_module_paths():
@@ -32,7 +32,7 @@ def test_public_classes_keep_historical_module_paths():
         "lf_releng_project_reporting.collectors.info_yaml.enricher"
     )
     assert URLValidator.__module__ == ("lf_releng_project_reporting.collectors.info_yaml.validator")
-    assert RenderContext.__module__ == "rendering.context"
+    assert RenderContext.__module__ == "lf_releng_project_reporting.rendering.context"
 
 
 def test_reporter_resolves_constructor_dependencies_through_facade():

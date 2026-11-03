@@ -90,7 +90,9 @@ def print_verification_results(issues: list[tuple[str, str, set[str]]]) -> bool:
     print("❌ CRITICAL - Templates will fail at runtime!")
     print("=" * 80)
     print("\nAction required:")
-    print("1. Add missing fields to context builders in src/rendering/context.py")
+    print(
+        "1. Add missing fields to context builders in src/lf_releng_project_reporting/rendering/context/"
+    )
     print("2. OR remove field accesses from templates if not needed")
     print("3. Re-run this script to verify fixes")
 

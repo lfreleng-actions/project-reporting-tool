@@ -143,7 +143,7 @@ output:
 ```python
 from pathlib import Path
 from lf_releng_project_reporting.collectors.info_yaml import INFOYamlCollector
-from rendering.info_yaml_renderer import InfoYamlRenderer
+from lf_releng_project_reporting.rendering.info_yaml_renderer import InfoYamlRenderer
 from lf_releng_project_reporting.domain.info_yaml import ProjectInfo
 
 # Configure

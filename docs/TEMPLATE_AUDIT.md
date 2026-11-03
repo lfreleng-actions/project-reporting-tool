@@ -62,7 +62,7 @@ repo.gerrit_project
 
 ### 2. Context Analysis
 
-Analyzes `src/rendering/context.py` to extract:
+Analyzes `src/lf_releng_project_reporting/rendering/context/` to extract:
 
 - Top-level fields returned by each context builder
 - Fields in list items (e.g., fields in each repository object)
@@ -170,7 +170,7 @@ Identifies problems:
 1. **Add field to context builder:**
 
    ```python
-   # In src/rendering/context.py
+   # In src/lf_releng_project_reporting/rendering/context/
    def _build_contributors_context(self):
        # ...
        transformed = {
@@ -413,7 +413,7 @@ Starting template field audit...
 ================================================================================
 
 Templates will fail at runtime!
-Add missing fields to context builders in src/rendering/context.py
+Add missing fields to context builders in src/lf_releng_project_reporting/rendering/context/
 ```text
 
 **Exit code:** 1

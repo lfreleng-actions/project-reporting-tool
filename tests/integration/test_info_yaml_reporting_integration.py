@@ -20,9 +20,9 @@ from utils.assertions import assert_host_in_collection
 
 from lf_releng_project_reporting.collectors.info_yaml import INFOYamlCollector
 from lf_releng_project_reporting.domain.info_yaml import ProjectInfo
+from lf_releng_project_reporting.rendering.info_yaml_renderer import InfoYamlRenderer
+from lf_releng_project_reporting.rendering.renderer import ModernReportRenderer
 from lf_releng_project_reporting.reporter import RepositoryReporter
-from rendering.info_yaml_renderer import InfoYamlRenderer
-from rendering.renderer import ModernReportRenderer
 
 
 @pytest.fixture

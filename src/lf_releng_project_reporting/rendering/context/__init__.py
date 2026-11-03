@@ -16,8 +16,8 @@ import logging
 from .base import RenderContext
 
 
-# Defined here (rather than in a submodule) so the logger keeps its original
-# "rendering.context" name now that this module has become a package.
+# Defined here (rather than in a submodule) so the logger keeps the
+# package's "...rendering.context" name now that this module is a package.
 logger = logging.getLogger(__name__)
 
 # Keep introspection and serialized references on the historical public path.

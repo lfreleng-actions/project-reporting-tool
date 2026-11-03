@@ -15,7 +15,7 @@ import re
 import pytest
 from utils.assertions import assert_any_host_in_text
 
-from rendering.renderer import ModernReportRenderer
+from lf_releng_project_reporting.rendering.renderer import ModernReportRenderer
 
 
 @pytest.fixture

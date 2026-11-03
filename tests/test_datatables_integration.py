@@ -16,14 +16,15 @@ import pytest
 def test_datatables_css_macro_exists():
     """Test that DataTables support macro file exists."""
     macro_file = (
-        Path(__file__).parent.parent / "src/templates/html/components/datatables_support.html.j2"
+        Path(__file__).parent.parent
+        / "src/lf_releng_project_reporting/templates/html/components/datatables_support.html.j2"
     )
     assert macro_file.exists(), "DataTables support macro file should exist"
 
 
 def test_datatables_theme_css_exists():
     """Test that all themes have DataTables CSS."""
-    themes_dir = Path(__file__).parent.parent / "src/themes"
+    themes_dir = Path(__file__).parent.parent / "src/lf_releng_project_reporting/themes"
 
     for theme in ["default", "dark", "minimal"]:
         theme_css = themes_dir / theme / "theme.css"
@@ -42,7 +43,9 @@ def test_datatables_theme_css_exists():
 
 def test_base_template_has_datatables_import():
     """Test that base template imports DataTables macros."""
-    base_template = Path(__file__).parent.parent / "src/templates/html/base.html.j2"
+    base_template = (
+        Path(__file__).parent.parent / "src/lf_releng_project_reporting/templates/html/base.html.j2"
+    )
     content = base_template.read_text()
 
     assert "datatables_support.html.j2" in content, "Base template should import datatables_support"
@@ -57,7 +60,8 @@ def test_base_template_has_datatables_import():
 def test_repositories_section_uses_dt_enabled():
     """Test that repositories section uses dt-enabled class."""
     repos_template = (
-        Path(__file__).parent.parent / "src/templates/html/sections/repositories.html.j2"
+        Path(__file__).parent.parent
+        / "src/lf_releng_project_reporting/templates/html/sections/repositories.html.j2"
     )
     content = repos_template.read_text()
 
@@ -67,7 +71,8 @@ def test_repositories_section_uses_dt_enabled():
 def test_features_section_disables_features():
     """Test that features section disables search and pagination."""
     features_template = (
-        Path(__file__).parent.parent / "src/templates/html/sections/features.html.j2"
+        Path(__file__).parent.parent
+        / "src/lf_releng_project_reporting/templates/html/sections/features.html.j2"
     )
     content = features_template.read_text()
 
@@ -78,7 +83,10 @@ def test_features_section_disables_features():
 
 def test_data_table_component_supports_datatables():
     """Test that data_table component supports DataTables parameters."""
-    component = Path(__file__).parent.parent / "src/templates/html/components/data_table.html.j2"
+    component = (
+        Path(__file__).parent.parent
+        / "src/lf_releng_project_reporting/templates/html/components/data_table.html.j2"
+    )
     content = component.read_text()
 
     assert "enable_datatables" in content, "Component should support enable_datatables parameter"

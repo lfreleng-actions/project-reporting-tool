@@ -670,7 +670,7 @@ uv run lf-releng-project-reporting generate \
 
 1. Check configuration file is loaded correctly
 2. Verify data is available for section
-3. Review template files in `src/templates/`
+3. Review template files in `src/lf_releng_project_reporting/templates/`
 
 ```bash
 # Verify resolved configuration

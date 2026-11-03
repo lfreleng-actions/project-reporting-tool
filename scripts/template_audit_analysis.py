@@ -80,7 +80,7 @@ def build_runtime_context() -> dict[str, Any]:
     project_root = script_dir.parent
     sys.path.insert(0, str(project_root / "src"))
 
-    from rendering.context import RenderContext
+    from lf_releng_project_reporting.rendering.context import RenderContext
 
     # Try to load real production data from fixtures
     fixture_file = project_root / "tests" / "fixtures" / "minimal_production_data.json"

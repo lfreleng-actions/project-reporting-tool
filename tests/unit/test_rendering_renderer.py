@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: 2025 The Linux Foundation
 
 """
-Comprehensive tests for src/rendering/renderer.py module.
+Comprehensive tests for the lf_releng_project_reporting.rendering.renderer module.
 
 This test suite provides thorough coverage of:
 - TemplateRenderer: Jinja2 template management
@@ -30,7 +30,7 @@ try:
 except ImportError:
     pytest.skip("Jinja2 not installed", allow_module_level=True)
 
-from rendering.renderer import ModernReportRenderer, TemplateRenderer
+from lf_releng_project_reporting.rendering.renderer import ModernReportRenderer, TemplateRenderer
 
 
 # ============================================================================
@@ -144,7 +144,7 @@ class TestTemplateRendererFilters:
 
     def test_all_custom_filters_registered(self, temp_template_dir):
         """Test that all custom filters from formatters are registered."""
-        from rendering.formatters import get_template_filters
+        from lf_releng_project_reporting.rendering.formatters import get_template_filters
 
         renderer = TemplateRenderer(temp_template_dir)
         expected_filters = get_template_filters()

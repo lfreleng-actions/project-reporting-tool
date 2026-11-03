@@ -429,7 +429,8 @@ Override TOC styles in your custom theme:
 ### Q: Can I customize TOC section titles?
 
 **A:** Not without modifying templates. The TOC titles are defined in the
-context builder (`src/rendering/context.py`) and match standard section names.
+context builder (`src/lf_releng_project_reporting/rendering/context/`) and
+match standard section names.
 
 ### Q: Can I reorder sections in the TOC?
 
