@@ -76,35 +76,19 @@ lf-releng-project-reporting generate --project my-project --repos-path ./repos \
 
 **Purpose**: Publish reports directly to GitHub Pages on this repository.
 
-**No additional token needed** - Uses built-in `GITHUB_TOKEN` with appropriate permissions.
+**No additional token needed** - The workflow deploys with
+`actions/deploy-pages` using the built-in `GITHUB_TOKEN`. No job
+needs write access to the repository contents, and no `gh-pages`
+branch is involved.
 
 **Setup Steps**:
 
 1. Go to **Settings** → **Pages**
-2. Under **Source**, select:
-   - **Deploy from a branch**
-   - Branch: `gh-pages`
-   - Folder: `/ (root)`
-3. Click **Save**
+2. Under **Build and deployment** → **Source**, select **GitHub Actions**
 
-4. Create the `gh-pages` branch (if it doesn't exist):
-
-   ```bash
-   git checkout --orphan gh-pages
-   git rm -rf .
-   mkdir -p production
-   echo "Reports coming soon" > index.html
-   git add .
-   git commit -m "chore: initialize gh-pages branch"
-   git push origin gh-pages
-   git checkout main
-   ```
-
-5. Configure repository permissions:
-   - Go to **Settings** → **Actions** → **General**
-   - Under **Workflow permissions**, select **Read and write permissions**
-   - Enable **Allow GitHub Actions to create and approve pull requests**
-   - Click **Save**
+The default **Read repository contents and packages permissions**
+setting under **Settings** → **Actions** → **General** is enough: each
+job in the workflow declares the permissions it needs.
 
 For detailed setup instructions, see:
 **[GitHub Pages Setup Guide](docs/GITHUB_PAGES_SETUP.md)**
@@ -196,8 +180,12 @@ Scheduled to run every Monday at 7:00 AM UTC, or can be triggered manually.
 
 1. **verify**: Validates configuration, secrets, and `PROJECTS_JSON`
 2. **analyze**: Clones repositories, generates reports (parallel processing)
-3. **publish**: Publishes reports to GitHub Pages at `/production/`
-4. **summary**: Generates workflow summary and statistics
+3. **publish**: Builds the Pages site from this run's report artifacts,
+   reusing the newest usable artifact from an earlier scheduled or
+   dispatched default-branch run of this workflow for any active
+   project this run produced no report for
+4. **deploy**: Deploys the site with `actions/deploy-pages`
+5. **summary**: Generates workflow summary and statistics
 
 ### Security Features
 
@@ -352,8 +340,10 @@ schedule:
 6. **Grey workflow status in reports**: Check your GitHub token environment variable
    (`GITHUB_TOKEN` by default, or `CLASSIC_READ_ONLY_PAT_TOKEN` for CI) exists
    and is a Classic PAT with required scopes: `repo` and `actions:read`
-7. **Report publishing failures**: Check the `publish` job logs; it pushes to the
-   `gh-pages` branch with the built-in `GITHUB_TOKEN`
+7. **Report publishing failures**: Check the `publish` job logs, which
+   build the site, and the `deploy` job logs, which deploy it with
+   `actions/deploy-pages`. The deploy fails until **Settings** →
+   **Pages** → **Source** is set to **GitHub Actions**
 
 ### Debugging
 

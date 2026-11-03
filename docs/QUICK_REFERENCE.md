@@ -97,29 +97,19 @@ https://<owner>.github.io/<repo>/production/
 ### 1. Enable GitHub Pages
 
 ```bash
-# Settings → Pages
-# Source: gh-pages branch, / (root)
+# Settings → Pages → Build and deployment
+# Source: GitHub Actions
 ```text
 
-### 2. Create gh-pages Branch
+The workflow deploys the site with `actions/deploy-pages`; no
+`gh-pages` branch is needed.
 
-```bash
-git checkout --orphan gh-pages
-git rm -rf .
-mkdir -p production
-echo "Coming soon" > index.html
-git add .
-git commit -m "chore: init gh-pages"
-git push origin gh-pages
-git checkout main
-```text
-
-### 3. Set Permissions
+### 2. Set Permissions
 
 ```bash
 # Settings → Actions → General
-# ✅ Read and write permissions
-# ✅ Allow Actions to create PRs
+# Read repository contents and packages permissions is enough;
+# each job declares the permissions it needs
 ```text
 
 ---
@@ -142,10 +132,8 @@ git checkout main
 ### Reports Not Showing
 
 ```bash
-# Check gh-pages branch
-git fetch origin gh-pages
-git checkout gh-pages
-ls -la production/
+# Check the publish job log for projects dropped from the site
+# Actions → Select run → Build GitHub Pages site
 
 # Check GitHub Pages status
 # Settings → Pages → Check deployment status
@@ -224,7 +212,7 @@ export GITHUB_TOKEN=ghp_...
 - ✅ Production runs Monday 7am UTC
 - ✅ Artifacts retained 90 days
 - ✅ Use download script for meta-reporting
-- ✅ Check gh-pages branch for published content
+- ✅ Download the `github-pages` artifact to inspect the deployed site
 
 ---
 

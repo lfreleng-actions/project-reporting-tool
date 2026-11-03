@@ -22,9 +22,16 @@ The daily `📊 Production Reports` workflow
 (`.github/workflows/reporting-production.yaml`) keeps its outputs in
 two places:
 
-- **GitHub Pages** (`gh-pages` branch): the latest `report.html`,
-  `report.md`, `report_raw.json` and `metadata.json` per project. Each
-  run overwrites the previous files.
+- **GitHub Pages** (deployed with `actions/deploy-pages`): the latest
+  `report.html`, `report.md`, `report_raw.json` and `metadata.json`
+  per project. Each run rebuilds the whole site from report artifacts
+  and replaces the previous deployment. An active project without a
+  report from that run keeps the newest unexpired `reports-<slug>`
+  artifact holding a `report.html` from an earlier scheduled or
+  dispatched run of this workflow on the default branch; once none
+  remains, it drops off the site. A failed API lookup for such an
+  artifact fails the run instead and leaves the previous deployment
+  live.
 - **Workflow run artifacts**: `raw-data-<slug>`, `reports-<slug>`,
   `clone-manifest-<slug>` and `clone-log-<slug>`, kept for 90 days,
   after which GitHub deletes them.

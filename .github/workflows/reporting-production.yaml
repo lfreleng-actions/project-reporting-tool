@@ -771,7 +771,7 @@ jobs:
           if-no-files-found: warn
 
   publish:
-    name: "Publish GitHub Pages"
+    name: "Build GitHub Pages site"
     needs: [validate-secrets, build-matrix, analyze]
     # Run if validation succeeded and analyze was not entirely skipped.
     # We deliberately accept 'success', 'failure', and 'cancelled'
@@ -783,9 +783,9 @@ jobs:
     if: always() && needs.validate-secrets.result == 'success' && needs.analyze.result != 'skipped' && (github.event_name != 'workflow_dispatch' || inputs.skip_pages_update == false)
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Required to push generated reports to gh-pages
-      pages: write  # Required to deploy to GitHub Pages
-      id-token: write  # Required for Pages deployment authentication
+      contents: read  # Required to check out the repository
+      actions: read  # Required to fetch report artifacts from earlier runs
+      pages: write  # Required by actions/configure-pages
     timeout-minutes: 20
     outputs:
       # Report artifacts found for this run; empty when the job did
@@ -795,6 +795,9 @@ jobs:
       # Outcome of the tolerated artifact download; a zero count only
       # shows that no reports exist when the download succeeded.
       download_outcome: ${{ steps.download-reports.outcome }}
+      # JSON array of the project slugs the site holds, so the summary
+      # links only reports that were deployed.
+      site_slugs: ${{ steps.assemble.outputs.slugs }}
     steps:
       # Harden the runner
       # yamllint disable-line rule:line-length
@@ -807,26 +810,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           ref: main
-          token: ${{ secrets.GITHUB_TOKEN }}
           persist-credentials: false
-
-      - name: "Copy script from main branch"
-        shell: bash
-        run: |
-          mkdir -p /tmp/main-scripts
-          cp .github/scripts/generate-index.sh /tmp/main-scripts/
-          chmod +x /tmp/main-scripts/generate-index.sh
-          echo "✅ Copied generate-index.sh from main branch"
-
-      - name: "Checkout gh-pages branch"
-        # persist-credentials is intentionally left enabled: the later
-        # "Commit and push changes" step relies on the persisted token
-        # to run `git push origin gh-pages`.
-        # yamllint disable-line rule:line-length
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-        with: # zizmor: ignore[artipacked]
-          ref: gh-pages
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Download all report artifacts"
         id: download-reports
@@ -854,15 +838,170 @@ jobs:
             echo "::warning::No downloaded-reports directory found"
           fi
 
-      - name: "Prepare production reports at root"
+      # The site is rebuilt whole on every run and no branch holds its
+      # state, so an active project this run produced no report for
+      # (a filtered dispatch, or a failed analysis) falls back to its
+      # newest usable artifact from an earlier run. Only artifacts from
+      # scheduled or dispatched runs of this workflow on the default
+      # branch of this repository qualify, so a pull request or another
+      # workflow cannot place its HTML on the production site. A
+      # project with no such artifact left drops off the site: its data
+      # would be months stale. A project left without a report after a
+      # failed API lookup fails the job instead, so the deploy job is
+      # skipped and the previous deployment stays live.
+      - name: "Fill in projects missing from this run"
+        if: steps.check-reports.outputs.count != '0'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          REPO_ID: ${{ github.repository_id }}
+          RUN_ID: ${{ github.run_id }}
+          ACTIVE_PROJECTS_VAR: ${{ vars.ACTIVE_PROJECTS }}
+          WORKFLOW_PATH: ".github/workflows/reporting-production.yaml"
+        # yamllint disable rule:line-length
+        run: |
+          mkdir -p ./downloaded-reports
+          reused=0
+          dropped=0
+          failed=()
+          mapfile -t slugs < <(jq -r '.[]' <<< "$ACTIVE_PROJECTS_VAR")
+
+          # Looked up on first need, so a run that produced every report
+          # makes no API call
+          default_branch=""
+          get_default_branch() {
+            if [ -z "$default_branch" ]; then
+              default_branch=$(gh api "/repos/${REPO}" --jq '.default_branch') \
+                || default_branch=""
+            fi
+            [ -n "$default_branch" ]
+          }
+
+          # Producing run id -> "trusted" or "untrusted", so each run is
+          # looked up once however many projects it reported on. Returns
+          # 0 when trusted, 1 when untrusted and 2 when the lookup failed;
+          # a failed lookup is not cached, so a later project retries it.
+          declare -A run_trust=()
+          run_is_trusted() {
+            local run_id="$1" origin
+            if [ -z "${run_trust[$run_id]+set}" ]; then
+              if ! origin=$(gh api "/repos/${REPO}/actions/runs/${run_id}" \
+                     --jq '"\(.path)\t\(.event)"'); then
+                return 2
+              fi
+              run_trust[$run_id]="untrusted"
+              case "$origin" in
+                "${WORKFLOW_PATH}"$'\t'schedule|"${WORKFLOW_PATH}"$'\t'workflow_dispatch)
+                  run_trust[$run_id]="trusted" ;;
+              esac
+            fi
+            [ "${run_trust[$run_id]}" = "trusted" ]
+          }
+
+          for slug in "${slugs[@]}"; do
+            if ! [[ "$slug" =~ ^[A-Za-z0-9][A-Za-z0-9._-]*$ ]]; then
+              echo "::warning::Skipping invalid project slug '${slug}'"
+              continue
+            fi
+
+            dest="./downloaded-reports/reports-${slug}"
+            if [ -d "$dest" ] && \
+               [ -n "$(find "$dest" -name report.html -type f -print -quit)" ]; then
+              continue
+            fi
+
+            # Set when a lookup for this project fails, so a project left
+            # without a report is not mistaken for one with none to reuse
+            lookup_error=""
+
+            # Unexpired artifacts of that name from other default-branch
+            # runs in this repository, newest first: "id run_id created"
+            candidates=""
+            if ! get_default_branch; then
+              echo "  ${slug}: could not determine the default branch"
+              lookup_error="yes"
+            elif ! listing=$(gh api \
+                   "/repos/${REPO}/actions/artifacts?name=reports-${slug}&per_page=100"); then
+              echo "  ${slug}: could not list earlier reports-${slug} artifacts"
+              lookup_error="yes"
+            elif ! candidates=$(jq -r --arg branch "$default_branch" \
+                     --argjson repo_id "$REPO_ID" --argjson run_id "$RUN_ID" \
+                     '[.artifacts[] | select(.expired == false
+                        and .workflow_run.id != $run_id
+                        and .workflow_run.head_branch == $branch
+                        and .workflow_run.repository_id == $repo_id
+                        and .workflow_run.head_repository_id == $repo_id)]
+                      | sort_by(.created_at) | reverse | .[]
+                      | "\(.id) \(.workflow_run.id) \(.created_at)"' \
+                     <<< "$listing"); then
+              echo "  ${slug}: could not parse the reports-${slug} artifact listing"
+              candidates=""
+              lookup_error="yes"
+            fi
+
+            found=""
+            while read -r -u 3 artifact_id run_id created_at; do
+              [ -n "$artifact_id" ] || continue
+              trust=0
+              run_is_trusted "$run_id" || trust=$?
+              if [ "$trust" -eq 2 ]; then
+                echo "  ${slug}: could not look up run ${run_id} for artifact ${artifact_id}; trying an older one"
+                lookup_error="yes"
+                continue
+              elif [ "$trust" -ne 0 ]; then
+                echo "  ${slug}: skipping artifact ${artifact_id}; run ${run_id} is not a scheduled or dispatched run of ${WORKFLOW_PATH}"
+                continue
+              fi
+
+              zip_file="${RUNNER_TEMP}/reports-${slug}.zip"
+              rm -rf "$dest"
+              mkdir -p "$dest"
+              if ! gh api "/repos/${REPO}/actions/artifacts/${artifact_id}/zip" \
+                     > "$zip_file" || ! unzip -q -o "$zip_file" -d "$dest"; then
+                echo "  ${slug}: could not download or extract artifact ${artifact_id}; trying an older one"
+                lookup_error="yes"
+                rm -rf "$dest"
+              elif [ -n "$(find "$dest" -name report.html -type f -print -quit)" ]; then
+                echo "♻️  ${slug}: reusing artifact ${artifact_id} from ${created_at}"
+                found="yes"
+              else
+                echo "  ${slug}: artifact ${artifact_id} holds no report.html; trying an older one"
+                rm -rf "$dest"
+              fi
+              rm -f "$zip_file"
+              [ -z "$found" ] || break
+            done 3<<< "$candidates"
+
+            if [ -n "$found" ]; then
+              reused=$((reused + 1))
+            elif [ -n "$lookup_error" ]; then
+              echo "::error::Could not confirm whether an earlier report for '${slug}' exists: a GitHub API lookup failed"
+              failed+=("$slug")
+            else
+              echo "::warning::No usable report for '${slug}' in this run or any unexpired earlier run; it drops off the site"
+              dropped=$((dropped + 1))
+            fi
+          done
+
+          echo "✅ Reused ${reused} earlier report(s); ${dropped} project(s) without a report"
+          if [ "${#failed[@]}" -gt 0 ]; then
+            echo "::error::Not publishing: API lookups failed for ${failed[*]}, which would drop them from the site; the previous deployment stays live"
+            exit 1
+          fi
+        # yamllint enable rule:line-length
+
+      - name: "Assemble site"
+        id: assemble
         if: steps.check-reports.outputs.count != '0'
         shell: bash
         # yamllint disable rule:line-length
         run: |
-          echo "📦 Preparing production reports at root level"
+          echo "📦 Assembling site from report artifacts"
+          mkdir -p site
 
-          # Process each downloaded report
-          report_count=0
+          site_count=0
+          site_slugs=()
           for artifact_dir in ./downloaded-reports/reports-*
           do
             if [ ! -d "$artifact_dir" ]; then
@@ -872,45 +1011,34 @@ jobs:
             # Extract slug from artifact directory name (reports-{slug})
             slug=$(basename "$artifact_dir" | sed 's/^reports-//')
 
-            echo "Processing artifact: reports-$slug"
+            # Artifacts may contain the project directory, so search
+            # recursively for each report file
+            if [ -z "$(find "$artifact_dir" -name report.html -type f -print -quit)" ]; then
+              echo "::warning::Artifact reports-${slug} holds no report.html; skipping"
+              continue
+            fi
 
-            # Create project directory at root level
-            target_dir="$slug"
+            target_dir="site/${slug}"
             mkdir -p "$target_dir"
+            for file in report.html report_raw.json report.md metadata.json theme.css; do
+              src=$(find "$artifact_dir" -name "$file" -type f | head -n 1)
+              if [ -n "$src" ]; then
+                cp "$src" "$target_dir/"
+              fi
+            done
 
-            # Find and copy report files (handle nested directory structure)
-            # Artifacts may contain project directory, so search recursively
-            report_html=$(find "$artifact_dir" -name "report.html" -type f | head -n 1)
-            if [ -n "$report_html" ]; then
-              cp "$report_html" "$target_dir/"
-            fi
-
-            report_json=$(find "$artifact_dir" -name "report_raw.json" -type f | head -n 1)
-            if [ -n "$report_json" ]; then
-              cp "$report_json" "$target_dir/"
-            fi
-
-            report_md=$(find "$artifact_dir" -name "report.md" -type f | head -n 1)
-            if [ -n "$report_md" ]; then
-              cp "$report_md" "$target_dir/"
-            fi
-
-            metadata=$(find "$artifact_dir" -name "metadata.json" -type f | head -n 1)
-            if [ -n "$metadata" ]; then
-              cp "$metadata" "$target_dir/"
-            fi
-
-            theme_css=$(find "$artifact_dir" -name "theme.css" -type f | head -n 1)
-            if [ -n "$theme_css" ]; then
-              cp "$theme_css" "$target_dir/"
-            fi
-
-            report_count=$((report_count + 1))
+            site_count=$((site_count + 1))
+            site_slugs+=("$slug")
             echo "  ✅ Prepared $slug"
           done
 
-          echo "REPORT_COUNT=$report_count" >> "$GITHUB_ENV"
-          echo "✅ Prepared $report_count project report(s) at root"
+          echo "count=$site_count" >> "$GITHUB_OUTPUT"
+          echo "slugs=$(printf '%s\n' "${site_slugs[@]}" | jq -Rsc 'split("\n") | map(select(length > 0))')" >> "$GITHUB_OUTPUT"
+          echo "✅ Assembled $site_count project report(s)"
+          if [ "$site_count" -eq 0 ]; then
+            echo "::error::No project reports to publish"
+            exit 1
+          fi
         # yamllint enable rule:line-length
 
       - name: "Generate index page"
@@ -918,70 +1046,38 @@ jobs:
         shell: bash
         run: |
           # Create .nojekyll to disable Jekyll processing
-          touch .nojekyll
-          echo "✅ Created .nojekyll file"
+          touch site/.nojekyll
+          bash .github/scripts/generate-index.sh site production
 
-          # Generate index at root (pass "." as directory)
-          bash /tmp/main-scripts/generate-index.sh . production
+      - name: "Configure GitHub Pages"
+        if: steps.check-reports.outputs.count != '0'
+        # yamllint disable-line rule:line-length
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d  # v6.0.0
 
-      - name: "Commit and push changes"
+      - name: "Upload GitHub Pages artifact"
+        if: steps.check-reports.outputs.count != '0'
+        # yamllint disable-line rule:line-length
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9  # v5.0.0
+        with:
+          path: site
+          include-hidden-files: true
+
+      - name: "Report site contents"
         if: steps.check-reports.outputs.count != '0'
         shell: bash
         env:
-          RUN_ID: ${{ github.run_id }}
-          # yamllint disable-line rule:line-length
+          SITE_COUNT: ${{ steps.assemble.outputs.count }}
+          REPORT_COUNT: ${{ steps.check-reports.outputs.count }}
           RUN_TIMESTAMP: ${{ needs.validate-secrets.outputs.run_timestamp }}
-          REPO_OWNER: ${{ github.repository_owner }}
-          REPO_NAME: ${{ github.event.repository.name }}
         run: |
-          git config user.name "lf-releng-reports-bot"
-          git config user.email "lf-releng+reports-bot@linuxfoundation.org"
-
-          # Add all project directories and index
-          git add index.html || true
-          git add .nojekyll || true
-
-          # Add all project report directories
-          for project_dir in */; do
-            # Skip non-report directories
-            if [ -d "$project_dir" ] && \
-               [ -f "$project_dir/report.html" ]; then
-              echo "Adding $project_dir"
-              git add "$project_dir"
-            fi
-          done
-
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-            exit 0
-          fi
-
-          cat > /tmp/commit-msg.txt <<EOF
-          chore: update production reports (run ${RUN_ID})
-
-          Generated: ${RUN_TIMESTAMP}
-          Reports: ${REPORT_COUNT} project(s)
-          Run: ${RUN_ID}
-          EOF
-
-          git commit -F /tmp/commit-msg.txt
-          git push origin gh-pages
-
-          echo "✅ Published to GitHub Pages"
-
           {
-            echo "## 📤 Reports Published"
+            echo "## 📤 Pages Site Built"
             echo ""
-            echo "**Reports published:** ${REPORT_COUNT}"
-            echo "**Branch:** gh-pages"
-            echo "**Path:** (root)"
+            echo "**Generated:** ${RUN_TIMESTAMP}"
+            echo "**Reports from this run:** ${REPORT_COUNT}"
+            echo "**Reports on the site:** ${SITE_COUNT}"
             echo ""
-            echo "### 🌐 View Reports"
-            echo ""
-            echo "Reports will be available at:"
-            owner="${REPO_OWNER}"
-            repo="${REPO_NAME}"
-            echo "https://${owner}.github.io/${repo}/"
+            echo "The deploy job publishes this site to GitHub Pages."
             echo ""
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -1004,6 +1100,32 @@ jobs:
           echo "::error::No report artifacts were available to publish"
           exit 1
 
+  deploy:
+    name: "Deploy GitHub Pages"
+    needs: publish
+    # The publish job runs despite matrix failures, so gate on its own
+    # result rather than the default success() of every upstream job.
+    if: ${{ !cancelled() && needs.publish.result == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write  # Required to deploy to GitHub Pages
+      id-token: write  # Required to verify the deployment source
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    timeout-minutes: 15
+    steps:
+      # Harden the runner
+      # yamllint disable-line rule:line-length
+      - uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43  # v2.22.3
+        with:
+          egress-policy: "audit"
+
+      - name: "Deploy to GitHub Pages"
+        id: deployment
+        # yamllint disable-line rule:line-length
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346  # v5.0.1
+
   summary:
     name: "Workflow Summary"
     needs:
@@ -1011,6 +1133,7 @@ jobs:
       - build-matrix
       - analyze
       - publish
+      - deploy
     if: always()
     runs-on: ubuntu-latest
     environment: production
@@ -1034,8 +1157,10 @@ jobs:
           RESULT_VALIDATE: ${{ needs.validate-secrets.result }}
           RESULT_ANALYZE: ${{ needs.analyze.result }}
           RESULT_PUBLISH: ${{ needs.publish.result }}
+          RESULT_DEPLOY: ${{ needs.deploy.result }}
           REPORT_COUNT: ${{ needs.publish.outputs.report_count }}
           DOWNLOAD_OUTCOME: ${{ needs.publish.outputs.download_outcome }}
+          SITE_SLUGS: ${{ needs.publish.outputs.site_slugs }}
           RESULT_MATRIX: ${{ needs.build-matrix.result }}
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ github.event.repository.name }}
@@ -1055,7 +1180,16 @@ jobs:
           validate_result="${RESULT_VALIDATE}"
           analyze_result="${RESULT_ANALYZE}"
           publish_result="${RESULT_PUBLISH}"
+          deploy_result="${RESULT_DEPLOY}"
           matrix_result="${RESULT_MATRIX}"
+
+          # The site is live only once both the build and the deploy
+          # succeed; report whichever of the two fell short.
+          if [ "$publish_result" = "success" ]; then
+            pages_result="$deploy_result"
+          else
+            pages_result="$publish_result"
+          fi
 
           # Check if any job had a non-success outcome
           # (catches failure, cancelled, timed_out, etc.)
@@ -1066,6 +1200,7 @@ jobs:
           if is_bad "$validate_result" || \
              is_bad "$analyze_result" || \
              is_bad "$publish_result" || \
+             is_bad "$deploy_result" || \
              is_bad "$matrix_result"; then
             workflow_failed="true"
           fi
@@ -1075,6 +1210,7 @@ jobs:
             echo "validate_result=${validate_result}"
             echo "analyze_result=${analyze_result}"
             echo "publish_result=${publish_result}"
+            echo "deploy_result=${deploy_result}"
             echo "matrix_result=${matrix_result}"
           } >> "$GITHUB_OUTPUT"
 
@@ -1093,6 +1229,9 @@ jobs:
           if is_bad "$publish_result"; then
             failed_stages="${failed_stages}• Pages Publishing\n"
           fi
+          if is_bad "$deploy_result"; then
+            failed_stages="${failed_stages}• Pages Deployment\n"
+          fi
 
           # Output as single line (\n stays literal for Slack mrkdwn)
           echo "failed_stages=${failed_stages}" >> "$GITHUB_OUTPUT"
@@ -1109,7 +1248,7 @@ jobs:
             echo "## 📊 Production Report Generation Complete"
             echo ""
             echo "**Completed:** $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-            echo "**Status:** ${publish_result}"
+            echo "**Status:** ${pages_result}"
             echo ""
             echo "### Job Results"
             echo ""
@@ -1119,6 +1258,8 @@ jobs:
               "${analyze_result}")"
             echo "- **Publish:** $(result_emoji \
               "${publish_result}")"
+            echo "- **Deploy:** $(result_emoji \
+              "${deploy_result}")"
             echo ""
 
             # Note about failures - partial vs complete failure.
@@ -1126,7 +1267,7 @@ jobs:
             # shows that no project produced a report; a publish or
             # download failure alone does not.
             if [ "${analyze_result}" = "failure" ]; then
-              if [ "${publish_result}" = "success" ]; then
+              if [ "${pages_result}" = "success" ]; then
                 echo "### ⚠️ Partial Matrix Failure"
                 echo ""
                 echo "Some project analysis jobs failed, but reports from"
@@ -1151,7 +1292,7 @@ jobs:
                 echo ""
                 echo "Some or all project analysis jobs failed, and" \
                   "GitHub Pages publishing did not succeed" \
-                  "(${publish_result})."
+                  "(${pages_result})."
                 if [ "${DOWNLOAD_OUTCOME}" = "failure" ]; then
                   echo "Downloading the report artifacts failed, so" \
                     "this run cannot tell how many reports were generated."
@@ -1162,24 +1303,41 @@ jobs:
               fi
             fi
 
-            # Add links to project reports if publish succeeded
-            if [ "${publish_result}" = "success" ]; then
+            # Add links to project reports if the deploy succeeded
+            if [ "${pages_result}" = "success" ]; then
               echo "### 📑 Project Reports"
               echo ""
               owner="${REPO_OWNER}"
               repo="${REPO_NAME}"
               base_url="https://${owner}.github.io/${repo}"
 
-              # Parse and display each project with link
-              echo "$projects_json" | \
-                jq -r '.[] | "\(.project)|\(.slug)"' | \
-                while IFS='|' read -r project_name slug; do
-                report_url="${base_url}/${slug}/report.html"
-                data_url="${base_url}/${slug}/report_raw.json"
-                echo "- **${project_name}:** [View Report](${report_url})" \
-                  "• [Raw Data](${data_url})"
-              done
+              # Link each configured project the site holds; a project
+              # the publish job dropped for want of a report has no page
+              site_slugs="${SITE_SLUGS:-[]}"
+              unavailable=()
+              while IFS='|' read -r on_site project_name slug; do
+                if [ "$on_site" = "true" ]; then
+                  report_url="${base_url}/${slug}/report.html"
+                  data_url="${base_url}/${slug}/report_raw.json"
+                  echo "- **${project_name}:** [View Report](${report_url})" \
+                    "• [Raw Data](${data_url})"
+                else
+                  unavailable+=("$project_name")
+                fi
+              done < <(echo "$projects_json" | \
+                jq -r --argjson site "$site_slugs" \
+                  '.[] | .slug as $s
+                   | "\($site | any(.[]; . == $s))|\(.project)|\(.slug)"')
               echo ""
+              if [ "${#unavailable[@]}" -gt 0 ]; then
+                echo "### 🚫 Unavailable Reports"
+                echo ""
+                echo "No usable report artifact remained for these" \
+                  "projects, so the site does not include them:"
+                echo ""
+                printf -- '- **%s**\n' "${unavailable[@]}"
+                echo ""
+              fi
               echo "**Index:** [View All Reports](${base_url}/)"
               echo ""
             fi
@@ -1295,6 +1453,8 @@ jobs:
                     text: "*Analyze:* ${{ steps.workflow-status.outputs.analyze_result }}${{ steps.failed-projects.outputs.detail }}"
                   - type: "mrkdwn"
                     text: "*Publish:* ${{ steps.workflow-status.outputs.publish_result }}"
+                  - type: "mrkdwn"
+                    text: "*Deploy:* ${{ steps.workflow-status.outputs.deploy_result }}"
               - type: "context"
                 elements:
                   - type: "mrkdwn"

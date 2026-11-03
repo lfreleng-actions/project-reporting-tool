@@ -18,7 +18,7 @@ The new reporting system publishes reports directly to GitHub Pages on this repo
 | Aspect                 | Old System                 | New System                         |
 | ---------------------- | -------------------------- | ---------------------------------- |
 | **Deployment Target**  | Separate artifacts repo    | GitHub Pages on same repo          |
-| **Branch**             | `main` in external repo    | `gh-pages` branch                  |
+| **Branch**             | `main` in external repo    | None: Pages artifact deployment    |
 | **Authentication**     | `GERRIT_REPORTS_PAT_TOKEN` | Built-in `GITHUB_TOKEN`            |
 | **Production Reports** | Pushed to external repo    | `/production/` on Pages            |
 | **Workflows**          | Single `reporting.yaml`    | `reporting-production.yaml`        |
@@ -69,55 +69,27 @@ The new reporting system publishes reports directly to GitHub Pages on this repo
 ### Step 1: Enable GitHub Pages
 
 1. Go to **Settings** → **Pages**
-2. Under **Source**, select:
-   - **Deploy from a branch**
-   - Branch: `gh-pages`
-   - Folder: `/ (root)`
-3. Click **Save**
+2. Under **Build and deployment** → **Source**, select **GitHub Actions**
 
-### Step 2: Create `gh-pages` Branch
+The production workflow builds the whole site from the run's report
+artifacts and deploys it with `actions/deploy-pages`. No branch holds
+the site, so there is no `gh-pages` branch to create.
 
-```bash
-# Create an orphan branch (no history)
-git checkout --orphan gh-pages
+### Step 2: Allow Deployments to the `github-pages` Environment
 
-# Remove all files from staging
-git rm -rf .
-
-# Create initial structure
-mkdir -p production
-
-# Create a placeholder index
-cat > index.html <<'EOF'
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Reports - Coming Soon</title>
-</head>
-<body>
-  <h1>Reports Coming Soon</h1>
-  <p>Reports will be published here after the first workflow run.</p>
-</body>
-</html>
-EOF
-
-# Commit and push
-git add index.html production
-git commit -m "chore: initialize gh-pages branch"
-git push origin gh-pages
-
-# Return to main branch
-git checkout main
-```text
+GitHub creates the `github-pages` environment when you select
+**GitHub Actions** as the source. By default it accepts deployments
+only from the default branch. A manual run from another branch fails
+at the **Deploy GitHub Pages** job until you add that branch under
+**Settings** → **Environments** → **github-pages**.
 
 ### Step 3: Configure Repository Permissions
 
-1. Go to **Settings** → **Actions** → **General**
-2. Under **Workflow permissions**, select:
-   - ✅ **Read and write permissions**
-3. Enable **Allow GitHub Actions to create and approve pull requests**
-4. Click **Save**
+Each job in the workflow declares the permissions it needs, so the
+default **Read repository contents and packages permissions** setting
+under **Settings** → **Actions** → **General** → **Workflow
+permissions** is sufficient. No job needs write access to the
+repository contents.
 
 ### Step 4: Set Up Secrets and Variables
 
@@ -199,9 +171,9 @@ trigger a notification — successful runs stay silent.
 The Slack message includes:
 
 - Which pipeline stages failed (Secrets Validation, Matrix
-  Build, Project Analysis, Pages Publishing)
+  Build, Project Analysis, Pages Publishing, Pages Deployment)
 - Which specific projects failed in the analysis matrix
-- Status of each job (validate/analyze/publish)
+- Status of each job (validate/analyze/publish/deploy)
 - Direct link to the workflow run
 
 ---
@@ -229,6 +201,18 @@ The old workflow file has been renamed to `reporting.yaml.deprecated` and is no 
 1. Navigate to **Actions** tab
 2. You should see the new workflow: 📊 Production Reports
 
+### Step 4: Switch from the `gh-pages` Branch
+
+Repositories that published from a `gh-pages` branch before the
+workflow moved to `actions/deploy-pages` need two one-off steps:
+
+1. Right after merging the change, go to **Settings** → **Pages** →
+   **Build and deployment** → **Source** and select **GitHub
+   Actions**. Until then the **Deploy GitHub Pages** job fails and the
+   previous site stays live.
+2. Once the first deployment from GitHub Actions is live, delete the
+   `gh-pages` branch. Nothing reads it any more.
+
 ---
 
 ## 📊 Workflow Details
@@ -248,8 +232,23 @@ The old workflow file has been renamed to `reporting.yaml.deprecated` and is no 
 2. Clones all Gerrit repositories (parallel)
 3. Clones `info-master` for committer data
 4. Generates reports for each project
-5. Publishes to `gh-pages` branch at `/production/`
-6. Uploads artifacts with 90-day retention
+5. Uploads report artifacts with 90-day retention
+6. Builds the site from this run's report artifacts, reusing the
+   newest unexpired `reports-<slug>` artifact from an earlier run for
+   any active project this run produced no report for
+7. Deploys the site with `actions/deploy-pages`
+
+The publish job reuses an earlier artifact only when it holds a
+`report.html` and comes from a scheduled or dispatched run of
+`reporting-production.yaml` on the default branch of this repository,
+so a pull request, a fork or another workflow cannot place pages on
+the production site. A project with no such artifact left within the
+90-day retention drops off the site: the publish job logs a warning
+naming it, and the workflow summary lists it as unavailable instead
+of linking to it. When a GitHub API lookup for an earlier artifact
+fails and leaves a project without a report, the publish job fails
+instead, so the deploy job does not run and the previous deployment
+stays live; re-run the workflow once the API recovers.
 
 **Output Location:**
 
@@ -344,7 +343,7 @@ This downloads all raw JSON data files which can be used to generate:
 **Check GitHub Pages Status:**
 
 1. Go to **Settings** → **Pages**
-2. Verify branch is set to `gh-pages`
+2. Verify **Source** is set to **GitHub Actions**
 3. Check for deployment status
 
 **Check Workflow Status:**
@@ -353,13 +352,12 @@ This downloads all raw JSON data files which can be used to generate:
 2. Check if workflows completed successfully
 3. Review logs for errors
 
-**Check gh-pages Branch:**
+**Check the Deployed Site:**
 
-```bash
-git fetch origin gh-pages
-git checkout gh-pages
-ls -la production/
-```text
+1. Open the workflow run and download the `github-pages` artifact
+   from the **Build GitHub Pages site** job
+2. Check the publish job log for warnings about projects dropped from
+   the site
 
 ### Missing Secrets Error
 
