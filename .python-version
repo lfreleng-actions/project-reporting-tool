@@ -10,4 +10,4 @@
 # interpreter. The scripts/check-python-version.py pre-commit hook
 # enforces this invariant so the two files cannot drift apart again.
 
-3.14
+3.15
