@@ -10,8 +10,8 @@ This module provides:
 3. Negative tests - Ensure jobs don't match wrong projects (prevent false positives)
 4. Integration tests - Test with production data fixtures
 
-Test fixtures are extracted from actual production report data at:
-https://github.com/lfreleng-actions/project-reporting-artifacts/tree/main/data/artifacts
+Test fixtures are a snapshot of production report output, taken from the
+raw-data artifact of a reporting-production.yaml run.
 
 Run these tests with:
     pytest tests/unit/test_job_attribution.py -v

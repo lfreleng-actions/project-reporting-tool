@@ -11,17 +11,11 @@ This guide covers the complete setup and migration to the new GitHub Pages-based
 
 ## 🎯 Overview
 
-The new reporting system publishes reports directly to GitHub Pages on this repository, eliminating the need for a separate artifacts repository and the associated `GERRIT_REPORTS_PAT_TOKEN`.
-
-### Key Changes
-
-| Aspect                 | Old System                 | New System                         |
-| ---------------------- | -------------------------- | ---------------------------------- |
-| **Deployment Target**  | Separate artifacts repo    | GitHub Pages on same repo          |
-| **Branch**             | `main` in external repo    | None: Pages artifact deployment    |
-| **Authentication**     | `GERRIT_REPORTS_PAT_TOKEN` | Built-in `GITHUB_TOKEN`            |
-| **Production Reports** | Pushed to external repo    | `/production/` on Pages            |
-| **Workflows**          | Single `reporting.yaml`    | `reporting-production.yaml`        |
+The reporting system publishes reports directly to GitHub Pages on this
+repository. The `reporting-production.yaml` workflow deploys them as a
+Pages artifact, authenticating with the built-in `GITHUB_TOKEN`, and
+each project's report appears at `/<project-slug>/report.html`
+relative to the Pages site root.
 
 ---
 
@@ -180,15 +174,7 @@ The Slack message includes:
 
 ## 🔄 Migration from Old System
 
-### Step 1: Remove Old Token (GERRIT_REPORTS_PAT_TOKEN)
-
-The `GERRIT_REPORTS_PAT_TOKEN` is no longer needed and can be deleted:
-
-1. Go to **Settings** → **Secrets and variables** → **Actions**
-2. Find **GERRIT_REPORTS_PAT_TOKEN**
-3. Click **Remove**
-
-### Step 2: Update Workflows
+### Step 1: Update Workflows
 
 The old `reporting.yaml` workflow has been replaced with
 **`reporting-production.yaml`**, which produces production reports on a
@@ -196,12 +182,12 @@ schedule.
 
 The old workflow file has been renamed to `reporting.yaml.deprecated` and is no longer active.
 
-### Step 3: Verify New Workflows
+### Step 2: Verify New Workflows
 
 1. Navigate to **Actions** tab
 2. You should see the new workflow: 📊 Production Reports
 
-### Step 4: Switch from the `gh-pages` Branch
+### Step 3: Switch from the `gh-pages` Branch
 
 Repositories that published from a `gh-pages` branch before the
 workflow moved to `actions/deploy-pages` need two one-off steps:

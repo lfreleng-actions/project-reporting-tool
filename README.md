@@ -39,9 +39,6 @@ two places:
 To fetch data from an earlier run within those 90 days, download the
 artifacts from that workflow run in the **Actions** tab, or use
 [`.github/scripts/download-artifacts.sh`](.github/scripts/download-artifacts.sh).
-The workflow no longer copies outputs into the
-`lfreleng-actions/project-reporting-artifacts` repository, so that
-repository receives no new daily folders.
 
 ## ⚡ Quick Start
 

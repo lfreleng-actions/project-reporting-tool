@@ -66,7 +66,6 @@ This document describes the CI/CD integration for the Repository Reporting Syste
 │  • All tests with coverage                                   │
 │  • Full benchmark suite                                      │
 │  • Coverage report generation                                │
-│  • Artifact archival                                         │
 └─────────────────────────────────────────────────────────────┘
                             │
                             ▼ (weekly schedule)

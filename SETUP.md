@@ -297,18 +297,6 @@ The workflow includes comprehensive logging and error handling:
 5. Verify the project appears in the workflow summary
 6. Check the GitHub Pages site for the new project report
 
-## Migration from Legacy System
-
-If you're migrating from the old system that used a separate artifacts
-repository:
-
-**Key changes:**
-
-- No longer requires `GERRIT_REPORTS_PAT_TOKEN`
-- Reports published to GitHub Pages on this repository
-- Enhanced artifact retention for meta-reporting
-- See [GitHub Pages Setup Guide](docs/GITHUB_PAGES_SETUP.md) for migration steps
-
 ### Modifying Clone Behavior
 
 Edit the `gerrit-clone-action` parameters in the workflow:
