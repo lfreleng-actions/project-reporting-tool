@@ -123,9 +123,9 @@ sonar.python.coverage.reportPaths=coverage.xml""",
         ".readthedocs.yml",
         """version: 2
 build:
-  os: ubuntu-22.04
+  os: ubuntu-24.04
   tools:
-    python: "3.10"
+    python: "3.13"
 sphinx:
   configuration: docs/conf.py""",
         "Checks for .readthedocs.yml or .readthedocs.yaml",
@@ -205,7 +205,7 @@ repositories {
         "Docker containerization",
         "Build & Package",
         "Dockerfile",
-        """FROM python:3.10-slim
+        """FROM python:3.13-slim
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
