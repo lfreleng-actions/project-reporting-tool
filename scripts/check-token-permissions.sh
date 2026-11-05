@@ -255,16 +255,11 @@ echo ""
 
 echo "For the lf-releng-project-reporting, you need:"
 echo ""
-echo "1. CLASSIC_READ_ONLY_PAT_TOKEN (for report generation):"
+echo "CLASSIC_READ_ONLY_PAT_TOKEN (for report generation):"
 echo "   Minimum scopes:"
 log_info "   ✓ public_repo - Access public repositories"
 log_info "   ✓ read:org - Read org membership (optional)"
 log_info "   ✓ repo:status - Read commit status (optional)"
-echo ""
-
-echo "2. GERRIT_REPORTS_PAT_TOKEN (for artifact archival):"
-log_info "   ✓ Contents: Read and write (to push to project-reporting-artifacts repo)"
-log_info "   ✓ Metadata: Read-only"
 echo ""
 
 echo "Current token rate limit: ${CORE_REMAINING}/${CORE_LIMIT}"
