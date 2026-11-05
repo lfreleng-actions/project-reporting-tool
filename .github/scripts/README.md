@@ -358,7 +358,6 @@ When modifying scripts:
 
 - ✨ Added `generate-index.sh` for GitHub Pages
 - ✨ Added `download-artifacts.sh` for meta-reporting
-- ✨ Added `copy-artifacts-simple.sh` for automated artifact archival
 - ⚠️ Deprecated `publish-reports.sh` (legacy system)
 - 📝 Created comprehensive documentation
 

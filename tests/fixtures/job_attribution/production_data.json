@@ -1,7 +1,7 @@
 {
   "_metadata": {
     "description": "Job attribution test fixtures extracted from production report data",
-    "source": "https://github.com/lfreleng-actions/project-reporting-artifacts/tree/main/data/artifacts",
+    "source": "reporting-production.yaml raw-data artifact",
     "extracted_date": "2026-02-01",
     "purpose": "Regression testing for job matching algorithm changes"
   },
