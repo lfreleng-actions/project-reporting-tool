@@ -68,7 +68,7 @@ dev = [
     "mypy>=1.18.2",
     # pytest 9.2 removed Node._nodeid, which pytest-benchmark 5.3.0 still
     # reads; lift the cap once a pytest-benchmark release supports 9.2.
-    "pytest>=9.0.1,<9.2",
+    "pytest>=9.0.1,<9.3",
     "pytest-cov>=7.0.0",
     "pytest-benchmark[histogram]>=5.2.3",
     "hypothesis>=6.148.2",
@@ -147,7 +147,7 @@ dev = [
     "mypy>=1.18.2",
     # pytest 9.2 removed Node._nodeid, which pytest-benchmark 5.3.0 still
     # reads; lift the cap once a pytest-benchmark release supports 9.2.
-    "pytest>=9.0.1,<9.2",
+    "pytest>=9.0.1,<9.3",
     "pytest-cov>=7.0.0",
     "pytest-benchmark[histogram]>=5.2.3",
     "hypothesis>=6.148.2",
