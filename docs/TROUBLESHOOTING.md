@@ -1301,7 +1301,7 @@ git log --oneline -10
 
 ```bash
 # Verify Python version
-python --version  # Should be 3.9+
+python --version  # Should be 3.11+
 
 # Check installed packages
 pip list | grep -E '(yaml|jinja2|jsonschema|httpx|tqdm)'
