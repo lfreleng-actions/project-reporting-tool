@@ -315,7 +315,6 @@ select = [
 ignore = [
     "E501",  # line too long (handled by formatter)
     "B008",  # do not perform function calls in argument defaults
-    "B905",  # zip strict parameter (Python 3.10+)
     "UP038", # Use `X | Y` in isinstance calls: deprecated upstream
              # (tuple form is more idiomatic and has better runtime
              # performance); keeping the tuple form also matches

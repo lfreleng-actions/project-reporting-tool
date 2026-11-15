@@ -282,7 +282,7 @@ class AdaptiveThreadPool:
             raise RuntimeError("Pool not started. Use 'with' statement.")
 
         # Submit all tasks
-        futures = [self.submit(fn, *args) for args in zip(*iterables)]
+        futures = [self.submit(fn, *args) for args in zip(*iterables, strict=False)]
 
         # Collect results
         results = []
