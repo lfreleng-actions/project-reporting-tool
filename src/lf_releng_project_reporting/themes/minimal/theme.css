@@ -294,37 +294,6 @@ strong {
 }
 
 /* ============================================================================
-   Statistics Grid
-   ========================================================================== */
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: var(--spacing-md);
-    margin: var(--spacing-lg) 0;
-}
-
-.stat-card {
-    border: 1px solid var(--border-color);
-    padding: var(--spacing-md);
-    text-align: center;
-}
-
-.stat-value {
-    display: block;
-    font-size: var(--font-size-h2);
-    font-weight: var(--font-weight-bold);
-    margin-bottom: var(--spacing-sm);
-}
-
-.stat-label {
-    display: block;
-    font-size: var(--font-size-sm);
-    color: var(--text-secondary);
-    text-transform: uppercase;
-}
-
-/* ============================================================================
    Tables
    ========================================================================== */
 
@@ -354,28 +323,6 @@ tbody tr:last-child td {
 }
 
 /* ============================================================================
-   Badges
-   ========================================================================== */
-
-.badge {
-    display: inline-block;
-    padding: 2px 6px;
-    border: 1px solid var(--text-primary);
-    font-size: 0.75rem;
-    font-weight: var(--font-weight-bold);
-    text-transform: uppercase;
-}
-
-.badge-success,
-.badge-warning,
-.badge-error,
-.badge-info,
-.badge-default {
-    background: var(--background);
-    color: var(--text-primary);
-}
-
-/* ============================================================================
    Page Footer
    ========================================================================== */
 
@@ -401,10 +348,6 @@ tbody tr:last-child td {
         --font-size-h1: 1.75em;
         --font-size-h2: 1.35em;
         --font-size-h3: 1.1em;
-    }
-
-    .stats-grid {
-        grid-template-columns: 1fr;
     }
 
     table {
