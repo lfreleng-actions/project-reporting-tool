@@ -21,8 +21,6 @@ import unittest
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
-import pytest
-
 from lf_releng_project_reporting.cli.validation import (
     DryRunValidator,
     ValidationResult,
@@ -379,7 +377,7 @@ class TestDryRunValidator(unittest.TestCase):
         validator = DryRunValidator(self.valid_config)
         result = validator._validate_python_version()
 
-        # Should pass on Python 3.8+
+        # Should pass on Python 3.11+
 
         self.assertTrue(result.passed)
 
@@ -392,7 +390,6 @@ class TestDryRunValidator(unittest.TestCase):
         self.assertTrue(result.passed)
         self.assertEqual(result.message, "Python version: 3.11")
 
-    @pytest.mark.xfail(strict=True, reason="Check still accepts Python 3.8+")
     @patch("sys.version_info", (3, 10, 12, "final", 0))
     def test_validate_python_version_too_old(self):
         """Test Python 3.10 fails the minimum version check."""

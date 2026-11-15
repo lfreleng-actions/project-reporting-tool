@@ -337,12 +337,12 @@ class _ValidationChecks:
         major, minor = sys.version_info[:2]
         version_str = f"{major}.{minor}"
 
-        # Require Python 3.8+
-        if major < 3 or (major == 3 and minor < 8):
+        # Matches requires-python in pyproject.toml
+        if (major, minor) < (3, 11):
             return ValidationResult(
                 False,
-                f"Python {version_str} is too old (requires 3.8+)",
-                "Upgrade to Python 3.8 or newer",
+                f"Python {version_str} is too old (requires 3.11+)",
+                "Upgrade to Python 3.11 or newer",
             )
 
         return ValidationResult(True, f"Python version: {version_str}")
