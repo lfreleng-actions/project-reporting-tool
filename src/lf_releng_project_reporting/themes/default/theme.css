@@ -333,48 +333,6 @@ pre code {
 }
 
 /* ============================================================================
-   Statistics Grid
-   ========================================================================== */
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--spacing-lg);
-    margin: var(--spacing-xl) 0;
-}
-
-.stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    padding: var(--spacing-lg);
-    text-align: center;
-    box-shadow: var(--shadow-sm);
-    transition: all var(--transition-base);
-}
-
-.stat-card:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
-}
-
-.stat-value {
-    display: block;
-    font-size: var(--font-size-h2);
-    font-weight: var(--font-weight-bold);
-    color: var(--primary-color);
-    margin-bottom: var(--spacing-xs);
-}
-
-.stat-label {
-    display: block;
-    font-size: var(--font-size-sm);
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-/* ============================================================================
    Tables
    ========================================================================== */
 
@@ -419,45 +377,6 @@ tbody tr:last-child td {
 }
 
 /* ============================================================================
-   Badges
-   ========================================================================== */
-
-.badge {
-    display: inline-block;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--border-radius-sm);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-medium);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.badge-success {
-    background: var(--success-color);
-    color: var(--text-inverse);
-}
-
-.badge-warning {
-    background: var(--warning-color);
-    color: var(--text-primary);
-}
-
-.badge-error {
-    background: var(--error-color);
-    color: var(--text-inverse);
-}
-
-.badge-info {
-    background: var(--info-color);
-    color: var(--text-inverse);
-}
-
-.badge-default {
-    background: var(--surface-alt);
-    color: var(--text-primary);
-}
-
-/* ============================================================================
    Page Footer
    ========================================================================== */
 
@@ -489,10 +408,6 @@ tbody tr:last-child td {
         --font-size-h2: 1.35em;
         --font-size-h3: 1.1em;
         --container-padding: var(--spacing-md);
-    }
-
-    .stats-grid {
-        grid-template-columns: 1fr;
     }
 
     .page-header .metadata {
@@ -586,16 +501,8 @@ tbody tr:last-child td {
 .text-error { color: var(--error-color); }
 
 .mt-0 { margin-top: 0; }
-.mt-sm { margin-top: var(--spacing-sm); }
-.mt-md { margin-top: var(--spacing-md); }
-.mt-lg { margin-top: var(--spacing-lg); }
-.mt-xl { margin-top: var(--spacing-xl); }
 
 .mb-0 { margin-bottom: 0; }
-.mb-sm { margin-bottom: var(--spacing-sm); }
-.mb-md { margin-bottom: var(--spacing-md); }
-.mb-lg { margin-bottom: var(--spacing-lg); }
-.mb-xl { margin-bottom: var(--spacing-xl); }
 
 .p-0 { padding: 0; }
 .p-sm { padding: var(--spacing-sm); }

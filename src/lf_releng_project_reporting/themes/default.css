@@ -319,7 +319,6 @@ td.score {
 }
 
 .repo-name,
-.contributor-name,
 .org-name,
 .job-name {
     font-family: var(--font-family-mono);
@@ -431,18 +430,6 @@ li {
 /* ============================================================================
    Badges & Indicators
    ============================================================================ */
-
-.state-badge {
-    display: inline-block;
-    padding: var(--space-xs) var(--space-sm);
-    background-color: var(--color-secondary);
-    color: white;
-    border-radius: var(--border-radius);
-    font-size: var(--font-size-sm);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.025em;
-}
 
 .count {
     font-weight: 600;
