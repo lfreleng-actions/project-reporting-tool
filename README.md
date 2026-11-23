@@ -130,6 +130,12 @@ uv sync
 uv run lf-releng-project-reporting generate --project O-RAN-SC --repos-path ./gerrit.o-ran-sc.org
 ```
 
+The repository commits `uv.lock`, which pins every dependency
+version. After editing `pyproject.toml`, run `uv lock` and commit the
+regenerated lock with it: CI runs `uv lock --check` and fails when the
+lock no longer matches, and the production workflows install with
+`uv sync --locked`. Dependabot bumps the lock weekly.
+
 **→ [Detailed Setup Instructions](SETUP.md)**
 
 ---
