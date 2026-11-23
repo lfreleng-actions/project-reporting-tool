@@ -97,7 +97,6 @@ organize_*.sh
 
 # UV package manager
 .uv/
-uv.lock
 *.egg-info/
 dist/
 build/

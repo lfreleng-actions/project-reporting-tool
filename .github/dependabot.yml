@@ -27,5 +27,44 @@ updates:
     cooldown:
       default-days: 7
     open-pull-requests-limit: 15
+    # Minor and patch updates arrive as one pull request for the dev
+    # group and one for runtime dependencies; major updates stay
+    # separate. Groups for uv cannot select by dependency-type, so the
+    # dev group lists the [dependency-groups] dev names from
+    # pyproject.toml; keep the two lists in step with it.
+    groups:
+      dev-dependencies:
+        patterns:
+          - "hypothesis"
+          - "mypy"
+          - "pre-commit"
+          - "pytest"
+          - "pytest-*"
+          - "syrupy"
+          - "types-*"
+        update-types:
+          - "minor"
+          - "patch"
+      runtime-dependencies:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "hypothesis"
+          - "mypy"
+          - "pre-commit"
+          - "pytest"
+          - "pytest-*"
+          - "syrupy"
+          - "types-*"
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      # pyproject.toml caps pytest below 9.3 because pytest-benchmark
+      # still reads Node._nodeid, which pytest 9.2 removed; see the
+      # comment on the pytest cap there before lifting this.
+      - dependency-name: "pytest"
+        versions:
+          - ">=9.3"
     exclude-paths:
       - "LICENSES/**"
