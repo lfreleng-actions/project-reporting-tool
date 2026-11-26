@@ -36,6 +36,11 @@ concurrency:
 
 permissions: {}
 
+# Turn off GitHub CLI telemetry: steps below run 'gh', which
+# otherwise posts usage events to cafe.github.com.
+env:
+  GH_TELEMETRY: "false"
+
 jobs:
   validate-secrets:
     name: "Validate Secrets"
